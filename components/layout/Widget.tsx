@@ -13,7 +13,7 @@ const Widget = ({ children, className }: Props) => {
     <div
       className={classNames(
         className,
-        'sm:p-5 sm:bg-white sm:rounded-xl sm:border-2 sm:border-solid sm:border-gray-100 sm:shadow-sm sm:hover:shadow-xl'
+        'lg:p-5 lg:bg-white lg:rounded-xl lg:border-2 lg:border-solid lg:border-gray-100 lg:shadow-sm lg:hover:shadow-xl'
       )}
     >
       {children}

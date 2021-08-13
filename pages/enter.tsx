@@ -3,9 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FORM_ERROR } from 'final-form';
 import { Form } from 'react-final-form';
-import { TextField } from 'mui-rff';
+import { Checkboxes, TextField } from 'mui-rff';
 
-import { Container, Typography } from '@material-ui/core';
+import { Button, Container, Typography } from '@material-ui/core';
 
 import { auth } from '@lib/firebase';
 import { authErrors } from '@utils/validation';
@@ -33,9 +33,9 @@ const Enter: NextPage = () => {
 
   return (
     <Main unauthCheck>
-      <Container className="flex lg:min-h-screen" maxWidth={false} fixed>
+      <Container className="lg:flex lg:min-h-screen" maxWidth={false} fixed>
         <AuthIllustration />
-        <Widget className="w-1/2 my-auto">
+        <Widget className="lg:w-1/2 my-auto">
           <Form onSubmit={enter}>
             {({ handleSubmit, submitError, submitting, form }) => (
               <form onSubmit={handleSubmit}>
@@ -44,46 +44,40 @@ const Enter: NextPage = () => {
                 </Typography>
                 <Typography>
                   Não tem uma conta?{' '}
-                  <span className="link">
+                  <span className="text-blue-500 underline">
                     <Link href="/register">Cadastre-se.</Link>
                   </span>
                 </Typography>
                 {submitError && <span className="">{submitError}</span>}
-                <div className="form-grid">
-                  <div className="input-fields-wrapper">
-                    <TextField label="E-mail" name="email" />
-                    {/* <TextInputField
-                        label="E-mail"
-                        name="email"
-                        placeholder="Por favor entre seu e-mail"
-                      />
-                      <TextInputField
-                        label="Senha"
-                        name="password"
-                        type="password"
-                        placeholder="Por favor entre sua senha"
-                      /> */}
+                <div className="mt-5">
+                  <div className="flex flex-col gap-y-2.5">
+                    <TextField
+                      label="E-mail"
+                      name="email"
+                      className="focus:bg-gray-100 focus:border-blue-500"
+                    />
+                    <TextField label="Senha" name="password" />
                   </div>
-                  <div className="w-full flex justify-between">
-                    {/* <CheckBox
-                        name="keepConnected"
-                        label="Continuar conectado"
-                        initialValue={true}
-                      /> */}
-                    <p className="text-blue-500">
+                  <div className="w-full flex justify-between items-center">
+                    <Checkboxes
+                      name="keepConnected"
+                      data={[{ label: 'Continuar conectado', value: true }]}
+                    />
+                    <Typography className="text-blue-500">
                       <Link href="/recover-password">Esqueceu a senha?</Link>
-                    </p>
+                    </Typography>
                   </div>
-                  {/* <SimpleButton
-                      type="submit"
-                      disabled={submitting}
-                      onClick={form.submit}
-                    > */}
-                  Entrar
-                  {/* </SimpleButton>
-                    <HorizontalTextDivider text="Ou" />
-                    <FacebookButton />
-                    <GoogleButton /> */}
+                  <Button className="w-full" disabled={submitting}>
+                    Entrar
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    // startIcon={}
+                  >
+                    Save
+                  </Button>
                 </div>
               </form>
             )}
