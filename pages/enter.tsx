@@ -5,7 +5,7 @@ import { FORM_ERROR } from 'final-form';
 import { Form } from 'react-final-form';
 import { TextField } from 'mui-rff';
 
-import { Container } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 
 import { auth } from '@lib/firebase';
 import { authErrors } from '@utils/validation';
@@ -33,27 +33,25 @@ const Enter: NextPage = () => {
 
   return (
     <Main unauthCheck>
-      <Container className="flex" maxWidth={false} fixed>
+      <Container className="flex lg:min-h-screen" maxWidth={false} fixed>
         <AuthIllustration />
-        <Widget className="w-1/2">
+        <Widget className="w-1/2 my-auto">
           <Form onSubmit={enter}>
             {({ handleSubmit, submitError, submitting, form }) => (
               <form onSubmit={handleSubmit}>
-                <h1>Entrar</h1>
-                <p>
+                <Typography variant="h1" className="-ml-2">
+                  Entrar
+                </Typography>
+                <Typography>
                   Não tem uma conta?{' '}
                   <span className="link">
                     <Link href="/register">Cadastre-se.</Link>
                   </span>
-                </p>
+                </Typography>
                 {submitError && <span className="">{submitError}</span>}
                 <div className="form-grid">
                   <div className="input-fields-wrapper">
-                    <TextField
-                      label="E-mail"
-                      name="email"
-                      placeholder="Por favor entre seu e-mail"
-                    />
+                    <TextField label="E-mail" name="email" />
                     {/* <TextInputField
                         label="E-mail"
                         name="email"
