@@ -12,6 +12,7 @@ import { authErrors } from '@utils/validation';
 
 import AuthIllustration from '@components/decoration/AuthIllustration';
 import Main from '@components/layout/Main';
+import Widget from '@components/layout/Widget';
 
 const Enter: NextPage = () => {
   const enter = async ({
@@ -32,12 +33,12 @@ const Enter: NextPage = () => {
 
   return (
     <Main unauthCheck>
-      <Container fixed maxWidth={false}>
+      <Container className="flex" maxWidth={false} fixed>
         <AuthIllustration />
-        <div className="form-wrapper-right">
+        <Widget className="w-1/2">
           <Form onSubmit={enter}>
             {({ handleSubmit, submitError, submitting, form }) => (
-              <form onSubmit={handleSubmit} className="widget-wrapper">
+              <form onSubmit={handleSubmit}>
                 <h1>Entrar</h1>
                 <p>
                   Não tem uma conta?{' '}
@@ -89,7 +90,7 @@ const Enter: NextPage = () => {
               </form>
             )}
           </Form>
-        </div>
+        </Widget>
       </Container>
     </Main>
   );
