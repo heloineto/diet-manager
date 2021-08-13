@@ -13,6 +13,7 @@ import { authErrors } from '@utils/validation';
 import AuthIllustration from '@components/decoration/AuthIllustration';
 import Main from '@components/layout/Main';
 import Widget from '@components/layout/Widget';
+import Divider from '@components/layout/Divider';
 
 const Enter: NextPage = () => {
   const enter = async ({
@@ -70,14 +71,25 @@ const Enter: NextPage = () => {
                   <Button className="w-full" disabled={submitting}>
                     Entrar
                   </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    // startIcon={}
-                  >
-                    Save
-                  </Button>
+                  <Divider className="my-2.5">Ou</Divider>
+                  <div>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      // startIcon={}
+                    >
+                      Save
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      // startIcon={}
+                    >
+                      Save
+                    </Button>
+                  </div>
                 </div>
               </form>
             )}
