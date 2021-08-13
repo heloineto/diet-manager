@@ -7,7 +7,7 @@ export const UserContext = createContext({
   loading: null,
   userDetails: null,
 } as {
-  user: firebase.User | null;
+  user: firebase.User | null | undefined;
   loading: boolean | null;
   userDetails: {} | null;
 });
