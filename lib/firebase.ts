@@ -4,13 +4,13 @@ import 'firebase/firestore';
 import 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyC9F0T3NT4mfG_K1AIbejRpRCIKeaoTvBk',
-  authDomain: 'diet-manager-app.firebaseapp.com',
-  projectId: 'diet-manager-app',
-  storageBucket: 'diet-manager-app.appspot.com',
-  messagingSenderId: '834311395335',
-  appId: '1:834311395335:web:07e658ab21baedf95af2a2',
-  measurementId: 'G-C0F424KD2D',
+  apiKey: 'AIzaSyDFSCILjbvGDlhp6xojOv9l4T3g7Azj5k4',
+  authDomain: 'diet-manager-co.firebaseapp.com',
+  projectId: 'diet-manager-co',
+  storageBucket: 'diet-manager-co.appspot.com',
+  messagingSenderId: '385439945857',
+  appId: '1:385439945857:web:25e2ebea6a9caab1ebe980',
+  measurementId: 'G-Q6EGJ1FSS8',
 };
 
 if (!firebase.apps.length) {

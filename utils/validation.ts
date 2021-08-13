@@ -1,4 +1,4 @@
-export const errorCodes: {
+export const authErrors: {
   [x: string]: { message: string; faultyField: string };
 } = {
   'auth/user-not-found': {
