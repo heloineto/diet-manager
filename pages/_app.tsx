@@ -9,8 +9,6 @@ import { UserContext } from '@lib/context';
 import { useUserData } from '@lib/hooks';
 import theme from '@lib/theme';
 
-console.log(theme);
-
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const userData = useUserData();
 

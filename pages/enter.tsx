@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FORM_ERROR } from 'final-form';
 import { Form } from 'react-final-form';
+import { TextField } from 'mui-rff';
 
 import { Container } from '@material-ui/core';
 
@@ -53,6 +54,11 @@ const Enter: NextPage = () => {
                 {submitError && <span className="">{submitError}</span>}
                 <div className="form-grid">
                   <div className="input-fields-wrapper">
+                    <TextField
+                      label="E-mail"
+                      name="email"
+                      placeholder="Por favor entre seu e-mail"
+                    />
                     {/* <TextInputField
                         label="E-mail"
                         name="email"
