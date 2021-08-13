@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.3",
@@ -38,6 +39,7 @@
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0",
     "firebase-admin": "^9.11.0",
+    "patch-package": "^6.4.7",
     "postcss": "^8.3.6",
     "tailwindcss": "^2.2.7",
     "typescript": "4.3.5"

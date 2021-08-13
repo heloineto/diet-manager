@@ -10,7 +10,8 @@ import { Container } from '@material-ui/core';
 import { auth } from '@lib/firebase';
 import { authErrors } from '@utils/validation';
 
-import UnauthCheck from '@components/auth/UnauthCheck';
+import AuthIllustration from '@components/decoration/AuthIllustration';
+import Main from '@components/layout/Main';
 
 const Enter: NextPage = () => {
   const enter = async ({
@@ -30,16 +31,9 @@ const Enter: NextPage = () => {
   };
 
   return (
-    <UnauthCheck>
-      <Container>
-        <div className="auth-illustration">
-          {/* <Image
-            className="auth-wordmark"
-            src="/wordmark.svg"
-            alt="wordmark"
-            layout="fill"
-          /> */}
-        </div>
+    <Main unauthCheck>
+      <Container fixed maxWidth={false}>
+        <AuthIllustration />
         <div className="form-wrapper-right">
           <Form onSubmit={enter}>
             {({ handleSubmit, submitError, submitting, form }) => (
@@ -97,7 +91,7 @@ const Enter: NextPage = () => {
           </Form>
         </div>
       </Container>
-    </UnauthCheck>
+    </Main>
   );
 };
 

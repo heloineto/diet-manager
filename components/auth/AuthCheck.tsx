@@ -9,17 +9,15 @@ interface Props {
   children: ReactNode;
 }
 
-const UnauthCheck = ({ children }: Props) => {
-  const { user } = useContext(UserContext);
+const AuthCheck = ({ children }: Props) => {
+  const { user, loading } = useContext(UserContext);
   const router = useRouter();
 
   useEffect(() => {
-    if (user) {
-      router.replace('/');
-    }
-  }, [user]);
+    if (!user && !loading) router.replace('/enter');
+  }, [user, loading]);
 
-  return !user ? <>{children}</> : null;
+  return user ? <>{children}</> : null;
 };
 
-export default UnauthCheck;
+export default AuthCheck;
