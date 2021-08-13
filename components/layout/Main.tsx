@@ -10,15 +10,13 @@ interface Props {
 }
 
 const Main = ({ children, unauthCheck, authCheck }: Props) => {
-  return (
-    <main className="overflow-x-hidden">
-      {() => {
-        if (unauthCheck) return <UnauthCheck>{children}</UnauthCheck>;
-        if (authCheck) return <AuthCheck>{children}</AuthCheck>;
-        return children;
-      }}
-    </main>
-  );
+  const renderChildren = () => {
+    if (unauthCheck) return <UnauthCheck>{children}</UnauthCheck>;
+    if (authCheck) return <AuthCheck>{children}</AuthCheck>;
+    return <>{children}</>;
+  };
+
+  return <main className="overflow-x-hidden">{renderChildren()}</main>;
 };
 
 export default Main;
