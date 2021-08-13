@@ -1,36 +1,16 @@
-.auth-illustration {
-  @apply relative left-0 top-0 w-full lg:col-span-5 xl:col-span-6 flex justify-center;
-
+.illustration {
   min-height: 32vw;
 }
 
-.auth-illustration::before {
-  @apply bg-primary-200 absolute rounded-full;
+.illustration::before {
+  @apply bg-primary-200  absolute rounded-full top-0 left-1/2 transform -translate-x-1/2 -translate-y-3/4 lg:fixed lg:top-1/2 lg:left-0 lg:-translate-x-1/2 lg:-translate-y-1/2;
 
   content: '';
   width: 125vw;
   height: 125vw;
   z-index: -1;
-  left: 50%;
-  top: 0;
-  margin-left: -62.5vw;
-  transform: translate(0, -75%);
 }
 
-/* Tailwind's "lg:" */
-@media (min-width: 1024px) {
-  .auth-illustration::before {
-    @apply fixed;
-
-    margin: 0;
-    top: 50%;
-    left: 0;
-    transform: translate(-50%, -50%);
-  }
-}
-
-.auth-wordmark {
-  @apply absolute lg:top-0 lg:left-0 mt-8 h-12;
-
+.wordmark {
   fill: rgba(4, 120, 87, 1);
 }
