@@ -1,13 +1,8 @@
 import type { NextPage } from 'next';
-
 import Link from 'next/link';
-import Image from 'next/image';
-import { FORM_ERROR } from 'final-form';
 import { Form } from 'react-final-form';
 import { Checkboxes, makeValidate, TextField } from 'mui-rff';
-
 import { Button, Container, Typography } from '@material-ui/core';
-import * as Yup from 'yup';
 
 import AuthIllustration from '@components/decoration/AuthIllustration';
 import Main from '@components/layout/Main';
@@ -18,18 +13,9 @@ import GoogleIcon from '@components/icons/GoogleIcon';
 import FacebookIcon from '@components/icons/FacebookIcon';
 
 import { enter } from '@lib/auth';
+import { enterSchema } from '@utils/validation';
 
 const Enter: NextPage = () => {
-  const enterSchema = Yup.object().shape({
-    keepConnected: Yup.boolean().required(),
-    email: Yup.string()
-      .required('Forneça um e-mail')
-      .email('Forneça um e-mail válido'),
-    password: Yup.string()
-      .required('Forneça uma senha')
-      .min(8, 'A senha curta - insira no mínimo 8 caracteres'),
-  });
-
   return (
     <Main unauthCheck>
       <Container className="lg:flex lg:min-h-screen">

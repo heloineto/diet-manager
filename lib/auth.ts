@@ -78,7 +78,7 @@ const authErrors: {
     faultyField: 'password',
   },
   'auth/email-already-in-use': {
-    message: 'Já existe uma conta associada a este e-mail. Tente outro.',
+    message: 'Já existe uma conta associada a este e-mail. Tente outro',
     faultyField: 'email',
   },
 };
