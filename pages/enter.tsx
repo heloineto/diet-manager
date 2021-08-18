@@ -16,7 +16,7 @@ import { enterSchema } from '@utils/validation';
 
 const Enter: NextPage = () => {
   return (
-    <Main check="unauth">
+    <Main mode="unauth">
       <Container className="lg:flex lg:min-h-screen">
         <AuthIllustration />
         <Widget className="lg:w-2/5 my-auto">

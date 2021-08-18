@@ -5,12 +5,12 @@ import UnauthCheck from '@components/auth/UnauthCheck';
 
 interface Props {
   children: ReactNode;
-  check?: 'auth' | 'unauth';
+  mode?: 'auth' | 'unauth';
 }
 
-const Main = ({ children, check }: Props) => {
+const Main = ({ children, mode }: Props) => {
   const renderChildren = () => {
-    switch (check) {
+    switch (mode) {
       case 'auth':
         return <UnauthCheck>{children}</UnauthCheck>;
       case 'unauth':
