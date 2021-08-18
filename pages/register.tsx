@@ -18,7 +18,7 @@ import DateFnsUtils from '@date-io/date-fns';
 
 const Register: NextPage = () => {
   return (
-    <Main unauthCheck>
+    <Main check="unauth">
       <Container className="lg:flex lg:min-h-screen">
         <AuthIllustration />
         <Widget className="lg:w-2/5 my-auto">

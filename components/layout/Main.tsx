@@ -5,15 +5,19 @@ import UnauthCheck from '@components/auth/UnauthCheck';
 
 interface Props {
   children: ReactNode;
-  unauthCheck?: boolean;
-  authCheck?: boolean;
+  check?: 'auth' | 'unauth';
 }
 
-const Main = ({ children, unauthCheck, authCheck }: Props) => {
+const Main = ({ children, check }: Props) => {
   const renderChildren = () => {
-    if (unauthCheck) return <UnauthCheck>{children}</UnauthCheck>;
-    if (authCheck) return <AuthCheck>{children}</AuthCheck>;
-    return <>{children}</>;
+    switch (check) {
+      case 'auth':
+        return <UnauthCheck>{children}</UnauthCheck>;
+      case 'unauth':
+        return <AuthCheck>{children}</AuthCheck>;
+      default:
+        return <>{children}</>;
+    }
   };
 
   return <main className="overflow-x-hidden">{renderChildren()}</main>;
