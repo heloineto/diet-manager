@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import clsx from 'clsx';
 import type { ReactNode } from 'react';
 
 import React from 'react';
@@ -11,7 +11,7 @@ interface Props {
 const Widget = ({ children, className }: Props) => {
   return (
     <div
-      className={classNames(
+      className={clsx(
         className,
         'lg:p-5 lg:bg-white lg:rounded-xl lg:border-2 lg:border-solid lg:border-gray-100 lg:shadow-sm lg:hover:shadow-xl'
       )}

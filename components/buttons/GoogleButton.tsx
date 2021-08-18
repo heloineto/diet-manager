@@ -1,15 +1,34 @@
-import { Button } from '@material-ui/core';
+import type { ReactNode } from 'react';
 
-interface Props {}
+import clsx from 'clsx';
+import { Button, makeStyles } from '@material-ui/core';
 
-const GoogleButton = ({ ...rest }: Props) => {
+interface Props {
+  children: ReactNode;
+}
+
+const useStyles = makeStyles({
+  root: {
+    boxShadow:
+      '0px 3px 1px -2px rgb(${color} / 30%), 0px 2px 2px 0px rgb(${color} / 24%), 0px 1px 5px 0px rgb(${color} / 22%)',
+  },
+});
+
+const GoogleButton = ({ children, ...rest }: Props) => {
+  const classes = useStyles();
+
   return (
     <Button
-      className="w-full mt-2 bg-white text-gray-800 font-bold"
+      className={clsx(
+        classes.root,
+        'w-full mt-2 bg-white text-gray-800 font-bold'
+      )}
       variant="contained"
       startIcon={<GoogleIcon />}
       {...rest}
-    ></Button>
+    >
+      {children}
+    </Button>
   );
 };
 
