@@ -86,6 +86,10 @@ const Enter: NextPage = () => {
                       variant="contained"
                       color="primary"
                       size="large"
+                      style={{
+                        boxShadow:
+                          'rgb(0 0 0 / 40%) 0px 2px 4px -1px, rgb(0 0 0 / 34%) 0px 4px 5px 0px, rgb(0 0 0 / 32%) 0px 1px 10px 0px',
+                      }}
                       // startIcon={}
                     >
                       Save
