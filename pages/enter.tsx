@@ -12,7 +12,7 @@ import ColorButton from '@components/buttons/ColorButton';
 import GoogleIcon from '@components/icons/GoogleIcon';
 import FacebookIcon from '@components/icons/FacebookIcon';
 
-import { enter } from '@lib/auth';
+import { continueWithFacebook, continueWithGoogle, enter } from '@lib/auth';
 import { enterSchema } from '@utils/validation';
 
 const Enter: NextPage = () => {
@@ -32,7 +32,7 @@ const Enter: NextPage = () => {
                   Entrar
                 </Typography>
                 <Typography>
-                  Não tem uma conta?{' '}
+                  {'Não tem uma conta? '}
                   <span className="text-blue-500 underline">
                     <Link href="/register">Cadastre-se.</Link>
                   </span>
@@ -62,31 +62,32 @@ const Enter: NextPage = () => {
                   <Button className="w-full" disabled={submitting}>
                     Entrar
                   </Button>
-                  <Divider className="my-2.5">Ou continue com</Divider>
-
-                  <ColorButton
-                    className="w-full mt-2 font-bold"
-                    color="#ffffff"
-                    contrastColor="#1f2937"
-                    shadowColor="#1f2937"
-                    startIcon={<GoogleIcon />}
-                  >
-                    Google
-                  </ColorButton>
-                  <ColorButton
-                    className="w-full mt-2 font-bold"
-                    color="#3b82f6"
-                    contrastColor="#ffffff"
-                    shadowColor="#3b82f6"
-                    startIcon={<FacebookIcon />}
-                  >
-                    Facebook
-                  </ColorButton>
                   {/* <pre>{JSON.stringify(values)}</pre> */}
                 </div>
               </form>
             )}
           </Form>
+          <Divider className="my-2.5">Ou continue com</Divider>
+          <ColorButton
+            className="w-full mt-2 font-bold"
+            color="#ffffff"
+            contrastColor="#1f2937"
+            shadowColor="#1f2937"
+            startIcon={<GoogleIcon />}
+            onClick={continueWithGoogle}
+          >
+            Google
+          </ColorButton>
+          <ColorButton
+            className="w-full mt-2 font-bold"
+            color="#3b82f6"
+            contrastColor="#ffffff"
+            shadowColor="#3b82f6"
+            startIcon={<FacebookIcon />}
+            onClick={continueWithFacebook}
+          >
+            Facebook
+          </ColorButton>
         </Widget>
       </Container>
     </Main>

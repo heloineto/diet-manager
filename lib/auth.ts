@@ -3,6 +3,7 @@ import { FORM_ERROR } from 'final-form';
 
 import {
   auth,
+  facebookAuthProvider,
   firestore,
   googleAuthProvider,
   LOCAL,
@@ -37,6 +38,12 @@ export const continueWithGoogle = async () => {
       verifiedEmail: profile.verified_email ?? false,
     });
   }
+};
+
+export const continueWithFacebook = async () => {
+  const res = await auth.signInWithPopup(facebookAuthProvider);
+
+  console.log(res);
 };
 
 export const enter = async ({

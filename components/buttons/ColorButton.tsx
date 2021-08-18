@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { MouseEventHandler, ReactNode } from 'react';
 
 import clsx from 'clsx';
 import { Button, makeStyles } from '@material-ui/core';
@@ -11,6 +11,7 @@ interface Props {
   color: HexColor;
   contrastColor: HexColor;
   shadowColor: HexColor;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 const useStyles = makeStyles({
