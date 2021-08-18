@@ -18,9 +18,18 @@ import { enterSchema } from '@utils/validation';
 const Enter: NextPage = () => {
   return (
     <Main unauthCheck>
-      <Container className="lg:flex lg:min-h-screen">
+      <Container className="container mx-auto px-4 sm:px-6 lg:px-8 lg:flex lg:min-h-screen">
         <AuthIllustration />
         <Widget className="lg:w-1/2 my-auto">
+          <Typography variant="h1" className="-ml-2">
+            Entrar
+          </Typography>
+          <Typography>
+            {'Não tem uma conta? '}
+            <span className="text-blue-500 underline">
+              <Link href="/register">Cadastre-se.</Link>
+            </span>
+          </Typography>
           <Form
             onSubmit={enter}
             initialValues={{ keepConnected: true }}
@@ -28,17 +37,7 @@ const Enter: NextPage = () => {
           >
             {({ handleSubmit, submitError, submitting, form, values }) => (
               <form onSubmit={handleSubmit}>
-                <Typography variant="h1" className="-ml-2">
-                  Entrar
-                </Typography>
-                <Typography>
-                  {'Não tem uma conta? '}
-                  <span className="text-blue-500 underline">
-                    <Link href="/register">Cadastre-se.</Link>
-                  </span>
-                </Typography>
-                {submitError && <span className="">{submitError}</span>}
-                <div className="mt-5">
+                <div className="mt-4">
                   <div className="flex flex-col gap-y-2.5">
                     <TextField
                       label="E-mail"
@@ -67,7 +66,7 @@ const Enter: NextPage = () => {
               </form>
             )}
           </Form>
-          <Divider className="my-2.5">Ou continue com</Divider>
+          <Divider className="mt-4 mb-2">Ou continue com</Divider>
           <ColorButton
             className="w-full mt-2 font-bold"
             color="#ffffff"
