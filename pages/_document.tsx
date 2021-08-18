@@ -28,7 +28,7 @@ class MyDocument extends Document {
 }
 
 /**
- * Fixing the resolution order to make material ui work with
+ * Fixing the resolution order to make material-ui work with
  * server-side generation
  */
 MyDocument.getInitialProps = async (ctx) => {

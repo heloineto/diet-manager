@@ -14,7 +14,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   const userData = useUserData();
 
   /**
-   * Removing the server side injected CSS to make material ui work with
+   * Removing the server side injected CSS to make material-ui work with
    * server-side generation
    */
   useEffect(() => {

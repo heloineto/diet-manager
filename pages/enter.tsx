@@ -58,7 +58,7 @@ const Enter: NextPage = () => {
                       name="email"
                       className="focus:bg-gray-100 focus:border-blue-500"
                     />
-                    <TextField label="Senha" name="password" />
+                    <TextField label="Senha" name="password" type="password" />
                   </div>
                   <div className="w-full flex justify-between items-center">
                     <Checkboxes
@@ -72,7 +72,7 @@ const Enter: NextPage = () => {
                   <Button className="w-full" disabled={submitting}>
                     Entrar
                   </Button>
-                  <Divider className="my-2.5">Ou</Divider>
+                  <Divider className="my-2.5">Ou continue com</Divider>
                   <div>
                     <Button
                       variant="contained"
