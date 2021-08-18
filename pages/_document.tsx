@@ -1,4 +1,4 @@
-import { Children } from 'react';
+import React from 'react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core';
 
@@ -11,7 +11,7 @@ class MyDocument extends Document {
           <link
             rel="preconnect"
             href="https://fonts.gstatic.com"
-            crossOrigin="true" //! Not sure if this works
+            crossOrigin="anonymous"
           />
           <link
             href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap"
@@ -27,6 +27,10 @@ class MyDocument extends Document {
   }
 }
 
+/**
+ * Fixing the resolution order to make material ui work with
+ * server-side generation
+ */
 MyDocument.getInitialProps = async (ctx) => {
   const sheets = new ServerStyleSheets();
   const originalRenderPage = ctx.renderPage;
@@ -41,7 +45,7 @@ MyDocument.getInitialProps = async (ctx) => {
   return {
     ...initialProps,
     styles: [
-      ...Children.toArray(initialProps.styles),
+      ...React.Children.toArray(initialProps.styles),
       sheets.getStyleElement(),
     ],
   };

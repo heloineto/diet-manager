@@ -8,9 +8,20 @@ import ReactOutlineManager from 'react-outline-manager';
 import { UserContext } from '@lib/context';
 import { useUserData } from '@lib/hooks';
 import theme from '@lib/theme';
+import { useEffect } from 'react';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const userData = useUserData();
+
+  /**
+   * Removing the server side injected CSS to make material ui work with
+   * server-side generation
+   */
+  useEffect(() => {
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles?.parentElement)
+      jssStyles.parentElement.removeChild(jssStyles);
+  }, []);
 
   return (
     <ReactOutlineManager toggle={true}>
