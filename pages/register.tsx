@@ -11,7 +11,7 @@ import Divider from '@components/layout/Divider';
 import GoogleIcon from '@components/icons/GoogleIcon';
 import FacebookIcon from '@components/icons/FacebookIcon';
 
-import { continueWithFacebook, continueWithGoogle, enter } from '@lib/auth';
+import { continueWithFacebook, continueWithGoogle, register } from '@lib/auth';
 import { registerSchema } from '@utils/validation';
 
 import DateFnsUtils from '@date-io/date-fns';
@@ -31,7 +31,7 @@ const Register: NextPage = () => {
               <Link href="/enter">Entrar.</Link>
             </span>
           </Typography>
-          <Form onSubmit={enter} validate={makeValidate(registerSchema)}>
+          <Form onSubmit={register} validate={makeValidate(registerSchema)}>
             {({ handleSubmit, submitError, submitting, form, values }) => (
               <form onSubmit={handleSubmit}>
                 <div className="mt-4">
@@ -64,6 +64,7 @@ const Register: NextPage = () => {
                     />
                   </div>
                   <Button
+                    type="submit"
                     className="w-full mt-1 shadow-primary-500 hover:shadow-xl-primary-500"
                     disabled={submitting}
                   >

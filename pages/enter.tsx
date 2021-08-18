@@ -54,6 +54,7 @@ const Enter: NextPage = () => {
                     </Typography>
                   </div>
                   <Button
+                    type="submit"
                     className="w-full mt-1 shadow-primary-500 hover:shadow-xl-primary-500"
                     disabled={submitting}
                   >

@@ -1,7 +1,6 @@
 import * as yup from 'yup';
 
 export const enterSchema = yup.object().shape({
-  keepConnected: yup.boolean().required(),
   email: yup
     .string()
     .required('Forneça um e-mail')
@@ -10,6 +9,7 @@ export const enterSchema = yup.object().shape({
     .string()
     .required('Forneça uma senha')
     .min(8, 'A senha curta - insira no mínimo 8 caracteres'),
+  keepConnected: yup.boolean().required(),
 });
 
 export const registerSchema = yup.object().shape({
@@ -27,5 +27,5 @@ export const registerSchema = yup.object().shape({
     .date()
     .required('Forneça sua data de aniversário')
     .max(new Date(), 'A data de aniversário deve ser anterior à data atual.'),
-  sex: yup.string().required('Forneça um sexo').length(1),
+  gender: yup.string().required('Forneça um gênero').length(1),
 });
