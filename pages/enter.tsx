@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { FORM_ERROR } from 'final-form';
@@ -34,7 +35,7 @@ const Enter: NextPage = () => {
 
   return (
     <Main unauthCheck>
-      <Container className="lg:flex lg:min-h-screen" maxWidth={false} fixed>
+      <Container className="lg:flex lg:min-h-screen">
         <AuthIllustration />
         <Widget className="lg:w-1/2 my-auto">
           <Form onSubmit={enter}>
