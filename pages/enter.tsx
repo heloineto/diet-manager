@@ -81,6 +81,7 @@ const Enter: NextPage = () => {
                     className="w-full mt-2 font-bold"
                     color="#ffffff"
                     contrastColor="#1f2937"
+                    shadowColor="#1f2937"
                     startIcon={<GoogleIcon />}
                   >
                     Google
@@ -89,6 +90,7 @@ const Enter: NextPage = () => {
                     className="w-full mt-2 font-bold"
                     color="#3b82f6"
                     contrastColor="#ffffff"
+                    shadowColor="#3b82f6"
                     startIcon={<FacebookIcon />}
                   >
                     Facebook
