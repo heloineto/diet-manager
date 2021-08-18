@@ -18,9 +18,9 @@ import { enterSchema } from '@utils/validation';
 const Enter: NextPage = () => {
   return (
     <Main unauthCheck>
-      <Container className="container mx-auto px-4 sm:px-6 lg:px-8 lg:flex lg:min-h-screen">
+      <Container className="lg:flex lg:min-h-screen">
         <AuthIllustration />
-        <Widget className="lg:w-1/2 my-auto">
+        <Widget className="lg:w-2/5 my-auto">
           <Typography variant="h1" className="-ml-2">
             Entrar
           </Typography>
@@ -58,7 +58,10 @@ const Enter: NextPage = () => {
                       <Link href="/recover-password">Esqueceu a senha?</Link>
                     </Typography>
                   </div>
-                  <Button className="w-full" disabled={submitting}>
+                  <Button
+                    className="w-full shadow-primary-500 hover:shadow-xl-primary-500"
+                    disabled={submitting}
+                  >
                     Entrar
                   </Button>
                   {/* <pre>{JSON.stringify(values)}</pre> */}
@@ -67,26 +70,21 @@ const Enter: NextPage = () => {
             )}
           </Form>
           <Divider className="mt-4 mb-2">Ou continue com</Divider>
-          <ColorButton
-            className="w-full mt-2 font-bold"
-            color="#ffffff"
-            contrastColor="#1f2937"
-            shadowColor="#1f2937"
+          <Button
+            className="w-full mt-2 font-bold bg-gray-50 hover:bg-gray-300 text-gray-800 shadow-gray-800 hover:shadow-xl-gray-800"
+            color="inherit"
             startIcon={<GoogleIcon />}
             onClick={continueWithGoogle}
           >
             Google
-          </ColorButton>
-          <ColorButton
-            className="w-full mt-2 font-bold"
-            color="#3b82f6"
-            contrastColor="#ffffff"
-            shadowColor="#3b82f6"
+          </Button>
+          <Button
+            className="w-full mt-2 font-bold bg-blue-500 hover:bg-blue-600 shadow-blue-500 hover:shadow-xl-blue-500"
             startIcon={<FacebookIcon />}
             onClick={continueWithFacebook}
           >
             Facebook
-          </ColorButton>
+          </Button>
         </Widget>
       </Container>
     </Main>
