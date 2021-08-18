@@ -4,12 +4,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FORM_ERROR } from 'final-form';
 import { Form } from 'react-final-form';
-import { Checkboxes, TextField } from 'mui-rff';
+import { Checkboxes, makeValidate, TextField } from 'mui-rff';
 
 import { Button, Container, Typography } from '@material-ui/core';
-
-import { auth } from '@lib/firebase';
-import { authErrors } from '@utils/validation';
+import * as Yup from 'yup';
 
 import AuthIllustration from '@components/decoration/AuthIllustration';
 import Main from '@components/layout/Main';
@@ -19,30 +17,30 @@ import ColorButton from '@components/buttons/ColorButton';
 import GoogleIcon from '@components/icons/GoogleIcon';
 import FacebookIcon from '@components/icons/FacebookIcon';
 
-const Enter: NextPage = () => {
-  const enter = async ({
-    email,
-    password,
-  }: {
-    email: string;
-    password: string;
-  }) => {
-    return auth
-      .signInWithEmailAndPassword(email, password)
-      .catch((error: { code: string; message: string }) => {
-        const { message, faultyField } = authErrors?.[error.code] ?? {};
+import { enter } from '@lib/auth';
 
-        return { [faultyField ?? FORM_ERROR]: message ?? error.message };
-      });
-  };
+const Enter: NextPage = () => {
+  const enterSchema = Yup.object().shape({
+    keepConnected: Yup.boolean().required(),
+    email: Yup.string()
+      .required('Forneça um e-mail')
+      .email('Forneça um e-mail válido'),
+    password: Yup.string()
+      .required('Forneça uma senha')
+      .min(8, 'A senha curta - insira no mínimo 8 caracteres'),
+  });
 
   return (
     <Main unauthCheck>
       <Container className="lg:flex lg:min-h-screen">
         <AuthIllustration />
         <Widget className="lg:w-1/2 my-auto">
-          <Form onSubmit={enter}>
-            {({ handleSubmit, submitError, submitting, form }) => (
+          <Form
+            onSubmit={enter}
+            initialValues={{ keepConnected: true }}
+            validate={makeValidate(enterSchema)}
+          >
+            {({ handleSubmit, submitError, submitting, form, values }) => (
               <form onSubmit={handleSubmit}>
                 <Typography variant="h1" className="-ml-2">
                   Entrar
@@ -66,7 +64,10 @@ const Enter: NextPage = () => {
                   <div className="w-full flex justify-between items-center">
                     <Checkboxes
                       name="keepConnected"
-                      data={[{ label: 'Continuar conectado', value: true }]}
+                      data={{
+                        label: 'Continuar conectado',
+                        value: true,
+                      }}
                     />
                     <Typography className="text-blue-500">
                       <Link href="/recover-password">Esqueceu a senha?</Link>
@@ -95,6 +96,7 @@ const Enter: NextPage = () => {
                   >
                     Facebook
                   </ColorButton>
+                  {/* <pre>{JSON.stringify(values)}</pre> */}
                 </div>
               </form>
             )}

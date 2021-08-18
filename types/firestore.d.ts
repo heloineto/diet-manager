@@ -1,34 +1,34 @@
 interface UserDetails {
-  email: string;
-  firstName: string;
-  lastName: string;
-  photoURL: string;
-  verifiedEmail: boolean;
-  activityLevel: 1 | 2 | 3 | 4 | 5;
-  birthdate: Date;
-  height: {
-    current: number;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  photoURL?: string;
+  verifiedEmail?: boolean;
+  activityLevel?: 1 | 2 | 3 | 4 | 5;
+  birthdate?: Date;
+  height?: {
+    current?: number;
   };
-  weight: {
-    current: number;
-    desired: number;
+  weight?: {
+    current?: number;
+    desired?: number;
   };
-  goals: {
-    general: {
-      buildMuscle: boolean;
-      loseWeight: boolean;
-      lastName: boolean;
+  goals?: {
+    general?: {
+      buildMuscle?: boolean;
+      loseWeight?: boolean;
+      lastName?: boolean;
     };
-    nutrition: {
-      carb: number;
-      prot: number;
-      fat: number;
-      kcal: number;
+    nutrition?: {
+      carb?: number;
+      prot?: number;
+      fat?: number;
+      kcal?: number;
     };
   };
-  gender: {
-    letter: 'M' | 'F';
-    additionalInformation: string;
+  gender?: {
+    letter?: 'M' | 'F';
+    additionalInformation?: string;
   };
 }
 

@@ -1,7 +1,13 @@
 import { converter } from '@utils/firestore';
 import { FORM_ERROR } from 'final-form';
 
-import { auth, firestore, googleAuthProvider } from './firebase';
+import {
+  auth,
+  firestore,
+  googleAuthProvider,
+  LOCAL,
+  SESSION,
+} from './firebase';
 
 export const continueWithGoogle = async () => {
   const res = await auth.signInWithPopup(googleAuthProvider);
@@ -42,6 +48,10 @@ export const enter = async ({
   password: string;
   keepConnected: boolean;
 }) => {
+  //! Verify if persistence has been properly set
+  //! Maybe it should be kept in the form instead
+  auth.setPersistence(keepConnected ? LOCAL : SESSION);
+
   return auth
     .signInWithEmailAndPassword(email, password)
     .catch((error: { code: string; message: string }) => {
