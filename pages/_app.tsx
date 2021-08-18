@@ -2,13 +2,13 @@ import type { AppProps } from 'next/app';
 
 import '../styles/globals.css';
 
+import { useEffect } from 'react';
 import { ThemeProvider } from '@material-ui/core';
 import ReactOutlineManager from 'react-outline-manager';
 
 import { UserContext } from '@lib/context';
 import { useUserData } from '@lib/hooks';
 import theme from '@lib/theme';
-import { useEffect } from 'react';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const userData = useUserData();

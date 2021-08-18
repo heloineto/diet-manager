@@ -26,10 +26,7 @@ interface UserDetails {
       kcal?: number;
     };
   };
-  gender?: {
-    letter?: 'M' | 'F';
-    additionalInformation?: string;
-  };
+  gender?: 'M' | 'F' | 'O';
 }
 
 interface Meal {

@@ -29,32 +29,38 @@ export const AUTH_ERRORS: {
 };
 
 export const continueWithGoogle = async () => {
-  const res = await auth.signInWithPopup(googleAuthProvider);
+  try {
+    const res = await auth.signInWithPopup(googleAuthProvider);
 
-  const { profile, isNewUser } = res?.additionalUserInfo as {
-    isNewUser: boolean;
-    profile: {
-      given_name?: string;
-      family_name?: string;
-      email?: string;
-      picture?: string;
-      verified_email?: boolean;
-    };
-  };
+    if (res.additionalUserInfo) {
+      const { profile, isNewUser } = res.additionalUserInfo as {
+        isNewUser: boolean;
+        profile: {
+          given_name?: string;
+          family_name?: string;
+          email?: string;
+          picture?: string;
+          verified_email?: boolean;
+        };
+      };
 
-  if (profile && isNewUser) {
-    const userDoc = firestore
-      .collection('user')
-      .doc(res?.user?.uid)
-      .withConverter(converter<UserDetails>());
+      if (profile && isNewUser) {
+        const userDoc = firestore
+          .collection('user')
+          .doc(res.user?.uid)
+          .withConverter(converter<UserDetails>());
 
-    await userDoc.set({
-      firstName: profile.given_name ?? '',
-      lastName: profile.family_name ?? '',
-      email: profile.email ?? '',
-      photoURL: profile.picture ?? '',
-      verifiedEmail: profile.verified_email ?? false,
-    });
+        await userDoc.set({
+          firstName: profile.given_name,
+          lastName: profile.family_name,
+          email: profile.email,
+          photoURL: profile.picture,
+          verifiedEmail: profile.verified_email,
+        });
+      }
+    }
+  } catch (error) {
+    console.error(error);
   }
 };
 
@@ -77,15 +83,48 @@ export const enter = async ({
   //! Maybe it should be kept in the form instead
   auth.setPersistence(keepConnected ? LOCAL : SESSION);
 
-  return auth
-    .signInWithEmailAndPassword(email, password)
-    .catch((error: { code: string; message: string }) => {
-      const { message, faultyField } = AUTH_ERRORS?.[error.code] ?? {};
+  try {
+    return auth.signInWithEmailAndPassword(email, password);
+  } catch (error) {
+    const { message, faultyField } = AUTH_ERRORS?.[error.code] ?? {};
+    return { [faultyField ?? FORM_ERROR]: message ?? error.message };
+  }
+};
 
-      return { [faultyField ?? FORM_ERROR]: message ?? error.message };
+type DeepNonNullable<T> = { [P in keyof T]-?: NonNullable<T[P]> } &
+  NonNullable<T>;
+
+export const register = async ({
+  email,
+  password,
+  firstName,
+  lastName,
+  birthdate,
+  gender,
+}: DeepNonNullable<
+  Pick<UserDetails, 'email' | 'firstName' | 'lastName' | 'birthdate' | 'gender'>
+> & { password: string }) => {
+  try {
+    const res = await auth.createUserWithEmailAndPassword(email, password);
+
+    const userDoc = firestore
+      .collection('user')
+      .doc(res.user?.uid)
+      .withConverter(converter<UserDetails>());
+
+    await userDoc.set({
+      email,
+      firstName,
+      lastName,
+      birthdate,
+      gender,
     });
+  } catch (error) {
+    const { message, faultyField } = AUTH_ERRORS[error.code] ?? {};
+    return { [faultyField ?? FORM_ERROR]: message ?? error.message };
+  }
 };
 
 export const leave = async () => {
-  auth.signOut();
+  await auth.signOut();
 };
