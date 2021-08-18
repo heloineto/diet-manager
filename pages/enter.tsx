@@ -15,7 +15,8 @@ import AuthIllustration from '@components/decoration/AuthIllustration';
 import Main from '@components/layout/Main';
 import Widget from '@components/layout/Widget';
 import Divider from '@components/layout/Divider';
-import GoogleButton from '@components/buttons/GoogleButton';
+import ColorButton from '@components/buttons/ColorButton';
+import GoogleIcon from '@components/icons/GoogleIcon';
 
 const Enter: NextPage = () => {
   const enter = async ({
@@ -75,7 +76,14 @@ const Enter: NextPage = () => {
                   </Button>
                   <Divider className="my-2.5">Ou continue com</Divider>
 
-                  <GoogleButton>Google</GoogleButton>
+                  <ColorButton
+                    className="w-full mt-2 font-bold"
+                    color="#ffffff"
+                    contrastColor="#1f2937"
+                    startIcon={<GoogleIcon />}
+                  >
+                    Google
+                  </ColorButton>
                   <Button variant="contained" color="primary" size="large">
                     Save
                   </Button>
