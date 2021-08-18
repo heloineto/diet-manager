@@ -17,6 +17,7 @@ import Widget from '@components/layout/Widget';
 import Divider from '@components/layout/Divider';
 import ColorButton from '@components/buttons/ColorButton';
 import GoogleIcon from '@components/icons/GoogleIcon';
+import FacebookIcon from '@components/icons/FacebookIcon';
 
 const Enter: NextPage = () => {
   const enter = async ({
@@ -84,9 +85,14 @@ const Enter: NextPage = () => {
                   >
                     Google
                   </ColorButton>
-                  <Button variant="contained" color="primary" size="large">
-                    Save
-                  </Button>
+                  <ColorButton
+                    className="w-full mt-2 font-bold"
+                    color="#3b82f6"
+                    contrastColor="#ffffff"
+                    startIcon={<FacebookIcon />}
+                  >
+                    Facebook
+                  </ColorButton>
                 </div>
               </form>
             )}
