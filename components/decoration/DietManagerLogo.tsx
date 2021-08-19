@@ -6,7 +6,7 @@ interface Props {
 
 const DietManagerLogo = ({ className }: Props) => {
   return (
-    <div className={clsx(className, 'h-10 w-10 relative')}>
+    <div className={clsx(className, 'relative')}>
       <svg
         className="h-full w-full absolute"
         viewBox="0 0 192 192"

@@ -10,9 +10,9 @@ interface Props {
 const AppShell = ({ children }: Props) => {
   return (
     <AuthCheck>
-      <main className="flex container mx-auto">
-        <NavBar className="w-3/12 pl-4 sm:pl-6 lg:pl-8" />
-        <div className="w-9/12 pr-4 sm:pr-6 lg:pr-8">{children}</div>
+      <main className="flex container mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <NavBar className="w-3/12 top-0 left-0 px-2" />
+        <div className="w-9/12 h-screen">{children}</div>
       </main>
     </AuthCheck>
   );
