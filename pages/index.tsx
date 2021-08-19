@@ -1,17 +1,13 @@
 import type { NextPage } from 'next';
 
-import Main from '@components/layout/Main';
-import NavBar from '@components/navigation/NavBar';
-import { Container } from '@material-ui/core';
+import AppShell from '@components/layout/AppShell';
 
 const Home: NextPage = () => {
   return (
-    <Main mode="auth">
-      <Container className="flex">
-        <NavBar className="absolute w-10" />
-        <div className="w-full h-full min-h-screen bg-gray-500"></div>
-      </Container>
-    </Main>
+    <AppShell mode="auth">
+      {/* <NavBar className="absolute w-10" current="home" /> */}
+      <div className="w-full h-full min-h-screen bg-gray-500"></div>
+    </AppShell>
   );
 };
 

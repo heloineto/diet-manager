@@ -46,7 +46,7 @@ export const continueWithGoogle = async () => {
 
       if (profile && isNewUser) {
         const userDoc = firestore
-          .collection('user')
+          .collection('users')
           .doc(res.user?.uid)
           .withConverter(converter<UserDetails>());
 
@@ -84,7 +84,7 @@ export const enter = async ({
   auth.setPersistence(keepConnected ? LOCAL : SESSION);
 
   try {
-    return auth.signInWithEmailAndPassword(email, password);
+    await auth.signInWithEmailAndPassword(email, password);
   } catch (error) {
     const { message, faultyField } = AUTH_ERRORS?.[error.code] ?? {};
     return { [faultyField ?? FORM_ERROR]: message ?? error.message };
@@ -108,7 +108,7 @@ export const register = async ({
     const res = await auth.createUserWithEmailAndPassword(email, password);
 
     const userDoc = firestore
-      .collection('user')
+      .collection('users')
       .doc(res.user?.uid)
       .withConverter(converter<UserDetails>());
 
