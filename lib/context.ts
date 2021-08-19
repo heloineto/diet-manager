@@ -9,7 +9,7 @@ export const UserContext = createContext({
 } as {
   user: firebase.User | null | undefined;
   loading: boolean | null;
-  userDetails: {} | null;
+  userDetails: UserDetails | null;
 });
 
 export const CalendarContext = createContext({

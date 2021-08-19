@@ -1,58 +1,15 @@
-import type { Theme } from '@material-ui/core';
-
-import { useState } from 'react';
+import { useContext } from 'react';
 import clsx from 'clsx';
-import {
-  createStyles,
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  makeStyles,
-  useTheme,
-} from '@material-ui/core';
-
-import {
-  CalendarIcon,
-  ChartBarIcon,
-  FolderIcon,
-  HomeIcon,
-  InboxIcon,
-  UsersIcon,
-} from '@heroicons/react/outline';
 
 import items from './items';
 import Link from 'next/link';
 
 import DietManagerWordmark from '@components/decoration/DietManagerWordmark';
 import DietManagerLogo from '@components/decoration/DietManagerLogo';
-
-const drawerWidth = 240;
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-    },
-    drawer: {
-      [theme.breakpoints.up('sm')]: {
-        width: drawerWidth,
-        flexShrink: 0,
-      },
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-      [theme.breakpoints.up('sm')]: {
-        display: 'none',
-      },
-    },
-    toolbar: theme.mixins.toolbar,
-    drawerPaper: {
-      width: drawerWidth,
-    },
-  })
-);
+import { UserContext } from '@lib/context';
+import { Button } from '@material-ui/core';
+import { LogoutIcon } from '@heroicons/react/outline';
+import { leave } from '@lib/auth';
 
 interface Props {
   className?: string;
@@ -60,17 +17,16 @@ interface Props {
 }
 
 const NavBar = ({ className, current }: Props) => {
-  const classes = useStyles();
-  const theme = useTheme();
+  const { userDetails } = useContext(UserContext);
 
   return (
     <div
       className={clsx(
         className,
-        'w-1/12 lg:w-3/12 flex flex-col flex-1 border-r border-gray-200 h-screen'
+        'w-1/12 lg:w-3/12 flex flex-col flex-1 h-screen'
       )}
     >
-      <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto bg-red-400">
+      <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
         <div className="flex items-center flex-shrink-0 justify-start px-2 h-10 gap-x-2">
           <DietManagerLogo />
           <DietManagerWordmark className="hidden lg:block" />
@@ -106,36 +62,17 @@ const NavBar = ({ className, current }: Props) => {
         </nav>
       </div>
       <div className="flex-shrink-0 flex border-gray-200 px-2 py-4 mt-auto">
-        <a href="#" className="flex-shrink-0 w-full group block">
-          <div className="flex items-center">
-            <div>
-              <img
-                className="inline-block h-9 w-9 rounded-full"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt=""
-              />
-            </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
-                Tom Cook
-              </p>
-              <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
-                View profile
-              </p>
-            </div>
-          </div>
-        </a>
+        <Button
+          className="w-full"
+          variant="outlined"
+          color="secondary"
+          startIcon={<LogoutIcon />}
+          onClick={leave}
+        >
+          Sair
+        </Button>
       </div>
     </div>
-
-    // <List>
-    //   {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-    //     <ListItem button key={text}>
-    //       <ListItemIcon>{<AdjustmentsIcon />}</ListItemIcon>
-    //       <ListItemText primary={text} />
-    //     </ListItem>
-    //   ))}
-    // </List>
   );
 };
 

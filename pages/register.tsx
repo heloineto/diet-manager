@@ -57,6 +57,7 @@ const Register: NextPage = () => {
               </div>
               <Button
                 type="submit"
+                variant="contained"
                 className="w-full mt-1 shadow-primary-500 hover:shadow-xl-primary-500"
                 disabled={submitting}
               >

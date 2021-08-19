@@ -26,6 +26,7 @@ const AuthFlowShell = ({ children }: Props) => {
             <Divider className="mt-4 mb-2">Ou continue com</Divider>
             <Button
               className="w-full mt-2 font-bold bg-gray-50 hover:bg-gray-300 text-gray-800 shadow-gray-800 hover:shadow-xl-gray-800"
+              variant="contained"
               color="inherit"
               startIcon={<GoogleIcon />}
               onClick={continueWithGoogle}
@@ -34,6 +35,7 @@ const AuthFlowShell = ({ children }: Props) => {
             </Button>
             <Button
               className="w-full mt-2 font-bold bg-blue-500 hover:bg-blue-600 shadow-blue-500 hover:shadow-xl-blue-500"
+              variant="contained"
               startIcon={<FacebookIcon />}
               onClick={continueWithFacebook}
             >
