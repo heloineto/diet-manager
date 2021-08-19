@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 
-import AppShell from '@components/layout/AppShell';
+import AppShell from '@components/layout/app-shells/AppShell';
 
 const Home: NextPage = () => {
   return (

@@ -2,21 +2,16 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import { Form } from 'react-final-form';
 import { Checkboxes, makeValidate, TextField } from 'mui-rff';
-import { Button, Container, Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 
-import AuthIllustration from '@components/decoration/AuthIllustration';
-import AppShell from '@components/layout/AppShell';
-import Widget from '@components/layout/Widget';
-import Divider from '@components/layout/Divider';
-import GoogleIcon from '@components/icons/GoogleIcon';
-import FacebookIcon from '@components/icons/FacebookIcon';
+import AuthFlowShell from '@components/layout/app-shells/AuthFlowShell';
 
-import { continueWithFacebook, continueWithGoogle, enter } from '@lib/auth';
+import { enter } from '@lib/auth';
 import { enterSchema } from '@utils/validation';
 
 const Enter: NextPage = () => {
   return (
-    <AppShell mode="unauth">
+    <AuthFlowShell>
       <Typography variant="h1" className="-ml-2">
         Entrar
       </Typography>
@@ -61,23 +56,7 @@ const Enter: NextPage = () => {
           </form>
         )}
       </Form>
-      <Divider className="mt-4 mb-2">Ou continue com</Divider>
-      <Button
-        className="w-full mt-2 font-bold bg-gray-50 hover:bg-gray-300 text-gray-800 shadow-gray-800 hover:shadow-xl-gray-800"
-        color="inherit"
-        startIcon={<GoogleIcon />}
-        onClick={continueWithGoogle}
-      >
-        Google
-      </Button>
-      <Button
-        className="w-full mt-2 font-bold bg-blue-500 hover:bg-blue-600 shadow-blue-500 hover:shadow-xl-blue-500"
-        startIcon={<FacebookIcon />}
-        onClick={continueWithFacebook}
-      >
-        Facebook
-      </Button>
-    </AppShell>
+    </AuthFlowShell>
   );
 };
 
