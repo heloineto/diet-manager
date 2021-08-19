@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import clsx from 'clsx';
 
 import items from './items';
@@ -9,16 +9,21 @@ import DietManagerLogo from '@components/decoration/DietManagerLogo';
 import { UserContext } from '@lib/context';
 import {
   Avatar,
+  Badge,
   Button,
   Hidden,
   IconButton,
   makeStyles,
+  MenuItem,
+  Menu,
+  ListItemIcon,
+  ListItemText,
 } from '@material-ui/core';
 import { LogoutIcon } from '@heroicons/react/outline';
 import { leave } from '@lib/auth';
 
 import { Fragment } from 'react';
-import { Menu, Popover, Transition } from '@headlessui/react';
+import { Menu as MenuHeadless, Popover, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 import { SearchIcon } from '@heroicons/react/solid';
 
@@ -43,9 +48,22 @@ interface Props {
   className?: string;
   current?: string;
 }
+
 //! Convert to material
 const NavBar = ({ className }: Props) => {
   const { userDetails } = useContext(UserContext);
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    console.log('RUN');
+
+    setAnchorEl(event.currentTarget);
+  };
 
   return (
     <Popover as="header" className="pb-24 bg-gray-400">
@@ -67,79 +85,44 @@ const NavBar = ({ className }: Props) => {
               {/* Right section on desktop */}
               <div className="hidden lg:ml-4 lg:flex lg:items-center lg:pr-0.5">
                 <IconButton>
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  <Badge badgeContent={0} color="secondary">
+                    <span className="sr-only">View notifications</span>
+                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  </Badge>
                 </IconButton>
 
-                {/* Profile dropdown */}
-                <Menu as="div" className="ml-4 relative flex-shrink-0">
-                  {({ open }) => (
-                    <>
-                      <div>
-                        <Menu.Button className="bg-white rounded-full flex text-sm ring-2 ring-white ring-opacity-20 focus:outline-none focus:ring-opacity-100">
-                          <span className="sr-only">Open user menu</span>
-                          {userDetails && (
-                            <Avatar
-                              alt={`${userDetails.firstName}`}
-                              src={userDetails.photoURL}
-                            ></Avatar>
-                          )}
-                        </Menu.Button>
-                      </div>
-                      <Transition
-                        show={open}
-                        as={Fragment}
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                      >
-                        <Menu.Items
-                          static
-                          className="origin-top-right z-40 absolute -right-2 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                        >
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#"
-                                className={clsx(
-                                  active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
-                                )}
-                              >
-                                Your Profile
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#"
-                                className={clsx(
-                                  active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
-                                )}
-                              >
-                                Settings
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#"
-                                className={clsx(
-                                  active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
-                                )}
-                              >
-                                Sign out
-                              </a>
-                            )}
-                          </Menu.Item>
-                        </Menu.Items>
-                      </Transition>
-                    </>
-                  )}
+                {userDetails && (
+                  <IconButton onClick={handleMenu}>
+                    <span className="sr-only">Open user menu</span>
+                    {console.log(userDetails)}
+                    <Avatar
+                      className="font-semibold ring-2 ring-white ring-opacity-20"
+                      alt={`${userDetails.firstName} ${userDetails.lastName}`}
+                      src={userDetails.photoURL ?? '/useletter.png'}
+                    ></Avatar>
+                  </IconButton>
+                )}
+
+                <Menu
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={leave}>
+                    <ListItemIcon>
+                      <LogoutIcon className="h-5 w-5 text-gray-700" />
+                    </ListItemIcon>
+                    <ListItemText primary="Sair" />
+                  </MenuItem>
                 </Menu>
               </div>
 
@@ -164,7 +147,7 @@ const NavBar = ({ className }: Props) => {
                 </div>
               </div>
 
-              {/* Menu button */}
+              {/* MenuHeadless button */}
               <div className="absolute right-0 flex-shrink-0 lg:hidden">
                 {/* Mobile menu button */}
                 <Popover.Button className="bg-transparent p-2 rounded-md inline-flex items-center justify-center text-indigo-200 hover:text-white hover:bg-white hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white">
