@@ -37,7 +37,6 @@ const Register: NextPage = () => {
                   name="birthdate"
                   format="dd/MM/yyyy"
                   placeholder="dd/mm/yyyy"
-                  color="secondary"
                 />
               </div>
               <div className="mt-4">

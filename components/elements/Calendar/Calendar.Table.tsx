@@ -1,8 +1,8 @@
+import type { Dispatch, SetStateAction } from 'react';
+
 import { useMemo } from 'react';
 import { useTable } from 'react-table';
 import { DateTime, Interval, Info } from 'luxon';
-import { FaDumbbell } from 'react-icons/fa';
-import { GiShinyApple } from 'react-icons/gi';
 
 const WEEK_STARTS_ON_SUNDAY = true;
 
@@ -70,34 +70,43 @@ const getColumns = () => {
   return columns;
 };
 
+interface Props {
+  navDate: DateTime;
+  setNavDate: Dispatch<SetStateAction<DateTime>>;
+  selectedDate: DateTime;
+  setSelectedDate: Dispatch<SetStateAction<DateTime>> | null;
+  expanded: boolean;
+  setExpanded: Dispatch<SetStateAction<boolean>>;
+}
+
 const CalendarTable = ({
-  date,
-  setDate,
-  selectedDateTime,
-  setSelectedDateTime,
-  isExpanded,
-}) => {
+  navDate,
+  setNavDate,
+  selectedDate,
+  setSelectedDate,
+  expanded,
+}: Props) => {
   const getCellClassName = (cellDate) => {
     const classNames = [];
 
     const currWeek = Interval.fromDateTimes(
       //! MAKE SURE THIS IS HOW WEEKS WORK WITH LUXON
-      selectedDateTime.plus({ day: 1 }).startOf('week'),
-      selectedDateTime.plus({ day: 1 }).endOf('week')
+      selectedDate.plus({ day: 1 }).startOf('week'),
+      selectedDate.plus({ day: 1 }).endOf('week')
     ).mapEndpoints((endpoint) => endpoint.minus({ days: 1 }));
 
-    if (!isExpanded && !currWeek.contains(cellDate)) {
+    if (!expanded && !currWeek.contains(cellDate)) {
       return 'hidden';
     }
     if (cellDate.hasSame(DateTime.now(), 'day')) classNames.push('today');
-    if (cellDate.hasSame(selectedDateTime, 'day')) classNames.push('selected');
-    if (!cellDate.hasSame(date, 'month')) classNames.push('another-month');
+    if (cellDate.hasSame(selectedDate, 'day')) classNames.push('selected');
+    if (!cellDate.hasSame(navDate, 'month')) classNames.push('another-month');
 
     return classNames.join(' ');
   };
 
-  const data = useMemo(() => getMonthData(date), [date]);
-  const columns = useMemo(() => getColumns(), [date]);
+  const data = useMemo(() => getMonthData(navDate), [navDate]);
+  const columns = useMemo(() => getColumns(), [navDate]);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
@@ -129,11 +138,11 @@ const CalendarTable = ({
                       <div
                         className={getCellClassName(cell.value)}
                         onClick={() => {
-                          if (!cell.value.hasSame(date, 'month')) {
-                            setDate(cell.value);
+                          if (!cell.value.hasSame(navDate, 'month')) {
+                            setNavDate(cell.value);
                           }
 
-                          setSelectedDateTime(cell.value);
+                          setSelectedDate && setSelectedDate(cell.value);
                         }}
                       >
                         <div>{cell.render('Cell')}</div>

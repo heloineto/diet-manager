@@ -1,7 +1,6 @@
-import CalendarHeader from './Calendar.Header';
-// import CalendarTable from './CalendarTable';
-
 import { useCalendarState } from './Calendar.hooks';
+import CalendarHeader from './Calendar.Header';
+import CalendarTable from './Calendar.Table';
 
 const Calendar = () => {
   const calendarState = useCalendarState();
@@ -18,7 +17,7 @@ const Calendar = () => {
       }}
     >
       <CalendarHeader {...calendarState} />
-      {/* <CalendarTable calendarState={calendarState} /> */}
+      <CalendarTable {...calendarState} />
     </div>
   );
 };
