@@ -1,32 +1,30 @@
 import { useContext, useState } from 'react';
-import clsx from 'clsx';
-
-import navItems from './navItems';
 import Link from 'next/link';
-
-import DietManagerWordmark from '@components/decoration/DietManagerWordmark';
-import DietManagerLogo from '@components/decoration/DietManagerLogo';
-import { UserContext } from '@lib/context';
+import clsx from 'clsx';
 import {
   Avatar,
   Badge,
   Button,
-  Hidden,
   IconButton,
-  makeStyles,
   MenuItem,
   Menu,
   ListItemIcon,
   ListItemText,
   Modal,
 } from '@material-ui/core';
-import { LogoutIcon } from '@heroicons/react/outline';
-import { leave } from '@lib/auth';
+import {
+  LogoutIcon,
+  SearchIcon,
+  BellIcon,
+  MenuIcon,
+  XIcon,
+} from '@heroicons/react/outline';
 
-import { Fragment } from 'react';
-import { Popover, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
-import { SearchIcon } from '@heroicons/react/solid';
+import DietManagerWordmark from '@components/decoration/DietManagerWordmark';
+import DietManagerLogo from '@components/decoration/DietManagerLogo';
+import { UserContext } from '@lib/context';
+import { leave } from '@lib/auth';
+import navItems from './navItems';
 
 interface Props {
   className?: string;
@@ -44,7 +42,6 @@ const NotificationsBadge = ({ qnt = 0 }) => {
   );
 };
 
-//! Convert to material
 const NavBar = ({ className }: Props) => {
   const { userDetails } = useContext(UserContext);
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
