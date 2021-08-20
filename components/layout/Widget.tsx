@@ -13,7 +13,7 @@ const Widget = ({ children, className }: Props) => {
     <div
       className={clsx(
         className,
-        'lg:p-5 lg:bg-white lg:rounded-xl lg:border-2 lg:border-solid lg:border-gray-100 lg:shadow-sm lg:hover:shadow-xl'
+        '-mx-2 p-2 lg:mx-0 lg:p-5 bg-gray-50 lg:bg-white rounded-xl lg:border-2 lg:border-gray-100 lg:shadow-sm lg:hover:shadow-xl'
       )}
     >
       {children}

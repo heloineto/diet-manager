@@ -25,7 +25,7 @@ export const registerSchema = yup.object().shape({
     .min(8, 'A senha curta - insira no mínimo 8 caracteres'),
   birthdate: yup
     .date()
-    .required('Forneça sua data de aniversário')
+    .required('Forneça sua data de nascimento')
     .max(new Date(), 'A data de aniversário deve ser anterior à data atual.'),
   gender: yup.string().required('Forneça um gênero').length(1),
 });

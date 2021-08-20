@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import AuthCheck from '@components/auth/AuthCheck';
 import NavBar from '@components/navigation/NavBar';
 import clsx from 'clsx';
+import Widget from '../Widget';
 
 interface Props {
   children: ReactNode;
@@ -25,9 +26,7 @@ const AppShell = ({ children }: Props) => {
                   <h2 className="sr-only" id="section-1-title">
                     Section title
                   </h2>
-                  <div className="rounded-lg bg-white overflow-hidden shadow">
-                    <div className="p-6">{/* Your content */}</div>
-                  </div>
+                  <Widget>Section 2</Widget>
                 </section>
               </div>
 
@@ -37,9 +36,7 @@ const AppShell = ({ children }: Props) => {
                   <h2 className="sr-only" id="section-2-title">
                     Section title
                   </h2>
-                  <div className="rounded-lg bg-white overflow-hidden shadow">
-                    <div className="p-6">{/* Your content */}</div>
-                  </div>
+                  <Widget>Section 1</Widget>
                 </section>
               </div>
             </div>
@@ -49,7 +46,7 @@ const AppShell = ({ children }: Props) => {
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-7xl">
             <div className="border-t border-gray-200 py-8 text-sm text-gray-500 text-center sm:text-left">
               <span className="block sm:inline">
-                &copy; {'2021 Tailwind Labs Inc. '}
+                &copy; {'2021 Diet Manager Ltd. '}
               </span>
               <span className="block sm:inline">All rights reserved.</span>
             </div>
