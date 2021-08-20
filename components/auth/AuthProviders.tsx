@@ -10,13 +10,13 @@ interface Props {
 
 const AuthProviders = ({ children }: Props) => {
   const dateData = useSelectedDate();
-  // const mealsData = useMealsData(dateData.selectedDate);
+  const mealsData = useMealsData(dateData.selectedDate);
 
   return (
     <SelectedDateContext.Provider value={dateData}>
-      {/* <MealsContext.Provider value={mealsData}> */}
-      {children}
-      {/* </MealsContext.Provider> */}
+      <MealsContext.Provider value={mealsData}>
+        {children}
+      </MealsContext.Provider>
     </SelectedDateContext.Provider>
   );
 };

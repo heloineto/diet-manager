@@ -43,8 +43,7 @@ export const useMealsData = (selectedDateTime: DateTime) => {
   const mealsRef = firestore
     .collection('users')
     .doc(auth.currentUser?.uid)
-    .collection('meals')
-    .withConverter(converter<Meal[]>());
+    .collection('meals');
 
   const mealQuery = mealsRef
     .where('startsAt', '>=', selectedDateTime.startOf('day').toJSDate())
@@ -56,12 +55,12 @@ export const useMealsData = (selectedDateTime: DateTime) => {
   });
 
   useEffect(() => {
-    const snapshot = querySnapshot?.docs.map((doc) => ({
+    if (!querySnapshot) return;
+
+    const snapshot = querySnapshot.docs.map((doc) => ({
       ...doc.data(),
       ref: doc.ref,
     }));
-
-    if (!snapshot) return;
 
     setMeals(snapshot);
   }, [querySnapshot]);
