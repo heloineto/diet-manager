@@ -1,16 +1,19 @@
 import type { ReactNode } from 'react';
+import { useContext } from 'react';
 
 import AuthCheck from '@components/auth/AuthCheck';
 import NavBar from '@components/navigation/NavBar';
 import clsx from 'clsx';
 import Widget from '../Widget';
+import { SelectedDateContext, MealsContext, UserContext } from '@lib/context';
+import { useSelectedDateTime, useMealsData } from '@lib/hooks';
 
 interface Props {
-  children: ReactNode;
+  rightSection: JSX.Element;
+  leftSection: JSX.Element;
 }
 
-//! Convert to material
-const AppShell = ({ children }: Props) => {
+const AppShell = ({ rightSection, leftSection }: Props) => {
   return (
     <AuthCheck>
       <div className="min-h-screen bg-gray-50">
@@ -22,23 +25,11 @@ const AppShell = ({ children }: Props) => {
             <div className="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
               {/* Left column */}
               <div className="grid grid-cols-1 gap-4 lg:col-span-2">
-                <section aria-labelledby="section-1-title">
-                  <h2 className="sr-only" id="section-1-title">
-                    Section title
-                  </h2>
-                  <Widget>Section 2</Widget>
-                </section>
+                {leftSection}
               </div>
 
               {/* Right column */}
-              <div className="grid grid-cols-1 gap-4">
-                <section aria-labelledby="section-2-title">
-                  <h2 className="sr-only" id="section-2-title">
-                    Section title
-                  </h2>
-                  <Widget>Section 1</Widget>
-                </section>
-              </div>
+              <div className="grid grid-cols-1 gap-4">{rightSection}</div>
             </div>
           </div>
         </main>

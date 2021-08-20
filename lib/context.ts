@@ -1,6 +1,8 @@
+import type { Dispatch, SetStateAction } from 'react';
 import type firebase from 'firebase/app';
 
 import { createContext } from 'react';
+import { DateTime } from 'luxon';
 
 export const UserContext = createContext({
   user: null,
@@ -12,9 +14,11 @@ export const UserContext = createContext({
   userDetails: UserDetails | null;
 });
 
-export const CalendarContext = createContext({
-  selectedDateTime: null,
-  setSelectedDateTime: null,
-});
+export const SelectedDateContext = createContext({
+  selectedDate: DateTime.now(),
+  setSelectedDate: null,
+} as { selectedDate: DateTime; setSelectedDate: Dispatch<SetStateAction<DateTime>> | null });
 
-export const MealsContext = createContext({ meals: null });
+export const MealsContext = createContext({ meals: [] } as {
+  meals: {}[];
+});

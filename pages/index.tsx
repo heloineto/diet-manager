@@ -1,15 +1,22 @@
 import type { NextPage } from 'next';
 
 import AppShell from '@components/layout/app-shells/AppShell';
+import Section from '@components/layout/Section';
 
 const Home: NextPage = () => {
   return (
-    <AppShell>
-      <div className="bg-blue-100 w-full h-full"></div>
-      <div className="bg-blue-100 w-full h-full"></div>
-      <div className="bg-blue-100 w-full h-full"></div>
-    </AppShell>
+    <AppShell
+      leftSection={<Section>Left</Section>}
+      rightSection={<Section>Right</Section>}
+    />
   );
 };
 
 export default Home;
+
+/**
+ * TODO:
+ *
+ * Add visibility toggle to password fields
+ * Add animation to the modal in
+ */

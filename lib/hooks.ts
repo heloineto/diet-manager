@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 
 import { auth, firestore } from '@lib/firebase';
+import { converter } from '@utils/firestore';
 
 export const useUserData = () => {
   const [user, loading] = useAuthState(auth);
@@ -30,16 +31,20 @@ export const useUserData = () => {
   return { user, loading, userDetails };
 };
 
-export const useMealsData = ({
-  selectedDateTime,
-  uid,
-}: {
-  selectedDateTime: DateTime;
-  uid: string;
-}) => {
+export const useSelectedDate = () => {
+  const [selectedDate, setSelectedDate] = useState(DateTime.now());
+
+  return { selectedDate, setSelectedDate };
+};
+
+export const useMealsData = (selectedDateTime: DateTime, uid: string) => {
   const [meals, setMeals] = useState<{}[]>([]);
 
-  const mealsRef = firestore.collection('users').doc(uid).collection('meals');
+  const mealsRef = firestore
+    .collection('users')
+    .doc(uid)
+    .collection('meals')
+    .withConverter(converter<Meal[]>());
 
   const mealQuery = mealsRef
     .where('startsAt', '>=', selectedDateTime.startOf('day').toJSDate())
@@ -62,12 +67,6 @@ export const useMealsData = ({
   }, [querySnapshot]);
 
   return { meals };
-};
-
-export const useCalendarData = () => {
-  const [selectedDateTime, setSelectedDateTime] = useState(DateTime.now());
-
-  return { selectedDateTime, setSelectedDateTime };
 };
 
 export const useWindowDimensions = () => {
