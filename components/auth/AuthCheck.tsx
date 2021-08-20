@@ -18,17 +18,20 @@ const AuthCheck = ({ children }: Props) => {
     if (!user && !loading) router.replace('/enter');
   }, [user, loading]);
 
-  const calendarData = useSelectedDate();
+  if (user) {
+    const dateData = useSelectedDate();
+    const mealsData = useMealsData(dateData.selectedDate, user.uid);
 
-  return user ? (
-    <SelectedDateContext.Provider value={calendarData}>
-      <MealsContext.Provider
-        value={useMealsData(calendarData.selectedDateTime, user.uid)}
-      >
-        {children}
-      </MealsContext.Provider>
-    </SelectedDateContext.Provider>
-  ) : null;
+    return (
+      <SelectedDateContext.Provider value={dateData}>
+        <MealsContext.Provider value={mealsData}>
+          {children}
+        </MealsContext.Provider>
+      </SelectedDateContext.Provider>
+    );
+  }
+
+  return null;
 };
 
 export default AuthCheck;
