@@ -4,7 +4,7 @@ import '../styles/globals.css';
 
 import { useEffect } from 'react';
 import { TextField, ThemeProvider } from '@material-ui/core';
-import ReactOutlineManager from 'react-outline-manager';
+
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
@@ -26,15 +26,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   }, []);
 
   return (
-    <ReactOutlineManager toggle={true}>
-      <ThemeProvider theme={theme}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <UserContext.Provider value={userData}>
-            <Component {...pageProps} />
-          </UserContext.Provider>
-        </MuiPickersUtilsProvider>
-      </ThemeProvider>
-    </ReactOutlineManager>
+    <ThemeProvider theme={theme}>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <UserContext.Provider value={userData}>
+          <Component {...pageProps} />
+        </UserContext.Provider>
+      </MuiPickersUtilsProvider>
+    </ThemeProvider>
   );
 };
 

@@ -30,7 +30,7 @@ const Enter: NextPage = () => {
           <form onSubmit={handleSubmit}>
             <div className="mt-4">
               <div className="flex flex-col gap-y-4">
-                <TextField label="E-mail" name="email" />
+                <TextField label="E-mail" name="email" type="text" />
                 <TextField label="Senha" name="password" type="password" />
               </div>
               <div className="w-full mt-1 flex justify-between items-center">

@@ -107,18 +107,17 @@ const NavBar = ({ className }: Props) => {
                         : 'ring-2 ring-opacity-20'
                     )}
                     alt={`${userDetails.firstName} ${userDetails.lastName}`}
-                    src={userDetails.photoURL ?? '/useletter.png'}
-                  />
+                    src={userDetails.photoURL}
+                  >
+                    {userDetails.firstName?.charAt(0) ?? null}
+                  </Avatar>
                 </IconButton>
               )}
 
-              {/* <Menu
-                classes={
-                  {
-                    // paper: 'transform translate-y-full',
-                  }
-                }
+              <Menu
                 anchorEl={menuAnchor}
+                open={menuOpen}
+                onClose={() => setMenuAnchor(null)}
                 anchorOrigin={{
                   vertical: 'bottom',
                   horizontal: 'right',
@@ -127,8 +126,6 @@ const NavBar = ({ className }: Props) => {
                   vertical: 'top',
                   horizontal: 'right',
                 }}
-                open={menuOpen}
-                onClose={() => setMenuAnchor(null)}
                 getContentAnchorEl={null}
               >
                 <MenuItem onClick={leave}>
@@ -137,7 +134,7 @@ const NavBar = ({ className }: Props) => {
                   </ListItemIcon>
                   <ListItemText primary="Sair" />
                 </MenuItem>
-              </Menu> */}
+              </Menu>
             </div>
 
             {/* Search Centered */}
@@ -220,7 +217,7 @@ const NavBar = ({ className }: Props) => {
                   <div className="-mr-2">
                     <IconButton
                       className="bg-white p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none"
-                      // onClick={() => setMobileOpen(false)}
+                      onClick={() => setMobileOpen(false)}
                     >
                       <span className="sr-only">Close menu</span>
                       <XIcon className="h-6 w-6" aria-hidden="true" />
