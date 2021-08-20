@@ -3,8 +3,9 @@ import type { ReactNode } from 'react';
 import { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import { SelectedDateContext, MealsContext, UserContext } from '@lib/context';
-import { useSelectedDate, useMealsData } from '@lib/hooks';
+import { UserContext } from '@lib/context';
+
+import AuthProviders from './AuthProviders';
 
 interface Props {
   children: ReactNode;
@@ -18,20 +19,7 @@ const AuthCheck = ({ children }: Props) => {
     if (!user && !loading) router.replace('/enter');
   }, [user, loading]);
 
-  if (user) {
-    const dateData = useSelectedDate();
-    const mealsData = useMealsData(dateData.selectedDate, user.uid);
-
-    return (
-      <SelectedDateContext.Provider value={dateData}>
-        <MealsContext.Provider value={mealsData}>
-          {children}
-        </MealsContext.Provider>
-      </SelectedDateContext.Provider>
-    );
-  }
-
-  return null;
+  return user ? <AuthProviders>{children}</AuthProviders> : null;
 };
 
 export default AuthCheck;

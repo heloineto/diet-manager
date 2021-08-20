@@ -9,8 +9,6 @@ import AuthFlowShell from '@components/layout/app-shells/AuthFlowShell';
 import { register } from '@lib/auth';
 import { registerSchema } from '@utils/validation';
 
-import DateFnsUtils from '@date-io/date-fns';
-
 const Register: NextPage = () => {
   return (
     <AuthFlowShell>
@@ -37,7 +35,6 @@ const Register: NextPage = () => {
                 <KeyboardDatePicker
                   label="Data de nascimento"
                   name="birthdate"
-                  dateFunsUtils={DateFnsUtils}
                   format="dd/MM/yyyy"
                   placeholder="dd/mm/yyyy"
                   color="secondary"

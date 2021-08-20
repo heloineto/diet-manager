@@ -1,12 +1,6 @@
-import type { ReactNode } from 'react';
-import { useContext } from 'react';
-
 import AuthCheck from '@components/auth/AuthCheck';
 import NavBar from '@components/navigation/NavBar';
 import clsx from 'clsx';
-import Widget from '../Widget';
-import { SelectedDateContext, MealsContext, UserContext } from '@lib/context';
-import { useSelectedDateTime, useMealsData } from '@lib/hooks';
 
 interface Props {
   rightSection: JSX.Element;

@@ -17,7 +17,7 @@ const Calendar = () => {
         setExpanded(false);
       }}
     >
-      <CalendarHeader calendarState={calendarState} />
+      <CalendarHeader {...calendarState} />
       {/* <CalendarTable calendarState={calendarState} /> */}
     </div>
   );

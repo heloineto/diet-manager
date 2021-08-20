@@ -37,12 +37,12 @@ export const useSelectedDate = () => {
   return { selectedDate, setSelectedDate };
 };
 
-export const useMealsData = (selectedDateTime: DateTime, uid: string) => {
+export const useMealsData = (selectedDateTime: DateTime) => {
   const [meals, setMeals] = useState<{}[]>([]);
 
   const mealsRef = firestore
     .collection('users')
-    .doc(uid)
+    .doc(auth.currentUser?.uid)
     .collection('meals')
     .withConverter(converter<Meal[]>());
 

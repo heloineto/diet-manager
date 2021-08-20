@@ -112,10 +112,12 @@ const NavBar = ({ className }: Props) => {
                 </IconButton>
               )}
 
-              <Menu
-                classes={{
-                  paper: 'transform translate-y-full',
-                }}
+              {/* <Menu
+                classes={
+                  {
+                    // paper: 'transform translate-y-full',
+                  }
+                }
                 anchorEl={menuAnchor}
                 anchorOrigin={{
                   vertical: 'bottom',
@@ -127,6 +129,7 @@ const NavBar = ({ className }: Props) => {
                 }}
                 open={menuOpen}
                 onClose={() => setMenuAnchor(null)}
+                getContentAnchorEl={null}
               >
                 <MenuItem onClick={leave}>
                   <ListItemIcon>
@@ -134,7 +137,7 @@ const NavBar = ({ className }: Props) => {
                   </ListItemIcon>
                   <ListItemText primary="Sair" />
                 </MenuItem>
-              </Menu>
+              </Menu> */}
             </div>
 
             {/* Search Centered */}
@@ -208,6 +211,7 @@ const NavBar = ({ className }: Props) => {
             onClose={() => setMobileOpen(false)}
             aria-labelledby="Mobile menu"
             aria-describedby="Menu on small screens for navigation between pages"
+            disableEnforceFocus
           >
             <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y divide-gray-200">
               <div className="pt-3 pb-2">
@@ -216,7 +220,7 @@ const NavBar = ({ className }: Props) => {
                   <div className="-mr-2">
                     <IconButton
                       className="bg-white p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none"
-                      onClick={() => setMobileOpen(false)}
+                      // onClick={() => setMobileOpen(false)}
                     >
                       <span className="sr-only">Close menu</span>
                       <XIcon className="h-6 w-6" aria-hidden="true" />

@@ -3,8 +3,10 @@ import type { AppProps } from 'next/app';
 import '../styles/globals.css';
 
 import { useEffect } from 'react';
-import { ThemeProvider } from '@material-ui/core';
+import { TextField, ThemeProvider } from '@material-ui/core';
 import ReactOutlineManager from 'react-outline-manager';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 import { UserContext } from '@lib/context';
 import { useUserData } from '@lib/hooks';
@@ -26,9 +28,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ReactOutlineManager toggle={true}>
       <ThemeProvider theme={theme}>
-        <UserContext.Provider value={userData}>
-          <Component {...pageProps} />
-        </UserContext.Provider>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <UserContext.Provider value={userData}>
+            <Component {...pageProps} />
+          </UserContext.Provider>
+        </MuiPickersUtilsProvider>
       </ThemeProvider>
     </ReactOutlineManager>
   );
