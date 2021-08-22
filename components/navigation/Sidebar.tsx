@@ -23,8 +23,9 @@ const Sidebar = ({
   const router = useRouter();
 
   const renderNavItems = () =>
-    navItems.map(({ name, label, Icon, href }) => {
+    navItems.map(({ name, label, IconOutlined, IconSolid, href }) => {
       const current = router.pathname === href;
+      const Icon = current ? IconSolid : IconOutlined;
 
       return (
         <Link key={name} href={href} aria-current={current ? 'page' : 'false'}>
