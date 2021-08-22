@@ -74,12 +74,12 @@ const CalendarHeader = ({
           <ChevronRightIcon className="h-6 w-6" />
         </IconButton>
       </div>
-      <div className="ml-2 text-xl font-bold text-gray-700">{`${startCase(
+      <div className="ml-1 text-lg font-bold text-gray-700">{`${startCase(
         navDate.monthLong
       )} ${navDate.year}`}</div>
 
       <Button
-        className="ml-auto mr-2 border-2 text-lg"
+        className="ml-auto mr-2 border-2 text-base"
         color="secondary"
         variant="outlined"
         onClick={() => goto(DateTime.now())}

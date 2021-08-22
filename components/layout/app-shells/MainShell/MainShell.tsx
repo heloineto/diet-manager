@@ -29,12 +29,11 @@ const MainShell = ({ children, aside }: Props) => {
 
           <div className="flex-1 flex items-stretch overflow-hidden">
             <main className="flex-1 overflow-y-auto">
-              <Section>{children}</Section>
+              <Section className="p-2.5">{children}</Section>
             </main>
 
-            {/* Secondary column (hidden on smaller screens) */}
-            <aside className="hidden w-[26rem] border-l border-gray-200 overflow-y-auto lg:block">
-              {/* Your content */}
+            <aside className="hidden lg:block lg:w-96 xl:w-[26rem] border-l border-gray-200 overflow-y-auto p-2.5">
+              {aside}
             </aside>
           </div>
         </div>

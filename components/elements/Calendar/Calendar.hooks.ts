@@ -6,7 +6,7 @@ export const useCalendarState = () => {
   const { selectedDate, setSelectedDate } = useContext(SelectedDateContext);
 
   const [navDate, setNavDate] = useState(DateTime.now());
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   return {
     navDate,

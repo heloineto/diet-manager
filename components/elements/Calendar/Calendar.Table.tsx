@@ -3,6 +3,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import { useMemo } from 'react';
 import { useTable } from 'react-table';
 import { DateTime, Interval, Info } from 'luxon';
+import clsx from 'clsx';
 
 const WEEK_STARTS_ON_SUNDAY = true;
 
@@ -113,12 +114,12 @@ const CalendarTable = ({
 
   return (
     <div className="p-2">
-      <table {...getTableProps()} className="calendar-table">
+      <table className="w-full table-fixed" {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()} className="table-row">
+            <tr className="table-row" {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>
+                <th className="table-cell" {...column.getHeaderProps()}>
                   <div className="text-gray-600 font-extrabold text-sm sm:text-base">
                     {column.render('Header')}
                   </div>
@@ -134,9 +135,19 @@ const CalendarTable = ({
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return (
-                    <td {...cell.getCellProps()}>
+                    <td className="table-cell" {...cell.getCellProps()}>
                       <div
-                        className={getCellClassName(cell.value)}
+                        className={clsx(
+                          getCellClassName(cell.value),
+                          `h-10 relative w-full text-gray-600 font-semibold text-lg border-2 rounded-lg
+                          overflow-hidden cursor-pointer transition-shadow duration-1000
+
+                          hover:transition-shadow hover:duration-[0s] hover:shadow-calendar-primary-500
+
+                          after:pb-[75%]
+                          
+                          `
+                        )}
                         onClick={() => {
                           if (!cell.value.hasSame(navDate, 'month')) {
                             setNavDate(cell.value);
@@ -145,7 +156,9 @@ const CalendarTable = ({
                           setSelectedDate && setSelectedDate(cell.value);
                         }}
                       >
-                        <div>{cell.render('Cell')}</div>
+                        <div className="text-sm sm:text-base absolute w-full h-full flex flex-col items-center justify-center">
+                          {cell.render('Cell')}
+                        </div>
                       </div>
                     </td>
                   );

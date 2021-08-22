@@ -3,14 +3,15 @@ import { kebabCase } from 'lodash';
 
 interface Props {
   children: ReactNode;
+  className?: string;
   name?: string;
 }
 
-const Section = ({ children, name = '' }: Props) => {
+const Section = ({ children, className, name = '' }: Props) => {
   const kebabName = kebabCase(name);
 
   return (
-    <section aria-labelledby={kebabName}>
+    <section className={className} aria-labelledby={kebabName}>
       <h1 className="sr-only" id={kebabName}>
         {name}
       </h1>

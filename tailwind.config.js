@@ -37,6 +37,7 @@ module.exports = {
           '0px 3px 1px -2px rgb(31 41 55 / 30%), 0px 2px 2px 0px rgb(31 41 55 / 24%), 0px 1px 5px 0px rgb(31 41 55 / 22%)',
         'xl-gray-800':
           '0px 2px 4px -1px rgb(31 41 55 / 40%), 0px 4px 5px 0px rgb(31 41 55 / 34%), 0px 1px 10px 0px rgb(31 41 55 / 32%)',
+        'calendar-primary-500': '0 0 25px rgba(50, 204, 15, 1)',
       },
     },
   },

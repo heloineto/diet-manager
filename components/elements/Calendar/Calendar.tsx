@@ -10,11 +10,11 @@ const Calendar = () => {
   return (
     <div
       className="border-2 rounded-xl"
-      onMouseEnter={() => setExpanded(true)}
-      onMouseLeave={() => {
-        if (!navDate.hasSame(selectedDate, 'month')) setNavDate(selectedDate);
-        setExpanded(false);
-      }}
+      // onMouseEnter={() => setExpanded(true)}
+      // onMouseLeave={() => {
+      //   if (!navDate.hasSame(selectedDate, 'month')) setNavDate(selectedDate);
+      //   setExpanded(false);
+      // }}
     >
       <CalendarHeader {...calendarState} />
       <CalendarTable {...calendarState} />
