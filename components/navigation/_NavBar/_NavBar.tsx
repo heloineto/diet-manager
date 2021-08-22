@@ -24,7 +24,7 @@ import DietManagerWordmark from '@components/decoration/DietManagerWordmark';
 import DietManagerLogo from '@components/decoration/DietManagerLogo';
 import { UserContext } from '@lib/context';
 import { leave } from '@lib/auth';
-import navItems from './navItems';
+import navItems from '../navItems';
 
 interface Props {
   className?: string;

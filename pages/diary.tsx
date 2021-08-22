@@ -1,12 +1,12 @@
 import type { NextPage } from 'next';
 
-import AppShell from '@components/layout/app-shells/AppShell';
+import MainShell from '@components/layout/app-shells/MainShell';
 import Section from '@components/layout/Section';
 import Calendar from '@components/elements/Calendar';
 
 const Diary: NextPage = () => {
   return (
-    <AppShell
+    <MainShell
       leftSection={
         <Section>
           <Calendar /> Meals

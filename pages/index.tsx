@@ -1,11 +1,11 @@
 import type { NextPage } from 'next';
 
-import AppShell from '@components/layout/app-shells/AppShell';
+import MainShell from '@components/layout/app-shells/MainShell';
 import Section from '@components/layout/Section';
 
 const Home: NextPage = () => {
   return (
-    <AppShell
+    <MainShell
       leftSection={<Section>Left</Section>}
       rightSection={<Section>Right</Section>}
     />

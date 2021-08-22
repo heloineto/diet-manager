@@ -6,7 +6,6 @@ const DietManagerWordmark = ({ className }: Props) => {
   return (
     <svg
       className={className}
-      style={{ paddingBottom: '0.211633663%' }}
       viewBox="0 0 808 171"
       xmlns="http://www.w3.org/2000/svg"
     >
