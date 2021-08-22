@@ -5,8 +5,6 @@ import CalendarTable from './Calendar.Table';
 const Calendar = () => {
   const calendarState = useCalendarState();
 
-  const { navDate, setNavDate, selectedDate, setExpanded } = calendarState;
-
   return (
     <div
       className="border-2 rounded-xl"

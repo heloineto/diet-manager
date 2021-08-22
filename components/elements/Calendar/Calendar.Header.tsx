@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { Form } from 'react-final-form';
 import { DateTime } from 'luxon';
 import { startCase } from 'lodash';
-import { DatePicker, KeyboardDatePicker } from 'mui-rff';
+import { KeyboardDatePicker } from 'mui-rff';
 import clsx from 'clsx';
-import { IconButton, Button } from '@material-ui/core';
+import { IconButton, Button, ButtonGroup } from '@material-ui/core';
 import {
   ArrowLeftIcon,
   SearchIcon,
@@ -49,7 +49,7 @@ const CalendarHeader = ({
       </IconButton>
 
       <Form onSubmit={({ date }) => goto(DateTime.fromJSDate(date))}>
-        {({ handleSubmit, form, values }) => (
+        {({ handleSubmit }) => (
           <form onSubmit={handleSubmit} className="w-full">
             <KeyboardDatePicker
               label="Escolha uma data"
@@ -65,15 +65,19 @@ const CalendarHeader = ({
 
   const renderNormalMode = () => (
     <>
-      <div className="flex items-center">
-        <IconButton className="p-1 h-8 w-8" onClick={navigateForward}>
-          <ChevronLeftIcon className="h-6 w-6" />
-        </IconButton>
+      <IconButton
+        className="p-1 h-8 w-8 hover:text-blue-600"
+        onClick={navigateForward}
+      >
+        <ChevronLeftIcon className="h-6 w-6" />
+      </IconButton>
 
-        <IconButton className="p-1 h-8 w-8" onClick={navigateBackward}>
-          <ChevronRightIcon className="h-6 w-6" />
-        </IconButton>
-      </div>
+      <IconButton
+        className="p-1 h-8 w-8 hover:text-blue-600"
+        onClick={navigateBackward}
+      >
+        <ChevronRightIcon className="h-6 w-6" />
+      </IconButton>
       <div className="ml-1 text-lg font-bold text-gray-700">{`${startCase(
         navDate.monthLong
       )} ${navDate.year}`}</div>
@@ -83,7 +87,6 @@ const CalendarHeader = ({
         color="secondary"
         variant="outlined"
         onClick={() => goto(DateTime.now())}
-        //w-1/5 border-2 rounded-lg h-full grid place-content-center font-semibold hover:border-blue-500 hover:text-blue-600
       >
         Hoje
       </Button>

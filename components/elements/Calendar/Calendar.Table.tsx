@@ -2,74 +2,10 @@ import type { Dispatch, SetStateAction } from 'react';
 
 import { useMemo } from 'react';
 import { useTable } from 'react-table';
-import { DateTime, Interval, Info } from 'luxon';
+import { DateTime, Interval } from 'luxon';
 import clsx from 'clsx';
 
-const WEEK_STARTS_ON_SUNDAY = true;
-
-const WEEKDAYS = Info.weekdays('short', { locale: 'br' }).map((weekday) =>
-  weekday.replace('.', '')
-);
-
-if (WEEK_STARTS_ON_SUNDAY) {
-  const aux = WEEKDAYS.pop();
-  WEEKDAYS.unshift(aux);
-}
-
-/**
- * According to international standard ISO 8601, weeks always start on Mondays.
- * Keep that in mind.
- */
-
-const getMonthData = (date = DateTime.now()) => {
-  const startOfMonth = date.startOf('month');
-  const endOfMonth = date.endOf('month');
-
-  const startDay = startOfMonth.startOf('week'); /* .minus({ day: 1 }); */
-  const endDay = endOfMonth.endOf('week'); /* .minus({ day: 1 }); */
-
-  let calendarInterval = Interval.fromDateTimes(startDay, endDay);
-
-  while (calendarInterval.count('weeks') < 6) {
-    calendarInterval = calendarInterval.set({
-      end: calendarInterval.end.plus({ weeks: 1 }),
-    });
-  }
-
-  if (WEEK_STARTS_ON_SUNDAY) {
-    calendarInterval = calendarInterval.mapEndpoints((endpoint) =>
-      endpoint.minus({ days: 1 })
-    );
-  }
-
-  const monthData = [];
-
-  calendarInterval.splitBy({ week: 1 }).forEach((week) => {
-    const weekData = {};
-
-    week
-      .splitBy({ day: 1 })
-      .forEach(({ start }, idx) => (weekData[WEEKDAYS[idx]] = start));
-
-    monthData.push(weekData);
-  });
-
-  return monthData;
-};
-
-const getColumns = () => {
-  const columns = [];
-
-  WEEKDAYS.forEach((weekday) => {
-    columns.push({
-      Header: weekday.charAt(0).toUpperCase() + weekday.slice(1),
-      accessor: weekday,
-      Cell: ({ value }) => <div>{value.day}</div>,
-    });
-  });
-
-  return columns;
-};
+import { getColumns, getMonthData } from './Calendar.utils';
 
 interface Props {
   navDate: DateTime;
@@ -87,27 +23,17 @@ const CalendarTable = ({
   setSelectedDate,
   expanded,
 }: Props) => {
-  const getCellClassName = (cellDate) => {
-    const classNames = [];
-
-    const currWeek = Interval.fromDateTimes(
-      //! MAKE SURE THIS IS HOW WEEKS WORK WITH LUXON
-      selectedDate.plus({ day: 1 }).startOf('week'),
-      selectedDate.plus({ day: 1 }).endOf('week')
-    ).mapEndpoints((endpoint) => endpoint.minus({ days: 1 }));
-
-    if (!expanded && !currWeek.contains(cellDate)) {
-      return 'hidden';
-    }
-    if (cellDate.hasSame(DateTime.now(), 'day')) classNames.push('today');
-    if (cellDate.hasSame(selectedDate, 'day')) classNames.push('selected');
-    if (!cellDate.hasSame(navDate, 'month')) classNames.push('another-month');
-
-    return classNames.join(' ');
-  };
-
   const data = useMemo(() => getMonthData(navDate), [navDate]);
   const columns = useMemo(() => getColumns(), [navDate]);
+
+  const currWeek = useMemo(
+    () =>
+      Interval.fromDateTimes(
+        selectedDate.plus({ day: 1 }).startOf('week'),
+        selectedDate.plus({ day: 1 }).endOf('week')
+      ).mapEndpoints((endpoint) => endpoint.minus({ days: 1 })),
+    [selectedDate]
+  );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
@@ -120,7 +46,7 @@ const CalendarTable = ({
             <tr className="table-row" {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <th className="table-cell" {...column.getHeaderProps()}>
-                  <div className="text-gray-600 font-extrabold text-sm sm:text-base">
+                  <div className="text-gray-600 font-bold text-sm">
                     {column.render('Header')}
                   </div>
                 </th>
@@ -134,18 +60,30 @@ const CalendarTable = ({
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
+                  const cellDate = cell.value;
+
+                  const shouldHide = !expanded && !currWeek.contains(cellDate);
+                  const isToday = cellDate.hasSame(DateTime.now(), 'day');
+                  const isSelected = cellDate.hasSame(selectedDate, 'day');
+                  const isAnotherMonth = !cellDate.hasSame(navDate, 'month');
+
                   return (
                     <td className="table-cell" {...cell.getCellProps()}>
                       <div
                         className={clsx(
-                          getCellClassName(cell.value),
-                          `h-10 relative w-full text-gray-600 font-semibold text-lg border-2 rounded-lg
+                          {
+                            hidden: shouldHide,
+                            'border-primary-200': isToday,
+                            '!border-primary-500 text-primary-600': isSelected,
+                            'text-gray-300 border-gray-100': isAnotherMonth,
+                          },
+                          `
+                          relative w-full text-gray-600 font-semibold border-2 rounded-md
                           overflow-hidden cursor-pointer transition-shadow duration-1000
 
                           hover:transition-shadow hover:duration-[0s] hover:shadow-calendar-primary-500
 
-                          after:pb-[75%]
-                          
+                          after:block after:pb-[75%]  
                           `
                         )}
                         onClick={() => {
@@ -156,7 +94,15 @@ const CalendarTable = ({
                           setSelectedDate && setSelectedDate(cell.value);
                         }}
                       >
-                        <div className="text-sm sm:text-base absolute w-full h-full flex flex-col items-center justify-center">
+                        <div
+                          className={clsx(
+                            {
+                              'bg-primary-200 border-2 border-white rounded-md':
+                                isToday,
+                            },
+                            'text-[0.950rem] absolute w-full h-full flex flex-col items-center justify-center'
+                          )}
+                        >
                           {cell.render('Cell')}
                         </div>
                       </div>
