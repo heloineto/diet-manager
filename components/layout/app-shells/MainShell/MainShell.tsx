@@ -13,7 +13,7 @@ interface Props {
 }
 
 const MainShell = ({ children, aside }: Props) => {
-  const [sideBarOpen, setSideBarOpen] = useState(true);
+  const [sideBarOpen, setSideBarOpen] = useState(false);
 
   const toggleSideBarOpen = () => setSideBarOpen((value) => !value);
 
@@ -33,7 +33,7 @@ const MainShell = ({ children, aside }: Props) => {
             </main>
 
             {/* Secondary column (hidden on smaller screens) */}
-            <aside className="hidden w-96 bg-white border-l border-gray-200 overflow-y-auto lg:block">
+            <aside className="hidden w-[26rem] border-l border-gray-200 overflow-y-auto lg:block">
               {/* Your content */}
             </aside>
           </div>

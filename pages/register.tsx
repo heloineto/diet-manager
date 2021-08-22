@@ -54,7 +54,7 @@ const Register: NextPage = () => {
               <Button
                 type="submit"
                 variant="contained"
-                className="w-full mt-1 shadow-primary-500 hover:shadow-xl-primary-500"
+                className="w-full mt-1 shadow-primary-500 hover:shadow-xl-primary-500 disabled:shadow-none disabled:bg-primary-200"
                 disabled={submitting}
               >
                 Cadastrar

@@ -1,10 +1,10 @@
-import { useState } from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { Button, Drawer, Hidden, IconButton } from '@material-ui/core';
+import { Button, Drawer, IconButton } from '@material-ui/core';
 
 import DietManagerLogo from '@components/decoration/DietManagerLogo';
 import navItems from './navItems';
+import { useRouter } from 'next/router';
 
 interface Props {
   className?: string;
@@ -20,36 +20,42 @@ const Sidebar = ({
   toggleSideBarOpen,
   window,
 }: Props) => {
+  const router = useRouter();
+
   const renderNavItems = () =>
-    navItems.map(({ name, label, Icon, href }) => (
-      <Link key={name} href={href} aria-current={false ? 'page' : 'false'}>
-        <Button
-          className={clsx(
-            false
-              ? 'bg-primary-200 text-primary-800'
-              : 'text-gray-800 hover:text-primary-800',
-            'group w-full h-16 text-xs hover:bg-primary-100'
-          )}
-          classes={{
-            label: 'static flex flex-col items-center justify-center gap-y-1',
-            startIcon: 'static m-0',
-          }}
-          startIcon={
-            <Icon
-              className={clsx(
-                false
-                  ? 'text-primary-900'
-                  : 'text-gray-700 group-hover:text-primary-900',
-                'h-6 w-6'
-              )}
-              aria-hidden="true"
-            />
-          }
-        >
-          {label}
-        </Button>
-      </Link>
-    ));
+    navItems.map(({ name, label, Icon, href }) => {
+      const current = router.pathname === href;
+
+      return (
+        <Link key={name} href={href} aria-current={current ? 'page' : 'false'}>
+          <Button
+            className={clsx(
+              current
+                ? 'bg-primary-200 text-primary-800'
+                : 'text-gray-800 hover:text-primary-800',
+              'group w-full h-16 text-xs hover:bg-primary-100'
+            )}
+            classes={{
+              label: 'static flex flex-col items-center justify-center gap-y-1',
+              startIcon: 'static m-0',
+            }}
+            startIcon={
+              <Icon
+                className={clsx(
+                  current
+                    ? 'text-primary-900'
+                    : 'text-gray-700 group-hover:text-primary-900',
+                  'h-6 w-6'
+                )}
+                aria-hidden="true"
+              />
+            }
+          >
+            {label}
+          </Button>
+        </Link>
+      );
+    });
 
   return (
     <div className={className}>
