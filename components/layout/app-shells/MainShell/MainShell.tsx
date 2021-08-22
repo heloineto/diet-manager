@@ -38,16 +38,19 @@ const userNavigation = [
 ];
 
 const MainShell = ({ rightSection, leftSection }: Props) => {
+  const [sideBarOpen, setSideBarOpen] = useState(true);
+
+  const toggleSideBarOpen = () => setSideBarOpen((value) => !value);
+
   return (
     <AuthCheck>
       <div className="h-screen bg-gray-50 flex overflow-hidden">
-        {/* Narrow sidebar */}
-        <Sidebar />
-        {/* Mobile menu */}
-
-        {/* Content area */}
+        <Sidebar
+          sideBarOpen={sideBarOpen}
+          toggleSideBarOpen={toggleSideBarOpen}
+        />
         <div className="flex-1 flex flex-col overflow-hidden">
-          <Navbar />
+          <Navbar toggleSideBarOpen={toggleSideBarOpen} />
           {/* Main content */}
           <div className="flex-1 flex items-stretch overflow-hidden">
             <main className="flex-1 overflow-y-auto">
