@@ -37,9 +37,9 @@ const CalendarHeader = ({
   const navigateBackward = () =>
     setNavDate(navDate.plus(expanded ? { months: 1 } : { weeks: 1 }));
 
-  const gotoToday = () => {
-    setNavDate(DateTime.now());
-    setSelectedDate && setSelectedDate(DateTime.now());
+  const goto = (date: DateTime) => {
+    setNavDate(date);
+    setSelectedDate && setSelectedDate(date);
   };
 
   const renderSearchMode = () => (
@@ -48,7 +48,7 @@ const CalendarHeader = ({
         <ArrowLeftIcon className="h-6 w-6" />
       </IconButton>
 
-      <Form onSubmit={({ date }) => console.log(date)}>
+      <Form onSubmit={({ date }) => goto(DateTime.fromJSDate(date))}>
         {({ handleSubmit, form, values }) => (
           <form onSubmit={handleSubmit} className="w-full">
             <KeyboardDatePicker
@@ -82,7 +82,7 @@ const CalendarHeader = ({
         className="ml-auto mr-2 border-2 text-lg"
         color="secondary"
         variant="outlined"
-        onClick={gotoToday}
+        onClick={() => goto(DateTime.now())}
         //w-1/5 border-2 rounded-lg h-full grid place-content-center font-semibold hover:border-blue-500 hover:text-blue-600
       >
         Hoje
