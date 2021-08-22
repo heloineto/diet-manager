@@ -1,6 +1,5 @@
-import { kebabCase } from 'lodash';
 import type { ReactNode } from 'react';
-import Widget from './Widget';
+import { kebabCase } from 'lodash';
 
 interface Props {
   children: ReactNode;
@@ -12,10 +11,10 @@ const Section = ({ children, name = '' }: Props) => {
 
   return (
     <section aria-labelledby={kebabName}>
-      <h2 className="sr-only" id={kebabName}>
+      <h1 className="sr-only" id={kebabName}>
         {name}
-      </h2>
-      <Widget>{children}</Widget>
+      </h1>
+      {children}
     </section>
   );
 };
