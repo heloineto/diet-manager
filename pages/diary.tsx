@@ -1,11 +1,15 @@
 import type { NextPage } from 'next';
 
 import MainShell from '@components/layout/app-shells/MainShell';
-import Section from '@components/layout/Section';
 import Calendar from '@components/elements/Calendar';
+import Meals from '@components/elements/Meals';
 
 const Diary: NextPage = () => {
-  return <MainShell aside={<Calendar />}>{/* <Calendar /> */}</MainShell>;
+  return (
+    <MainShell aside={<Calendar />}>
+      <Meals />
+    </MainShell>
+  );
 };
 
 export default Diary;

@@ -30,7 +30,7 @@ interface UserDetails {
 }
 
 interface Meal {
-  // color: "red"| | | |;
+  color: 'red' | 'yellow' | 'green' | 'blue' | 'indigo' | 'purple' | 'pink';
   createdAt: Date;
   startsAt: Date;
   updatedAt: Date;
@@ -39,4 +39,13 @@ interface Meal {
   foods: Food[];
 }
 
-interface Food {}
+interface Food {
+  amount: number;
+  carb: number;
+  prot: number;
+  fat: number;
+  kcal: number;
+  foodId: string;
+  label: string;
+  unit: 'g';
+}
