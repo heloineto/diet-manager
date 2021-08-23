@@ -73,7 +73,9 @@ const Navbar = ({ className, toggleSideBarOpen }: Props) => {
                 )}
                 alt={`${userDetails.firstName} ${userDetails.lastName}`}
                 src={userDetails.photoURL}
-              />
+              >
+                {userDetails.firstName && userDetails.firstName.charAt(0)}
+              </Avatar>
             </IconButton>
             <Menu
               anchorEl={menuAnchor}

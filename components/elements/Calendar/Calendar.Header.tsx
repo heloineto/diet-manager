@@ -1,18 +1,16 @@
 import type { Dispatch, SetStateAction } from 'react';
-
 import { useState } from 'react';
-import { Form } from 'react-final-form';
 import { DateTime } from 'luxon';
 import { startCase } from 'lodash';
-import { KeyboardDatePicker } from 'mui-rff';
 import clsx from 'clsx';
-import { IconButton, Button, ButtonGroup, TextField } from '@material-ui/core';
+import { IconButton, Button } from '@material-ui/core';
 import {
   ArrowLeftIcon,
   SearchIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
 } from '@heroicons/react/outline';
+import { KeyboardDatePicker } from '@material-ui/pickers';
 
 interface Props {
   navDate: DateTime;
@@ -26,6 +24,7 @@ interface Props {
 const CalendarHeader = ({
   navDate,
   setNavDate,
+  selectedDate,
   setSelectedDate,
   expanded,
 }: Props) => {
@@ -48,18 +47,20 @@ const CalendarHeader = ({
         <ArrowLeftIcon className="h-6 w-6" />
       </IconButton>
 
-      <Form onSubmit={({ date }) => goto(DateTime.fromJSDate(date))}>
-        {({ handleSubmit }) => (
-          <form onSubmit={handleSubmit} className="w-full">
-            <KeyboardDatePicker
-              label="Escolha uma data"
-              name="date"
-              format="dd/MM/yyyy"
-              placeholder="dd/mm/yyyy"
-            />
-          </form>
-        )}
-      </Form>
+      <KeyboardDatePicker
+        className="w-full"
+        value={selectedDate}
+        onChange={(date) => {
+          if (date instanceof Date) {
+            const dateTime = DateTime.fromJSDate(date);
+            if (dateTime.isValid) goto(dateTime);
+          }
+        }}
+        label="Escolha uma data"
+        name="date"
+        format="dd/MM/yyyy"
+        placeholder="dd/mm/yyyy"
+      />
     </>
   );
 
