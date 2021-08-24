@@ -3,13 +3,25 @@ import { pick } from 'lodash';
 
 import { MealsContext } from '@lib/context';
 import { round } from 'lodash';
-import { Button, CircularProgress } from '@material-ui/core';
+import {
+  Button,
+  CircularProgress,
+  Dialog,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core';
 
 import Meal from '../Meal';
+import { PlusIcon } from '@heroicons/react/outline';
+import { Skeleton } from '@material-ui/lab';
+import { AddMeal } from '@components/forms/meal/AddMeal';
 
 const Meals = () => {
   const { meals } = useContext(MealsContext);
-  const [isMealFormOpen, setIsMealFormOpen] = useState(false);
+  const [addMealOpen, setAddMealOpen] = useState(false);
+
+  const { breakpoints } = useTheme();
+  const compact = useMediaQuery(breakpoints.down('sm'));
 
   const renderMealTables = () =>
     meals?.map((meal, idx) => {
@@ -35,23 +47,47 @@ const Meals = () => {
 
   return (
     <div className="flex-grow flex flex-col">
-      {false ? (
-        <div className="mb-5 flex flex-col def-gap-y">{renderMealTables()}</div>
+      {meals ? (
+        <div className="mb-5 flex flex-col def-space-y">
+          {renderMealTables()}
+        </div>
       ) : (
-        <CircularProgress color="inherit" className="m-auto" />
+        <div className="space-y-5 mb-5">
+          <Skeleton
+            className="w-full h-44 rounded-lg"
+            animation="wave"
+            variant="rect"
+          />
+          <Skeleton
+            className="w-full h-44 rounded-lg"
+            animation="wave"
+            variant="rect"
+          />
+          <Skeleton
+            className="w-full h-44 rounded-lg"
+            animation="wave"
+            variant="rect"
+          />
+        </div>
       )}
 
       <Button
+        className="mt-auto"
         color="primary"
         variant="outlined"
-        className="mt-auto"
-        onClick={() => setIsMealFormOpen(true)}
+        startIcon={<PlusIcon className="h-7 w-7" />}
+        onClick={() => setAddMealOpen(true)}
       >
         Adicionar Refeição
       </Button>
-      {/* <PopUp isOpen={isMealFormOpen} setIsOpen={setIsMealFormOpen}>
-        <AddMeal onFinish={() => setIsMealFormOpen(false)} />
-      </PopUp> */}
+      <Dialog
+        fullScreen={compact}
+        open={addMealOpen}
+        onClose={() => setAddMealOpen(false)}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <AddMeal onCancel={() => setAddMealOpen(false)} />
+      </Dialog>
     </div>
   );
 };

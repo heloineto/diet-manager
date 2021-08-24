@@ -3,25 +3,27 @@ import type { Row, Renderer, FooterProps } from 'react-table';
 import { useContext, useMemo, useState } from 'react';
 import { useTable } from 'react-table';
 
-import RoundIconButton from '@buttons/RoundIconButton';
-import roundNumber from '@utils/roundNumber';
-import PopUp from '@overlays/PopUp';
+import { round } from 'lodash';
 
-import FoodForm from './FoodForm';
-import RemoveMeal from './RemoveMeal';
 import removeFoodsByIndex from './removeFoodsByIndex';
 import { useWindowDimensions } from '@lib/hooks';
-import MealForm from '../MealForm';
-import { IconButton, useTheme } from '@material-ui/core';
-import { TrashIcon } from '@heroicons/react/outline';
+
+import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  PencilAltIcon,
+  PlusIcon,
+  TrashIcon,
+} from '@heroicons/react/outline';
 
 interface Props {
   formattedMeal: Meal & { formattedFoods: any };
 }
 
 const Meal = ({ formattedMeal }: Props) => {
-  const { width } = useWindowDimensions();
   const { breakpoints } = useTheme();
+  const compact = useMediaQuery(breakpoints.down('sm'));
 
   const [expanded, setExpanded] = useState(true);
   const [hover, setHover] = useState(false);
@@ -43,23 +45,25 @@ const Meal = ({ formattedMeal }: Props) => {
   };
 
   const removeFoodsAtRows = (rows: Row[]) => {
-    removeFoodsByIndex(
-      formattedMeal,
-      rows.map((row) => Number(row.id))
-    );
+    // removeFoodsByIndex(
+    //   formattedMeal,
+    //   rows.map((row) => Number(row.id))
+    // );
   };
 
   const data = useMemo(() => formattedMeal.formattedFoods, [formattedMeal]);
 
   const columns = useMemo(() => {
     const Footer = (info, accessor) => {
+      console.log(info);
+
       const getTotal = () =>
         useMemo(
           () => info.rows.reduce((sum, row) => row.values[accessor] + sum, 0),
           [info.rows]
         );
 
-      return <>{roundNumber(getTotal(), { decimalPlaces: 2 })}</>;
+      return <>{round(getTotal(), 2) || 0}</>;
     };
 
     return [
@@ -69,10 +73,7 @@ const Meal = ({ formattedMeal }: Props) => {
         Footer: 'Total',
       },
       {
-        Header:
-          width <= breakpoints.values['sm']
-            ? 'Alimento'
-            : 'Descrição Do Alimento',
+        Header: compact ? 'Alimento' : 'Descrição Do Alimento',
         accessor: 'label',
       },
       {
@@ -83,7 +84,7 @@ const Meal = ({ formattedMeal }: Props) => {
       {
         Header: 'Prot',
         accessor: 'prot',
-        Footer: (info) => Footer(info, 'prot') as Renderer<FooterProps<any>>,
+        Footer: (info) => Footer(info, 'prot'),
       },
       {
         Header: 'Gord',
@@ -96,7 +97,7 @@ const Meal = ({ formattedMeal }: Props) => {
         Footer: (info) => Footer(info, 'kcal'),
       },
     ];
-  }, [formattedMeal, width]);
+  }, [formattedMeal, compact]);
 
   const {
     getTableProps,
@@ -140,21 +141,24 @@ const Meal = ({ formattedMeal }: Props) => {
               <div className={`buttons ${hover ? '' : 'hidden'}`}>
                 <IconButton onClick={() => setExpanded(!expanded)}>
                   {expanded ? (
-                    <FaChevronUp className="h-4 w-4" />
+                    <ChevronUpIcon className="h-4 w-4" />
                   ) : (
-                    <FaChevronDown className="h-4 w-4" />
+                    <ChevronDownIcon className="h-4 w-4" />
                   )}
                 </IconButton>
                 <div className="divider mx-2" />
                 <div className="flex gap-2 justify-center items-center">
                   <IconButton onClick={() => setIsMealFormOpen(true)}>
-                    <FaRegEdit className="h-4 w-4" />
+                    <PencilAltIcon className="h-4 w-4" />
                   </IconButton>
                   <IconButton onClick={() => setIsRemoveMealOpen(true)}>
-                    <FaRegTrashAlt className="h-4 w-4 hover:text-red-700" />
+                    <TrashIcon className="h-4 w-4 hover:text-red-700" />
                   </IconButton>
-                  <IconButton onClick={() => setIsFoodFormOpen(true)}>
-                    <TiPlus className="h-5 w-4" />
+                  <IconButton
+                    color="primary"
+                    onClick={() => setIsFoodFormOpen(true)}
+                  >
+                    <PlusIcon className="h-5 w-4" />
                   </IconButton>
                 </div>
               </div>

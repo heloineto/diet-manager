@@ -1,1 +1,1 @@
-import { default } from './Meal';
+export { default } from './Meal';

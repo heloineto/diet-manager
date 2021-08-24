@@ -37,7 +37,8 @@ const Sidebar = ({
               'group w-full h-16 text-xs hover:bg-primary-100'
             )}
             classes={{
-              label: 'static flex flex-col items-center justify-center gap-y-1',
+              label:
+                'static flex flex-col items-center justify-center space-y-1',
               startIcon: 'static m-0',
             }}
             startIcon={

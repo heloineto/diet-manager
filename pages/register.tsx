@@ -29,8 +29,8 @@ const Register: NextPage = () => {
         {({ handleSubmit, submitting }) => (
           <form onSubmit={handleSubmit}>
             <div className="mt-4">
-              <div className="flex flex-col gap-y-4">
-                <div className="flex gap-x-4">
+              <div className="flex flex-col space-y-4">
+                <div className="flex space-x-4">
                   <TextField label="Nome" name="firstName" />
                   <TextField label="Sobrenome" name="lastName" />
                 </div>
