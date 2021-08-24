@@ -48,9 +48,7 @@ const Meals = () => {
   return (
     <div className="flex-grow flex flex-col">
       {meals ? (
-        <div className="mb-5 flex flex-col def-space-y">
-          {renderMealTables()}
-        </div>
+        <div className="mb-5 flex flex-col space-y-5">{renderMealTables()}</div>
       ) : (
         <div className="space-y-5 mb-5">
           <Skeleton
@@ -86,7 +84,7 @@ const Meals = () => {
         onClose={() => setAddMealOpen(false)}
         aria-labelledby="responsive-dialog-title"
       >
-        <AddMeal onCancel={() => setAddMealOpen(false)} />
+        <AddMeal className="p-5" onCancel={() => setAddMealOpen(false)} />
       </Dialog>
     </div>
   );

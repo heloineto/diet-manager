@@ -101,7 +101,7 @@ const CalendarHeader = ({
     <div
       className={clsx(
         searchMode ? 'h-2/5' : 'h-14',
-        'border-b-2 flex items-center p-2 def-space-x text-gray-500'
+        'border-b-2 flex items-center p-2 text-gray-500'
       )}
     >
       {searchMode ? renderSearchMode() : renderNormalMode()}
