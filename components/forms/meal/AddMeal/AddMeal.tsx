@@ -1,81 +1,38 @@
+import type { AddMealValuesType } from './AddMeal.types';
+
+import clsx from 'clsx';
+import { useSnackbar } from 'notistack';
+import { Form } from 'react-final-form';
 import { Button, IconButton, Toolbar } from '@material-ui/core';
 import {
   KeyboardDatePicker,
   makeValidate,
-  makeValidateSync,
   Radios,
   Switches,
   TextField,
   TimePicker,
 } from 'mui-rff';
-import { Form } from 'react-final-form';
-import clsx from 'clsx';
 import { XIcon } from '@heroicons/react/outline';
-import { auth, firestore, serverTimestamp } from '@lib/firebase';
-import { useSnackbar } from 'notistack';
-import { addMealSchema } from '@utils/validation';
+
+import addMealSchema from './AddMeal.schema';
+import addMealFirestore from './AddMeal.firestore';
 
 interface Props {
   className?: string;
   onClose: () => void;
 }
 
-export const AddMeal = ({ className, onClose }: Props) => {
+const AddMeal = ({ className, onClose }: Props) => {
   const { enqueueSnackbar } = useSnackbar();
 
-  //! Rethink this
-  const addMeal = async ({
-    label,
-    isPublic,
-    color,
-    date,
-    time,
-  }: {
-    label: string;
-    isPublic: boolean;
-    color: Meal['color'];
-    date: Date;
-    time: Date;
-  }) => {
+  const onSubmit = async (values: AddMealValuesType) => {
     onClose();
+    const res = await addMealFirestore(values);
 
-    const newMeal: Meal = {
-      label,
-      color,
-      isPublic,
-      startsAt: new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-        time.getHours(),
-        time.getMinutes()
-      ),
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
-      foods: [],
-    };
-
-    if (!auth?.currentUser?.uid) {
-      enqueueSnackbar(
-        'Erro ao adicionar refeição: verifique se você está logado.',
-        { variant: 'error' }
-      );
-      return;
-    }
-
-    const mealsRef = firestore
-      .collection('users')
-      .doc(auth.currentUser.uid)
-      .collection('meals');
-
-    try {
-      await mealsRef.add(newMeal);
-      enqueueSnackbar('Refeição adicionada!', { variant: 'success' });
-    } catch (error) {
-      enqueueSnackbar(`Erro ao adicionar refeição: desconhecido.`, {
+    if (res?.error)
+      enqueueSnackbar(`Erro ao adicionar refeição: ${res.error}.`, {
         variant: 'error',
       });
-    }
   };
 
   return (
@@ -99,16 +56,17 @@ export const AddMeal = ({ className, onClose }: Props) => {
       </Toolbar>
       <div className="p-2.5">
         <Form
-          onSubmit={addMeal}
+          onSubmit={onSubmit}
           initialValues={{
             date: new Date(),
             time: new Date(),
             isPublic: false,
             color: 'blue',
           }}
-          validate={makeValidateSync(addMealSchema)}
+          // @ts-ignore
+          validate={makeValidate(addMealSchema)}
         >
-          {({ handleSubmit, submitError, submitting, form, values }) => (
+          {({ handleSubmit, submitting }) => (
             <form
               onSubmit={handleSubmit}
               className={clsx(className, 'flex flex-col space-y-5')}
@@ -148,7 +106,7 @@ export const AddMeal = ({ className, onClose }: Props) => {
               </div>
               <div className="flex space-x-5 mt-5">
                 <Button
-                  className="bg-gray-500 text-white w-2/5"
+                  className="bg-gray-500 text-white w-2/6"
                   variant="contained"
                   disabled={submitting}
                   onClick={onClose}
@@ -156,7 +114,7 @@ export const AddMeal = ({ className, onClose }: Props) => {
                   Cancelar
                 </Button>
                 <Button
-                  className="shadow-blue-500 hover:shadow-xl-blue-500 w-3/5"
+                  className="shadow-blue-500 hover:shadow-xl-blue-500 w-4/6"
                   color="secondary"
                   variant="contained"
                   disabled={submitting}
@@ -165,7 +123,7 @@ export const AddMeal = ({ className, onClose }: Props) => {
                   Adicionar
                 </Button>
               </div>
-              <pre>{JSON.stringify(values, undefined, 2)}</pre>
+              {/* <pre>{JSON.stringify(values, undefined, 2)}</pre> */}
             </form>
           )}
         </Form>
@@ -173,3 +131,5 @@ export const AddMeal = ({ className, onClose }: Props) => {
     </>
   );
 };
+
+export default AddMeal;

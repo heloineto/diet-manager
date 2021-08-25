@@ -29,11 +29,3 @@ export const registerSchema = yup.object().shape({
     .max(new Date(), 'A data de aniversário deve ser anterior à data atual.'),
   gender: yup.string().required('Forneça um gênero').length(1),
 });
-
-export const addMealSchema = yup.object().shape({
-  label: yup.string().required('Forneça um título para a refeição'),
-  isPublic: yup.boolean().required(),
-  date: yup.date().required('Forneça uma data'),
-  time: yup.date().required('Forneça um horário'),
-  color: yup.string().required('Forneça uma cor'),
-});

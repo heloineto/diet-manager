@@ -14,7 +14,7 @@ import {
 import Meal from '../Meal';
 import { PlusIcon } from '@heroicons/react/outline';
 import { Skeleton } from '@material-ui/lab';
-import { AddMeal } from '@components/forms/meal/AddMeal';
+import AddMeal from '@components/forms/meal/AddMeal';
 import Widget from '@components/layout/Widget';
 
 const Meals = () => {
