@@ -5,6 +5,8 @@ import { useTable } from 'react-table';
 
 import { round } from 'lodash';
 
+import clsx from 'clsx';
+
 import removeFoodsByIndex from './removeFoodsByIndex';
 import { useWindowDimensions } from '@lib/hooks';
 
@@ -18,10 +20,11 @@ import {
 } from '@heroicons/react/outline';
 
 interface Props {
-  formattedMeal: Meal & { formattedFoods: any };
+  meal: Meal;
+  formattedFoods:
 }
 
-const Meal = ({ formattedMeal }: Props) => {
+const Meal = ({ meal }: Props) => {
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('sm'));
 
@@ -46,12 +49,12 @@ const Meal = ({ formattedMeal }: Props) => {
 
   const removeFoodsAtRows = (rows: Row[]) => {
     // removeFoodsByIndex(
-    //   formattedMeal,
+    //   meal,
     //   rows.map((row) => Number(row.id))
     // );
   };
 
-  const data = useMemo(() => formattedMeal.formattedFoods, [formattedMeal]);
+  const data = useMemo(() => meal.formattedFoods, [meal]);
 
   const columns = useMemo(() => {
     const Footer = (info, accessor) => {
@@ -95,7 +98,7 @@ const Meal = ({ formattedMeal }: Props) => {
         Footer: (info) => Footer(info, 'kcal'),
       },
     ];
-  }, [formattedMeal, compact]);
+  }, [meal, compact]);
 
   const {
     getTableProps,
@@ -107,10 +110,10 @@ const Meal = ({ formattedMeal }: Props) => {
   } = useTable({ columns, data });
 
   return (
-    <div className="meal-table-wrapper">
+    <div className="border-2 rounded-lg overflow-hidden relative">
       <table
         {...getTableProps()}
-        className="meal-table"
+        className="w-full text-xs md:text-sm text-center"
         cellSpacing="0"
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
@@ -118,8 +121,8 @@ const Meal = ({ formattedMeal }: Props) => {
         <thead>
           <tr>
             <th
+              className={`table-cell border-b w-1/12 h-10 text-base font-extrabold relative bg-${meal.color}-50`}
               colSpan={999}
-              className={`header title bg-${formattedMeal.color}-50`}
             >
               <div className="buttons right">
                 {!!selectedRows?.length && (
@@ -135,7 +138,7 @@ const Meal = ({ formattedMeal }: Props) => {
                   </div>
                 )}
               </div>
-              {formattedMeal.label}
+              {meal.label}
               <div className={`buttons ${hover ? '' : 'hidden'}`}>
                 <IconButton onClick={() => setExpanded(!expanded)}>
                   {expanded ? (
@@ -177,7 +180,7 @@ const Meal = ({ formattedMeal }: Props) => {
             </tr>
           ))}
         </thead>
-        <tbody {...getTableBodyProps()} className={expanded ? '' : 'hidden'}>
+        <tbody className={expanded ? '' : 'hidden'} {...getTableBodyProps()}>
           {rows.map((row) => {
             prepareRow(row);
 
@@ -192,6 +195,10 @@ const Meal = ({ formattedMeal }: Props) => {
 
             return (
               <tr
+                className={clsx(
+                  isSelectedRow && 'selected-row',
+                  'table-row cursor-pointer relative'
+                )}
                 {...row.getRowProps()}
                 onClick={() => {
                   if (isSelectedRow) {
@@ -201,7 +208,6 @@ const Meal = ({ formattedMeal }: Props) => {
 
                   selectRow(row);
                 }}
-                className={isSelectedRow ? 'selected-row' : ''}
               >
                 {row.cells.map((cell) => {
                   return (
@@ -223,8 +229,8 @@ const Meal = ({ formattedMeal }: Props) => {
               <tr {...group.getFooterGroupProps()}>
                 {group.headers.map((column) => (
                   <td
+                    className={`${column.id} footer`}
                     {...column.getFooterProps()}
-                    className={`${column.id} accent footer`}
                   >
                     {column.render('Footer')}
                   </td>

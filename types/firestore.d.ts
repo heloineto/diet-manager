@@ -41,8 +41,23 @@ interface Meal {
   foods: Food[];
 }
 
+type MealWithRef = Meal & {
+  ref: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
+};
+
 interface Food {
   amount: number;
+  carb: number;
+  prot: number;
+  fat: number;
+  kcal: number;
+  foodId: string;
+  label: string;
+  unit: 'g';
+}
+
+interface FormattedFood {
+  amount: string;
   carb: number;
   prot: number;
   fat: number;

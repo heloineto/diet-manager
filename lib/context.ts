@@ -23,5 +23,5 @@ export const SelectedDateContext = createContext<{
 });
 
 export const MealsContext = createContext<{
-  meals: Meal[];
+  meals: MealWithRef[];
 }>({ meals: [] });

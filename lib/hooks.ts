@@ -62,7 +62,7 @@ export const useMealsData = (selectedDateTime: DateTime) => {
       ref: doc.ref,
     }));
 
-    setMeals(snapshot as unknown as Meal[]); //! Maybe typescript is dumb, maybe i'm dumb. (maybe firebase is dumb, also.)
+    setMeals(snapshot as MealWithRef[]); //! Maybe typescript is dumb, maybe i'm dumb. (maybe firebase is dumb, also.)
   }, [querySnapshot]);
 
   return { meals };
