@@ -15,6 +15,7 @@ import Meal from '../Meal';
 import { PlusIcon } from '@heroicons/react/outline';
 import { Skeleton } from '@material-ui/lab';
 import { AddMeal } from '@components/forms/meal/AddMeal';
+import Widget from '@components/layout/Widget';
 
 const Meals = () => {
   const { meals } = useContext(MealsContext);
@@ -78,13 +79,14 @@ const Meals = () => {
       >
         Adicionar Refeição
       </Button>
+
       <Dialog
         fullScreen={compact}
         open={addMealOpen}
         onClose={() => setAddMealOpen(false)}
-        aria-labelledby="responsive-dialog-title"
+        aria-labelledby="Add meal form"
       >
-        <AddMeal className="p-5" onCancel={() => setAddMealOpen(false)} />
+        <AddMeal onClose={() => setAddMealOpen(false)} />
       </Dialog>
     </div>
   );

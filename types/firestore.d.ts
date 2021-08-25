@@ -1,3 +1,5 @@
+// import type { FieldValue } from 'firebase';
+
 interface UserDetails {
   email?: string;
   firstName?: string;
@@ -31,11 +33,11 @@ interface UserDetails {
 
 interface Meal {
   color: 'red' | 'yellow' | 'green' | 'blue' | 'indigo' | 'purple' | 'pink';
-  createdAt: Date;
   startsAt: Date;
-  updatedAt: Date;
+  createdAt: FieldValue;
+  updatedAt: FieldValue;
   label: string;
-  public: boolean;
+  isPublic: boolean;
   foods: Food[];
 }
 

@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import type firebase from 'firebase';
+import { SnackbarProvider } from 'notistack';
 
 import { SelectedDateContext, MealsContext } from '@lib/context';
 import { useSelectedDate, useMealsData } from '@lib/hooks';
@@ -15,7 +16,7 @@ const AuthProviders = ({ children }: Props) => {
   return (
     <SelectedDateContext.Provider value={dateData}>
       <MealsContext.Provider value={mealsData}>
-        {children}
+        <SnackbarProvider maxSnack={3}>{children}</SnackbarProvider>
       </MealsContext.Provider>
     </SelectedDateContext.Provider>
   );

@@ -38,7 +38,7 @@ export const useSelectedDate = () => {
 };
 
 export const useMealsData = (selectedDateTime: DateTime) => {
-  const [meals, setMeals] = useState<{}[]>([]);
+  const [meals, setMeals] = useState<Meal[]>([]);
 
   const mealsRef = firestore
     .collection('users')
@@ -62,7 +62,7 @@ export const useMealsData = (selectedDateTime: DateTime) => {
       ref: doc.ref,
     }));
 
-    setMeals(snapshot);
+    setMeals(snapshot as unknown as Meal[]); //! Maybe typescript is dumb, maybe i'm dumb.
   }, [querySnapshot]);
 
   return { meals };

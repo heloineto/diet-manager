@@ -6,6 +6,7 @@ import AuthCheck from '@components/auth/AuthCheck';
 import Navbar from '@components/navigation/Navbar';
 import Sidebar from '@components/navigation/Sidebar';
 import Section from '@components/layout/Section';
+import Widget from '../Widget';
 
 interface Props {
   children: ReactNode;
@@ -29,11 +30,13 @@ const MainShell = ({ children, aside }: Props) => {
 
           <div className="flex-1 flex items-stretch overflow-hidden">
             <main className="flex-1 overflow-y-auto">
-              <Section className="p-2.5">{children}</Section>
+              <Section className="p-2.5">
+                <Widget>{children}</Widget>
+              </Section>
             </main>
 
-            <aside className="hidden lg:block lg:w-96 xl:w-[26rem] border-l border-gray-200 overflow-y-auto p-2.5">
-              {aside}
+            <aside className="hidden lg:block lg:w-96 xl:w-[26rem] overflow-y-auto py-2.5 pr-2.5">
+              <Widget>{aside}</Widget>
             </aside>
           </div>
         </div>
