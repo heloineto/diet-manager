@@ -38,7 +38,7 @@ export const useSelectedDate = () => {
 };
 
 export const useMealsData = (selectedDateTime: DateTime) => {
-  const [meals, setMeals] = useState<Meal[]>([]);
+  const [meals, setMeals] = useState<MealWithRef[]>([]);
 
   const mealsRef = firestore
     .collection('users')

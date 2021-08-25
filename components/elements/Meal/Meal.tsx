@@ -6,36 +6,54 @@ import { useTable } from 'react-table';
 import { round } from 'lodash';
 
 import clsx from 'clsx';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
 import removeFoodsByIndex from './removeFoodsByIndex';
-import { useWindowDimensions } from '@lib/hooks';
 
-import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
+import {
+  ButtonGroup,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core';
 import {
   ChevronDownIcon,
   ChevronUpIcon,
+  DotsVerticalIcon,
   PencilAltIcon,
   PlusIcon,
   TrashIcon,
 } from '@heroicons/react/outline';
+import { useMealState } from './Meal.state';
+import MealActions from './Meal.Actions';
 
 interface Props {
-  meal: Meal;
-  formattedFoods:
+  meal: MealWithRef;
+  formattedFoods: FormattedFood[];
 }
 
-const Meal = ({ meal }: Props) => {
+const Meal = ({ meal, formattedFoods }: Props) => {
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('sm'));
 
-  const [expanded, setExpanded] = useState(true);
-  const [hover, setHover] = useState(false);
-  const [selectedRows, setSelectedRows] = useState<Row[]>([]); // !make this an object
-
-  const [isFoodFormOpen, setIsFoodFormOpen] = useState(false);
-  const [SidePopUp, setSidePopUp] = useState(null);
-  const [isRemoveMealOpen, setIsRemoveMealOpen] = useState(false);
-  const [isMealFormOpen, setIsMealFormOpen] = useState(false);
+  const {
+    expanded,
+    setExpanded,
+    hover,
+    setHover,
+    selectedRows,
+    setSelectedRows,
+    addFoodOpen,
+    setAddFoodOpen,
+    removeMealOpen,
+    setRemoveMealOpen,
+    updateMealOpen,
+    setUpdateMealOpen,
+  } = useMealState();
 
   const selectRow = (row: Row) => {
     setSelectedRows((value) => [...value, row]);
@@ -54,14 +72,14 @@ const Meal = ({ meal }: Props) => {
     // );
   };
 
-  const data = useMemo(() => meal.formattedFoods, [meal]);
+  const data = useMemo(() => formattedFoods, [formattedFoods]);
 
   const columns = useMemo(() => {
-    const Footer = (info, accessor) => {
+    const Footer = ({ rows }: { rows: Row[] }, accessor: string) => {
       const getTotal = () =>
         useMemo(
-          () => info.rows.reduce((sum, row) => row.values[accessor] + sum, 0),
-          [info.rows]
+          () => rows.reduce((sum, row) => row.values[accessor] + sum, 0),
+          [rows]
         );
 
       return <>{round(getTotal(), 2) || 0}</>;
@@ -98,7 +116,7 @@ const Meal = ({ meal }: Props) => {
         Footer: (info) => Footer(info, 'kcal'),
       },
     ];
-  }, [meal, compact]);
+  }, [formattedFoods, compact]);
 
   const {
     getTableProps,
@@ -121,10 +139,18 @@ const Meal = ({ meal }: Props) => {
         <thead>
           <tr>
             <th
-              className={`table-cell border-b w-1/12 h-10 text-base font-extrabold relative bg-${meal.color}-50`}
+              className={`table-cell border-b w-1/12 h-10 text-[0.875rem] md:text-base font-extrabold relative`}
+              style={{ backgroundColor: meal.color }}
               colSpan={999}
             >
-              <div className="buttons right">
+              {meal.label}
+              <MealActions
+                compact={compact}
+                expanded={expanded}
+                setExpanded={setExpanded}
+                hover={hover}
+              />
+              <div className="absolute top-0 h-full mx-1 flex items-center justify-center right-0">
                 {!!selectedRows?.length && (
                   <div className="flex justify-center items-center">
                     <IconButton
@@ -138,31 +164,6 @@ const Meal = ({ meal }: Props) => {
                   </div>
                 )}
               </div>
-              {meal.label}
-              <div className={`buttons ${hover ? '' : 'hidden'}`}>
-                <IconButton onClick={() => setExpanded(!expanded)}>
-                  {expanded ? (
-                    <ChevronUpIcon className="h-4 w-4" />
-                  ) : (
-                    <ChevronDownIcon className="h-4 w-4" />
-                  )}
-                </IconButton>
-                <div className="divider mx-2" />
-                <div className="flex gap-2 justify-center items-center">
-                  <IconButton onClick={() => setIsMealFormOpen(true)}>
-                    <PencilAltIcon className="h-4 w-4" />
-                  </IconButton>
-                  <IconButton onClick={() => setIsRemoveMealOpen(true)}>
-                    <TrashIcon className="h-4 w-4 hover:text-red-700" />
-                  </IconButton>
-                  <IconButton
-                    color="primary"
-                    onClick={() => setIsFoodFormOpen(true)}
-                  >
-                    <PlusIcon className="h-5 w-4" />
-                  </IconButton>
-                </div>
-              </div>
             </th>
           </tr>
           {headerGroups.map((headerGroup) => (
@@ -171,7 +172,7 @@ const Meal = ({ meal }: Props) => {
                 return (
                   <th
                     {...column.getHeaderProps()}
-                    className={`${column.id} header`}
+                    className={`${column.id} font-bold bg-gray-100 border-gray-300 border-b-2`}
                   >
                     {column.render('Header')}
                   </th>
@@ -229,7 +230,7 @@ const Meal = ({ meal }: Props) => {
               <tr {...group.getFooterGroupProps()}>
                 {group.headers.map((column) => (
                   <td
-                    className={`${column.id} footer`}
+                    className={`${column.id} font-bold bg-gray-100 border-gray-300`}
                     {...column.getFooterProps()}
                   >
                     {column.render('Footer')}

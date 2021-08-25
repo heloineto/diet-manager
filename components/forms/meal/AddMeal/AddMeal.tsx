@@ -37,12 +37,7 @@ const AddMeal = ({ className, onClose }: Props) => {
 
   return (
     <>
-      <Toolbar
-        className="bg-gray-300 text-lg font-bold text-gray-800 mb-2.5 mt-px rounded-t-xl"
-        style={{
-          boxShadow: 'inset 0 0.5px 0 #fff',
-        }}
-      >
+      <Toolbar className="bg-gray-300 text-lg font-bold text-gray-800 mb-2.5 mt-px md:rounded-t-xl md:shadow-top-reflection">
         Adicionar Refeição
         <IconButton
           className="ml-auto"
@@ -85,13 +80,13 @@ const AddMeal = ({ className, onClose }: Props) => {
                 label="Cor"
                 name="color"
                 data={[
-                  { label: 'red', value: 'red' },
-                  { label: 'yellow', value: 'yellow' },
-                  { label: 'green', value: 'green' },
-                  { label: 'blue', value: 'blue' },
-                  { label: 'indigo', value: 'indigo' },
-                  { label: 'purple', value: 'purple' },
-                  { label: 'pink', value: 'pink' },
+                  { label: 'red', value: '#fef2f2' },
+                  { label: 'yellow', value: '#fffbeb' },
+                  { label: 'green', value: '#ecfdf5' },
+                  { label: 'blue', value: '#eff6ff' },
+                  { label: 'indigo', value: '#eef2ff' },
+                  { label: 'purple', value: '#f5f3ff' },
+                  { label: 'pink', value: '#fdf2f8' },
                 ]}
                 radioGroupProps={{ row: true }}
               />

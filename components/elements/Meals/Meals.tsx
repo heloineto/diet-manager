@@ -26,6 +26,7 @@ const Meals = () => {
 
   const renderMealTables = () =>
     meals?.map((meal, idx) => {
+      //! Move this inside Meal
       const formattedFoods = meal.foods.map((food) => {
         const { amount, unit } = food;
         const formattedFood = {
@@ -43,7 +44,7 @@ const Meals = () => {
         return formattedFood;
       });
 
-      return <Meal key={idx} formattedMeal={{ ...meal, formattedFoods }} />;
+      return <Meal key={idx} meal={meal} formattedFoods={formattedFoods} />;
     });
 
   return (

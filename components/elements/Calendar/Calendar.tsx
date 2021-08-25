@@ -1,4 +1,4 @@
-import { useCalendarState } from './Calendar.hooks';
+import { useCalendarState } from './Calendar.state';
 import CalendarHeader from './Calendar.Header';
 import CalendarTable from './Calendar.Table';
 

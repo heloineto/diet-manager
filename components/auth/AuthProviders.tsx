@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import type firebase from 'firebase';
+
 import { SnackbarProvider } from 'notistack';
 
 import { SelectedDateContext, MealsContext } from '@lib/context';

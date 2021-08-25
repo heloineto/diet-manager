@@ -32,7 +32,7 @@ interface UserDetails {
 }
 
 interface Meal {
-  color: 'red' | 'yellow' | 'green' | 'blue' | 'indigo' | 'purple' | 'pink';
+  color: HexColor;
   startsAt: Date;
   createdAt: FieldValue;
   updatedAt: FieldValue;
