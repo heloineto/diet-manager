@@ -1,6 +1,8 @@
 import { Button, IconButton, Toolbar } from '@material-ui/core';
 import {
   KeyboardDatePicker,
+  makeValidate,
+  makeValidateSync,
   Radios,
   Switches,
   TextField,
@@ -10,6 +12,8 @@ import { Form } from 'react-final-form';
 import clsx from 'clsx';
 import { XIcon } from '@heroicons/react/outline';
 import { auth, firestore, serverTimestamp } from '@lib/firebase';
+import { useSnackbar } from 'notistack';
+import { addMealSchema } from '@utils/validation';
 
 interface Props {
   className?: string;
@@ -17,6 +21,9 @@ interface Props {
 }
 
 export const AddMeal = ({ className, onClose }: Props) => {
+  const { enqueueSnackbar } = useSnackbar();
+
+  //! Rethink this
   const addMeal = async ({
     label,
     isPublic,
@@ -48,24 +55,26 @@ export const AddMeal = ({ className, onClose }: Props) => {
       foods: [],
     };
 
-    console.log(
-      new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-        time.getHours(),
-        time.getMinutes()
-      )
-    );
+    if (!auth?.currentUser?.uid) {
+      enqueueSnackbar(
+        'Erro ao adicionar refeição: verifique se você está logado.',
+        { variant: 'error' }
+      );
+      return;
+    }
 
-    if (auth?.currentUser?.uid) {
-      const mealsRef = firestore
-        .collection('users')
-        .doc(auth.currentUser.uid)
-        .collection('meals');
+    const mealsRef = firestore
+      .collection('users')
+      .doc(auth.currentUser.uid)
+      .collection('meals');
 
+    try {
       await mealsRef.add(newMeal);
-    } else {
+      enqueueSnackbar('Refeição adicionada!', { variant: 'success' });
+    } catch (error) {
+      enqueueSnackbar(`Erro ao adicionar refeição: desconhecido.`, {
+        variant: 'error',
+      });
     }
   };
 
@@ -74,7 +83,7 @@ export const AddMeal = ({ className, onClose }: Props) => {
       <Toolbar
         className="bg-gray-300 text-lg font-bold text-gray-800 mb-2.5 mt-px rounded-t-xl"
         style={{
-          boxShadow: 'inset 0 0.75px 0 #fff',
+          boxShadow: 'inset 0 0.5px 0 #fff',
         }}
       >
         Adicionar Refeição
@@ -97,6 +106,7 @@ export const AddMeal = ({ className, onClose }: Props) => {
             isPublic: false,
             color: 'blue',
           }}
+          validate={makeValidateSync(addMealSchema)}
         >
           {({ handleSubmit, submitError, submitting, form, values }) => (
             <form

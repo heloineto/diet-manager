@@ -55,8 +55,6 @@ const Meal = ({ formattedMeal }: Props) => {
 
   const columns = useMemo(() => {
     const Footer = (info, accessor) => {
-      console.log(info);
-
       const getTotal = () =>
         useMemo(
           () => info.rows.reduce((sum, row) => row.values[accessor] + sum, 0),
