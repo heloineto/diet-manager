@@ -9,8 +9,9 @@ interface Props {
 const RemoveMeal = ({ label, mealRef, onClose }: Props) => {
   return (
     <div>
-      <p className="font-bold text-center">
-        Remover "<span className="text-red-900">{label}</span>"?
+      <p className="font-semibold text-center">
+        Você tem certeza que deseja remover "
+        <span className="text-red-900">{label}</span>"?
       </p>
       <div className="flex space-x-2.5 mt-5">
         <Button className="bg-gray-500 w-1/2 text-white" onClick={onClose}>
