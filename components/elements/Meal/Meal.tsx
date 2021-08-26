@@ -47,12 +47,6 @@ const Meal = ({ meal, formattedFoods }: Props) => {
     setHover,
     selectedRows,
     setSelectedRows,
-    addFoodOpen,
-    setAddFoodOpen,
-    removeMealOpen,
-    setRemoveMealOpen,
-    updateMealOpen,
-    setUpdateMealOpen,
   } = useMealState();
 
   const selectRow = (row: Row) => {
@@ -241,33 +235,6 @@ const Meal = ({ meal, formattedFoods }: Props) => {
           })}
         </tfoot>
       </table>
-      {/* <PopUp
-        isOpen={isFoodFormOpen}
-        setIsOpen={setIsFoodFormOpen}
-        onFinish={() => setSidePopUp(null)}
-        SidePopUp={SidePopUp}
-      >
-        <FoodForm
-          mealRef={meal.ref}
-          onFinish={() => {
-            // setIsFoodFormOpen(false);
-          }}
-          setSidePopUp={setSidePopUp}
-        />
-      </PopUp>
-      <PopUp isOpen={isRemoveMealOpen} setIsOpen={setIsRemoveMealOpen}>
-        <RemoveMeal
-          label={meal.label}
-          mealRef={meal.ref}
-          onFinish={() => {
-            setIsRemoveMealOpen(false);
-          }}
-        />
-      </PopUp>
-
-      <PopUp isOpen={isMealFormOpen} setIsOpen={setIsMealFormOpen}>
-        <MealForm onFinish={() => setIsMealFormOpen(false)} meal={meal} />
-      </PopUp> */}
     </div>
   );
 };
