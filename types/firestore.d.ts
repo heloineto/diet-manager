@@ -1,5 +1,3 @@
-// import type { FieldValue } from 'firebase';
-
 interface UserDetails {
   email?: string;
   firstName?: string;
@@ -34,15 +32,17 @@ interface UserDetails {
 interface Meal {
   color: HexColor;
   startsAt: Date;
-  createdAt: FieldValue;
-  updatedAt: FieldValue;
+  createdAt: import('./firebase').FieldValue;
+  updatedAt: import('./firebase').FieldValue;
   label: string;
   isPublic: boolean;
   foods: Food[];
 }
 
 type MealWithRef = Meal & {
-  ref: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
+  ref: import('./firebase').DocumentReference<
+    import('./firebase').DocumentData
+  >;
 };
 
 interface Food {

@@ -49,11 +49,11 @@ const Meal = ({ meal, formattedFoods }: Props) => {
     setSelectedRows,
   } = useMealState();
 
-  const selectRow = (row: Row) => {
+  const selectRow = (row: Row<FormattedFood>) => {
     setSelectedRows((value) => [...value, row]);
   };
 
-  const unselectRow = (row: Row) => {
+  const unselectRow = (row: Row<FormattedFood>) => {
     setSelectedRows((value) =>
       value.filter((selectedRow) => selectedRow.id !== row.id)
     );
@@ -143,6 +143,7 @@ const Meal = ({ meal, formattedFoods }: Props) => {
                 expanded={expanded}
                 setExpanded={setExpanded}
                 hover={hover}
+                mealRef={meal.ref}
               />
               <div className="absolute top-0 h-full mx-1 flex items-center justify-center right-0">
                 {!!selectedRows?.length && (

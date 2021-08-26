@@ -30,6 +30,9 @@
       ],
       "@public/*": [
         "public/*"
+      ],
+      "@types/*": [
+        "types/*"
       ]
     }
   },
@@ -37,7 +40,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "lib/theme.ts",
     "tailwind.config.js"
   ],
   "exclude": [

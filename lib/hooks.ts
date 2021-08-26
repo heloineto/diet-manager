@@ -58,40 +58,12 @@ export const useMealsData = (selectedDateTime: DateTime) => {
     if (!querySnapshot) return;
 
     const snapshot = querySnapshot.docs.map((doc) => ({
-      ...doc.data(),
+      ...(doc.data() as Meal),
       ref: doc.ref,
     }));
 
-    setMeals(snapshot as MealWithRef[]); //! Maybe typescript is dumb, maybe i'm dumb. (maybe firebase is dumb, also.)
+    setMeals(snapshot); //! Maybe typescript is dumb, maybe i'm dumb. (maybe firebase is dumb, also.)
   }, [querySnapshot]);
 
   return { meals };
-};
-
-export const useWindowDimensions = () => {
-  const getWindowDimensions = () => {
-    const { innerWidth: width, innerHeight: height } = window;
-
-    return {
-      width,
-      height,
-    };
-  };
-
-  const [windowDimensions, setWindowDimensions] = useState(
-    getWindowDimensions()
-  );
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  return {
-    ...windowDimensions,
-  };
 };
