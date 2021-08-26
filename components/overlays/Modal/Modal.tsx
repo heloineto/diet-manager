@@ -59,7 +59,7 @@ const Modal = ({
     <ReactModal
       isOpen={open}
       onRequestClose={close}
-      className="absolute"
+      className="absolute bg-white shadow-top-reflection"
       style={{
         content: style,
       }}

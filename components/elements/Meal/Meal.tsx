@@ -144,6 +144,7 @@ const Meal = ({ meal, formattedFoods }: Props) => {
                 setExpanded={setExpanded}
                 hover={hover}
                 mealRef={meal.ref}
+                mealLabel={meal.label}
               />
               <div className="absolute top-0 h-full mx-1 flex items-center justify-center right-0">
                 {!!selectedRows?.length && (

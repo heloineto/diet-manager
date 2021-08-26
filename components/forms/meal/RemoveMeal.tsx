@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core';
 
 interface Props {
   label: string;
-  mealRef: MealWithRef;
+  mealRef: FirebaseRef;
   onClose: () => void;
 }
 
@@ -12,15 +12,15 @@ const RemoveMeal = ({ label, mealRef, onClose }: Props) => {
       <p className="font-bold text-center">
         Remover "<span className="text-red-900">{label}</span>"?
       </p>
-      <div className="flex def-gap-x mt-5">
-        <Button className="bg-gray-500 w-1/2" onClick={onClose}>
+      <div className="flex space-x-2.5 mt-5">
+        <Button className="bg-gray-500 w-1/2 text-white" onClick={onClose}>
           Cancelar
         </Button>
         <Button
-          className="bg-red-500 w-1/2"
+          className="bg-red-500 w-1/2 text-white"
           onClick={async () => {
-            await mealRef.delete();
             onClose();
+            await mealRef.delete();
           }}
         >
           Remover

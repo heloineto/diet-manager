@@ -14,15 +14,25 @@ import {
   TrashIcon,
 } from '@heroicons/react/outline';
 import Modal from '@components/overlays/Modal';
+import RemoveMeal from '@components/forms/meal/RemoveMeal';
 
 interface Props {
   compact: boolean;
   hover: boolean;
   expanded: boolean;
   setExpanded: Dispatch<SetStateAction<boolean>>;
+  mealRef: FirebaseRef;
+  mealLabel: string;
 }
 
-const MealActions = ({ compact, hover, expanded, setExpanded }: Props) => {
+const MealActions = ({
+  compact,
+  hover,
+  expanded,
+  setExpanded,
+  mealRef,
+  mealLabel,
+}: Props) => {
   const [addFoodOpen, setAddFoodOpen] = useState(false);
   const [removeMealOpen, setRemoveMealOpen] = useState(false);
   const [updateMealOpen, setUpdateMealOpen] = useState(false);
@@ -133,6 +143,11 @@ const MealActions = ({ compact, hover, expanded, setExpanded }: Props) => {
               setIsRemoveMealOpen(false);
             }}
           /> */}
+          <RemoveMeal
+            label={mealLabel}
+            mealRef={mealRef}
+            onClose={() => setRemoveMealOpen(false)}
+          />
         </Modal>
 
         <Modal open={updateMealOpen} setOpen={setUpdateMealOpen}>

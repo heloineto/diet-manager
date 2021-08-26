@@ -10,10 +10,6 @@ export const useMealState = () => {
   const [hover, setHover] = useState(false);
   const [selectedRows, setSelectedRows] = useState<Row[]>([]); // !make this an object
 
-  const [addFoodOpen, setAddFoodOpen] = useState(false);
-  const [removeMealOpen, setRemoveMealOpen] = useState(false);
-  const [updateMealOpen, setUpdateMealOpen] = useState(false);
-
   return {
     expanded,
     setExpanded,
@@ -21,11 +17,5 @@ export const useMealState = () => {
     setHover,
     selectedRows,
     setSelectedRows,
-    addFoodOpen,
-    setAddFoodOpen,
-    removeMealOpen,
-    setRemoveMealOpen,
-    updateMealOpen,
-    setUpdateMealOpen,
   };
 };

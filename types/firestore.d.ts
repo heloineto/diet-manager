@@ -39,10 +39,10 @@ interface Meal {
   foods: Food[];
 }
 
+type FirebaseRef = import('./firebase').FirebaseRef;
+
 type MealWithRef = Meal & {
-  ref: import('./firebase').DocumentReference<
-    import('./firebase').DocumentData
-  >;
+  ref: FirebaseRef;
 };
 
 interface Food {
