@@ -49,7 +49,7 @@ const Modal = ({
       style={{
         content: compact ? undefined : style,
         overlay: {
-          zIndex: 9999,
+          zIndex: 1000,
           backgroundColor: 'transparent',
         },
       }}

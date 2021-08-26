@@ -3,7 +3,7 @@ import type { AddMealValuesType } from './AddMeal.types';
 import clsx from 'clsx';
 import { useSnackbar } from 'notistack';
 import { Form } from 'react-final-form';
-import { Button, IconButton, Toolbar } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import {
   KeyboardDatePicker,
   makeValidate,
@@ -12,10 +12,11 @@ import {
   TextField,
   TimePicker,
 } from 'mui-rff';
-import { XIcon } from '@heroicons/react/outline';
 
 import addMealSchema from './AddMeal.schema';
 import addMealFirestore from './AddMeal.firestore';
+import { useContext } from 'react';
+import { SelectedDateContext } from '@lib/context';
 
 interface Props {
   className?: string;
@@ -23,6 +24,8 @@ interface Props {
 }
 
 const AddMeal = ({ className, onClose }: Props) => {
+  const { selectedDate } = useContext(SelectedDateContext);
+
   const { enqueueSnackbar } = useSnackbar();
 
   const addMeal = async (values: AddMealValuesType) => {
@@ -39,10 +42,10 @@ const AddMeal = ({ className, onClose }: Props) => {
     <Form
       onSubmit={addMeal}
       initialValues={{
-        date: new Date(),
+        date: selectedDate.toJSDate(),
         time: new Date(),
         isPublic: false,
-        color: 'blue',
+        color: '#eff6ff',
       }}
       // @ts-ignore
       validate={makeValidate(addMealSchema)}

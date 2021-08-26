@@ -15,14 +15,14 @@ import {
 } from '@heroicons/react/outline';
 import Modal from '@components/overlays/Modal';
 import RemoveMeal from '@components/forms/meal/RemoveMeal';
+import UpdateMeal from '@components/forms/meal/UpdateMeal';
 
 interface Props {
   compact: boolean;
   hover: boolean;
   expanded: boolean;
   setExpanded: Dispatch<SetStateAction<boolean>>;
-  mealRef: FirebaseRef;
-  mealLabel: string;
+  meal: MealWithRef;
 }
 
 const MealActions = ({
@@ -30,8 +30,7 @@ const MealActions = ({
   hover,
   expanded,
   setExpanded,
-  mealRef,
-  mealLabel,
+  meal,
 }: Props) => {
   const [addFoodOpen, setAddFoodOpen] = useState(false);
   const [removeMealOpen, setRemoveMealOpen] = useState(false);
@@ -137,14 +136,14 @@ const MealActions = ({
         </Modal> */}
         <Modal open={removeMealOpen} onClose={() => setRemoveMealOpen(false)}>
           <RemoveMeal
-            label={mealLabel}
-            mealRef={mealRef}
+            label={meal.label}
+            mealRef={meal.ref}
             onClose={() => setRemoveMealOpen(false)}
           />
         </Modal>
 
         <Modal open={updateMealOpen} onClose={() => setUpdateMealOpen(false)}>
-          {/* <MealForm onClose={() => setIsMealFormOpen(false)} meal={meal} /> */}
+          <UpdateMeal onClose={() => setUpdateMealOpen(false)} meal={meal} />
         </Modal>
       </div>
     </>

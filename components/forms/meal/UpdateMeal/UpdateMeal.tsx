@@ -16,6 +16,7 @@ import { XIcon } from '@heroicons/react/outline';
 
 import updateMealSchema from './UpdateMeal.schema';
 import updateMealFirestore from './UpdateMeal.firestore';
+import { DateTime } from 'luxon';
 
 interface Props {
   className?: string;
@@ -26,12 +27,15 @@ interface Props {
 const UpdateMeal = ({ className, onClose, meal }: Props) => {
   const { enqueueSnackbar } = useSnackbar();
 
+  // @ts-ignore
+  const startsAtJSDate = DateTime.fromSeconds(meal.startsAt.seconds).toJSDate();
+
   const initialValues = {
     label: meal.label,
     isPublic: meal.isPublic,
     color: meal.color,
-    date: meal.startsAt,
-    time: meal.startsAt,
+    date: startsAtJSDate,
+    time: startsAtJSDate,
   };
 
   const updateMeal = async (values: UpdateMealValuesType) => {
@@ -105,7 +109,7 @@ const UpdateMeal = ({ className, onClose, meal }: Props) => {
               disabled={submitting}
               type="submit"
             >
-              Adicionar
+              Editar
             </Button>
           </div>
           {/* <pre>{JSON.stringify(values, undefined, 2)}</pre> */}

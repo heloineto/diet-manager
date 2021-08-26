@@ -31,7 +31,7 @@ interface UserDetails {
 
 interface Meal {
   color: HexColor;
-  startsAt: Date;
+  startsAt: import('./firebase').FieldValue | Date;
   createdAt: import('./firebase').FieldValue;
   updatedAt: import('./firebase').FieldValue;
   label: string;
