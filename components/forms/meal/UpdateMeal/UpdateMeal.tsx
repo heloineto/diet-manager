@@ -1,4 +1,4 @@
-import type { AddMealValuesType } from './AddMeal.types';
+import type { UpdateMealValuesType } from './UpdateMeal.types';
 
 import clsx from 'clsx';
 import { useSnackbar } from 'notistack';
@@ -14,20 +14,29 @@ import {
 } from 'mui-rff';
 import { XIcon } from '@heroicons/react/outline';
 
-import addMealSchema from './AddMeal.schema';
-import addMealFirestore from './AddMeal.firestore';
+import updateMealSchema from './UpdateMeal.schema';
+import updateMealFirestore from './UpdateMeal.firestore';
 
 interface Props {
   className?: string;
   onClose: () => void;
+  meal: MealWithRef;
 }
 
-const AddMeal = ({ className, onClose }: Props) => {
+const UpdateMeal = ({ className, onClose, meal }: Props) => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const addMeal = async (values: AddMealValuesType) => {
+  const initialValues = {
+    label: meal.label,
+    isPublic: meal.isPublic,
+    color: meal.color,
+    date: meal.startsAt,
+    time: meal.startsAt,
+  };
+
+  const updateMeal = async (values: UpdateMealValuesType) => {
     onClose();
-    const res = await addMealFirestore(values);
+    const res = await updateMealFirestore(values);
 
     if (res?.error)
       enqueueSnackbar(`Erro ao adicionar refeição: ${res.error}.`, {
@@ -37,15 +46,10 @@ const AddMeal = ({ className, onClose }: Props) => {
 
   return (
     <Form
-      onSubmit={addMeal}
-      initialValues={{
-        date: new Date(),
-        time: new Date(),
-        isPublic: false,
-        color: 'blue',
-      }}
+      onSubmit={updateMeal}
+      initialValues={initialValues}
       // @ts-ignore
-      validate={makeValidate(addMealSchema)}
+      validate={makeValidate(updateMealSchema)}
     >
       {({ handleSubmit, submitting }) => (
         <form
@@ -111,4 +115,4 @@ const AddMeal = ({ className, onClose }: Props) => {
   );
 };
 
-export default AddMeal;
+export default UpdateMeal;

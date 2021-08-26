@@ -143,7 +143,7 @@ const MealActions = ({
           />
         </Modal>
 
-        <Modal open={updateMealOpen} onClose={() => setRemoveMealOpen(false)}>
+        <Modal open={updateMealOpen} onClose={() => setUpdateMealOpen(false)}>
           {/* <MealForm onClose={() => setIsMealFormOpen(false)} meal={meal} /> */}
         </Modal>
       </div>
