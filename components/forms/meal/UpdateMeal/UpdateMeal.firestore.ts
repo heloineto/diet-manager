@@ -1,6 +1,6 @@
 import type { UpdateMealValuesType } from './UpdateMeal.types';
 
-import { auth, firestore, serverTimestamp } from '@lib/firebase';
+import { auth, serverTimestamp } from '@lib/firebase';
 
 const updateMealFirestore = async (
   { label, isPublic, color, date, time }: UpdateMealValuesType,

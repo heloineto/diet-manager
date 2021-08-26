@@ -86,9 +86,9 @@ const MealActions = ({
     if (hover)
       return (
         <>
-          {actions.map(({ label, Icon, onClick, className }, idx) => (
-            <Tooltip title={label} arrow>
-              <IconButton className="w-7 h-7 p-0" key={idx} onClick={onClick}>
+          {actions.map(({ label, Icon, onClick, className }) => (
+            <Tooltip key={label} title={label} arrow>
+              <IconButton className="w-7 h-7 p-0" onClick={onClick}>
                 <Icon className={clsx(className, 'h-4 w-4')} />
               </IconButton>
             </Tooltip>
