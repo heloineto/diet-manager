@@ -1,22 +1,23 @@
-import type { ReactNode, Dispatch, SetStateAction, CSSProperties } from 'react';
+import type { ReactNode, CSSProperties } from 'react';
 
 import ReactModal from 'react-modal';
 import { useModalHook } from './Modal.hook';
 import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
 import { XIcon } from '@heroicons/react/outline';
+import clsx from 'clsx';
 
 interface Props {
   children: ReactNode;
+  label?: string;
   open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
   onClose?: () => void;
   initialStyle?: CSSProperties;
 }
 
 const Modal = ({
   children,
+  label,
   open,
-  setOpen,
   onClose = () => {},
   initialStyle = {
     top: '50%',
@@ -33,50 +34,74 @@ const Modal = ({
   const compact = useMediaQuery(breakpoints.down('sm'));
 
   const close = () => {
-    setOpen((value) => !value);
-    setStyle(initialStyle);
     onClose();
+    setStyle(initialStyle);
   };
 
-  if (compact)
-    return (
-      <ReactModal
-        isOpen={open}
-        onRequestClose={close}
-        className="absolute bg-white w-full h-full overflow-y-auto"
-      >
-        <div className="top-bar h-10 w-full flex items-center justify-between pr-5 bg-gray-200 text-gray-700">
-          <div className="flex-grow h-full" />
-          <IconButton onClick={close}>
-            <XIcon className="h-4 w-4" />
-          </IconButton>
-        </div>
-        <div className="content p-5">{children}</div>
-      </ReactModal>
-    );
+  // if (compact)
+  //   return (
+  //     <ReactModal
+  //       className="absolute bg-white w-full h-full overflow-y-auto"
+  //       isOpen={open}
+  //       onRequestClose={close}
+  //       style={{
+  //         overlay: {
+  //           zIndex: 9999,
+  //           backgroundColor: 'transparent',
+  //         },
+  //       }}
+  //     >
+  //       <div className="h-10 w-full flex items-center justify-between pr-5 bg-gray-200 text-gray-700">
+  //         {label}
+  //         <div className="flex-grow h-full" />
+  //         <IconButton onClick={close}>
+  //           <XIcon className="h-4 w-4" />
+  //         </IconButton>
+  //       </div>
+  //       <div className="content p-5">{children}</div>
+  //     </ReactModal>
+  //   );
 
   return (
     <ReactModal
+      className={clsx(
+        compact ? 'w-full h-full overflow-y-auto' : 'shadow-overlay rounded-xl',
+        'absolute bg-white'
+      )}
       isOpen={open}
       onRequestClose={close}
-      className="absolute bg-white shadow-top-reflection"
       style={{
-        content: style,
+        content: compact ? undefined : style,
+        overlay: {
+          zIndex: 9999,
+          backgroundColor: 'transparent',
+        },
       }}
     >
       <div className="modal-widget-wrapper p-0">
-        <div className="top-bar h-10 w-full flex items-center justify-between pr-5 bg-gray-200 text-gray-700 rounded-t-xl">
-          <div
-            className="drag-handler cursor-move flex-grow h-full"
-            // @ts-ignore
-            onMouseDown={dragStart}
-            // @ts-ignore
-            onMouseMove={drag}
-            onMouseUp={dragEnd}
-            onMouseLeave={dragEnd}
-          />
-          <IconButton onClick={close}>
-            <XIcon className="h-4 w-4" />
+        <div
+          className={clsx(
+            compact ? 'p-5' : 'rounded-t-xl shadow-top-reflection pr-5',
+            'h-14 w-full flex items-center justify-between font-bold bg-gray-200 text-gray-700'
+          )}
+        >
+          {compact ? (
+            label
+          ) : (
+            <div
+              className="cursor-move flex-grow h-full flex items-center p-5"
+              // @ts-ignore
+              onMouseDown={dragStart}
+              // @ts-ignore
+              onMouseMove={drag}
+              onMouseUp={dragEnd}
+              onMouseLeave={dragEnd}
+            >
+              {label}
+            </div>
+          )}
+          <IconButton edge="end" onClick={close}>
+            <XIcon className="h-5 w-5" />
           </IconButton>
         </div>
         <div className="content p-5">{children}</div>

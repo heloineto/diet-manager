@@ -39,6 +39,8 @@ module.exports = {
           '0px 2px 4px -1px rgb(31 41 55 / 40%), 0px 4px 5px 0px rgb(31 41 55 / 34%), 0px 1px 10px 0px rgb(31 41 55 / 32%)',
         'calendar-primary-500': '0 0 25px rgba(50, 204, 15, 1)',
         'top-reflection': 'inset 0 0.5px 0 #fff',
+        overlay:
+          '0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12),0px 11px 15px -7px rgba(0,0,0,0.2)',
       },
     },
   },

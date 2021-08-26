@@ -36,94 +36,78 @@ const AddMeal = ({ className, onClose }: Props) => {
   };
 
   return (
-    <>
-      <Toolbar className="bg-gray-300 text-lg font-bold text-gray-800 mb-2.5 mt-px md:rounded-t-xl md:shadow-top-reflection">
-        Adicionar Refeição
-        <IconButton
-          className="ml-auto"
-          edge="start"
-          color="inherit"
-          onClick={onClose}
-          aria-label="close"
+    <Form
+      onSubmit={onSubmit}
+      initialValues={{
+        date: new Date(),
+        time: new Date(),
+        isPublic: false,
+        color: 'blue',
+      }}
+      // @ts-ignore
+      validate={makeValidate(addMealSchema)}
+    >
+      {({ handleSubmit, submitting }) => (
+        <form
+          onSubmit={handleSubmit}
+          className={clsx(className, 'flex flex-col space-y-5')}
         >
-          <XIcon className="w-7 h-7" />
-        </IconButton>
-      </Toolbar>
-      <div className="p-2.5">
-        <Form
-          onSubmit={onSubmit}
-          initialValues={{
-            date: new Date(),
-            time: new Date(),
-            isPublic: false,
-            color: 'blue',
-          }}
-          // @ts-ignore
-          validate={makeValidate(addMealSchema)}
-        >
-          {({ handleSubmit, submitting }) => (
-            <form
-              onSubmit={handleSubmit}
-              className={clsx(className, 'flex flex-col space-y-5')}
+          <TextField
+            label="Título"
+            name="label"
+            placeholder="Adicionar Título"
+          />
+          <Switches
+            label="Público"
+            name="isPublic"
+            data={{ label: '', value: true }}
+          />
+          <Radios
+            label="Cor"
+            name="color"
+            data={[
+              { label: 'red', value: '#fef2f2' },
+              { label: 'yellow', value: '#fffbeb' },
+              { label: 'green', value: '#ecfdf5' },
+              { label: 'blue', value: '#eff6ff' },
+              { label: 'indigo', value: '#eef2ff' },
+              { label: 'purple', value: '#f5f3ff' },
+              { label: 'pink', value: '#fdf2f8' },
+            ]}
+            radioGroupProps={{ row: true }}
+          />
+          <div className="flex space-x-5">
+            <KeyboardDatePicker
+              label="Data"
+              name="date"
+              format="dd/MM/yyyy"
+              placeholder="dd/mm/yyyy"
+            />
+            <TimePicker label="Horário" name="time" />
+          </div>
+          <div className="flex space-x-5 mt-5">
+            <Button
+              className="bg-gray-500 text-white w-2/6"
+              variant="contained"
+              disabled={submitting}
+              onClick={onClose}
             >
-              <TextField
-                label="Título"
-                name="label"
-                placeholder="Adicionar Título"
-              />
-              <Switches
-                label="Público"
-                name="isPublic"
-                data={{ label: '', value: true }}
-              />
-              <Radios
-                label="Cor"
-                name="color"
-                data={[
-                  { label: 'red', value: '#fef2f2' },
-                  { label: 'yellow', value: '#fffbeb' },
-                  { label: 'green', value: '#ecfdf5' },
-                  { label: 'blue', value: '#eff6ff' },
-                  { label: 'indigo', value: '#eef2ff' },
-                  { label: 'purple', value: '#f5f3ff' },
-                  { label: 'pink', value: '#fdf2f8' },
-                ]}
-                radioGroupProps={{ row: true }}
-              />
-              <div className="flex space-x-5">
-                <KeyboardDatePicker
-                  label="Data"
-                  name="date"
-                  format="dd/MM/yyyy"
-                  placeholder="dd/mm/yyyy"
-                />
-                <TimePicker label="Horário" name="time" />
-              </div>
-              <div className="flex space-x-5 mt-5">
-                <Button
-                  className="bg-gray-500 text-white w-2/6"
-                  variant="contained"
-                  disabled={submitting}
-                  onClick={onClose}
-                >
-                  Cancelar
-                </Button>
-                <Button
-                  className="shadow-blue-500 hover:shadow-xl-blue-500 w-4/6"
-                  color="secondary"
-                  variant="contained"
-                  disabled={submitting}
-                  type="submit"
-                >
-                  Adicionar
-                </Button>
-              </div>
-              {/* <pre>{JSON.stringify(values, undefined, 2)}</pre> */}
-            </form>
-          )}
-        </Form>
-      </div>
-    </>
+              Cancelar
+            </Button>
+            <Button
+              className="shadow-blue-500 hover:shadow-xl-blue-500 w-4/6"
+              color="secondary"
+              variant="contained"
+              disabled={submitting}
+              type="submit"
+            >
+              Adicionar
+            </Button>
+          </div>
+          {/* <pre>{JSON.stringify(values, undefined, 2)}</pre> */}
+        </form>
+      )}
+    </Form>
   );
 };
 
