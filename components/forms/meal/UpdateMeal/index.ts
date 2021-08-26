@@ -1,1 +1,1 @@
-export { default } from './AddMeal';
+export { default } from './UpdateMeal';

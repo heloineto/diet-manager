@@ -36,7 +36,7 @@ const UpdateMeal = ({ className, onClose, meal }: Props) => {
 
   const updateMeal = async (values: UpdateMealValuesType) => {
     onClose();
-    const res = await updateMealFirestore(values);
+    const res = await updateMealFirestore(values, meal.ref);
 
     if (res?.error)
       enqueueSnackbar(`Erro ao adicionar refeição: ${res.error}.`, {

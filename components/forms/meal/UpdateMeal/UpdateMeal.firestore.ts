@@ -2,14 +2,11 @@ import type { UpdateMealValuesType } from './UpdateMeal.types';
 
 import { auth, firestore, serverTimestamp } from '@lib/firebase';
 
-const updateMealFirestore = async ({
-  label,
-  isPublic,
-  color,
-  date,
-  time,
-}: UpdateMealValuesType) => {
-  const newMeal: Meal = {
+const updateMealFirestore = async (
+  { label, isPublic, color, date, time }: UpdateMealValuesType,
+  mealRef: FirebaseRef
+) => {
+  const updatedMeal: Partial<Meal> = {
     label,
     color,
     isPublic,
@@ -20,21 +17,14 @@ const updateMealFirestore = async ({
       time.getHours(),
       time.getMinutes()
     ),
-    createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
-    foods: [],
   };
 
   if (!auth?.currentUser?.uid)
     return { error: 'verifique se você está logado' };
 
-  const mealsRef = firestore
-    .collection('users')
-    .doc(auth.currentUser.uid)
-    .collection('meals');
-
   try {
-    await mealsRef.add(newMeal);
+    await mealRef.update(updatedMeal);
   } catch (error) {
     return { error };
   }
