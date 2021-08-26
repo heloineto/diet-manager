@@ -135,14 +135,7 @@ const MealActions = ({
             setSidePopUp={setSidePopUp}
           />
         </Modal> */}
-        <Modal open={removeMealOpen} setOpen={setRemoveMealOpen}>
-          {/* <RemoveMeal
-            label={meal.label}
-            mealRef={meal.ref}
-            onClose={() => {
-              setIsRemoveMealOpen(false);
-            }}
-          /> */}
+        <Modal open={removeMealOpen} onClose={() => setRemoveMealOpen(false)}>
           <RemoveMeal
             label={mealLabel}
             mealRef={mealRef}
@@ -150,7 +143,7 @@ const MealActions = ({
           />
         </Modal>
 
-        <Modal open={updateMealOpen} setOpen={setUpdateMealOpen}>
+        <Modal open={updateMealOpen} onClose={() => setRemoveMealOpen(false)}>
           {/* <MealForm onClose={() => setIsMealFormOpen(false)} meal={meal} /> */}
         </Modal>
       </div>

@@ -38,30 +38,6 @@ const Modal = ({
     setStyle(initialStyle);
   };
 
-  // if (compact)
-  //   return (
-  //     <ReactModal
-  //       className="absolute bg-white w-full h-full overflow-y-auto"
-  //       isOpen={open}
-  //       onRequestClose={close}
-  //       style={{
-  //         overlay: {
-  //           zIndex: 9999,
-  //           backgroundColor: 'transparent',
-  //         },
-  //       }}
-  //     >
-  //       <div className="h-10 w-full flex items-center justify-between pr-5 bg-gray-200 text-gray-700">
-  //         {label}
-  //         <div className="flex-grow h-full" />
-  //         <IconButton onClick={close}>
-  //           <XIcon className="h-4 w-4" />
-  //         </IconButton>
-  //       </div>
-  //       <div className="content p-5">{children}</div>
-  //     </ReactModal>
-  //   );
-
   return (
     <ReactModal
       className={clsx(
@@ -86,7 +62,7 @@ const Modal = ({
           )}
         >
           {compact ? (
-            label
+            <div>{label}</div>
           ) : (
             <div
               className="cursor-move flex-grow h-full flex items-center p-5"
