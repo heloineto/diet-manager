@@ -17,6 +17,7 @@ import Modal from '@components/overlays/Modal';
 import RemoveMeal from '@components/forms/meal/RemoveMeal';
 import UpdateMeal from '@components/forms/meal/UpdateMeal';
 import AddFood from '@components/forms/food/AddFood';
+import ModalWithAside from '@components/overlays/ModalWithAside';
 
 interface Props {
   compact: boolean;
@@ -36,6 +37,8 @@ const MealActions = ({
   const [addFoodOpen, setAddFoodOpen] = useState(false);
   const [removeMealOpen, setRemoveMealOpen] = useState(false);
   const [updateMealOpen, setUpdateMealOpen] = useState(false);
+
+  const [addFoodDetails, setAddDetails] = useState<{}>({});
 
   const actions = useMemo(
     () => [

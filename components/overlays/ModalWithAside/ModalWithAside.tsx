@@ -13,7 +13,6 @@ interface Props {
   onClose?: () => void;
   initialStyle?: CSSProperties;
   aside?: ReactNode;
-  asideLabel?: string;
 }
 
 const ModalWithAside = ({
@@ -27,7 +26,6 @@ const ModalWithAside = ({
     transform: 'translate(-50%, -50%)',
   },
   aside,
-  asideLabel,
 }: Props) => {
   ReactModal.setAppElement('#__next');
 
@@ -98,10 +96,7 @@ const ModalWithAside = ({
           className="w-80 p-0 absolute top-0 inline-block mx-5"
           style={asideModalStyle}
         >
-          <div className="pl-5 font-bold top-bar h-10 w-full flex items-center justify-between pr-5 bg-gray-200 text-gray-700 rounded-t-xl">
-            {asideLabel && asideLabel}
-          </div>
-          <div className="p-5">{aside}</div>
+          {aside && aside}
         </div>
       )}
     </ReactModal>

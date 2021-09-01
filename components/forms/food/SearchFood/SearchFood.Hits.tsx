@@ -3,7 +3,6 @@ import type { HitsProvided, Hit, BasicDoc } from 'react-instantsearch-core';
 import { connectHits } from 'react-instantsearch-dom';
 
 import clsx from 'clsx';
-import Modal from '@components/overlays/Modal';
 
 interface Props {
   setSelectedFood: Dispatch<SetStateAction<Food | null>>;
@@ -97,17 +96,6 @@ const SearchFoodHits = ({
           </li>
         );
       })}
-      <Modal
-        open={detailsOpen}
-        onClose={() => setDetailsOpen(false)}
-        initialStyle={{
-          top: '25%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-        }}
-      >
-        <div>HELLO</div>
-      </Modal>
     </ol>
   );
 };
