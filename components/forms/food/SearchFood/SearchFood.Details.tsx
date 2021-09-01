@@ -1,5 +1,6 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 
+import { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import HexagonLabel from '@components/data-displays/HexagonLabel';
 import { round } from 'lodash';
@@ -9,15 +10,14 @@ import {
   useMediaQuery,
   useTheme,
 } from '@material-ui/core';
-// import { Form } from 'react-final-form';
-// import { TextField } from 'mui-rff';
+
 import Divider from '@components/layout/Divider';
 
 interface Props {
   food: FoodRecord & {
     foodId: string;
   };
-  setSelectedFood: Dispatch<SetStateAction<Food | null>>;
+  setSelectedFood: Dispatch<SetStateAction<Food | null>> | null;
 }
 
 const SearchFoodDetails = ({ food, setSelectedFood }: Props) => {
@@ -29,40 +29,48 @@ const SearchFoodDetails = ({ food, setSelectedFood }: Props) => {
   const { label, kcal, prot, fat, carb, unit, foodId } = food;
 
   useEffect(() => {
-    setSelectedFood({
-      amount,
-      carb,
-      prot,
-      fat,
-      kcal,
-      foodId,
-      label,
-      unit,
-    });
-  }, [amount]);
+    setSelectedFood &&
+      setSelectedFood({
+        amount,
+        carb,
+        prot,
+        fat,
+        kcal,
+        foodId,
+        label,
+        unit,
+      });
 
-  let totalKcal = (carb + prot) * 4 + fat * 9;
+    return () => {
+      setSelectedFood && setSelectedFood(null);
+    };
+  }, [amount, food]);
 
-  const macrosInfo = [
-    {
-      label: 'Carboid.',
-      value: carb,
-      color: '#a78bfa',
-      kcalPerUnit: 4,
-    },
-    {
-      label: 'Proteina',
-      value: prot,
-      color: '#60a5fa',
-      kcalPerUnit: 4,
-    },
-    {
-      label: 'Gordura',
-      value: fat,
-      color: '#fbbf24',
-      kcalPerUnit: 9,
-    },
-  ];
+  const totalKcal = (carb + prot) * 4 + fat * 9;
+
+  const macrosInfo = useMemo(
+    () => [
+      {
+        label: 'Carboid.',
+        value: carb,
+        color: '#a78bfa',
+        kcalPerUnit: 4,
+      },
+      {
+        label: 'Proteina',
+        value: prot,
+        color: '#60a5fa',
+        kcalPerUnit: 4,
+      },
+      {
+        label: 'Gordura',
+        value: fat,
+        color: '#fbbf24',
+        kcalPerUnit: 9,
+      },
+    ],
+    []
+  );
 
   const renderHexagons = () =>
     macrosInfo.map(({ value, label, color, kcalPerUnit }) => (

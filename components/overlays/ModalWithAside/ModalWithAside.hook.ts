@@ -11,9 +11,8 @@ export const useModalWithAsideHook = (initialStyle: CSSProperties) => {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
   const [style, setStyle] = useState(initialStyle);
-  const [asideModalStyle, setAsideModalStyle] = useState({
+  const [asideModalStyle, setAsideModalStyle] = useState<CSSProperties>({
     left: '100%',
-    right: '0%',
   });
 
   const getParentAt = (
@@ -56,8 +55,8 @@ export const useModalWithAsideHook = (initialStyle: CSSProperties) => {
       left >
         window.innerWidth -
           getParentAt(e.currentTarget, 3).getBoundingClientRect().left
-        ? { left: '0%', right: '100%' }
-        : { left: '100%', right: '0%' }
+        ? { right: '100%' }
+        : { left: '100%' }
     );
   };
 

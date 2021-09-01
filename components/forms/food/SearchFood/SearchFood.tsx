@@ -5,6 +5,7 @@ import algoliasearch from 'algoliasearch/lite';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import SearchFoodSeachBox from './SearchFood.SeachBox';
 import SearchFoodHits from './SearchFood.Hits';
+import { SelectedFoodContext } from './SearchFood.context';
 
 //* Client ID and Search-Only API Key
 const searchClient = algoliasearch(
@@ -13,11 +14,11 @@ const searchClient = algoliasearch(
 );
 
 interface Props {
-  setSelectedFood: Dispatch<SetStateAction<Food | null>>;
   selectedFood: Food | null;
+  setSelectedFood: Dispatch<SetStateAction<Food | null>>;
 }
 
-const SearchFood = ({ setSelectedFood, selectedFood }: Props) => {
+const SearchFood = ({ selectedFood, setSelectedFood }: Props) => {
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
 
@@ -43,11 +44,11 @@ const SearchFood = ({ setSelectedFood, selectedFood }: Props) => {
               Kcal
             </div>
           </div>
-          <SearchFoodHits
-            // @ts-ignore
-            setSelectedFood={setSelectedFood}
-            selectedFood={selectedFood}
-          />
+          <SelectedFoodContext.Provider
+            value={{ selectedFood, setSelectedFood }}
+          >
+            <SearchFoodHits />
+          </SelectedFoodContext.Provider>
         </div>
       </div>
     </InstantSearch>
