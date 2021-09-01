@@ -16,6 +16,7 @@ import {
 import Modal from '@components/overlays/Modal';
 import RemoveMeal from '@components/forms/meal/RemoveMeal';
 import UpdateMeal from '@components/forms/meal/UpdateMeal';
+import AddFood from '@components/forms/food/AddFood';
 
 interface Props {
   compact: boolean;
@@ -72,7 +73,13 @@ const MealActions = ({
 
               <Menu {...bindMenu(popupState)}>
                 {actions.map(({ label, Icon, onClick, className }, idx) => (
-                  <MenuItem key={idx} onClick={onClick}>
+                  <MenuItem
+                    key={idx}
+                    onClick={() => {
+                      popupState.close();
+                      onClick();
+                    }}
+                  >
                     <Icon className={clsx(className, 'h-4 w-4 mr-2.5')} />
                     {label}
                   </MenuItem>
@@ -112,28 +119,31 @@ const MealActions = ({
               'w-7 h-7 p-0 transition-colors duration-500 mr-2.5'
             )}
             color="primary"
-            // onClick={() => setIsFoodFormOpen}
+            onClick={() => setAddFoodOpen(true)}
           >
             <PlusIcon className="h-4 w-4" />
           </IconButton>
         </Tooltip>
         {renderResponsiveActions()}
       </div>
-      <div>
-        {/* <Modal
+
+      <>
+        <Modal
+          label="Adicionar Alimento"
           open={addFoodOpen}
-          setOpen={setIsFoodFormOpen}
-          onClose={() => setSidePopUp(null)}
-          SidePopUp={SidePopUp}
+          onClose={() => setAddFoodOpen(false)}
         >
-          <FoodForm
-            mealRef={meal.ref}
-            onClose={() => {
-              // setIsFoodFormOpen(false);
-            }}
-            setSidePopUp={setSidePopUp}
-          />
-        </Modal> */}
+          <AddFood mealRef={meal.ref} onClose={() => setAddFoodOpen(false)} />
+        </Modal>
+
+        <Modal
+          label="Editar Refeição"
+          open={updateMealOpen}
+          onClose={() => setUpdateMealOpen(false)}
+        >
+          <UpdateMeal onClose={() => setUpdateMealOpen(false)} meal={meal} />
+        </Modal>
+
         <Modal
           label="Remover Refeição"
           open={removeMealOpen}
@@ -145,15 +155,7 @@ const MealActions = ({
             onClose={() => setRemoveMealOpen(false)}
           />
         </Modal>
-
-        <Modal
-          label="Editar Refeição"
-          open={updateMealOpen}
-          onClose={() => setUpdateMealOpen(false)}
-        >
-          <UpdateMeal onClose={() => setUpdateMealOpen(false)} meal={meal} />
-        </Modal>
-      </div>
+      </>
     </>
   );
 };

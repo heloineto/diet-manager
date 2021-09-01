@@ -1,12 +1,8 @@
-import { Field, Form } from 'react-final-form';
-
-import { arrayUnion, serverTimestamp } from '@lib/firebase';
 import { useState } from 'react';
 
-import SearchFood from './SearchFood';
-import CreateFood from './CreateFood';
 import { Button } from '@material-ui/core';
 import addFoodFirestore from './AddFood.firestore';
+import SearchFood from '../SearchFood';
 
 interface Props {
   className?: string;
@@ -17,7 +13,7 @@ interface Props {
 const AddFood = ({ className, onClose, mealRef }: Props) => {
   const [createOpen, setCreateOpen] = useState(false);
 
-  const [food, setFood] = useState<Food | null>();
+  const [food, setFood] = useState<Food | null>(null);
 
   const addFood = async () => {
     onClose();
@@ -28,11 +24,12 @@ const AddFood = ({ className, onClose, mealRef }: Props) => {
   };
 
   return (
-    <div className="flex flex-col def-gap-y">
-      <div className="flex flex-col def-gap-y">
-        {/* <AddFoodSearch /> */}
+    <div className="flex flex-col space-y-2.5">
+      <div className="flex flex-col space-y-2.5">
+        <SearchFood selectedFood={food} setSelectedFood={setFood} />
         <p className="text-gray-700">
-          Não encontrou o que estava procurando? <br />
+          Não encontrou o que estava procurando?
+          <br />
           <button
             className="text-blue-500 underline font-medium"
             onClick={() => setCreateOpen(true)}
@@ -42,7 +39,24 @@ const AddFood = ({ className, onClose, mealRef }: Props) => {
         </p>
       </div>
 
-      <Button onClick={addFood}>Adicionar Alimento</Button>
+      <div className="flex space-x-5 mt-5">
+        <Button
+          className="bg-gray-500 text-white w-2/6"
+          variant="contained"
+          onClick={onClose}
+        >
+          Cancelar
+        </Button>
+        <Button
+          className="shadow-blue-500 hover:shadow-xl-blue-500 w-4/6"
+          color="secondary"
+          variant="contained"
+          type="submit"
+          onClick={addFood}
+        >
+          Adicionar
+        </Button>
+      </div>
     </div>
   );
 };

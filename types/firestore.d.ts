@@ -53,7 +53,7 @@ interface Food {
   kcal: number;
   foodId: string;
   label: string;
-  unit: 'g';
+  unit: string;
 }
 
 interface FormattedFood {
@@ -64,5 +64,5 @@ interface FormattedFood {
   kcal: number;
   foodId: string;
   label: string;
-  unit: 'g';
+  unit: string;
 }
