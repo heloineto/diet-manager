@@ -1,8 +1,14 @@
 import type { Dispatch, SetStateAction } from 'react';
 
+import clsx from 'clsx';
 import HexagonLabel from '@components/data-displays/HexagonLabel';
 import { round } from 'lodash';
-import { useMemo } from 'react';
+import {
+  InputAdornment,
+  TextField,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core';
 
 interface Props {
   food: FoodRecord;
@@ -11,6 +17,9 @@ interface Props {
 }
 
 const SearchFoodDetails = ({ food, amount, setAmount }: Props) => {
+  const { breakpoints } = useTheme();
+  const compact = useMediaQuery(breakpoints.down('md'));
+
   const { label, kcal, prot, fat, carb, unit } = food;
   let totalKcal = ((carb || 0) + (prot || 0)) * 4 + (fat || 0) * 9;
 
@@ -48,10 +57,23 @@ const SearchFoodDetails = ({ food, amount, setAmount }: Props) => {
 
   return (
     <>
-      <div className="pl-5 font-bold top-bar h-10 w-full flex items-center justify-between pr-5 bg-gray-200 text-gray-700 rounded-t-xl">
+      <div
+        className={clsx(
+          compact ? 'p-5' : 'rounded-t-xl shadow-top-reflection pl-5',
+          'h-14 w-full flex items-center justify-between font-bold bg-gray-200 text-gray-700'
+        )}
+      >
         {label}
       </div>
-      <div className="p-5">{'aside'}</div>
+      <div className="p-5">
+        <TextField
+          label="Quantidade"
+          id="standard-start-adornment"
+          InputProps={{
+            endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
+          }}
+        />
+      </div>
     </>
   );
 };

@@ -20,6 +20,7 @@ const SearchFoodHits = ({
   hits,
 }: HitsProvided<Hit<BasicDoc>> & Props) => {
   const [amount, setAmount] = useState(100);
+  const { setAside } = useContext(AsideContext);
 
   return (
     <ol>
@@ -30,8 +31,6 @@ const SearchFoodHits = ({
 
         const isEven = idx % 2 === 0;
         const isSelected = selectedFood && foodId === selectedFood.foodId;
-
-        const { setAside } = useContext(AsideContext);
 
         return (
           <li key={foodId}>

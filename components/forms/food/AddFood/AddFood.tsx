@@ -24,7 +24,7 @@ const AddFood = ({ className, onClose, mealRef }: Props) => {
   };
 
   return (
-    <div className="flex flex-col space-y-2.5 ">
+    <div className="flex flex-col space-y-2.5 lg:w-[32rem]">
       <div className="flex flex-col space-y-2.5">
         <SearchFood selectedFood={food} setSelectedFood={setFood} />
         <p className="text-gray-700">

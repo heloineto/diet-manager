@@ -65,7 +65,7 @@ const ModalWithAside = ({
         },
       }}
     >
-      <div className="p-0">
+      <div>
         <div
           className={clsx(
             compact ? 'p-5' : 'rounded-t-xl shadow-top-reflection pr-5',
@@ -91,7 +91,7 @@ const ModalWithAside = ({
             <XIcon className="h-5 w-5" />
           </IconButton>
         </div>
-        <div className="content p-5">
+        <div className=" p-5">
           <AsideContext.Provider value={{ aside, setAside }}>
             {children}
           </AsideContext.Provider>
@@ -99,7 +99,12 @@ const ModalWithAside = ({
       </div>
       {aside && (
         <div
-          className="w-80 p-0 absolute top-0 inline-block mx-5"
+          className={clsx(
+            compact
+              ? 'w-full h-full overflow-y-auto'
+              : 'shadow-overlay rounded-xl',
+            'absolute bg-white lg:w-80 p-0 top-0 inline-block mx-5'
+          )}
           style={asideModalStyle}
         >
           {aside && aside}
