@@ -49,7 +49,7 @@ const Navbar = ({ className, toggleSideBarOpen }: Props) => {
       <div className="flex-1 flex justify-between px-4 sm:px-6">
         <div className="my-auto">
           <IconButton
-            className="h-12 w-12 md:hidden"
+            className="h-12 w-12 lg:hidden"
             edge="start"
             onClick={toggleSideBarOpen}
           >

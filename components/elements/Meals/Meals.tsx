@@ -23,7 +23,7 @@ const Meals = () => {
   const [addMealOpen, setAddMealOpen] = useState(false);
 
   const { breakpoints } = useTheme();
-  const compact = useMediaQuery(breakpoints.down('sm'));
+  const compact = useMediaQuery(breakpoints.down('md'));
 
   const renderMealTables = () =>
     meals?.map((meal, idx) => {

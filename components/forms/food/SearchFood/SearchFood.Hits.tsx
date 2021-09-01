@@ -1,10 +1,13 @@
-import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+
+import { useContext, useState } from 'react';
 import type { HitsProvided, Hit, BasicDoc } from 'react-instantsearch-core';
 import { connectHits } from 'react-instantsearch-dom';
 
 import clsx from 'clsx';
 import { AsideContext } from '@components/overlays/ModalWithAside/ModalWithAside.context';
 import SearchFoodDetails from './SearchFood.Details';
+import { convertHitToFood } from './SearchFood.utils';
 
 interface Props {
   setSelectedFood: Dispatch<SetStateAction<Food | null>>;
@@ -16,18 +19,22 @@ const SearchFoodHits = ({
   selectedFood,
   hits,
 }: HitsProvided<Hit<BasicDoc>> & Props) => {
-  const [detailsOpen, setDetailsOpen] = useState(true);
+  const [amount, setAmount] = useState(100);
 
   return (
     <ol>
-      {hits.map(({ label, kcal, prot, fat, carb, unit, objectID }, idx) => {
+      {hits.map((hit, idx) => {
+        const food = convertHitToFood(hit);
+
+        const { label, kcal, prot, fat, carb, unit, foodId } = food;
+
         const isEven = idx % 2 === 0;
-        const isSelected = selectedFood && objectID === selectedFood.foodId;
+        const isSelected = selectedFood && foodId === selectedFood.foodId;
 
         const { setAside } = useContext(AsideContext);
 
         return (
-          <li key={objectID}>
+          <li key={foodId}>
             <div
               className={clsx(
                 isEven ? 'bg-white' : 'bg-gray-50',
@@ -43,19 +50,25 @@ const SearchFoodHits = ({
                   return;
                 }
 
-                const food: Food = {
-                  amount: 100,
-                  carb: Number(carb),
-                  prot: Number(prot),
-                  fat: Number(fat),
-                  kcal: Number(kcal),
-                  foodId: objectID,
-                  label: label,
-                  unit: unit,
-                };
+                setSelectedFood({
+                  amount,
+                  carb,
+                  prot,
+                  fat,
+                  kcal,
+                  foodId,
+                  label,
+                  unit,
+                });
 
-                setSelectedFood(food);
-                setAside && setAside(<SearchFoodDetails />);
+                setAside &&
+                  setAside(
+                    <SearchFoodDetails
+                      food={food}
+                      amount={amount}
+                      setAmount={setAmount}
+                    />
+                  );
               }}
             >
               <div className="flex-grow inline-block my-auto px-2 overflow-hidden whitespace-nowrap overflow-ellipsis">

@@ -74,7 +74,6 @@ interface FoodRecord {
   kcal: number;
   label: string;
   unit: string;
-  kcal: number;
   kj: number;
   cholesterol: number;
   fiber: number;

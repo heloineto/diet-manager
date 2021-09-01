@@ -19,7 +19,7 @@ interface Props {
 
 const SearchFood = ({ setSelectedFood, selectedFood }: Props) => {
   const { breakpoints } = useTheme();
-  const compact = useMediaQuery(breakpoints.down('sm'));
+  const compact = useMediaQuery(breakpoints.down('md'));
 
   return (
     <InstantSearch searchClient={searchClient} indexName="foods">

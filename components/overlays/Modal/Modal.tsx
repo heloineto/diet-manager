@@ -31,7 +31,7 @@ const Modal = ({
     useModalHook(initialStyle);
 
   const { breakpoints } = useTheme();
-  const compact = useMediaQuery(breakpoints.down('sm'));
+  const compact = useMediaQuery(breakpoints.down('md'));
 
   const close = () => {
     onClose();

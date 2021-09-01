@@ -61,7 +61,7 @@ const Sidebar = ({
 
   return (
     <div className={className}>
-      <div className="md:hidden">
+      <div className="lg:hidden">
         <Drawer
           container={
             window !== undefined ? () => window().document.body : undefined
@@ -87,7 +87,7 @@ const Sidebar = ({
           </div>
         </Drawer>
       </div>
-      <div className="w-28 hidden md:block">
+      <div className="w-28 hidden lg:block">
         <Drawer
           classes={{
             paper: 'w-28',

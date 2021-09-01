@@ -38,7 +38,7 @@ interface Props {
 
 const Meal = ({ meal, formattedFoods }: Props) => {
   const { breakpoints } = useTheme();
-  const compact = useMediaQuery(breakpoints.down('sm'));
+  const compact = useMediaQuery(breakpoints.down('md'));
 
   const {
     expanded,
