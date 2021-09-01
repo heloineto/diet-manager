@@ -19,6 +19,7 @@ const SearchFoodSeachBox = ({
     <FormControl variant="outlined" size="small">
       <InputLabel htmlFor="outlined-adornment-search">Pesquisar</InputLabel>
       <OutlinedInput
+        autoFocus
         id="outlined-adornment-search"
         type="text"
         value={currentRefinement}

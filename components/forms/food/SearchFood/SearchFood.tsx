@@ -6,7 +6,7 @@ import { useMediaQuery, useTheme } from '@material-ui/core';
 import SearchFoodSeachBox from './SearchFood.SeachBox';
 import SearchFoodHits from './SearchFood.Hits';
 
-//* Client Id and Search-Only API Key
+//* Client ID and Search-Only API Key
 const searchClient = algoliasearch(
   'OZGJFODYXD',
   '8b25a5dd63fb83e5b767998cbc6f62fa'

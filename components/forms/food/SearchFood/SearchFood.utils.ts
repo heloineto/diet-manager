@@ -2,12 +2,13 @@ import type { Hit, BasicDoc } from 'react-instantsearch-core';
 
 export const convertHitToFood = (hit: Hit<Hit<BasicDoc>>) => {
   const food: FoodRecord & { foodId: string } = {
+    label: hit.label || '',
+    unit: hit.unit || 'g',
+    foodId: hit.objectID,
     carb: Number(hit.carb) || 0,
     prot: Number(hit.prot) || 0,
     fat: Number(hit.fat) || 0,
     kcal: Number(hit.kcal) || 0,
-    label: String(hit.label),
-    unit: String(hit.unit),
     kj: Number(hit.kj) || 0,
     cholesterol: Number(hit.cholesterol) || 0,
     fiber: Number(hit.fiber) || 0,
@@ -26,7 +27,6 @@ export const convertHitToFood = (hit: Hit<Hit<BasicDoc>>) => {
     pyridoxine: Number(hit.pyridoxine) || 0,
     niacin: Number(hit.niacin) || 0,
     vitaminC: Number(hit.vitaminC) || 0,
-    foodId: String(hit.objectID),
   };
 
   return food;

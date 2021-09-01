@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 
 import { useContext, useState } from 'react';
 import type { HitsProvided, Hit, BasicDoc } from 'react-instantsearch-core';
@@ -19,8 +19,13 @@ const SearchFoodHits = ({
   selectedFood,
   hits,
 }: HitsProvided<Hit<BasicDoc>> & Props) => {
-  const [amount, setAmount] = useState(100);
   const { setAside } = useContext(AsideContext);
+
+  useEffect(() => {
+    return () => {
+      setAside && setAside(null);
+    };
+  }, []);
 
   return (
     <ol>
@@ -49,23 +54,11 @@ const SearchFoodHits = ({
                   return;
                 }
 
-                setSelectedFood({
-                  amount,
-                  carb,
-                  prot,
-                  fat,
-                  kcal,
-                  foodId,
-                  label,
-                  unit,
-                });
-
                 setAside &&
                   setAside(
                     <SearchFoodDetails
                       food={food}
-                      amount={amount}
-                      setAmount={setAmount}
+                      setSelectedFood={setSelectedFood}
                     />
                   );
               }}
