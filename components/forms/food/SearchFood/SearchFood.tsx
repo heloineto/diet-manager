@@ -6,6 +6,7 @@ import algoliasearch from 'algoliasearch/lite';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import SearchFoodSeachBox from './SearchFood.SeachBox';
 import SearchFoodHit from './SearchFood.Hit';
+import SearchFoodHits from './SearchFoodHits';
 
 //* Client Id and Search-Only API Key
 const searchClient = algoliasearch(
@@ -44,14 +45,10 @@ const SearchFood = ({ setSelectedFood, selectedFood }: Props) => {
               Kcal
             </div>
           </div>
-          <Hits
-            hitComponent={({ hit, ...rest }) => (
-              <SearchFoodHit
-                setSelectedFood={setSelectedFood}
-                selectedFood={selectedFood}
-                hit={hit}
-              />
-            )}
+          <SearchFoodHits
+            // @ts-ignore
+            setSelectedFood={setSelectedFood}
+            selectedFood={selectedFood}
           />
         </div>
       </div>

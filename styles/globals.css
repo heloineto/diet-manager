@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* .ais-Hits ul li:nth-child(odd) {
+  @apply bg-gray-50 !important;
+}
+
+.ais-Hits ul li:nth-child(odd) .carb {
+  @apply bg-indigo-200;
+}
+
+.ais-Hits ul li:nth-child(odd) .prot {
+  @apply bg-blue-200;
+}
+
+.ais-Hits ul li:nth-child(odd) .fat {
+  @apply bg-yellow-200;
+}
+
+.ais-Hits ul li:nth-child(odd) .kcal {
+  @apply bg-green-200;
+} */
