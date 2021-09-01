@@ -31,25 +31,21 @@ const SearchFood = ({ setSelectedFood, selectedFood }: Props) => {
             <div className="flex-grow flex items-center justify-start px-2">
               {compact ? 'Alimento' : 'Descrição Do Alimento'}
             </div>
-            {[
-              { label: 'Carb', className: 'bg-indigo-300 text-indigo-900' },
-              { label: 'Prot', className: 'bg-blue-300 text-blue-900' },
-              { label: 'Gord', className: 'bg-yellow-300 text-yellow-900' },
-              { label: 'Kcal', className: 'bg-green-300 text-green-900' },
-            ].map(({ label, className }) => (
-              <div
-                key={label}
-                className={clsx(
-                  className,
-                  'text-xs md:text-sm flex items-center justify-center min-w-[10%]'
-                )}
-              >
-                {label}
-              </div>
-            ))}
+            <div className="text-xs md:text-sm flex items-center justify-center min-w-[10%] bg-indigo-300 text-indigo-900">
+              Carb
+            </div>
+            <div className="text-xs md:text-sm flex items-center justify-center min-w-[10%] bg-blue-300 text-blue-900">
+              Prot
+            </div>
+            <div className="text-xs md:text-sm flex items-center justify-center min-w-[10%] bg-yellow-300 text-yellow-900">
+              Gord
+            </div>
+            <div className="text-xs md:text-sm flex items-center justify-center min-w-[10%] bg-green-300 text-green-900">
+              Kcal
+            </div>
           </div>
           <Hits
-            hitComponent={({ hit }) => (
+            hitComponent={({ hit, ...rest }) => (
               <SearchFoodHit
                 setSelectedFood={setSelectedFood}
                 selectedFood={selectedFood}

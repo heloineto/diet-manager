@@ -1,6 +1,5 @@
 import type { SearchBoxProvided } from 'react-instantsearch-core';
 
-import clsx from 'clsx';
 import { connectSearchBox } from 'react-instantsearch-dom';
 import {
   FormControl,
