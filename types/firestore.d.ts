@@ -66,3 +66,31 @@ interface FormattedFood {
   label: string;
   unit: string;
 }
+
+interface FoodRecord {
+  carb: number;
+  prot: number;
+  fat: number;
+  kcal: number;
+  label: string;
+  unit: string;
+  kcal: number;
+  kj: number;
+  cholesterol: number;
+  fiber: number;
+  calcium: number;
+  magnesium: number;
+  manganese: number;
+  phosphor: number;
+  iron: number;
+  sodium: number;
+  potassium: number;
+  copper: number;
+  zinc: number;
+  retinol: number;
+  thiamine: number;
+  riboflavin: number;
+  pyridoxine: number;
+  niacin: number;
+  vitaminC: number;
+}

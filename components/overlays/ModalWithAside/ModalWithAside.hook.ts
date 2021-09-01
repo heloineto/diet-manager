@@ -7,11 +7,14 @@ import type {
 
 import { useState } from 'react';
 
-export const useModalHook = (initialStyle: CSSProperties) => {
+export const useModalWithAsideHook = (initialStyle: CSSProperties) => {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
   const [style, setStyle] = useState(initialStyle);
-  const [sideModalStyle, setSideModalStyle] = useState({ left: '100%' });
+  const [asideModalStyle, setAsideModalStyle] = useState({
+    left: '100%',
+    right: '0%',
+  });
 
   const getParentAt = (
     currentTarget: EventTarget & HTMLElement,
@@ -25,21 +28,9 @@ export const useModalHook = (initialStyle: CSSProperties) => {
     return currentTarget;
   };
 
-  const dragStart = (
-    e: MouseEvent<HTMLElement, MouseEvent>,
-    setDragging: Dispatch<SetStateAction<boolean>>,
-    setOffset: Dispatch<
-      SetStateAction<{
-        x: number;
-        y: number;
-      }>
-    >
-  ) => {
+  const dragStart = (e: MouseEvent<HTMLDivElement, MouseEvent>) => {
     setOffset({
-      /**
-       * We need to go tree nodes up,
-       * so the right element is selected
-       */
+      //* Go tree nodes up, so the right element is selected
       x:
         e.screenX -
         getParentAt(e.currentTarget, 3).getBoundingClientRect().left,
@@ -50,12 +41,7 @@ export const useModalHook = (initialStyle: CSSProperties) => {
     setDragging(true);
   };
 
-  const drag = (
-    e: MouseEvent<HTMLElement, MouseEvent>,
-    setStyle: Dispatch<SetStateAction<CSSProperties>>,
-    setSideModalStyle: Dispatch<SetStateAction<CSSProperties>>,
-    dragging: boolean
-  ) => {
+  const drag = (e: MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (!dragging) return;
 
     const left = e.screenX - offset.x;
@@ -66,12 +52,12 @@ export const useModalHook = (initialStyle: CSSProperties) => {
       top,
     });
 
-    setSideModalStyle(
+    setAsideModalStyle(
       left >
         window.innerWidth -
           getParentAt(e.currentTarget, 3).getBoundingClientRect().left
-        ? { right: '100%' }
-        : { left: '100%' }
+        ? { left: '0%', right: '100%' }
+        : { left: '100%', right: '0%' }
     );
   };
 
@@ -85,7 +71,7 @@ export const useModalHook = (initialStyle: CSSProperties) => {
     dragEnd,
     style,
     setStyle,
-    sideModalStyle,
-    setSideModalStyle,
+    asideModalStyle,
+    setAsideModalStyle,
   };
 };

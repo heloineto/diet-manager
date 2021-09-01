@@ -1,7 +1,7 @@
 import type { ReactNode, CSSProperties } from 'react';
 
 import ReactModal from 'react-modal';
-import { useModalHook } from './Modal.hook';
+import { useModalWithAsideHook } from './ModalWithAside.hook';
 import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
 import { XIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
@@ -12,9 +12,11 @@ interface Props {
   open: boolean;
   onClose?: () => void;
   initialStyle?: CSSProperties;
+  aside?: ReactNode;
+  asideLabel?: string;
 }
 
-const Modal = ({
+const ModalWithAside = ({
   children,
   label,
   open,
@@ -24,11 +26,20 @@ const Modal = ({
     left: '50%',
     transform: 'translate(-50%, -50%)',
   },
+  aside,
+  asideLabel,
 }: Props) => {
   ReactModal.setAppElement('#__next');
 
-  const { dragStart, drag, dragEnd, style, setStyle } =
-    useModalHook(initialStyle);
+  const {
+    dragStart,
+    drag,
+    dragEnd,
+    style,
+    setStyle,
+    asideModalStyle,
+    setAsideModalStyle,
+  } = useModalWithAsideHook(initialStyle);
 
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('sm'));
@@ -82,8 +93,19 @@ const Modal = ({
         </div>
         <div className="content p-5">{children}</div>
       </div>
+      {aside && (
+        <div
+          className="w-80 p-0 absolute top-0 inline-block mx-5"
+          style={asideModalStyle}
+        >
+          <div className="pl-5 font-bold top-bar h-10 w-full flex items-center justify-between pr-5 bg-gray-200 text-gray-700 rounded-t-xl">
+            {asideLabel && asideLabel}
+          </div>
+          <div className="p-5">{aside}</div>
+        </div>
+      )}
     </ReactModal>
   );
 };
 
-export default Modal;
+export default ModalWithAside;

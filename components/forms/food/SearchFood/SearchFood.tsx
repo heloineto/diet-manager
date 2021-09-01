@@ -1,12 +1,10 @@
 import type { Dispatch, SetStateAction } from 'react';
 
-import clsx from 'clsx';
-import { InstantSearch, Hits } from 'react-instantsearch-dom';
+import { InstantSearch } from 'react-instantsearch-dom';
 import algoliasearch from 'algoliasearch/lite';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import SearchFoodSeachBox from './SearchFood.SeachBox';
-import SearchFoodHit from './SearchFood.Hit';
-import SearchFoodHits from './SearchFoodHits';
+import SearchFoodHits from './SearchFood.Hits';
 
 //* Client Id and Search-Only API Key
 const searchClient = algoliasearch(
