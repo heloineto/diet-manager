@@ -1,8 +1,10 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useContext, useState } from 'react';
 import type { HitsProvided, Hit, BasicDoc } from 'react-instantsearch-core';
 import { connectHits } from 'react-instantsearch-dom';
 
 import clsx from 'clsx';
+import { AsideContext } from '@components/overlays/ModalWithAside/ModalWithAside.context';
+import SearchFoodDetails from './SearchFood.Details';
 
 interface Props {
   setSelectedFood: Dispatch<SetStateAction<Food | null>>;
@@ -22,6 +24,8 @@ const SearchFoodHits = ({
         const isEven = idx % 2 === 0;
         const isSelected = selectedFood && objectID === selectedFood.foodId;
 
+        const { setAside } = useContext(AsideContext);
+
         return (
           <li key={objectID}>
             <div
@@ -35,7 +39,7 @@ const SearchFoodHits = ({
               onClick={() => {
                 if (isSelected) {
                   setSelectedFood(null);
-                  // setSidePopUp(null);
+                  setAside && setAside(null);
                   return;
                 }
 
@@ -51,10 +55,7 @@ const SearchFoodHits = ({
                 };
 
                 setSelectedFood(food);
-                // setSidePopUp({
-                //   title: label,
-                //   render: () => <FoodSidePopUp {...{ hit, onChange }} />,
-                // });
+                setAside && setAside(<SearchFoodDetails />);
               }}
             >
               <div className="flex-grow inline-block my-auto px-2 overflow-hidden whitespace-nowrap overflow-ellipsis">

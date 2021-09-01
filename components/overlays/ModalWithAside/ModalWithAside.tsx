@@ -1,10 +1,11 @@
-import type { ReactNode, CSSProperties } from 'react';
+import { ReactNode, CSSProperties, useState } from 'react';
 
 import ReactModal from 'react-modal';
 import { useModalWithAsideHook } from './ModalWithAside.hook';
 import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
 import { XIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
+import { AsideContext } from './ModalWithAside.context';
 
 interface Props {
   children: ReactNode;
@@ -25,9 +26,10 @@ const ModalWithAside = ({
     left: '50%',
     transform: 'translate(-50%, -50%)',
   },
-  aside,
 }: Props) => {
   ReactModal.setAppElement('#__next');
+
+  const [aside, setAside] = useState<ReactNode>(null);
 
   const {
     dragStart,
@@ -89,7 +91,11 @@ const ModalWithAside = ({
             <XIcon className="h-5 w-5" />
           </IconButton>
         </div>
-        <div className="content p-5">{children}</div>
+        <div className="content p-5">
+          <AsideContext.Provider value={{ aside, setAside }}>
+            {children}
+          </AsideContext.Provider>
+        </div>
       </div>
       {aside && (
         <div
