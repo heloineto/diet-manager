@@ -8,6 +8,7 @@ import AuthFlowShell from '@components/layout/app-shells/AuthFlowShell';
 
 import { enter } from '@lib/auth';
 import { enterSchema } from '@utils/validation';
+import PasswordField from '@components/inputs/PasswordField';
 
 const Enter: NextPage = () => {
   return (
@@ -32,7 +33,7 @@ const Enter: NextPage = () => {
             <div className="mt-4">
               <div className="flex flex-col space-y-4">
                 <TextField label="E-mail" name="email" type="text" />
-                <TextField label="Senha" name="password" type="password" />
+                <PasswordField label="Senha" name="password" />
               </div>
               <div className="w-full mt-1 flex justify-between items-center">
                 <Checkboxes
