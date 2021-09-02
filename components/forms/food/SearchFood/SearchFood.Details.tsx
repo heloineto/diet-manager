@@ -97,6 +97,9 @@ const SearchFoodDetails = ({ food, setSelectedFood }: Props) => {
           onChange={(e) => {
             setAmount(Number(e.currentTarget.value) || 0);
           }}
+          onFocus={(e) =>
+            e.currentTarget.setSelectionRange(0, e.currentTarget.value.length)
+          }
           name="amount"
           label="Quantidade"
           InputProps={{

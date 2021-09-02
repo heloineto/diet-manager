@@ -11,7 +11,7 @@ const Diary: NextPage = () => {
 
   return (
     <MainShell aside={<Calendar />}>
-      {compact && <Calendar expanded={false} />}
+      {compact && <Calendar className="mb-5" expanded={false} />}
       <Meals />
     </MainShell>
   );
