@@ -58,11 +58,11 @@ export const useMealsData = (selectedDateTime: DateTime) => {
     if (!querySnapshot) return;
 
     const snapshot = querySnapshot.docs.map((doc) => ({
-      ...(doc.data() as Meal),
+      ...(doc.data() as Meal), //! Maybe typescript is dumb, maybe i'm dumb. (maybe firebase is dumb, also.)
       ref: doc.ref,
     }));
 
-    setMeals(snapshot); //! Maybe typescript is dumb, maybe i'm dumb. (maybe firebase is dumb, also.)
+    setMeals(snapshot);
   }, [querySnapshot]);
 
   return { meals };

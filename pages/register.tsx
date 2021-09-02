@@ -8,6 +8,7 @@ import AuthFlowShell from '@components/layout/app-shells/AuthFlowShell';
 
 import { register } from '@lib/auth';
 import { registerSchema } from '@utils/validation';
+import PasswordField from '@components/inputs/PasswordField';
 
 const Register: NextPage = () => {
   return (
@@ -35,7 +36,7 @@ const Register: NextPage = () => {
                   <TextField label="Sobrenome" name="lastName" />
                 </div>
                 <TextField label="E-mail" name="email" />
-                <TextField label="Senha" name="password" type="password" />
+                <PasswordField label="Senha" name="password" />
                 <KeyboardDatePicker
                   label="Data de nascimento"
                   name="birthdate"

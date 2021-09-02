@@ -22,9 +22,6 @@ const Meals = () => {
   const { meals } = useContext(MealsContext);
   const [addMealOpen, setAddMealOpen] = useState(false);
 
-  const { breakpoints } = useTheme();
-  const compact = useMediaQuery(breakpoints.down('md'));
-
   const renderMealTables = () =>
     meals?.map((meal, idx) => {
       //! Move this inside Meal
@@ -50,27 +47,7 @@ const Meals = () => {
 
   return (
     <div className="flex-grow flex flex-col">
-      {meals ? (
-        <div className="mb-5 flex flex-col space-y-5">{renderMealTables()}</div>
-      ) : (
-        <div className="space-y-5 mb-5">
-          <Skeleton
-            className="w-full h-44 rounded-lg"
-            animation="wave"
-            variant="rect"
-          />
-          <Skeleton
-            className="w-full h-44 rounded-lg"
-            animation="wave"
-            variant="rect"
-          />
-          <Skeleton
-            className="w-full h-44 rounded-lg"
-            animation="wave"
-            variant="rect"
-          />
-        </div>
-      )}
+      <div className="mb-5 flex flex-col space-y-5">{renderMealTables()}</div>
 
       <Button
         className="mt-auto"

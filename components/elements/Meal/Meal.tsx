@@ -137,10 +137,10 @@ const Meal = ({ meal, formattedFoods }: Props) => {
                 return (
                   <th
                     className={clsx(
-                      id === 'carb' && 'bg-indigo-300 text-indigo-900',
-                      id === 'prot' && 'bg-blue-300 text-blue-900',
-                      id === 'fat' && 'bg-yellow-300 text-yellow-900',
-                      id === 'kcal' && 'bg-green-300 text-green-900',
+                      id === 'carb' && '!bg-indigo-300 text-indigo-900',
+                      id === 'prot' && '!bg-blue-300 text-blue-900',
+                      id === 'fat' && '!bg-yellow-300 text-yellow-900',
+                      id === 'kcal' && '!bg-green-300 text-green-900',
                       id === 'label' && 'w-6/12 text-left',
                       `font-bold bg-gray-100 border-gray-300 border-b-2 table-cell w-1/12 h-8`
                     )}
@@ -189,7 +189,7 @@ const Meal = ({ meal, formattedFoods }: Props) => {
                           'bg-yellow-100 text-yellow-900 group-odd:bg-yellow-200',
                         id === 'kcal' &&
                           'bg-green-100 text-green-900 group-odd:bg-green-200',
-                        id === 'label' && 'w-6/12 text-left',
+                        id === 'label' ? 'w-6/12 text-left' : '!font-semibold',
                         selected &&
                           `
                           first:after:absolute
@@ -233,10 +233,10 @@ const Meal = ({ meal, formattedFoods }: Props) => {
                   return (
                     <td
                       className={clsx(
-                        id === 'carb' && 'bg-indigo-300 text-indigo-900',
-                        id === 'prot' && 'bg-blue-300 text-blue-900',
-                        id === 'fat' && 'bg-yellow-300 text-yellow-900',
-                        id === 'kcal' && 'bg-green-300 text-green-900',
+                        id === 'carb' && '!bg-indigo-300 text-indigo-900',
+                        id === 'prot' && '!bg-blue-300 text-blue-900',
+                        id === 'fat' && '!bg-yellow-300 text-yellow-900',
+                        id === 'kcal' && '!bg-green-300 text-green-900',
                         id === 'label' && 'w-6/12 text-left',
                         'table-cell w-1/12 h-8 font-bold bg-gray-100 border-gray-300 border-b-0 border-t-2'
                       )}
