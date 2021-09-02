@@ -68,24 +68,24 @@ const CalendarHeader = ({
   const renderNormalMode = () => (
     <>
       <IconButton
-        className="p-1 h-8 w-8 hover:text-blue-600"
+        className="p-1 h-7 w-7 sm:h-8 sm:w-8 hover:text-blue-600"
         onClick={navigateForward}
       >
-        <ChevronLeftIcon className="h-6 w-6" />
+        <ChevronLeftIcon className="h-5 w-5 sm:h-6 sm:w-6" />
       </IconButton>
 
       <IconButton
-        className="p-1 h-8 w-8 hover:text-blue-600"
+        className="p-1 h-7 w-7 sm:h-8 sm:w-8 hover:text-blue-600"
         onClick={navigateBackward}
       >
-        <ChevronRightIcon className="h-6 w-6" />
+        <ChevronRightIcon className="h-5 w-5 sm:h-6 sm:w-6" />
       </IconButton>
-      <div className="ml-1 text-lg font-bold text-gray-700">{`${startCase(
+      <div className="ml-1 text-base sm:text-lg font-bold text-gray-700">{`${startCase(
         navDate.monthLong
       )} ${navDate.year}`}</div>
 
       <Button
-        className="ml-auto mr-2 border-2 text-base"
+        className="ml-auto mr-0 sm:mr-2 border-2 text-sm sm:text-base h-7 w-7 sm:h-8 sm:w-8"
         color="secondary"
         variant="outlined"
         onClick={() => goto(DateTime.now())}
@@ -93,7 +93,7 @@ const CalendarHeader = ({
         Hoje
       </Button>
       <IconButton onClick={() => setSearchMode((value) => !value)}>
-        <SearchIcon className="h-6 w-6" />
+        <SearchIcon className="h-5 w-5 sm:h-6 sm:w-6" />
       </IconButton>
     </>
   );
@@ -102,7 +102,7 @@ const CalendarHeader = ({
     <div
       className={clsx(
         searchMode ? 'h-2/5' : 'h-14',
-        'border-b-2 flex items-center p-2 text-gray-500'
+        'border-b-2 flex items-center p-0 sm:p-2 text-gray-500'
       )}
     >
       {searchMode ? renderSearchMode() : renderNormalMode()}

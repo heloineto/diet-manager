@@ -26,13 +26,14 @@ const CalendarTable = ({
   const data = useMemo(() => getMonthData(navDate), [navDate]);
   const columns = useMemo(() => getColumns(), [navDate]);
 
+  //! Changed this from selectedDate to navDate. Make sure nothing is broken
   const currWeek = useMemo(
     () =>
       Interval.fromDateTimes(
-        selectedDate.plus({ day: 1 }).startOf('week'),
-        selectedDate.plus({ day: 1 }).endOf('week')
+        navDate.plus({ day: 1 }).startOf('week'),
+        navDate.plus({ day: 1 }).endOf('week')
       ).mapEndpoints((endpoint) => endpoint.minus({ days: 1 })),
-    [selectedDate]
+    [navDate]
   );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
@@ -66,17 +67,15 @@ const CalendarTable = ({
                   const isToday = cellDate.hasSame(DateTime.now(), 'day');
                   const isSelected = cellDate.hasSame(selectedDate, 'day');
                   const isAnotherMonth = !cellDate.hasSame(navDate, 'month');
+                  if (shouldHide) return null;
 
                   return (
                     <td className="table-cell" {...cell.getCellProps()}>
                       <div
                         className={clsx(
-                          {
-                            hidden: shouldHide,
-                            'border-primary-200': isToday,
-                            '!border-primary-500 text-primary-600': isSelected,
-                            'text-gray-300 border-gray-100': isAnotherMonth,
-                          },
+                          isToday && 'border-primary-200',
+                          isSelected && '!border-primary-500 text-primary-600',
+                          isAnotherMonth && 'text-gray-300 border-gray-100',
                           `
                           relative w-full text-gray-600 font-semibold border-2 rounded-md
                           overflow-hidden cursor-pointer transition-shadow duration-1000
@@ -96,10 +95,8 @@ const CalendarTable = ({
                       >
                         <div
                           className={clsx(
-                            {
-                              'bg-primary-200 border-2 border-white rounded-md':
-                                isToday,
-                            },
+                            isToday &&
+                              'bg-primary-200 border-2 border-white rounded-md',
                             'text-[0.950rem] absolute w-full h-full flex flex-col items-center justify-center'
                           )}
                         >

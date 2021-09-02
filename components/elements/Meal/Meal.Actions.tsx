@@ -130,7 +130,7 @@ const MealActions = ({
   return (
     <>
       <div
-        className={`absolute top-0 h-full mx-1 flex items-center justify-center text-gray-800`}
+        className={`absolute top-0 h-full w-full mx-1 flex items-center text-gray-800`}
       >
         <Tooltip title="Adicionar alimento" arrow>
           <IconButton
@@ -139,7 +139,7 @@ const MealActions = ({
               hover
                 ? 'bg-primary-500 text-white shadow-primary-500'
                 : 'bg-white bg-opacity-50 text-gray-800',
-              'w-7 h-7 p-0 transition-colors duration-500 mr-2.5'
+              'w-7 h-7 p-0 transition-colors duration-500 mr-0.5 sm:mr-2.5'
             )}
             color="primary"
             onClick={() => setAddFoodOpen(true)}
@@ -149,30 +149,32 @@ const MealActions = ({
         </Tooltip>
         {renderResponsiveActions()}
 
-        {!!qntOfSelectedRows && hover && (
-          <Badge
-            classes={{
-              badge:
-                'font-bold text-xs px-0 py-0 h-4 w-4 min-w-0 top-1 right-1',
-            }}
-            badgeContent={qntOfSelectedRows}
-            color="error"
-          >
-            <Tooltip
-              title={`Remover Alimentos ${qntOfSelectedRows} Selecionados`}
-              arrow
+        {!!qntOfSelectedRows && (hover || compact) && (
+          <div className="ml-auto pr-3 sm:ml-0 sm:pr-0">
+            <Badge
+              classes={{
+                badge:
+                  'font-bold text-xs px-0 py-0 h-4 w-4 min-w-0 top-1 right-1',
+              }}
+              badgeContent={qntOfSelectedRows}
+              color="error"
             >
-              <IconButton
-                className="w-7 h-7 p-0 hover:text-red-700"
-                onClick={() => {
-                  removeFoodsAtRows(meal, Object.values(selectedRows));
-                  setSelectedRows({});
-                }}
+              <Tooltip
+                title={`Remover Alimentos ${qntOfSelectedRows} Selecionados`}
+                arrow
               >
-                <XIcon className="h-4 w-4" />
-              </IconButton>
-            </Tooltip>
-          </Badge>
+                <IconButton
+                  className="w-7 h-7 p-0 hover:text-red-700"
+                  onClick={() => {
+                    removeFoodsAtRows(meal, Object.values(selectedRows));
+                    setSelectedRows({});
+                  }}
+                >
+                  <XIcon className="h-4 w-4" />
+                </IconButton>
+              </Tooltip>
+            </Badge>
+          </div>
         )}
       </div>
 
