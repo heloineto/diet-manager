@@ -8,7 +8,9 @@ import { useContext, useState } from 'react';
 export const useMealState = () => {
   const [expanded, setExpanded] = useState(true);
   const [hover, setHover] = useState(false);
-  const [selectedRows, setSelectedRows] = useState<Row[]>([]); // !make this an object
+  const [selectedRows, setSelectedRows] = useState<{
+    [k: string]: Row<FormattedFood>;
+  }>({});
 
   return {
     expanded,
