@@ -78,8 +78,8 @@ const Sidebar = ({
           }}
         >
           <div className="w-full py-4 flex flex-col items-center">
-            <IconButton className="h-12 w-12 hover:bg-primary-100">
-              <DietManagerLogo className="flex-shrink-0 flex items-center h-9 w-9" />
+            <IconButton className="h-12 w-12 hover:bg-primary-100 p-0">
+              <DietManagerLogo className="flex-shrink-0 h-9 w-9" />
             </IconButton>
             <div className="flex-1 mt-2 w-full px-2 space-y-1">
               {renderNavItems()}
@@ -96,8 +96,8 @@ const Sidebar = ({
           open
         >
           <div className="w-full py-4 flex flex-col items-center">
-            <IconButton className="h-12 w-12 hover:bg-primary-100">
-              <DietManagerLogo className="flex-shrink-0 flex items-center h-9 w-9" />
+            <IconButton className="h-12 w-12 hover:bg-primary-100 p-0">
+              <DietManagerLogo className="h-9 w-9" />
             </IconButton>
             <div className="flex-1 mt-2 w-full px-2 space-y-1">
               {renderNavItems()}
