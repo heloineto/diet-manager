@@ -2,8 +2,12 @@ import { useCalendarState } from './Calendar.state';
 import CalendarHeader from './Calendar.Header';
 import CalendarTable from './Calendar.Table';
 
-const Calendar = () => {
-  const calendarState = useCalendarState();
+interface Props {
+  expanded?: boolean;
+}
+
+const Calendar = (props: Props) => {
+  const calendarState = useCalendarState({ expanded: props?.expanded });
 
   return (
     <div

@@ -5,11 +5,9 @@ import { useTable } from 'react-table';
 import { omit, round } from 'lodash';
 import clsx from 'clsx';
 
-import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
-import { TrashIcon } from '@heroicons/react/outline';
+import { useMediaQuery, useTheme } from '@material-ui/core';
 import { useMealState } from './Meal.state';
 import MealActions from './Meal.Actions';
-import { removeFoodsByIndex } from './Meal.utils';
 
 interface Info {
   rows: Row[];

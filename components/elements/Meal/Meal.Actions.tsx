@@ -1,9 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
 import type { Row } from 'react-table';
 
-import { useState } from 'react';
-
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import clsx from 'clsx';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { Badge, IconButton, Menu, MenuItem, Tooltip } from '@material-ui/core';
@@ -151,8 +149,8 @@ const MealActions = ({
         </Tooltip>
         {renderResponsiveActions()}
 
-        {!!qntOfSelectedRows && (
-          /* hover && */ <Badge
+        {!!qntOfSelectedRows && hover && (
+          <Badge
             classes={{
               badge:
                 'font-bold text-xs px-0 py-0 h-4 w-4 min-w-0 top-1 right-1',
@@ -160,7 +158,10 @@ const MealActions = ({
             badgeContent={qntOfSelectedRows}
             color="error"
           >
-            <Tooltip title="Remover Alimentos Selecionados" arrow>
+            <Tooltip
+              title={`Remover Alimentos ${qntOfSelectedRows} Selecionados`}
+              arrow
+            >
               <IconButton
                 className="w-7 h-7 p-0 hover:text-red-700"
                 onClick={() => {
