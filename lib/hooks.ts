@@ -67,3 +67,7 @@ export const useMealsData = (selectedDateTime: DateTime) => {
 
   return { meals };
 };
+
+// const useMacrosInfo = (macros: ) => {
+
+// }

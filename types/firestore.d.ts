@@ -1,3 +1,10 @@
+interface Macros {
+  kcal: number;
+  carb: number;
+  prot: number;
+  fat: number;
+}
+
 interface UserDetails {
   email?: string;
   firstName?: string;
@@ -19,12 +26,7 @@ interface UserDetails {
       loseWeight?: boolean;
       lastName?: boolean;
     };
-    nutrition?: {
-      carb?: number;
-      prot?: number;
-      fat?: number;
-      kcal?: number;
-    };
+    nutrition?: Partial<Macros>;
   };
   gender?: 'M' | 'F' | 'O';
 }

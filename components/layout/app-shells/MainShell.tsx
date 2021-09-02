@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { useState } from 'react';
+import clsx from 'clsx';
 
 import AuthCheck from '@components/auth/AuthCheck';
 import Navbar from '@components/navigation/Navbar';
@@ -11,9 +12,12 @@ import Widget from '../Widget';
 interface Props {
   children: ReactNode;
   aside: JSX.Element;
+  classes?: {
+    aside?: string;
+  };
 }
 
-const MainShell = ({ children, aside }: Props) => {
+const MainShell = ({ children, aside, classes }: Props) => {
   const [sideBarOpen, setSideBarOpen] = useState(false);
 
   const toggleSideBarOpen = () => setSideBarOpen((value) => !value);
@@ -35,7 +39,12 @@ const MainShell = ({ children, aside }: Props) => {
               </Section>
             </main>
 
-            <aside className="hidden lg:block lg:w-96 xl:w-[26rem] overflow-y-auto py-2.5 pr-2.5">
+            <aside
+              className={clsx(
+                classes?.aside,
+                'hidden lg:block lg:w-96 xl:w-[26rem] overflow-y-auto py-2.5 pr-2.5'
+              )}
+            >
               <Widget>{aside}</Widget>
             </aside>
           </div>
