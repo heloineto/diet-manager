@@ -9,6 +9,7 @@ import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
 import { TrashIcon } from '@heroicons/react/outline';
 import { useMealState } from './Meal.state';
 import MealActions from './Meal.Actions';
+import { removeFoodsByIndex } from './Meal.utils';
 
 interface Info {
   rows: Row[];
@@ -38,13 +39,6 @@ const Meal = ({ meal, formattedFoods }: Props) => {
 
   const unselectRow = (row: Row<FormattedFood>) => {
     setSelectedRows((value) => omit(value, [row.id]));
-  };
-
-  const removeFoodsAtRows = (rows: Row<FormattedFood>[]) => {
-    // removeFoodsByIndex(
-    //   meal,
-    //   rows.map((row) => Number(row.id))
-    // );
   };
 
   const data = useMemo(() => formattedFoods, [formattedFoods]);
@@ -132,21 +126,9 @@ const Meal = ({ meal, formattedFoods }: Props) => {
                 setExpanded={setExpanded}
                 hover={hover}
                 meal={meal}
+                selectedRows={selectedRows}
+                setSelectedRows={setSelectedRows}
               />
-              <div className="absolute top-0 h-full mx-1 flex items-center justify-center right-0">
-                {!!selectedRows?.length && (
-                  <div className="flex justify-center items-center">
-                    <IconButton
-                      onClick={() => {
-                        removeFoodsAtRows(Object.values(selectedRows));
-                        setSelectedRows({});
-                      }}
-                    >
-                      <TrashIcon className="hover:text-red-700" />
-                    </IconButton>
-                  </div>
-                )}
-              </div>
             </th>
           </tr>
           {headerGroups.map((headerGroup) => (

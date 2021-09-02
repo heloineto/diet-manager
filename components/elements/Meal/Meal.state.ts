@@ -1,9 +1,6 @@
 import type { Row } from 'react-table';
 
-import { SelectedDateContext } from '@lib/context';
-import { useMediaQuery, useTheme } from '@material-ui/core';
-import { DateTime } from 'luxon';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 export const useMealState = () => {
   const [expanded, setExpanded] = useState(true);

@@ -1,10 +1,12 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import type { Row } from 'react-table';
+
+import { useState } from 'react';
 
 import { useMemo } from 'react';
 import clsx from 'clsx';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
-
-import { IconButton, Menu, MenuItem, Tooltip } from '@material-ui/core';
+import { Badge, IconButton, Menu, MenuItem, Tooltip } from '@material-ui/core';
 import {
   ChevronDownIcon,
   ChevronUpIcon,
@@ -12,12 +14,15 @@ import {
   PencilAltIcon,
   PlusIcon,
   TrashIcon,
+  XIcon,
 } from '@heroicons/react/outline';
+
 import Modal from '@components/overlays/Modal';
 import RemoveMeal from '@components/forms/meal/RemoveMeal';
 import UpdateMeal from '@components/forms/meal/UpdateMeal';
 import AddFood from '@components/forms/food/AddFood';
 import ModalWithAside from '@components/overlays/ModalWithAside';
+import { removeFoodsAtRows } from './Meal.utils';
 
 interface Props {
   compact: boolean;
@@ -25,6 +30,14 @@ interface Props {
   expanded: boolean;
   setExpanded: Dispatch<SetStateAction<boolean>>;
   meal: MealWithRef;
+  selectedRows: {
+    [k: string]: Row<FormattedFood>;
+  };
+  setSelectedRows: Dispatch<
+    SetStateAction<{
+      [k: string]: Row<FormattedFood>;
+    }>
+  >;
 }
 
 const MealActions = ({
@@ -33,12 +46,17 @@ const MealActions = ({
   expanded,
   setExpanded,
   meal,
+  selectedRows,
+  setSelectedRows,
 }: Props) => {
   const [addFoodOpen, setAddFoodOpen] = useState(false);
   const [removeMealOpen, setRemoveMealOpen] = useState(false);
   const [updateMealOpen, setUpdateMealOpen] = useState(false);
 
-  const [addFoodDetails, setAddDetails] = useState<{}>({});
+  const qntOfSelectedRows = useMemo(
+    () => Object.keys(selectedRows).length,
+    [selectedRows]
+  );
 
   const actions = useMemo(
     () => [
@@ -77,13 +95,14 @@ const MealActions = ({
               <Menu {...bindMenu(popupState)}>
                 {actions.map(({ label, Icon, onClick, className }, idx) => (
                   <MenuItem
+                    className={clsx(className)}
                     key={idx}
                     onClick={() => {
                       popupState.close();
                       onClick();
                     }}
                   >
-                    <Icon className={clsx(className, 'h-4 w-4 mr-2.5')} />
+                    <Icon className="h-4 w-4 mr-2.5" />
                     {label}
                   </MenuItem>
                 ))}
@@ -98,8 +117,11 @@ const MealActions = ({
         <>
           {actions.map(({ label, Icon, onClick, className }) => (
             <Tooltip key={label} title={label} arrow>
-              <IconButton className="w-7 h-7 p-0" onClick={onClick}>
-                <Icon className={clsx(className, 'h-4 w-4')} />
+              <IconButton
+                className={clsx(className, 'w-7 h-7 p-0')}
+                onClick={onClick}
+              >
+                <Icon className="h-4 w-4" />
               </IconButton>
             </Tooltip>
           ))}
@@ -128,6 +150,29 @@ const MealActions = ({
           </IconButton>
         </Tooltip>
         {renderResponsiveActions()}
+
+        {!!qntOfSelectedRows && (
+          /* hover && */ <Badge
+            classes={{
+              badge:
+                'font-bold text-xs px-0 py-0 h-4 w-4 min-w-0 top-1 right-1',
+            }}
+            badgeContent={qntOfSelectedRows}
+            color="error"
+          >
+            <Tooltip title="Remover Alimentos Selecionados" arrow>
+              <IconButton
+                className="w-7 h-7 p-0 hover:text-red-700"
+                onClick={() => {
+                  removeFoodsAtRows(meal, Object.values(selectedRows));
+                  setSelectedRows({});
+                }}
+              >
+                <XIcon className="h-4 w-4" />
+              </IconButton>
+            </Tooltip>
+          </Badge>
+        )}
       </div>
 
       <>
