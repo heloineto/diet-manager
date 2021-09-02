@@ -47,7 +47,7 @@ const Meals = () => {
 
   return (
     <div className="flex-grow flex flex-col">
-      <div className="mb-5 flex flex-col space-y-5">{renderMealTables()}</div>
+      <div className="mb-5 grid gap-y-5">{renderMealTables()}</div>
 
       <Button
         className="mt-auto"
