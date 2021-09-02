@@ -13,7 +13,7 @@ interface Props {
 }
 
 const SearchFoodHit = ({ hit, isEven }: Props) => {
-  const { setAside } = useContext(AsideContext);
+  const { setAside, setAsideLabel } = useContext(AsideContext);
   const { selectedFood, setSelectedFood } = useContext(SelectedFoodContext);
 
   const food = convertHitToFood(hit);
@@ -45,6 +45,8 @@ const SearchFoodHit = ({ hit, isEven }: Props) => {
                 setSelectedFood={setSelectedFood}
               />
             );
+
+          setAsideLabel && setAsideLabel(food.label);
         }}
       >
         <div className="flex-grow inline-block my-auto px-2 overflow-hidden whitespace-nowrap overflow-ellipsis">

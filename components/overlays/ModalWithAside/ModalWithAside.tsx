@@ -3,12 +3,13 @@ import { ReactNode, CSSProperties, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useModalWithAsideHook } from './ModalWithAside.hook';
 import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
-import { XIcon } from '@heroicons/react/outline';
+import { ArrowLeftIcon, XIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import { AsideContext } from './ModalWithAside.context';
 
 interface Props {
   children: ReactNode;
+  actions: ReactNode;
   label?: string;
   open: boolean;
   onClose?: () => void;
@@ -26,20 +27,15 @@ const ModalWithAside = ({
     left: '50%',
     transform: 'translate(-50%, -50%)',
   },
+  actions,
 }: Props) => {
   ReactModal.setAppElement('#__next');
 
   const [aside, setAside] = useState<ReactNode>(null);
+  const [asideLabel, setAsideLabel] = useState<string>('');
 
-  const {
-    dragStart,
-    drag,
-    dragEnd,
-    style,
-    setStyle,
-    asideModalStyle,
-    setAsideModalStyle,
-  } = useModalWithAsideHook(initialStyle);
+  const { dragStart, drag, dragEnd, style, setStyle, asideModalStyle } =
+    useModalWithAsideHook(initialStyle);
 
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
@@ -92,8 +88,11 @@ const ModalWithAside = ({
           </IconButton>
         </div>
         <div className=" p-5">
-          <AsideContext.Provider value={{ aside, setAside }}>
+          <AsideContext.Provider
+            value={{ aside, setAside, asideLabel, setAsideLabel }}
+          >
             {children}
+            {actions}
           </AsideContext.Provider>
         </div>
       </div>
@@ -107,7 +106,25 @@ const ModalWithAside = ({
           )}
           style={compact ? {} : asideModalStyle}
         >
-          {aside && aside}
+          <div
+            className={clsx(
+              compact ? 'p-5' : 'rounded-t-xl shadow-top-reflection pl-5',
+              'h-14 w-full flex items-center font-bold bg-gray-200 text-gray-700'
+            )}
+          >
+            <IconButton
+              className="mr-1"
+              edge="start"
+              onClick={() => setAside(null)}
+            >
+              <ArrowLeftIcon className="h-5 w-5" />
+            </IconButton>
+            {asideLabel}
+          </div>
+          <div className="p-5">
+            {aside}
+            {compact && actions}
+          </div>
         </div>
       )}
     </ReactModal>

@@ -179,13 +179,11 @@ const MealActions = ({
       </div>
 
       <>
-        <ModalWithAside
-          label="Adicionar Alimento"
+        <AddFood
           open={addFoodOpen}
+          mealRef={meal.ref}
           onClose={() => setAddFoodOpen(false)}
-        >
-          <AddFood mealRef={meal.ref} onClose={() => setAddFoodOpen(false)} />
-        </ModalWithAside>
+        />
 
         <Modal
           label="Editar Refeição"

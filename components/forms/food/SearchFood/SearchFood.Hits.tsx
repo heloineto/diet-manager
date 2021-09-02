@@ -7,11 +7,12 @@ import { AsideContext } from '@components/overlays/ModalWithAside/ModalWithAside
 import SearchFoodHit from './SearchFood.Hit';
 
 const SearchFoodHits = ({ hits }: HitsProvided<Hit<BasicDoc>>) => {
-  const { setAside } = useContext(AsideContext);
+  const { setAside, setAsideLabel } = useContext(AsideContext);
 
   useEffect(() => {
     return () => {
       setAside && setAside(null);
+      setAsideLabel && setAsideLabel('');
     };
   }, []);
 

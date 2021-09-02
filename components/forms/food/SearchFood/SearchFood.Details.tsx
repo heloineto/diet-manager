@@ -81,44 +81,31 @@ const SearchFoodDetails = ({ food, setSelectedFood }: Props) => {
     ));
 
   return (
-    <>
-      <div
-        className={clsx(
-          compact ? 'p-5' : 'rounded-t-xl shadow-top-reflection pl-5',
-          'h-14 w-full flex items-center justify-between font-bold bg-gray-200 text-gray-700'
-        )}
-      >
-        {label}
-      </div>
-
-      <div className="p-5 space-y-3">
-        <TextField
-          className="w-full"
-          value={amount}
-          onChange={(e) => {
-            setAmount(Number(e.currentTarget.value) || 0);
-          }}
-          onFocus={(e) =>
-            e.currentTarget.setSelectionRange(0, e.currentTarget.value.length)
-          }
-          name="amount"
-          label="Quantidade"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">gramas</InputAdornment>
-            ),
-          }}
-          autoFocus
-          autoComplete="off"
-        />
-        {!isNaN(amount) && (
-          <div className="flex justify-between md:mx-36 lg:mx-0">
-            {renderHexagons()}
-          </div>
-        )}
-        <ExtraDetails food={food} amount={amount} />
-      </div>
-    </>
+    <div className="space-y-3">
+      <TextField
+        className="w-full"
+        value={amount}
+        onChange={(e) => {
+          setAmount(Number(e.currentTarget.value) || 0);
+        }}
+        onFocus={(e) =>
+          e.currentTarget.setSelectionRange(0, e.currentTarget.value.length)
+        }
+        name="amount"
+        label="Quantidade"
+        InputProps={{
+          endAdornment: <InputAdornment position="end">gramas</InputAdornment>,
+        }}
+        autoFocus
+        autoComplete="off"
+      />
+      {!isNaN(amount) && (
+        <div className="flex justify-between md:mx-36 lg:mx-0">
+          {renderHexagons()}
+        </div>
+      )}
+      <ExtraDetails food={food} amount={amount} />
+    </div>
   );
 };
 
