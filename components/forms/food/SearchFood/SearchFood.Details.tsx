@@ -93,6 +93,7 @@ const SearchFoodDetails = ({ food, setSelectedFood }: Props) => {
 
       <div className="p-5 space-y-3">
         <TextField
+          className="w-full"
           value={amount}
           onChange={(e) => {
             setAmount(Number(e.currentTarget.value) || 0);
@@ -110,9 +111,10 @@ const SearchFoodDetails = ({ food, setSelectedFood }: Props) => {
           autoFocus
           autoComplete="off"
         />
-
         {!isNaN(amount) && (
-          <div className="flex justify-between">{renderHexagons()}</div>
+          <div className="flex justify-between md:mx-36 lg:mx-0">
+            {renderHexagons()}
+          </div>
         )}
         <ExtraDetails food={food} amount={amount} />
       </div>

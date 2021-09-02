@@ -5,18 +5,10 @@ import Section from '@components/layout/Section';
 
 const Home: NextPage = () => {
   return (
-    <MainShell
-      leftSection={<Section>Left</Section>}
-      rightSection={<Section>Right</Section>}
-    />
+    <MainShell aside={<Section>Right</Section>}>
+      <Section>Left</Section>
+    </MainShell>
   );
 };
 
 export default Home;
-
-/**
- * TODO:
- *
- * Add visibility toggle to password fields
- * Add animation to the modal in
- */

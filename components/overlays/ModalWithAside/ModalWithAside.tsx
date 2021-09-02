@@ -65,7 +65,7 @@ const ModalWithAside = ({
         },
       }}
     >
-      <div>
+      <div className={clsx(compact && aside && 'hidden')}>
         <div
           className={clsx(
             compact ? 'p-5' : 'rounded-t-xl shadow-top-reflection pr-5',
@@ -103,9 +103,9 @@ const ModalWithAside = ({
             compact
               ? 'w-full h-full overflow-y-auto'
               : 'shadow-overlay rounded-xl',
-            'absolute bg-white lg:w-80 p-0 top-0 inline-block mx-5'
+            'absolute bg-white lg:w-80 p-0 top-0 inline-block lg:mx-5'
           )}
-          style={asideModalStyle}
+          style={compact ? {} : asideModalStyle}
         >
           {aside && aside}
         </div>
