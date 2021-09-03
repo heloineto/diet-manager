@@ -96,7 +96,6 @@ export const continueWithGoogle = async () => {
           lastName: profile.family_name,
           email: profile.email,
           photoURL: profile.picture,
-          verifiedEmail: profile.verified_email,
         };
 
         await userDoc.set(userDetails);

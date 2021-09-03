@@ -1,8 +1,8 @@
 interface Macros {
-  kcal: number;
   carb: number;
   prot: number;
   fat: number;
+  kcal: number;
 }
 
 interface UserDetails {
@@ -10,15 +10,16 @@ interface UserDetails {
   firstName?: string;
   lastName?: string;
   photoURL?: string;
-  verifiedEmail?: boolean;
-  activityLevel?: 1 | 2 | 3 | 4 | 5;
   birthdate?: Date;
-  height?: {
-    current?: number;
-  };
-  weight?: {
-    current?: number;
-    desired?: number;
+  metrics?: {
+    activityLevel?: 1 | 2 | 3 | 4 | 5;
+    height?: {
+      current?: number;
+    };
+    weight?: {
+      current?: number;
+      desired?: number;
+    };
   };
   goals?: {
     general?: {
@@ -29,6 +30,7 @@ interface UserDetails {
     nutrition?: Partial<Macros>;
   };
   gender?: 'M' | 'F' | 'O';
+  username?: string;
 }
 
 interface Meal {
