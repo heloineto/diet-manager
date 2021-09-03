@@ -1,4 +1,4 @@
-import { KeyboardDatePicker, TextField } from 'mui-rff';
+import { KeyboardDatePicker, makeValidate, TextField } from 'mui-rff';
 import React, { useContext } from 'react';
 import { Form } from 'react-final-form';
 
@@ -9,6 +9,8 @@ import { ArrowRightIcon } from '@heroicons/react/outline';
 import { UserContext } from '@lib/context';
 import { DateTime } from 'luxon';
 import updateAccountFirestore from './UpdateAccount.firebase';
+import updateAccountSchema from './UpdateAccount.schema';
+import { kebabCase } from 'lodash';
 
 interface Props {
   className?: string;
@@ -51,7 +53,7 @@ const UpdateAccount = ({ className, onClose }: Props) => {
       onSubmit={updateAccount}
       initialValues={initialValues}
       // @ts-ignore
-      // validate={makeValidate(registerSchema)}
+      validate={makeValidate(updateAccountSchema)}
     >
       {({ handleSubmit, submitting }) => (
         <form onSubmit={handleSubmit}>
@@ -75,6 +77,9 @@ const UpdateAccount = ({ className, onClose }: Props) => {
                   type="text"
                   InputProps={{
                     className: 'rounded-l-none',
+                  }}
+                  fieldProps={{
+                    parse: kebabCase,
                   }}
                 />
               </div>
@@ -119,11 +124,13 @@ const UpdateAccount = ({ className, onClose }: Props) => {
 
             <div className="sm:col-span-6">
               <Button
-                className="shadow-blue-500 hover:shadow-xl-blue-500 w-full"
+                className="shadow-blue-500 hover:shadow-xl-blue-500 w-full group"
                 color="secondary"
                 variant="contained"
                 size="small"
-                endIcon={<ArrowRightIcon className="h-4 w-4" />}
+                endIcon={
+                  <ArrowRightIcon className="group-hover:ml-1 h-4 w-4" />
+                }
                 type="submit"
                 disabled={submitting}
               >
