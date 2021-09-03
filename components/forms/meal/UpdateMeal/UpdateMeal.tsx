@@ -3,7 +3,7 @@ import type { UpdateMealValuesType } from './UpdateMeal.types';
 import clsx from 'clsx';
 import { useSnackbar } from 'notistack';
 import { Form } from 'react-final-form';
-import { Button, IconButton, Toolbar } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import {
   KeyboardDatePicker,
   makeValidate,
@@ -12,7 +12,6 @@ import {
   TextField,
   TimePicker,
 } from 'mui-rff';
-import { XIcon } from '@heroicons/react/outline';
 
 import updateMealSchema from './UpdateMeal.schema';
 import updateMealFirestore from './UpdateMeal.firestore';

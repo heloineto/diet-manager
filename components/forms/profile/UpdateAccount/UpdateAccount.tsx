@@ -11,6 +11,7 @@ import { DateTime } from 'luxon';
 import updateAccountFirestore from './UpdateAccount.firebase';
 import updateAccountSchema from './UpdateAccount.schema';
 import { kebabCase } from 'lodash';
+import UsernameField from '@components/inputs/UsernameField';
 
 interface Props {
   className?: string;
@@ -55,89 +56,74 @@ const UpdateAccount = ({ className, onClose }: Props) => {
       // @ts-ignore
       validate={makeValidate(updateAccountSchema)}
     >
-      {({ handleSubmit, submitting }) => (
-        <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
-            <div className="sm:col-span-3">
-              <TextField label="Nome" name="firstName" />
-            </div>
+      {({ handleSubmit, submitting, values }) => (
+        <form
+          className="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6"
+          onSubmit={handleSubmit}
+        >
+          <div className="sm:col-span-3">
+            <TextField label="Nome" name="firstName" />
+          </div>
 
-            <div className="sm:col-span-3">
-              <TextField label="Sobrenome" name="lastName" />
-            </div>
+          <div className="sm:col-span-3">
+            <TextField label="Sobrenome" name="lastName" />
+          </div>
 
-            <div className="sm:col-span-6">
-              <div className="flex">
-                <div className="h-10 bg-gray-100 rounded-l-lg border border-gray-300 shadow flex items-center">
-                  <div className="text-gray-500 font-semibold mx-[14px]">{`@`}</div>
-                </div>
-                <TextField
-                  label="Identificador"
-                  name="newUsername"
-                  type="text"
-                  InputProps={{
-                    className: 'rounded-l-none',
-                  }}
-                  fieldProps={{
-                    parse: kebabCase,
-                  }}
-                />
+          <div className="sm:col-span-6">
+            <UsernameField label="Identificador" name="newUsername" />
+          </div>
+
+          <div className="sm:col-span-6">
+            <div className="mt-1 flex items-center">
+              <UserAvatar />
+              <div className="ml-4 flex space-x-3">
+                <Button
+                  className="shadow-blue-500 hover:shadow-xl-blue-500"
+                  color="secondary"
+                  variant="contained"
+                  size="small"
+                >
+                  Alterar
+                </Button>
+                <Button
+                  className="text-gray-600"
+                  variant="outlined"
+                  color="default"
+                  size="small"
+                >
+                  Remover
+                </Button>
               </div>
-            </div>
-
-            <div className="sm:col-span-6">
-              <div className="mt-1 flex items-center">
-                <UserAvatar />
-                <div className="ml-4 flex space-x-3">
-                  <Button
-                    className="shadow-blue-500 hover:shadow-xl-blue-500"
-                    color="secondary"
-                    variant="contained"
-                    size="small"
-                  >
-                    Alterar
-                  </Button>
-                  <Button
-                    className="text-gray-600"
-                    variant="outlined"
-                    color="default"
-                    size="small"
-                  >
-                    Remover
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            <div className="sm:col-span-6">
-              <KeyboardDatePicker
-                label="Data de nascimento"
-                name="birthdate"
-                format="dd/MM/yyyy"
-                placeholder="dd/mm/yyyy"
-              />
-            </div>
-
-            <div className="sm:col-span-6">
-              <GenderField label="Gênero" name="gender" />
-            </div>
-
-            <div className="sm:col-span-6">
-              <Button
-                className="shadow-blue-500 hover:shadow-xl-blue-500 w-full group"
-                color="secondary"
-                variant="contained"
-                size="small"
-                endIcon={
-                  <ArrowRightIcon className="group-hover:ml-1 h-4 w-4" />
-                }
-                type="submit"
-                disabled={submitting}
-              >
-                Próximo
-              </Button>
             </div>
           </div>
+
+          <div className="sm:col-span-6">
+            <KeyboardDatePicker
+              label="Data de nascimento"
+              name="birthdate"
+              format="dd/MM/yyyy"
+              placeholder="dd/mm/yyyy"
+            />
+          </div>
+
+          <div className="sm:col-span-6">
+            <GenderField label="Gênero" name="gender" />
+          </div>
+
+          <div className="sm:col-span-6">
+            <Button
+              className="shadow-blue-500 hover:shadow-xl-blue-500 w-full group"
+              color="secondary"
+              variant="contained"
+              size="small"
+              endIcon={<ArrowRightIcon className="group-hover:ml-1 h-4 w-4" />}
+              type="submit"
+              disabled={submitting}
+            >
+              Próximo
+            </Button>
+          </div>
+          <pre>{JSON.stringify(values, undefined, 2)}</pre>
         </form>
       )}
     </Form>

@@ -65,29 +65,23 @@ export const updateUsername = async (
   oldUsername: string,
   newdPreferredUsername: string
 ) => {
-  console.log(oldUsername, newdPreferredUsername);
-
   if (newdPreferredUsername === oldUsername) return;
 
   const batch = firestore.batch();
 
   const oldUsernameDoc = firestore.doc(`usernames/${oldUsername}`);
   batch.delete(oldUsernameDoc);
-  console.log('WHAT');
 
   const newUsername = await getSafeUsername(uid, newdPreferredUsername);
 
   const userDoc = firestore.doc(`users/${uid}`);
   batch.update(userDoc, { username: newUsername });
-  console.log('WHAT');
 
   const newUsernameDoc = firestore.doc(`usernames/${newUsername}`);
   batch.set(newUsernameDoc, { uid });
-  console.log('WHAT');
 
   try {
     await batch.commit();
-    console.log('WHAT');
   } catch (e) {
     console.log(e);
   }
