@@ -4,5 +4,6 @@ interface UpdateAccountValuesType {
   lastName: string | undefined;
   gender: 'M' | 'F' | 'O' | undefined;
   photoURL: string | undefined;
-  username: string | undefined;
+  oldUsername: string | undefined;
+  newUsername: string | undefined;
 }

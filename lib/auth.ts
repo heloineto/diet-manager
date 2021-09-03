@@ -30,34 +30,79 @@ export const AUTH_ERRORS: {
   },
 };
 
+export const getSafeUsername = async (
+  uid: string,
+  preferredUsername: string
+) => {
+  let username = kebabCase(preferredUsername);
+  let usernameDoc = firestore.doc(`usernames/${username}`);
+
+  let exists;
+
+  let docSnapshot = await usernameDoc.get();
+  exists = docSnapshot.exists;
+
+  if (exists) {
+    const oldUsername = username;
+    let attempts = 0;
+
+    while (exists) {
+      if (attempts > 10) {
+        username = uid;
+        break;
+      }
+
+      username = `${oldUsername}${getRandomInt(9999)}`;
+      usernameDoc = firestore.doc(`usernames/${username}`);
+      const docSnapshot = await usernameDoc.get();
+      exists = docSnapshot.exists;
+
+      attempts++;
+    }
+  }
+
+  return username;
+};
+
+export const updateUsername = async (
+  uid: string,
+  oldUsername: string,
+  newdPreferredUsername: string
+) => {
+  if (newdPreferredUsername === oldUsername) return;
+
+  const batch = firestore.batch();
+
+  const oldUsernameDoc = firestore.doc(`usernames/${oldUsername}`);
+  batch.delete(oldUsernameDoc);
+
+  const newUsername = getSafeUsername(uid, newdPreferredUsername);
+
+  const userDoc = firestore.doc(`users/${uid}`);
+  batch.update(userDoc, { username: newUsername });
+
+  const newUsernameDoc = firestore.doc(`usernames/${newUsername}`);
+  batch.set(newUsernameDoc, { uid });
+
+  try {
+    await batch.commit();
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const registerUsername = async (
   uid: string,
   preferredUsername: string
 ) => {
-  const userDoc = firestore.doc(`users/${uid}`);
-
-  let username = kebabCase(preferredUsername);
-
-  let usernameDoc = firestore.doc(`usernames/${username}`);
-  let { exists } = await usernameDoc.get();
-
-  if (exists) {
-    const oldUsername = username;
-
-    for (let i = 0; i < 10; i++) {
-      username = `${oldUsername}${getRandomInt(9999)}`;
-      usernameDoc = firestore.doc(`usernames/${username}`);
-      let { exists } = await usernameDoc.get();
-
-      if (!exists) break;
-    }
-
-    if (exists) username = uid;
-  }
-
   const batch = firestore.batch();
 
+  const username = getSafeUsername(uid, preferredUsername);
+
+  const userDoc = firestore.doc(`users/${uid}`);
   batch.update(userDoc, { username });
+
+  const usernameDoc = firestore.doc(`usernames/${username}`);
   batch.set(usernameDoc, { uid });
 
   try {

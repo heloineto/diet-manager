@@ -25,18 +25,25 @@ const UpdateAccount = ({ className, onClose }: Props) => {
       ).toJSDate()
     : undefined;
 
+  const oldUsername = userDetails?.username;
+
   const initialValues = {
     birthdate: birthdateJSDate,
     firstName: userDetails?.firstName,
     lastName: userDetails?.lastName,
     gender: userDetails?.gender,
     photoURL: userDetails?.photoURL,
-    username: userDetails?.username,
+    newUsername: oldUsername,
   };
 
-  const updateAccount = async (values: UpdateAccountValuesType) => {
+  const updateAccount = async (
+    values: Omit<UpdateAccountValuesType, 'oldUsername'>
+  ) => {
     onClose && onClose();
-    await updateAccountFirestore(values);
+    await updateAccountFirestore({
+      ...values,
+      oldUsername,
+    });
   };
 
   return (
@@ -64,7 +71,7 @@ const UpdateAccount = ({ className, onClose }: Props) => {
                 </div>
                 <TextField
                   label="Identificador"
-                  name="username"
+                  name="newUsername"
                   type="text"
                   InputProps={{
                     className: 'rounded-l-none',
@@ -117,6 +124,8 @@ const UpdateAccount = ({ className, onClose }: Props) => {
                 variant="contained"
                 size="small"
                 endIcon={<ArrowRightIcon className="h-4 w-4" />}
+                type="submit"
+                disabled={submitting}
               >
                 Próximo
               </Button>
