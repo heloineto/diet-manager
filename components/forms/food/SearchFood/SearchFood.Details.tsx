@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 
 import ExtraDetails from './SearchFood.ExtraDetails';
+import { useMacrosInfo } from '@lib/hooks';
 
 interface Props {
   food: FoodRecord & {
@@ -21,11 +22,9 @@ interface Props {
 }
 
 const SearchFoodDetails = ({ food, setSelectedFood }: Props) => {
-  const { breakpoints } = useTheme();
-  const compact = useMediaQuery(breakpoints.down('md'));
-
   const [amount, setAmount] = useState(100);
 
+  const { carbInfo, protInfo, fatInfo } = useMacrosInfo();
   const { label, kcal, prot, fat, carb, unit, foodId } = food;
 
   useEffect(() => {
@@ -50,22 +49,16 @@ const SearchFoodDetails = ({ food, setSelectedFood }: Props) => {
 
   const macrosInfo = [
     {
-      label: 'Carboid.',
+      ...carbInfo,
       value: carb,
-      color: '#a78bfa',
-      kcalPerUnit: 4,
     },
     {
-      label: 'Proteina',
+      ...protInfo,
       value: prot,
-      color: '#60a5fa',
-      kcalPerUnit: 4,
     },
     {
-      label: 'Gordura',
+      ...fatInfo,
       value: fat,
-      color: '#fbbf24',
-      kcalPerUnit: 9,
     },
   ];
 
