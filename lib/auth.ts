@@ -1,5 +1,7 @@
 import { converter } from '@utils/firestore';
+import { getRandomInt } from '@utils/typescript';
 import { FORM_ERROR } from 'final-form';
+import { kebabCase } from 'lodash';
 
 import {
   auth,
@@ -28,6 +30,43 @@ export const AUTH_ERRORS: {
   },
 };
 
+export const registerUsername = async (
+  uid: string,
+  preferredUsername: string
+) => {
+  const userDoc = firestore.doc(`users/${uid}`);
+
+  let username = kebabCase(preferredUsername);
+
+  let usernameDoc = firestore.doc(`usernames/${username}`);
+  let { exists } = await usernameDoc.get();
+
+  if (exists) {
+    const oldUsername = username;
+
+    for (let i = 0; i < 10; i++) {
+      username = `${oldUsername}${getRandomInt(9999)}`;
+      usernameDoc = firestore.doc(`usernames/${username}`);
+      let { exists } = await usernameDoc.get();
+
+      if (!exists) break;
+    }
+
+    if (exists) username = uid;
+  }
+
+  const batch = firestore.batch();
+
+  batch.update(userDoc, { username });
+  batch.set(usernameDoc, { uid });
+
+  try {
+    await batch.commit();
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const continueWithGoogle = async () => {
   try {
     const res = await auth.signInWithPopup(googleAuthProvider);
@@ -44,19 +83,28 @@ export const continueWithGoogle = async () => {
         };
       };
 
-      if (profile && isNewUser) {
+      const uid = res.user?.uid;
+
+      if (uid && profile && isNewUser) {
         const userDoc = firestore
           .collection('users')
-          .doc(res.user?.uid)
+          .doc(uid)
           .withConverter(converter<UserDetails>());
 
-        await userDoc.set({
+        const userDetails = {
           firstName: profile.given_name,
           lastName: profile.family_name,
           email: profile.email,
           photoURL: profile.picture,
           verifiedEmail: profile.verified_email,
-        });
+        };
+
+        await userDoc.set(userDetails);
+
+        await registerUsername(
+          uid,
+          `${userDetails.firstName} ${userDetails.lastName}`
+        );
       }
     }
   } catch (error) {
@@ -107,18 +155,26 @@ export const register = async ({
   try {
     const res = await auth.createUserWithEmailAndPassword(email, password);
 
-    const userDoc = firestore
-      .collection('users')
-      .doc(res.user?.uid)
-      .withConverter(converter<UserDetails>());
+    const uid = res.user?.uid;
 
-    await userDoc.set({
-      email,
-      firstName,
-      lastName,
-      birthdate,
-      gender,
-    });
+    if (uid) {
+      const userDoc = firestore
+        .collection('users')
+        .doc(uid)
+        .withConverter(converter<UserDetails>());
+
+      const userDetails = {
+        email,
+        firstName,
+        lastName,
+        birthdate,
+        gender,
+      };
+
+      await userDoc.set(userDetails);
+
+      await registerUsername(uid, `${firstName} ${lastName}`);
+    }
   } catch (error) {
     const { message, faultyField } = AUTH_ERRORS[error.code] ?? {};
     return { [faultyField ?? FORM_ERROR]: message ?? error.message };

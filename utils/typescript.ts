@@ -13,3 +13,7 @@ export const safeguard = <T>(
 
   return object;
 };
+
+export const getRandomInt = (max: number) => {
+  return Math.floor(Math.random() * max);
+};
