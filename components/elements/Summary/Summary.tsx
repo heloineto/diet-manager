@@ -1,17 +1,18 @@
-import { MealsContext, UserContext } from '@lib/context';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import { useContext } from 'react';
-
 import clsx from 'clsx';
-import SummaryMacroLabel from './Summary.MacroLabel';
-import { has, round } from 'lodash';
+import { round } from 'lodash';
+
+import { MealsContext, UserContext } from '@lib/context';
+import { useMacrosInfo } from '@lib/hooks';
 import { safeguard } from '@utils/typescript';
+
+import SummaryMacroLabel from './Summary.MacroLabel';
 import SummaryProgressBar from './Summary.ProgressBar';
 import HexagonLabel from '@components/data-displays/HexagonLabel';
-import { useMacrosInfo } from '@lib/hooks';
 
 interface Props {
-  className: string;
+  className?: string;
 }
 
 const Summary = ({ className }: Props) => {
@@ -22,7 +23,8 @@ const Summary = ({ className }: Props) => {
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
 
-  const goalMacros = safeguard(
+  // @ts-ignore
+  const goalMacros: Macros = safeguard(
     userDetails?.goals?.nutrition,
     ['kcal', 'carb', 'prot', 'fat'],
     0
@@ -65,6 +67,7 @@ const Summary = ({ className }: Props) => {
         className="mb-5"
         consumed={consumedMacros}
         goalMacros={goalMacros}
+        isSpecific={false}
       />
       <div className="flex gap-x-5">
         {[carbInfo, protInfo, fatInfo].map(({ key, label, color }) => (
@@ -84,35 +87,6 @@ const Summary = ({ className }: Props) => {
             size={compact ? 'small' : 'large'}
           />
         ))}
-
-        {/* <HexagonLabel
-          label="Proteinas"
-          value={`${round(consumedMacros.prot, 2)}g`}
-          subLabel={`Resta ${Math.max(
-            round(goalMacros.prot - consumedMacros.prot, 2),
-            0
-          )}g`}
-          percentage={Math.min(
-            (consumedMacros.prot * 100) / goalMacros.prot || 0,
-            100
-          )}
-          color={colors['blue-500']}
-          size={compact ? 'small' : 'large'}
-        />
-        <HexagonLabel
-          label="Gorduras"
-          value={`${round(consumedMacros.fat, 2)}g`}
-          subLabel={`Resta ${Math.max(
-            round(goalMacros.fat - consumedMacros.fat, 2),
-            0
-          )}g`}
-          percentage={Math.min(
-            (consumedMacros.fat * 100) / goalMacros.fat || 0,
-            100
-          )}
-          color={colors['yellow-500']}
-          size={compact ? 'small' : 'large'}
-        /> */}
       </div>
     </div>
   );

@@ -14,13 +14,19 @@ const Home: NextPage = () => {
           <Meals />
         </div>
       }
-      classes={{
-        aside: 'lg:w-[26rem] xl:w-[32rem]',
+      asideProps={{
+        size: 'large',
       }}
     >
       <Summary />
     </MainShell>
   );
 };
+
+/**
+ * TODO:
+ * Implement usernames
+ * If you use a exact component more than once, it gotta go on its own import to avoid inconsistency
+ */
 
 export default Home;

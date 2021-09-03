@@ -12,12 +12,12 @@ import Widget from '../Widget';
 interface Props {
   children: ReactNode;
   aside: JSX.Element;
-  classes?: {
-    aside?: string;
+  asideProps?: {
+    size?: 'large';
   };
 }
 
-const MainShell = ({ children, aside, classes }: Props) => {
+const MainShell = ({ children, aside, asideProps }: Props) => {
   const [sideBarOpen, setSideBarOpen] = useState(false);
 
   const toggleSideBarOpen = () => setSideBarOpen((value) => !value);
@@ -41,8 +41,10 @@ const MainShell = ({ children, aside, classes }: Props) => {
 
             <aside
               className={clsx(
-                classes?.aside,
-                'hidden lg:block lg:w-96 xl:w-[26rem] overflow-y-auto py-2.5 pr-2.5'
+                asideProps?.size === 'large'
+                  ? 'lg:w-[26rem] xl:w-[32rem]'
+                  : 'lg:w-96 xl:w-[26rem]',
+                'hidden lg:block overflow-y-auto py-2.5 pr-2.5'
               )}
             >
               <Widget>{aside}</Widget>
