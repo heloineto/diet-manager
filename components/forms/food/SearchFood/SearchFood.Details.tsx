@@ -63,12 +63,12 @@ const SearchFoodDetails = ({ food, setSelectedFood }: Props) => {
   ];
 
   const renderHexagons = () =>
-    macrosInfo.map(({ value, label, color, kcalPerUnit }) => (
+    macrosInfo.map(({ value, compactLabel, color, kcalPerUnit }) => (
       <HexagonLabel
-        key={label}
+        key={compactLabel}
         value={`${round(value * amount, 2)}${unit ?? 'g'}`}
         percentage={round((value * kcalPerUnit * 100) / totalKcal, 2)}
-        label={label}
+        label={compactLabel}
         color={color}
       />
     ));

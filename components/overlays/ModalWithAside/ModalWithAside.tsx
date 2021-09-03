@@ -112,13 +112,15 @@ const ModalWithAside = ({
               'h-14 w-full flex items-center font-bold bg-gray-200 text-gray-700'
             )}
           >
-            <IconButton
-              className="mr-1"
-              edge="start"
-              onClick={() => setAside(null)}
-            >
-              <ArrowLeftIcon className="h-5 w-5" />
-            </IconButton>
+            {compact && (
+              <IconButton
+                className="mr-1"
+                edge="start"
+                onClick={() => setAside(null)}
+              >
+                <ArrowLeftIcon className="h-5 w-5" />
+              </IconButton>
+            )}
             {asideLabel}
           </div>
           <div className="p-5">

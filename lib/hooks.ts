@@ -69,25 +69,35 @@ export const useMealsData = (selectedDateTime: DateTime) => {
 };
 
 export const useMacrosInfo = () => {
+  type MacroKey = 'carb' | 'prot' | 'fat' | 'kcal';
+
   return {
     carbInfo: {
+      key: <MacroKey>'carb',
       label: 'Carboid.',
+      compactLabel: 'Carboid.',
       color: '#a78bfa',
       kcalPerUnit: 4,
     },
-    fatInfo: {
+    protInfo: {
+      key: <MacroKey>'prot',
       label: 'Proteina',
+      compactLabel: 'Proteina',
       color: '#60a5fa',
       kcalPerUnit: 4,
     },
-    protInfo: {
+    fatInfo: {
+      key: <MacroKey>'fat',
       label: 'Gordura',
+      compactLabel: 'Gordura',
       color: '#fbbf24',
       kcalPerUnit: 9,
     },
     kcalInfo: {
+      key: <MacroKey>'kcal',
       label: 'Calorias',
-      color: '#fbbf24',
+      compactLabel: 'Calorias',
+      color: '#10b981',
       kcalPerUnit: 1,
     },
   };

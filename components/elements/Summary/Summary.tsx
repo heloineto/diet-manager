@@ -8,6 +8,7 @@ import { has, round } from 'lodash';
 import { safeguard } from '@utils/typescript';
 import SummaryProgressBar from './Summary.ProgressBar';
 import HexagonLabel from '@components/data-displays/HexagonLabel';
+import { useMacrosInfo } from '@lib/hooks';
 
 interface Props {
   className: string;
@@ -16,6 +17,7 @@ interface Props {
 const Summary = ({ className }: Props) => {
   const { userDetails } = useContext(UserContext);
   const { meals } = useContext(MealsContext);
+  const { carbInfo, protInfo, fatInfo } = useMacrosInfo();
 
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
@@ -44,7 +46,7 @@ const Summary = ({ className }: Props) => {
 
   return (
     <div className={clsx(className, 'flex flex-col items-center')}>
-      <h5 className="font-bold mb-7">Sumário do Dia</h5>
+      <h5 className="font-bold text-3xl md:text-4xl mb-7">Sumário do Dia</h5>
 
       <div className="flex items-center w-full justify-evenly mb-5">
         <SummaryMacroLabel name="Meta" macro="kcal" value={goalMacros.kcal} />
@@ -65,21 +67,25 @@ const Summary = ({ className }: Props) => {
         goalMacros={goalMacros}
       />
       <div className="flex gap-x-5">
-        <HexagonLabel
-          label="Carboidratos"
-          value={`${round(consumedMacros.carb, 2)}g`}
-          subLabel={`Resta ${Math.max(
-            round(goalMacros.carb - consumedMacros.carb, 2),
-            0
-          )}g`}
-          percentage={Math.min(
-            (consumedMacros.carb * 100) / goalMacros.carb || 0,
-            100
-          )}
-          color={colors['indigo-500']}
-          size={compact ? 'small' : 'large'}
-        />
-        <HexagonLabel
+        {[carbInfo, protInfo, fatInfo].map(({ key, label, color }) => (
+          <HexagonLabel
+            key={key}
+            label={label}
+            value={`${round(consumedMacros[key], 2)}g`}
+            subLabel={`Resta ${Math.max(
+              round(goalMacros[key] - consumedMacros[key], 2),
+              0
+            )}g`}
+            percentage={Math.min(
+              (consumedMacros[key] * 100) / goalMacros[key] || 0,
+              100
+            )}
+            color={color}
+            size={compact ? 'small' : 'large'}
+          />
+        ))}
+
+        {/* <HexagonLabel
           label="Proteinas"
           value={`${round(consumedMacros.prot, 2)}g`}
           subLabel={`Resta ${Math.max(
@@ -106,7 +112,7 @@ const Summary = ({ className }: Props) => {
           )}
           color={colors['yellow-500']}
           size={compact ? 'small' : 'large'}
-        />
+        /> */}
       </div>
     </div>
   );

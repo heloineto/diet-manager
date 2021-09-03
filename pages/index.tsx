@@ -1,9 +1,9 @@
 import type { NextPage } from 'next';
 
 import MainShell from '@components/layout/app-shells/MainShell';
-import Section from '@components/layout/Section';
 import Calendar from '@components/elements/Calendar';
 import Meals from '@components/elements/Meals';
+import Summary from '@components/elements/Summary';
 
 const Home: NextPage = () => {
   return (
@@ -18,7 +18,7 @@ const Home: NextPage = () => {
         aside: 'lg:w-[26rem] xl:w-[32rem]',
       }}
     >
-      <Section>Left</Section>
+      <Summary />
     </MainShell>
   );
 };
