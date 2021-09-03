@@ -15,6 +15,7 @@ import { LogoutIcon, BellIcon, MenuIcon } from '@heroicons/react/outline';
 
 import { UserContext } from '@lib/context';
 import { leave } from '@lib/auth';
+import UserAvatar from '@components/decoration/UserAvatar';
 
 const NotificationsBadge = ({
   className,
@@ -66,16 +67,11 @@ const Navbar = ({ className, toggleSideBarOpen }: Props) => {
               onClick={(e) => setMenuAnchor(e.currentTarget)}
             >
               <span className="sr-only">Open user menu</span>
-              <Avatar
-                className={clsx(
-                  'font-semibold ring-primary-200',
+              <UserAvatar
+                className={
                   menuOpen ? 'ring-4 ring-opacity-50' : 'ring-2 ring-opacity-20'
-                )}
-                alt={`${userDetails.firstName} ${userDetails.lastName}`}
-                src={userDetails.photoURL}
-              >
-                {userDetails.firstName && userDetails.firstName.charAt(0)}
-              </Avatar>
+                }
+              />
             </IconButton>
             <Menu
               anchorEl={menuAnchor}

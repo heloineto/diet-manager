@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import { Form } from 'react-final-form';
-import { KeyboardDatePicker, makeValidate, Radios, TextField } from 'mui-rff';
+import { KeyboardDatePicker, makeValidate, TextField } from 'mui-rff';
 import { Button, Typography } from '@material-ui/core';
 
 import AuthFlowShell from '@components/layout/app-shells/AuthFlowShell';
@@ -9,6 +9,7 @@ import AuthFlowShell from '@components/layout/app-shells/AuthFlowShell';
 import { register } from '@lib/auth';
 import { registerSchema } from '@utils/validation';
 import PasswordField from '@components/inputs/PasswordField';
+import GenderField from '@components/inputs/GenderField';
 
 const Register: NextPage = () => {
   return (
@@ -45,16 +46,7 @@ const Register: NextPage = () => {
                 />
               </div>
               <div className="mt-4">
-                <Radios
-                  label="Gênero"
-                  name="gender"
-                  data={[
-                    { label: 'Masculino', value: 'M' },
-                    { label: 'Feminino', value: 'F' },
-                    { label: 'Outro', value: 'O' },
-                  ]}
-                  radioGroupProps={{ row: true }}
-                />
+                <GenderField label="Gênero" name="gender" />
               </div>
               <Button
                 type="submit"

@@ -12,14 +12,7 @@ interface Props {
 const OnboardingShell = ({ className, children }: Props) => {
   return (
     <AuthCheck>
-      <div
-        className={clsx(
-          className,
-          'col-span-full my-auto lg:col-start-3 lg:col-span-8 xl:col-span-6 xl:col-start-4 py-10'
-        )}
-      >
-        {children}
-      </div>
+      <div className={clsx(className, 'min-h-screen')}>{children}</div>
     </AuthCheck>
   );
 };

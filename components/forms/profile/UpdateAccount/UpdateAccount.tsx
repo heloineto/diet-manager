@@ -1,6 +1,10 @@
-import { KeyboardDatePicker, Radios } from 'mui-rff';
+import { KeyboardDatePicker, TextField } from 'mui-rff';
 import React from 'react';
 import { Form } from 'react-final-form';
+
+import GenderField from '@components/inputs/GenderField';
+import { Button, InputAdornment } from '@material-ui/core';
+import UserAvatar from '@components/decoration/UserAvatar';
 
 interface Props {}
 
@@ -9,27 +13,71 @@ const UpdateAccount = (props: Props) => {
     <Form
       onSubmit={() => {}}
       // @ts-ignore
-      validate={makeValidate(registerSchema)}
+      // validate={makeValidate(registerSchema)}
     >
       {({ handleSubmit, submitting }) => (
         <form onSubmit={handleSubmit}>
-          <div className="flex space-y-3 my-5">
-            <KeyboardDatePicker
-              label="Data de nascimento"
-              name="birthdate"
-              format="dd/MM/yyyy"
-              placeholder="dd/mm/yyyy"
-            />
-            <Radios
-              label="Gênero"
-              name="gender"
-              data={[
-                { label: 'Masculino', value: 'M' },
-                { label: 'Feminino', value: 'F' },
-                { label: 'Outro', value: 'O' },
-              ]}
-              radioGroupProps={{ row: true }}
-            />
+          <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
+            <div className="sm:col-span-3">
+              <TextField label="Nome" name="firstName" />
+            </div>
+
+            <div className="sm:col-span-3">
+              <TextField label="Sobrenome" name="lastName" />
+            </div>
+
+            <div className="sm:col-span-6">
+              <div className="flex">
+                <div className="h-10 bg-gray-100 rounded-l-lg border border-gray-300 shadow flex items-center">
+                  <div className="text-gray-500 font-semibold mx-[14px]">{`@`}</div>
+                </div>
+                <TextField
+                  label="Identificador"
+                  name="username"
+                  type="text"
+                  InputProps={{
+                    className: 'rounded-l-none',
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-6">
+              <div className="mt-1 flex items-center">
+                <UserAvatar />
+                <div className="ml-4 flex space-x-3">
+                  <Button
+                    className="shadow-blue-500 hover:shadow-xl-blue-500"
+                    color="secondary"
+                    variant="contained"
+                    size="small"
+                  >
+                    Alterar
+                  </Button>
+                  <Button
+                    className="text-gray-600"
+                    variant="outlined"
+                    color="default"
+                    size="small"
+                  >
+                    Remover
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            <div className="sm:col-span-6">
+              <KeyboardDatePicker
+                label="Data de nascimento"
+                name="birthdate"
+                format="dd/MM/yyyy"
+                placeholder="dd/mm/yyyy"
+              />
+            </div>
+
+            <div className="sm:col-span-6">
+              <GenderField label="Gênero" name="gender" />
+            </div>
           </div>
         </form>
       )}
