@@ -72,7 +72,7 @@ export const useMacrosInfo = () => {
   return {
     carbInfo: {
       key: <keyof Macros>'carb',
-      label: 'Carboid.',
+      label: 'Carboidratos',
       compactLabel: 'Carboid.',
       color: '#a78bfa',
       kcalPerUnit: 4,

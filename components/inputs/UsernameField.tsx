@@ -27,7 +27,7 @@ const UsernameField = ({ label, name }: Props) => {
       setValid(true);
 
       const exists = await docExists(`usernames/${username}`);
-      // console.log('FIRESTORE READ EXECUTED');
+      console.log('FIRESTORE READ EXECUTED');
       setLoading(false);
       setAvailable(!exists);
     }, 500),
