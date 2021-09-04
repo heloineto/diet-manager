@@ -1,17 +1,17 @@
 import { KeyboardDatePicker, makeValidate, TextField } from 'mui-rff';
 import React, { useContext } from 'react';
 import { Form } from 'react-final-form';
-
-import GenderField from '@components/inputs/GenderField';
-import { Button, InputAdornment } from '@material-ui/core';
-import UserAvatar from '@components/decoration/UserAvatar';
 import { ArrowRightIcon } from '@heroicons/react/outline';
-import { UserContext } from '@lib/context';
 import { DateTime } from 'luxon';
+import { Button } from '@material-ui/core';
+import clsx from 'clsx';
+
+import { UserContext } from '@lib/context';
+import GenderField from '@components/inputs/GenderField';
+import UserAvatar from '@components/decoration/UserAvatar';
+import UsernameField from '@components/inputs/UsernameField';
 import updateAccountFirestore from './UpdateAccount.firebase';
 import updateAccountSchema from './UpdateAccount.schema';
-import { kebabCase } from 'lodash';
-import UsernameField from '@components/inputs/UsernameField';
 
 interface Props {
   className?: string;
@@ -58,7 +58,10 @@ const UpdateAccount = ({ className, onClose }: Props) => {
     >
       {({ handleSubmit, submitting, values }) => (
         <form
-          className="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6"
+          className={clsx(
+            className,
+            'grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6'
+          )}
           onSubmit={handleSubmit}
         >
           <div className="sm:col-span-3">
@@ -123,7 +126,7 @@ const UpdateAccount = ({ className, onClose }: Props) => {
               Próximo
             </Button>
           </div>
-          <pre>{JSON.stringify(values, undefined, 2)}</pre>
+          {/*<pre>{JSON.stringify(values, undefined, 2)}</pre>*/}
         </form>
       )}
     </Form>

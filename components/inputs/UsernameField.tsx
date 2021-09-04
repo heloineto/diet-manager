@@ -7,6 +7,7 @@ import { firestore } from '@lib/firebase';
 import { TextField } from 'mui-rff';
 import { CircularProgress } from '@material-ui/core';
 import { CheckIcon, XIcon } from '@heroicons/react/outline';
+import { docExists } from '@lib/auth';
 
 interface Props {
   label: string;
@@ -14,40 +15,51 @@ interface Props {
 }
 
 const UsernameField = ({ label, name }: Props) => {
-  const [value, setValue] = useState('');
   const [valid, setValid] = useState(false);
   const [available, setAvailable] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const { userDetails } = useContext(UserContext);
 
-  const handleChange = (username: string) => {
-    setValue(username);
-    setValid(true);
-    setLoading(true);
-  };
-
   const checkUsernameAvailable = useCallback(
     debounce(async (username: string) => {
+      setLoading(true);
+      setValid(true);
+
+      console.log(
+        username,
+        userDetails?.username,
+        username === userDetails?.username
+      );
+
       if (username === userDetails?.username) {
         setAvailable(true);
+        setValid(false);
         setLoading(false);
         return;
       }
 
-      const doc = firestore.doc(`usernames/${username}`);
-      const { exists } = await doc.get();
-
-      console.log('FIRESTORE READ EXECUTED');
-      setAvailable(!exists);
+      const exists = await docExists(`usernames/${username}`);
+      // console.log('FIRESTORE READ EXECUTED');
       setLoading(false);
+      setAvailable(!exists);
     }, 500),
-    []
+    [userDetails]
   );
 
-  useEffect(() => {
-    checkUsernameAvailable(value);
-  }, [value]);
+  const validate = (username: string | undefined) => {
+    if (!username) {
+      setValid(false);
+      return 'Forneça um identificador ';
+    }
+
+    if (username.length < 3) {
+      setValid(false);
+      return 'O identificador deve ter mais que 3 characteres';
+    }
+
+    checkUsernameAvailable(username);
+  };
 
   const renderHelperText = () => {
     if (!valid) return null;
@@ -84,19 +96,9 @@ const UsernameField = ({ label, name }: Props) => {
           }}
           fieldProps={{
             parse: kebabCase,
-            validate: (username) => {
-              if (username.length < 3) {
-                setValid(false);
-                return 'O identificador deve ter mais que 3 characteres';
-              }
-
-              // handleChange(username);
-
-              setLoading(true);
-              checkUsernameAvailable(username);
-            },
+            validate: validate,
           }}
-          autoComplete={'off'}
+          autoComplete="off"
         />
       </div>
       <div className="mt-1">{renderHelperText()}</div>
