@@ -26,25 +26,12 @@ const UsernameField = ({ label, name }: Props) => {
       setLoading(true);
       setValid(true);
 
-      console.log(
-        username,
-        userDetails?.username,
-        username === userDetails?.username
-      );
-
-      if (username === userDetails?.username) {
-        setAvailable(true);
-        setValid(false);
-        setLoading(false);
-        return;
-      }
-
       const exists = await docExists(`usernames/${username}`);
       // console.log('FIRESTORE READ EXECUTED');
       setLoading(false);
       setAvailable(!exists);
     }, 500),
-    [userDetails]
+    []
   );
 
   const validate = (username: string | undefined) => {
@@ -56,6 +43,12 @@ const UsernameField = ({ label, name }: Props) => {
     if (username.length < 3) {
       setValid(false);
       return 'O identificador deve ter mais que 3 characteres';
+    }
+
+    if (username === userDetails?.username) {
+      setValid(false);
+      setAvailable(true);
+      return;
     }
 
     checkUsernameAvailable(username);
