@@ -15,23 +15,20 @@ interface Props {
 
 const UsernameField = ({ label, name }: Props) => {
   const [value, setValue] = useState('');
+  const [valid, setValid] = useState(false);
   const [available, setAvailable] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const { userDetails } = useContext(UserContext);
 
-  const handleChange = (newValue: string) => {
-    setValue(newValue);
+  const handleChange = (username: string) => {
+    setValue(username);
+    setValid(true);
     setLoading(true);
   };
 
   const checkUsernameAvailable = useCallback(
     debounce(async (username: string) => {
-      if (!username.length) {
-        setLoading(false);
-        return;
-      }
-
       if (username === userDetails?.username) {
         setAvailable(true);
         setLoading(false);
@@ -52,6 +49,25 @@ const UsernameField = ({ label, name }: Props) => {
     checkUsernameAvailable(value);
   }, [value]);
 
+  const renderHelperText = () => {
+    if (!valid) return null;
+
+    if (loading)
+      return <CircularProgress size={25} thickness={8} color="secondary" />;
+
+    return available ? (
+      <div className="flex gap-x-1 items-center text-primary-800 foßnt-medium">
+        <CheckIcon className="h-6 w-6 text-primary-500" />
+        Identificador disponível!
+      </div>
+    ) : (
+      <div className="flex gap-x-1 text-red-600 font-medium">
+        <XIcon className="h-6 w-6 text-red-500" />
+        <div>Identificador indisponível!</div>
+      </div>
+    );
+  };
+
   return (
     <div>
       <div className="flex">
@@ -67,32 +83,23 @@ const UsernameField = ({ label, name }: Props) => {
             className: 'rounded-l-none',
           }}
           fieldProps={{
-            parse: (newUsername) => {
-              handleChange(newUsername);
+            parse: kebabCase,
+            validate: (username) => {
+              if (username.length < 3) {
+                setValid(false);
+                return 'O identificador deve ter mais que 3 characteres';
+              }
 
-              return kebabCase(newUsername);
+              // handleChange(username);
+
+              setLoading(true);
+              checkUsernameAvailable(username);
             },
           }}
           autoComplete={'off'}
         />
       </div>
-      <div className="mt-1">
-        {loading && (
-          <CircularProgress size={25} thickness={8} color="secondary" />
-        )}
-        {!loading &&
-          (available ? (
-            <div className="flex gap-x-1 items-center text-primary-800 font-medium">
-              <CheckIcon className="h-6 w-6 text-primary-500" />
-              Identificador disponível!
-            </div>
-          ) : (
-            <div className="flex gap-x-1 text-red-600 font-medium">
-              <XIcon className="h-6 w-6 text-red-500" />
-              <div>Identificador já é utilizado!</div>
-            </div>
-          ))}
-      </div>
+      <div className="mt-1">{renderHelperText()}</div>
     </div>
   );
 };

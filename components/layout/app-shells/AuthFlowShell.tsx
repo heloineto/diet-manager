@@ -21,7 +21,7 @@ const AuthFlowShell = ({ children }: Props) => {
       <main className="overflow-x-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen lg:flex">
           <AuthIllustration />
-          <Widget className="lg:w-3/5 xl:w-2/5 my-auto">
+          <Widget className="lg:w-3/5 xl:w-2/5 my-auto md:p-5">
             {children}
             <Divider className="mt-4 mb-2">Ou continue com</Divider>
             <Button
