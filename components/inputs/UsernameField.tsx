@@ -2,8 +2,7 @@ import { useCallback } from 'react';
 
 import { UserContext } from '@lib/context';
 import { debounce, kebabCase } from 'lodash';
-import { useContext, useEffect, useState } from 'react';
-import { firestore } from '@lib/firebase';
+import { useContext, useState } from 'react';
 import { TextField } from 'mui-rff';
 import { CircularProgress } from '@material-ui/core';
 import { CheckIcon, XIcon } from '@heroicons/react/outline';

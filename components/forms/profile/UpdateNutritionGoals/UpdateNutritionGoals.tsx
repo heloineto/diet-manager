@@ -5,6 +5,7 @@ import { Button, ButtonGroup, InputAdornment } from '@material-ui/core';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { round } from 'lodash';
 import { useMacrosInfo } from '@lib/hooks';
+import { useState } from 'react';
 
 interface Props {
   className?: string;
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const UpdateNutritionGoals = ({ className, onClose }: Props) => {
+  const [inputMode, setInputMode] = useState<'grams' | 'percentage'>('grams');
+
   // 'goals.nutrition.carb',
   // 'goals.nutrition.prot',
   // 'goals.nutrition.fat',
@@ -23,10 +26,27 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
 
   return (
     <>
-      <div className="my-auto">
-        <ButtonGroup size="small" aria-label="outlined primary button group">
-          <Button>Gramas</Button>
-          <Button>Porcentagem</Button>
+      <div className="flex justify-center mb-5">
+        <ButtonGroup
+          size="small"
+          color="secondary"
+          aria-label="outlined primary button group"
+          disableElevation
+        >
+          <Button
+            className="w-36"
+            variant={inputMode === 'grams' ? 'contained' : 'outlined'}
+            onClick={() => setInputMode('grams')}
+          >
+            Gramas
+          </Button>
+          <Button
+            className="w-36"
+            onClick={() => setInputMode('percentage')}
+            variant={inputMode === 'percentage' ? 'contained' : 'outlined'}
+          >
+            Porcentagem
+          </Button>
         </ButtonGroup>
       </div>
       <Form
@@ -36,28 +56,59 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
         //validate={makeValidate(updateAccountSchema)}
       >
         {({ handleSubmit, submitting, values }) => (
-          <form
-            className={clsx(
-              className,
-              'grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6'
-            )}
-            onSubmit={handleSubmit}
-          >
-            {[carbInfo, protInfo, fatInfo].map(({ label, key }) => (
-              <div className="sm:col-span-2">
-                <TextField
-                  key={key}
-                  label={label}
-                  name={key}
-                  type="number"
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">g</InputAdornment>
-                    ),
-                  }}
-                />
-              </div>
-            ))}
+          <form className={clsx(className)} onSubmit={handleSubmit}>
+            <div className="grid grid-flow-col grid-rows-2 grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-3">
+              {[carbInfo, protInfo, fatInfo].map(({ label, key }) => (
+                <>
+                  <TextField
+                    key={key}
+                    label={label}
+                    name={key}
+                    type="number"
+                    autoComplete="off"
+                    fieldProps={{
+                      parse: (value) => {
+                        if (value < 0) return 0;
+                        return value;
+                      },
+                    }}
+                    InputProps={{
+                      inputProps: {
+                        min: 0,
+                      },
+                      endAdornment: (
+                        <InputAdornment position="end">g</InputAdornment>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    key={key}
+                    label={label}
+                    name={`${key}2`}
+                    type="number"
+                    autoComplete="off"
+                    fieldProps={{
+                      parse: (value) => {
+                        if (value > 100) return 100;
+                        if (value < 0) return 0;
+                        return value;
+                      },
+                    }}
+                    InputProps={{
+                      inputProps: {
+                        min: 0,
+                        max: 100,
+                      },
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <div className="font-bold text-gray-500">%</div>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </>
+              ))}
+            </div>
 
             <div className="sm:col-span-6">
               <Button
