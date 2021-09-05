@@ -30,77 +30,35 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
 
   const { carbInfo, protInfo, fatInfo, kcalInfo } = useMacrosInfo();
 
-  const updateKcal = ({
-    values: { carb, prot, fat },
-  }: FormState<
-    {
-      carb: any;
-      prot: any;
-      fat: any;
-    },
-    Partial<{
-      carb: any;
-      prot: any;
-      fat: any;
-    }>
-  >) => {
-    //console.log({ carb, prot, fat });
-
-    setKcal(
+  const calcKcal = ({
+    carb,
+    prot,
+    fat,
+  }: Partial<{
+    carb: any;
+    prot: any;
+    fat: any;
+  }>) => {
+    const calculatedKcal =
       String(
         (Number(carb) || 0) * carbInfo.kcalPerUnit +
           (Number(prot) || 0) * protInfo.kcalPerUnit +
           (Number(fat) || 0) * fatInfo.kcalPerUnit
-      )
-    );
+      ) || '';
+
+    setKcal(calculatedKcal);
 
     console.log({
-      carb:
-        (Number(carb) * carbInfo.kcalPerUnit) /
-        Number(
-          String(
-            (Number(carb) || 0) * carbInfo.kcalPerUnit +
-              (Number(prot) || 0) * protInfo.kcalPerUnit +
-              (Number(fat) || 0) * fatInfo.kcalPerUnit
-          )
-        ),
-      prot:
-        (Number(prot) * protInfo.kcalPerUnit) /
-        Number(
-          String(
-            (Number(carb) || 0) * carbInfo.kcalPerUnit +
-              (Number(prot) || 0) * protInfo.kcalPerUnit +
-              (Number(fat) || 0) * fatInfo.kcalPerUnit
-          )
-        ),
-      fat:
-        (Number(fat) * fatInfo.kcalPerUnit) /
-        Number(
-          String(
-            (Number(carb) || 0) * carbInfo.kcalPerUnit +
-              (Number(prot) || 0) * protInfo.kcalPerUnit +
-              (Number(fat) || 0) * fatInfo.kcalPerUnit
-          )
-        ),
-
+      carb: (Number(carb) * carbInfo.kcalPerUnit) / Number(calculatedKcal),
+      prot: (Number(prot) * protInfo.kcalPerUnit) / Number(calculatedKcal),
+      fat: (Number(fat) * fatInfo.kcalPerUnit) / Number(calculatedKcal),
       carbBack:
-        (((Number(carb) * carbInfo.kcalPerUnit) /
-          Number(
-            String(
-              (Number(carb) || 0) * carbInfo.kcalPerUnit +
-                (Number(prot) || 0) * protInfo.kcalPerUnit +
-                (Number(fat) || 0) * fatInfo.kcalPerUnit
-            )
-          )) *
-          Number(
-            String(
-              (Number(carb) || 0) * carbInfo.kcalPerUnit +
-                (Number(prot) || 0) * protInfo.kcalPerUnit +
-                (Number(fat) || 0) * fatInfo.kcalPerUnit
-            )
-          )) /
+        (((Number(carb) * carbInfo.kcalPerUnit) / Number(calculatedKcal)) *
+          Number(calculatedKcal)) /
         carbInfo.kcalPerUnit,
     });
+
+    return calculatedKcal;
   };
 
   const updateNutritionGoals = () => {};
@@ -157,6 +115,9 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
                       fieldProps={{
                         parse: (value) => {
                           if (Number(value) < 0) return '0';
+
+                          calcKcal({ ...values, [key]: value });
+
                           return value;
                         },
                       }}
@@ -263,7 +224,7 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
               />
             </div>
 
-            <FormSpy subscription={{ values: true }} onChange={updateKcal} />
+            {/**<FormSpy subscription={{ values: true }} onChange={calcKcal} /> */}
 
             <div className="sm:col-span-6">
               <Button
