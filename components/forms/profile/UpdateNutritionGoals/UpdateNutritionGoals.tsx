@@ -240,8 +240,6 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
               />
             </div>
 
-            {/**<FormSpy subscription={{ values: true }} onChange={calcKcal} /> */}
-
             <div className="sm:col-span-6">
               <Button
                 className="shadow-blue-500 hover:shadow-xl-blue-500 w-full group"
@@ -257,7 +255,7 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
                 Próximo
               </Button>
             </div>
-            <pre>{JSON.stringify({ ...values }, undefined, 2)}</pre>
+            {/* <pre>{JSON.stringify({ ...values }, undefined, 2)}</pre> */}
           </form>
         )}
       </Form>

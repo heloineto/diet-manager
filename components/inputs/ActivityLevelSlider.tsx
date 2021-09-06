@@ -25,6 +25,9 @@ const StyledSlider = withStyles({
     },
   },
   active: {},
+  mark: {
+    display: 'none',
+  },
   markLabel: {
     marginTop: 4,
     fontWeight: 600,
@@ -60,8 +63,6 @@ const SliderAdapter = ({
   [x: string]: any;
 }) => {
   const { title, description } = options[input.value];
-
-  console.log(input, meta, rest);
 
   return (
     <div className="w-full group">
