@@ -25,35 +25,23 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
 
   const { carbInfo, protInfo, fatInfo, kcalInfo } = useMacrosInfo();
 
-  const updateNutritionGoals = () => {};
-
-  /**
-   * 
-   * [carbInfo, protInfo, fatInfo].forEach(({ key, kcalPerUnit }) =>
-    Object.assign(decorators, {
-      [key]: createDecorator({
-        field: key,
-        updates: {
-          [`${key}Percentage`]: (_, allValues) => {
-            if (!allValues) return undefined;
-
-            return (
-              (Number(allValues[key]) * kcalPerUnit) / Number(allValues.kcal) ||
-              undefined
-            );
-          },
-        },
-      }),
-    })
-  );
-   */
+  const updateNutritionGoals = ({
+    carb,
+    prot,
+    fat,
+  }: UpdateNutritionGoalsValuesType) => {};
 
   const decorators = [
     createDecorator({
       field: /^(carb|prot|fat)$/,
-      updates: (value, field, allValues, prevValues) => {
+      updates: (
+        value,
+        field,
+        allValues: Partial<UpdateNutritionGoalsValuesType> | undefined,
+        prevValues
+      ) => {
         // console.log({ value, field, allValues, prevValues });
-
+        if (inputMode !== 'grams') return {};
         if (!allValues) return {};
 
         const { carb, prot, fat } = allValues;
@@ -64,14 +52,15 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
           (Number(fat) || 0) * fatInfo.kcalPerUnit;
 
         const updates = {
-          kcal: String(calculatedKcal) || '',
+          kcal: String(round(calculatedKcal, 2)),
         };
 
         [carbInfo, protInfo, fatInfo].forEach(({ key, kcalPerUnit }) =>
           Object.assign(updates, {
             [`${key}Percentage`]: String(
               round(
-                (Number(allValues[key]) * kcalPerUnit) / Number(calculatedKcal),
+                (Number(allValues[key]) * kcalPerUnit * 100) /
+                  Number(calculatedKcal),
                 2
               ) || 0
             ),
@@ -79,6 +68,35 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
         );
 
         console.log(updates);
+
+        return updates;
+      },
+    }),
+    createDecorator({
+      field: /^(carbPercentage|protPercentage|fatPercentage|kcal)$/,
+      updates: (
+        value,
+        field,
+        allValues: Partial<UpdateNutritionGoalsValuesType> | undefined,
+        prevValues
+      ) => {
+        if (inputMode !== 'percentage') return {};
+        if (!allValues) return {};
+
+        const updates = {};
+
+        [carbInfo, protInfo, fatInfo].forEach(({ key, kcalPerUnit }) =>
+          Object.assign(updates, {
+            [key]: String(
+              round(
+                (Number(allValues[`${key}Percentage`]) *
+                  Number(allValues.kcal)) /
+                  (kcalPerUnit * 100),
+                2
+              ) || 0
+            ),
+          })
+        );
 
         return updates;
       },
@@ -145,6 +163,7 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
                       InputProps={{
                         inputProps: {
                           min: 0,
+                          step: '.01',
                         },
                         endAdornment: (
                           <InputAdornment position="end">g</InputAdornment>
@@ -168,21 +187,12 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
 
                           return value;
                         },
-                        /*
-
-                        format: (value) => {
-                          console.log('format');
-
-                          return (
-                            (value * Number(kcal)) / carbInfo.kcalPerUnit ||
-                            undefined
-                          );
-                        }, */
                       }}
                       InputProps={{
                         inputProps: {
                           min: 0,
                           max: 100,
+                          step: '.01',
                         },
                         endAdornment: (
                           <InputAdornment position="end">

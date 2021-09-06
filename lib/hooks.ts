@@ -71,28 +71,28 @@ export const useMealsData = (selectedDateTime: DateTime) => {
 export const useMacrosInfo = () => {
   return {
     carbInfo: {
-      key: <keyof Macros>'carb',
+      key: <'carb'>'carb',
       label: 'Carboidratos',
       compactLabel: 'Carboid.',
       color: '#a78bfa',
       kcalPerUnit: 4,
     },
     protInfo: {
-      key: <keyof Macros>'prot',
+      key: <'prot'>'prot',
       label: 'Proteina',
       compactLabel: 'Proteina',
       color: '#60a5fa',
       kcalPerUnit: 4,
     },
     fatInfo: {
-      key: <keyof Macros>'fat',
+      key: <'fat'>'fat',
       label: 'Gordura',
       compactLabel: 'Gordura',
       color: '#fbbf24',
       kcalPerUnit: 9,
     },
     kcalInfo: {
-      key: <keyof Macros>'kcal',
+      key: <'kcal'>'kcal',
       label: 'Calorias',
       compactLabel: 'Calorias',
       color: '#10b981',
