@@ -1,5 +1,4 @@
-import { docExists } from '@lib/auth';
-import { debounce, kebabCase } from 'lodash';
+import { kebabCase } from 'lodash';
 import * as yup from 'yup';
 
 yup.addMethod(yup.string, 'isKebabCase', function (errorMessage: string) {

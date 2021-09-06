@@ -14,6 +14,7 @@ import { round } from 'lodash';
 import { useMacrosInfo } from '@lib/hooks';
 import { useState } from 'react';
 import createDecorator from 'final-form-calculate';
+import updateNutritionGoalsFirestore from './UpdateNutritionGoals.firestore';
 
 interface Props {
   className?: string;
@@ -25,11 +26,25 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
 
   const { carbInfo, protInfo, fatInfo, kcalInfo } = useMacrosInfo();
 
-  const updateNutritionGoals = ({
+  const updateNutritionGoals = async ({
     carb,
     prot,
     fat,
-  }: UpdateNutritionGoalsValuesType) => {};
+    kcal,
+  }: UpdateNutritionGoalsValuesType) => {
+    onClose && onClose();
+
+    const nutritionGoals = {
+      carb: Number(carb) || 0,
+      prot: Number(prot) || 0,
+      fat: Number(fat) || 0,
+      kcal: Number(kcal) || 0,
+    };
+
+    await updateNutritionGoalsFirestore(nutritionGoals);
+
+    console.log('LO2L');
+  };
 
   const decorators = [
     createDecorator({
@@ -40,7 +55,6 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
         allValues: Partial<UpdateNutritionGoalsValuesType> | undefined,
         prevValues
       ) => {
-        // console.log({ value, field, allValues, prevValues });
         if (inputMode !== 'grams') return {};
         if (!allValues) return {};
 
@@ -66,8 +80,6 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
             ),
           })
         );
-
-        console.log(updates);
 
         return updates;
       },

@@ -10,7 +10,7 @@ import { UserContext } from '@lib/context';
 import GenderField from '@components/inputs/GenderField';
 import UserAvatar from '@components/decoration/UserAvatar';
 import UsernameField from '@components/inputs/UsernameField';
-import updateAccountFirestore from './UpdateAccount.firebase';
+import updateAccountFirestore from './UpdateAccount.firestore';
 import updateAccountSchema from './UpdateAccount.schema';
 
 interface Props {
