@@ -1,6 +1,5 @@
 import { auth, firestore } from '@lib/firebase';
 import { converter } from '@utils/firestore';
-import { isNil, omitBy } from 'lodash';
 
 const updateNutritionGoalsFirestore = async ({
   carb,
@@ -9,7 +8,6 @@ const updateNutritionGoalsFirestore = async ({
   kcal,
 }: Macros) => {
   const uid = auth?.currentUser?.uid;
-  console.log('LOL');
 
   if (!uid) return { error: 'verifique se você está logado' };
 
@@ -19,8 +17,6 @@ const updateNutritionGoalsFirestore = async ({
       .doc(uid)
       .withConverter(converter<UserDetails>());
 
-    console.log('LOL');
-
     await userDoc.update({
       'goals.nutrition': {
         carb,
@@ -29,7 +25,6 @@ const updateNutritionGoalsFirestore = async ({
         kcal,
       },
     });
-    console.log('LOL');
   } catch (error) {
     return { error };
   }

@@ -1,20 +1,14 @@
-import type { FormState } from 'final-form';
-
-import { Form, FormSpy } from 'react-final-form';
+import { Form } from 'react-final-form';
 import clsx from 'clsx';
 import { TextField } from 'mui-rff';
-import {
-  Button,
-  ButtonGroup,
-  InputAdornment,
-  TextField as MuiTextField,
-} from '@material-ui/core';
+import { Button, ButtonGroup, InputAdornment } from '@material-ui/core';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { round } from 'lodash';
 import { useMacrosInfo } from '@lib/hooks';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import createDecorator from 'final-form-calculate';
 import updateNutritionGoalsFirestore from './UpdateNutritionGoals.firestore';
+import { UserContext } from '@lib/context';
 
 interface Props {
   className?: string;
@@ -23,6 +17,14 @@ interface Props {
 
 const UpdateNutritionGoals = ({ className, onClose }: Props) => {
   const [inputMode, setInputMode] = useState<'grams' | 'percentage'>('grams');
+  const { userDetails } = useContext(UserContext);
+
+  const initialValues = {
+    carb: userDetails?.goals?.nutrition?.carb || 0,
+    prot: userDetails?.goals?.nutrition?.prot || 0,
+    fat: userDetails?.goals?.nutrition?.fat || 0,
+    kcal: userDetails?.goals?.nutrition?.kcal || 0,
+  };
 
   const { carbInfo, protInfo, fatInfo, kcalInfo } = useMacrosInfo();
 
@@ -42,8 +44,6 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
     };
 
     await updateNutritionGoalsFirestore(nutritionGoals);
-
-    console.log('LO2L');
   };
 
   const decorators = [
@@ -142,7 +142,7 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
       </div>
       <Form
         onSubmit={updateNutritionGoals}
-        //initialValues={initialValues}
+        initialValues={initialValues}
         // @ts-ignore
         //validate={makeValidate(updateAccountSchema)}
         decorators={decorators}

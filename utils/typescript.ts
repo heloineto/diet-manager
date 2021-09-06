@@ -7,7 +7,7 @@ export const safeguard = <T>(
 
   for (const key in keys) {
     if (!object[key]) {
-      Object.defineProperty(object, key, fallback);
+      object = Object.assign(object, { [key]: fallback });
     }
   }
 
