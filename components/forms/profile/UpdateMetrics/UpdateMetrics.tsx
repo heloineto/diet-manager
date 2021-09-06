@@ -2,12 +2,13 @@ import { KeyboardDatePicker, makeValidate, TextField } from 'mui-rff';
 import React, { useContext } from 'react';
 import { Form } from 'react-final-form';
 import { ArrowRightIcon } from '@heroicons/react/outline';
-import { Button, InputAdornment } from '@material-ui/core';
+import { Button, InputAdornment, Slider } from '@material-ui/core';
 import clsx from 'clsx';
 
 import { UserContext } from '@lib/context';
 import GenderField from '@components/inputs/GenderField';
 import UsernameField from '@components/inputs/UsernameField';
+import ActivityLevelSlider from '@components/inputs/ActivityLevelSlider';
 
 interface Props {
   className?: string;
@@ -124,7 +125,10 @@ const UpdateMetrics = ({ className, onClose }: Props) => {
           </div>
 
           <div className="sm:col-span-6">
-            <GenderField label="Gênero" name="gender" />
+            <ActivityLevelSlider
+              label="Nível de atividade"
+              name="activityLevel"
+            />
           </div>
 
           <div className="sm:col-span-6">
