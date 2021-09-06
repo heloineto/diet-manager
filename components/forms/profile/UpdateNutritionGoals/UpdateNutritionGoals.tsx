@@ -27,8 +27,6 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
 
   const updateNutritionGoals = () => {};
 
-  const decorators = {};
-
   /**
    * 
    * [carbInfo, protInfo, fatInfo].forEach(({ key, kcalPerUnit }) =>
@@ -50,8 +48,8 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
   );
    */
 
-  Object.assign(decorators, {
-    calcKcal: createDecorator({
+  const decorators = [
+    createDecorator({
       field: /^(carb|prot|fat)$/,
       updates: (value, field, allValues, prevValues) => {
         // console.log({ value, field, allValues, prevValues });
@@ -60,21 +58,23 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
 
         const { carb, prot, fat } = allValues;
 
+        const calculatedKcal =
+          (Number(carb) || 0) * carbInfo.kcalPerUnit +
+          (Number(prot) || 0) * protInfo.kcalPerUnit +
+          (Number(fat) || 0) * fatInfo.kcalPerUnit;
+
         const updates = {
-          kcal:
-            String(
-              (Number(carb) || 0) * carbInfo.kcalPerUnit +
-                (Number(prot) || 0) * protInfo.kcalPerUnit +
-                (Number(fat) || 0) * fatInfo.kcalPerUnit
-            ) || '',
+          kcal: String(calculatedKcal) || '',
         };
 
         [carbInfo, protInfo, fatInfo].forEach(({ key, kcalPerUnit }) =>
           Object.assign(updates, {
-            [`${key}Percentage`]:
-              String(
-                (Number(allValues[key]) * kcalPerUnit) / Number(allValues.kcal)
-              ) || '',
+            [`${key}Percentage`]: String(
+              round(
+                (Number(allValues[key]) * kcalPerUnit) / Number(calculatedKcal),
+                2
+              ) || 0
+            ),
           })
         );
 
@@ -83,7 +83,7 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
         return updates;
       },
     }),
-  });
+  ];
 
   return (
     <>
@@ -115,7 +115,7 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
         //initialValues={initialValues}
         // @ts-ignore
         //validate={makeValidate(updateAccountSchema)}
-        decorators={[decorators.calcKcal]}
+        decorators={decorators}
       >
         {({ handleSubmit, submitting, values }) => (
           <form className={clsx(className)} onSubmit={handleSubmit}>
