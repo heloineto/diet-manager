@@ -23,9 +23,9 @@ interface UserDetails {
   };
   goals?: {
     general?: {
-      buildMuscle?: boolean;
       loseWeight?: boolean;
-      lastName?: boolean;
+      buildMuscle?: boolean;
+      beHealthier?: boolean;
     };
     nutrition?: Partial<Macros>;
   };

@@ -19,7 +19,7 @@ export const useProfileCompletion = () => {
     generalGoals: has(userDetails, [
       'goals.general.buildMuscle',
       'goals.general.loseWeight',
-      'goals.general.lastName',
+      'goals.general.beHealthier',
     ]),
     nutritionGoals: has(userDetails, [
       'goals.nutrition.carb',
