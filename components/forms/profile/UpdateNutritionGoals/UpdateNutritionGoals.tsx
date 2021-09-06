@@ -13,6 +13,7 @@ import { ArrowRightIcon } from '@heroicons/react/outline';
 import { round } from 'lodash';
 import { useMacrosInfo } from '@lib/hooks';
 import { useState } from 'react';
+import createDecorator from 'final-form-calculate';
 
 interface Props {
   className?: string;
@@ -21,47 +22,68 @@ interface Props {
 
 const UpdateNutritionGoals = ({ className, onClose }: Props) => {
   const [inputMode, setInputMode] = useState<'grams' | 'percentage'>('grams');
-  const [kcal, setKcal] = useState<string>('');
-
-  // 'goals.nutrition.carb',
-  // 'goals.nutrition.prot',
-  // 'goals.nutrition.fat',
-  // 'goals.nutrition.kcal',
 
   const { carbInfo, protInfo, fatInfo, kcalInfo } = useMacrosInfo();
 
-  const calcKcal = ({
-    carb,
-    prot,
-    fat,
-  }: Partial<{
-    carb: any;
-    prot: any;
-    fat: any;
-  }>) => {
-    const calculatedKcal =
-      String(
-        (Number(carb) || 0) * carbInfo.kcalPerUnit +
-          (Number(prot) || 0) * protInfo.kcalPerUnit +
-          (Number(fat) || 0) * fatInfo.kcalPerUnit
-      ) || '';
-
-    setKcal(calculatedKcal);
-
-    console.log({
-      carb: (Number(carb) * carbInfo.kcalPerUnit) / Number(calculatedKcal),
-      prot: (Number(prot) * protInfo.kcalPerUnit) / Number(calculatedKcal),
-      fat: (Number(fat) * fatInfo.kcalPerUnit) / Number(calculatedKcal),
-      carbBack:
-        (((Number(carb) * carbInfo.kcalPerUnit) / Number(calculatedKcal)) *
-          Number(calculatedKcal)) /
-        carbInfo.kcalPerUnit,
-    });
-
-    return calculatedKcal;
-  };
-
   const updateNutritionGoals = () => {};
+
+  const decorators = {};
+
+  /**
+   * 
+   * [carbInfo, protInfo, fatInfo].forEach(({ key, kcalPerUnit }) =>
+    Object.assign(decorators, {
+      [key]: createDecorator({
+        field: key,
+        updates: {
+          [`${key}Percentage`]: (_, allValues) => {
+            if (!allValues) return undefined;
+
+            return (
+              (Number(allValues[key]) * kcalPerUnit) / Number(allValues.kcal) ||
+              undefined
+            );
+          },
+        },
+      }),
+    })
+  );
+   */
+
+  Object.assign(decorators, {
+    calcKcal: createDecorator({
+      field: /^(carb|prot|fat)$/,
+      updates: (value, field, allValues, prevValues) => {
+        // console.log({ value, field, allValues, prevValues });
+
+        if (!allValues) return {};
+
+        const { carb, prot, fat } = allValues;
+
+        const updates = {
+          kcal:
+            String(
+              (Number(carb) || 0) * carbInfo.kcalPerUnit +
+                (Number(prot) || 0) * protInfo.kcalPerUnit +
+                (Number(fat) || 0) * fatInfo.kcalPerUnit
+            ) || '',
+        };
+
+        [carbInfo, protInfo, fatInfo].forEach(({ key, kcalPerUnit }) =>
+          Object.assign(updates, {
+            [`${key}Percentage`]:
+              String(
+                (Number(allValues[key]) * kcalPerUnit) / Number(allValues.kcal)
+              ) || '',
+          })
+        );
+
+        console.log(updates);
+
+        return updates;
+      },
+    }),
+  });
 
   return (
     <>
@@ -93,6 +115,7 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
         //initialValues={initialValues}
         // @ts-ignore
         //validate={makeValidate(updateAccountSchema)}
+        decorators={[decorators.calcKcal]}
       >
         {({ handleSubmit, submitting, values }) => (
           <form className={clsx(className)} onSubmit={handleSubmit}>
@@ -116,8 +139,6 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
                         parse: (value) => {
                           if (Number(value) < 0) return '0';
 
-                          calcKcal({ ...values, [key]: value });
-
                           return value;
                         },
                       }}
@@ -132,7 +153,7 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
                     />
                     <TextField
                       label={label}
-                      name={key}
+                      name={`${key}Percentage`}
                       type="number"
                       autoComplete="off"
                       disabled={inputMode !== 'percentage'}
@@ -141,41 +162,22 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
                           setInputMode('percentage');
                       }}
                       fieldProps={{
-                        parse: (value) => {
+                        parse: (value: string) => {
                           if (Number(value) > 100) return '100';
                           if (Number(value) < 0) return '0';
 
-                          return (
-                            (Number(value) * kcalPerUnit) /
-                            Number(
-                              String(
-                                (Number(values.carb) || 0) *
-                                  carbInfo.kcalPerUnit +
-                                  (Number(values.prot) || 0) *
-                                    protInfo.kcalPerUnit +
-                                  (Number(values.fat) || 0) *
-                                    fatInfo.kcalPerUnit
-                              )
-                            )
-                          );
+                          return value;
                         },
+                        /*
 
                         format: (value) => {
+                          console.log('format');
+
                           return (
-                            (value *
-                              Number(
-                                String(
-                                  (Number(values.carb) || 0) *
-                                    carbInfo.kcalPerUnit +
-                                    (Number(values.prot) || 0) *
-                                      protInfo.kcalPerUnit +
-                                    (Number(values.fat) || 0) *
-                                      fatInfo.kcalPerUnit
-                                )
-                              )) /
-                            carbInfo.kcalPerUnit
+                            (value * Number(kcal)) / carbInfo.kcalPerUnit ||
+                            undefined
                           );
-                        },
+                        }, */
                       }}
                       InputProps={{
                         inputProps: {
@@ -195,7 +197,7 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
             </div>
 
             <div className="flex justify-center">
-              <MuiTextField
+              <TextField
                 className="my-5 w-1/2"
                 label={kcalInfo.label}
                 name={kcalInfo.key}
@@ -204,14 +206,6 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
                 disabled={inputMode !== 'percentage'}
                 onClick={() => {
                   if (inputMode !== 'percentage') setInputMode('percentage');
-                }}
-                value={kcal}
-                onChange={(e) => {
-                  let value = e.target.value;
-
-                  if (Number(value) < 0) value = '0';
-
-                  setKcal(value);
                 }}
                 InputProps={{
                   inputProps: {
@@ -241,7 +235,7 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
                 Próximo
               </Button>
             </div>
-            <pre>{JSON.stringify({ ...values, kcal }, undefined, 2)}</pre>
+            <pre>{JSON.stringify({ ...values }, undefined, 2)}</pre>
           </form>
         )}
       </Form>
