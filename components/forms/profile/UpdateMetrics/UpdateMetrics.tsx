@@ -1,14 +1,13 @@
-import { KeyboardDatePicker, makeValidate, TextField } from 'mui-rff';
+import { TextField } from 'mui-rff';
 import React, { useContext } from 'react';
 import { Form } from 'react-final-form';
 import { ArrowRightIcon } from '@heroicons/react/outline';
-import { Button, InputAdornment, Slider } from '@material-ui/core';
+import { Button, InputAdornment } from '@material-ui/core';
 import clsx from 'clsx';
 
 import { UserContext } from '@lib/context';
-import GenderField from '@components/inputs/GenderField';
-import UsernameField from '@components/inputs/UsernameField';
 import ActivityLevelSlider from '@components/inputs/ActivityLevelSlider';
+import updateMetricsFirestore from './UpdateMetrics.firestore';
 
 interface Props {
   className?: string;
@@ -16,11 +15,6 @@ interface Props {
 }
 
 const UpdateMetrics = ({ className, onClose }: Props) => {
-  // 'metrics.activityLevel',
-  // 'metrics.height.current',
-  // 'metrics.weight.current',
-  // 'metrics.weight.desired',
-
   const { userDetails } = useContext(UserContext);
 
   const initialValues = {
@@ -30,17 +24,30 @@ const UpdateMetrics = ({ className, onClose }: Props) => {
     weightDesired: userDetails?.metrics?.weight?.desired,
   };
 
-  const updateAccount = async () => {
+  const updateMetrics = async ({
+    weightCurrent,
+    weightDesired,
+    heightCurrent,
+    activityLevel,
+  }: UpdateMetricsValuesType) => {
     onClose && onClose();
+
+    const metrics = {
+      activityLevel,
+      weight: {
+        current: Number(weightCurrent),
+        desired: Number(weightDesired),
+      },
+      height: {
+        current: Number(heightCurrent),
+      },
+    };
+
+    await updateMetricsFirestore(metrics);
   };
 
   return (
-    <Form
-      onSubmit={updateAccount}
-      initialValues={initialValues}
-      // @ts-ignore
-      //validate={makeValidate(updateAccountSchema)}
-    >
+    <Form onSubmit={updateMetrics} initialValues={initialValues}>
       {({ handleSubmit, submitting, values }) => (
         <form
           className={clsx(
@@ -144,7 +151,7 @@ const UpdateMetrics = ({ className, onClose }: Props) => {
               Próximo
             </Button>
           </div>
-          <pre>{JSON.stringify(values, undefined, 2)}</pre>
+          {/* <pre>{JSON.stringify(values, undefined, 2)}</pre> */}
         </form>
       )}
     </Form>
