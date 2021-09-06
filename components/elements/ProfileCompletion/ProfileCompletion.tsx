@@ -4,13 +4,50 @@ import UpdateMetrics from '@components/forms/profile/UpdateMetrics';
 import UpdateNutritionGoals from '@components/forms/profile/UpdateNutritionGoals';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { IconButton, Step, StepLabel, Stepper } from '@material-ui/core';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { useProfileCompletion } from './ProfileCompletion.hook';
 
 interface Props {}
 
 const ProfileCompletion = (props: Props) => {
+  const router = useRouter();
   const [activeStep, setActiveStep] = useState(0);
+
+  const completed = useProfileCompletion();
+
+  //console.log(completed);
+
+  const steps = [
+    {
+      name: 'account',
+      label: 'Dados da Conta',
+      skipped: false,
+      Form: UpdateAccount,
+      completed: completed?.account,
+    },
+    {
+      name: 'generalGoals',
+      label: 'Metas Gerais',
+      skipped: false,
+      Form: UpdateGeneralGoals,
+      completed: completed?.generalGoals,
+    },
+    {
+      name: 'nutritionGoals',
+      label: 'Metas Nutricionais',
+      skipped: false,
+      Form: UpdateNutritionGoals,
+      completed: completed?.nutritionGoals,
+    },
+    {
+      name: 'metrics',
+      label: 'Medidas',
+      skipped: false,
+      Form: UpdateMetrics,
+      completed: completed?.metrics,
+    },
+  ];
 
   const nextStep = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -23,31 +60,6 @@ const ProfileCompletion = (props: Props) => {
   const resetSteps = () => {
     setActiveStep(0);
   };
-
-  const steps = [
-    {
-      label: 'Dados da Conta',
-      skipped: false,
-      Form: UpdateAccount,
-    },
-    {
-      label: 'Metas Gerais',
-      skipped: false,
-      Form: UpdateGeneralGoals,
-    },
-    {
-      label: 'Metas Nutricionais',
-      skipped: false,
-      Form: UpdateNutritionGoals,
-    },
-    {
-      label: 'Medidas',
-      skipped: false,
-      Form: UpdateMetrics,
-    },
-  ];
-
-  const completed = useProfileCompletion();
 
   const renderForm = () => {
     const { Form, label } = steps[activeStep];
@@ -63,7 +75,9 @@ const ProfileCompletion = (props: Props) => {
           <div className="font-bold text-xl text-gray-900 mx-auto">{label}</div>
         </div>
         <Form
-          onClose={activeStep === steps.length - 1 ? () => null : nextStep}
+          onClose={
+            activeStep === steps.length - 1 ? () => router.push('/') : nextStep
+          }
         />
       </>
     );
@@ -76,9 +90,9 @@ const ProfileCompletion = (props: Props) => {
         activeStep={activeStep}
         alternativeLabel
       >
-        {steps.map(({ label, skipped }) => {
+        {steps.map(({ label, completed }) => {
           return (
-            <Step key={label}>
+            <Step key={label} completed={completed}>
               <StepLabel>
                 <div className="hidden sm:block">{label}</div>
               </StepLabel>

@@ -1,39 +1,45 @@
-import { has } from 'lodash';
+import { isNil } from 'lodash';
 import { useContext } from 'react';
 
 import { UserContext } from '@lib/context';
 
 export const useProfileCompletion = () => {
   const { userDetails } = useContext(UserContext);
-  if (!userDetails) return;
+  if (!userDetails)
+    return {
+      account: false,
+      generalGoals: false,
+      nutritionGoals: false,
+      metrics: false,
+    };
 
   const completed = {
-    account: has(userDetails, [
-      'birthdate',
-      'firstName',
-      'lastName',
-      'gender',
-      'photoURL',
-      'username',
-    ]),
-    generalGoals: has(userDetails, [
-      'goals.general.buildMuscle',
-      'goals.general.loseWeight',
-      'goals.general.beHealthier',
-    ]),
-    nutritionGoals: has(userDetails, [
-      'goals.nutrition.carb',
-      'goals.nutrition.prot',
-      'goals.nutrition.fat',
-      'goals.nutrition.kcal',
-    ]),
-    metrics: has(userDetails, [
-      'metrics.activityLevel',
-      'metrics.height.current',
-      'metrics.weight.current',
-      'metrics.weight.desired',
-    ]),
+    account: Boolean(
+      !isNil(userDetails?.birthdate) &&
+        !isNil(userDetails?.firstName) &&
+        !isNil(userDetails?.lastName) &&
+        !isNil(userDetails?.gender) &&
+        !isNil(userDetails?.photoURL) &&
+        !isNil(userDetails?.username)
+    ),
+    generalGoals: Boolean(
+      !isNil(userDetails?.goals?.general?.buildMuscle) &&
+        !isNil(userDetails?.goals?.general?.loseWeight) &&
+        !isNil(userDetails?.goals?.general?.beHealthier)
+    ),
+    nutritionGoals: Boolean(
+      !isNil(userDetails?.goals?.nutrition?.carb) &&
+        !isNil(userDetails?.goals?.nutrition?.prot) &&
+        !isNil(userDetails?.goals?.nutrition?.fat) &&
+        !isNil(userDetails?.goals?.nutrition?.kcal)
+    ),
+    metrics: Boolean(
+      !isNil(userDetails?.metrics?.activityLevel) &&
+        !isNil(userDetails?.metrics?.height?.current) &&
+        !isNil(userDetails?.metrics?.weight?.current) &&
+        !isNil(userDetails?.metrics?.weight?.desired)
+    ),
   };
 
-  return { completed };
+  return completed;
 };

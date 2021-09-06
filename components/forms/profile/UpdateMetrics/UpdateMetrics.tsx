@@ -35,11 +35,11 @@ const UpdateMetrics = ({ className, onClose }: Props) => {
     const metrics = {
       activityLevel,
       weight: {
-        current: Number(weightCurrent),
-        desired: Number(weightDesired),
+        current: Number(weightCurrent) || 0,
+        desired: Number(weightDesired) || 0,
       },
       height: {
-        current: Number(heightCurrent),
+        current: Number(heightCurrent) || 0,
       },
     };
 
