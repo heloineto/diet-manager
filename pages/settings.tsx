@@ -21,6 +21,12 @@ import UpdateAccount from '@components/forms/profile/UpdateAccount';
 import UpdateGeneralGoals from '@components/forms/profile/UpdateGeneralGoals';
 import UpdateNutritionGoals from '@components/forms/profile/UpdateNutritionGoals';
 import UpdateMetrics from '@components/forms/profile/UpdateMetrics';
+import BarbellIconOutlined from '@components/icons/BarbellIconOutlined';
+import BarbellIconSolid from '@components/icons/BarbellIconSolid';
+import TargetIconSolid from '@components/icons/TargetIconSolid';
+import TargetIconOutlined from '@components/icons/TargetIconOutlined';
+import ForkKnifeIconOutlined from '@components/icons/ForkKnifeIconOutlined';
+import ForkKnifeIconSolid from '@components/icons/ForkKnifeIconSolid';
 
 const Settings: NextPage = () => {
   const { breakpoints } = useTheme();
@@ -38,15 +44,15 @@ const Settings: NextPage = () => {
       {
         name: 'generalGoals',
         label: 'Metas Gerais',
-        IconOutlined: TrendingUpIconOutlined,
-        IconSolid: TrendingUpIconSolid,
+        IconOutlined: TargetIconOutlined,
+        IconSolid: TargetIconSolid,
         Form: UpdateGeneralGoals,
       },
       {
         name: 'nutritionGoals',
         label: 'Metas Nutricionais',
-        IconOutlined: TrendingUpIconOutlined,
-        IconSolid: TrendingUpIconSolid,
+        IconOutlined: ForkKnifeIconOutlined,
+        IconSolid: ForkKnifeIconSolid,
         Form: UpdateNutritionGoals,
       },
       {
