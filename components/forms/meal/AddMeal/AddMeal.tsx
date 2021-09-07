@@ -92,19 +92,21 @@ const AddMeal = ({ className, onClose }: Props) => {
             <Button
               className="bg-gray-500 text-white w-2/6"
               variant="contained"
+              size="large"
               disabled={submitting}
               onClick={onClose}
             >
-              Cancelar
+              <div className="text-sm sm:text-lg">Cancelar</div>
             </Button>
             <Button
               className="shadow-blue-500 hover:shadow-xl-blue-500 w-4/6"
               color="secondary"
               variant="contained"
+              size="large"
               disabled={submitting}
               type="submit"
             >
-              Adicionar
+              <div className="text-sm sm:text-lg">Adicionar</div>
             </Button>
           </div>
           {/* <pre>{JSON.stringify(values, undefined, 2)}</pre> */}
