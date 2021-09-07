@@ -14,6 +14,7 @@ interface Props {
   aside: JSX.Element;
   asideProps?: {
     size?: 'large';
+    position?: 'left' | 'right';
   };
 }
 
@@ -32,7 +33,12 @@ const MainShell = ({ children, aside, asideProps }: Props) => {
         <div className="flex-1 flex flex-col overflow-hidden">
           <Navbar toggleSideBarOpen={toggleSideBarOpen} />
 
-          <div className="flex-1 flex items-stretch overflow-hidden">
+          <div
+            className={clsx(
+              asideProps?.position === 'left' && 'flex-row-reverse',
+              'flex-1 flex items-stretch overflow-hidden'
+            )}
+          >
             <main className="flex-1 overflow-y-auto">
               <Section className="p-2.5">
                 <Widget>{children}</Widget>
@@ -44,7 +50,8 @@ const MainShell = ({ children, aside, asideProps }: Props) => {
                 asideProps?.size === 'large'
                   ? 'lg:w-[26rem] xl:w-[32rem]'
                   : 'lg:w-96 xl:w-[26rem]',
-                'hidden lg:block overflow-y-auto py-2.5 pr-2.5'
+                asideProps?.position === 'left' ? 'pl-2.5' : 'pr-2.5',
+                'hidden lg:block overflow-y-auto py-2.5'
               )}
             >
               <Widget>{aside}</Widget>

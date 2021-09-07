@@ -23,10 +23,4 @@ const Home: NextPage = () => {
   );
 };
 
-/**
- * TODO:
- * Implement usernames
- * If you use a exact component more than once, it gotta go on its own import to avoid inconsistency
- */
-
 export default Home;

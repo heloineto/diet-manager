@@ -2,14 +2,12 @@ import {
   BookOpenIcon as BookOpenIconOutlined,
   CogIcon as CogIconOutlined,
   HomeIcon as HomeIconOutlined,
-  UsersIcon as UsersIconOutlined,
 } from '@heroicons/react/outline';
 
 import {
   BookOpenIcon as BookOpenIconSolid,
   CogIcon as CogIconSolid,
   HomeIcon as HomeIconSolid,
-  UsersIcon as UsersIconSolid,
 } from '@heroicons/react/solid';
 
 const navItems = [
