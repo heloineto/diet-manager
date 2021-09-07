@@ -4,8 +4,12 @@ import MainShell from '@components/layout/app-shells/MainShell';
 import Calendar from '@components/elements/Calendar';
 import Meals from '@components/elements/Meals';
 import Summary from '@components/elements/Summary';
+import { useMediaQuery, useTheme } from '@material-ui/core';
 
 const Home: NextPage = () => {
+  const { breakpoints } = useTheme();
+  const compact = useMediaQuery(breakpoints.down('md'));
+
   return (
     <MainShell
       aside={
@@ -18,6 +22,7 @@ const Home: NextPage = () => {
         size: 'large',
       }}
     >
+      {compact && <Calendar className="mb-5" expanded={false} />}
       <Summary />
     </MainShell>
   );

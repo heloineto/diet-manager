@@ -80,7 +80,7 @@ const Summary = ({ className }: Props) => {
               0
             )}g`}
             percentage={Math.min(
-              (consumedMacros[key] * 100) / goalMacros[key] || 0,
+              round((consumedMacros[key] * 100) / goalMacros[key], 2) || 0,
               100
             )}
             color={color}

@@ -5,7 +5,7 @@ import { Button, ButtonGroup, InputAdornment } from '@material-ui/core';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { round } from 'lodash';
 import { useMacrosInfo } from '@lib/hooks';
-import { useContext, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import createDecorator from 'final-form-calculate';
 import updateNutritionGoalsFirestore from './UpdateNutritionGoals.firestore';
 import { UserContext } from '@lib/context';
@@ -46,74 +46,77 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
     await updateNutritionGoalsFirestore(nutritionGoals);
   };
 
-  const decorators = [
-    createDecorator({
-      field: /^(carb|prot|fat)$/,
-      updates: (
-        value,
-        field,
-        allValues: Partial<UpdateNutritionGoalsValuesType> | undefined,
-        prevValues
-      ) => {
-        if (inputMode !== 'grams') return {};
-        if (!allValues) return {};
+  const decorators = useMemo(
+    () => [
+      createDecorator({
+        field: /^(carb|prot|fat)$/,
+        updates: (
+          value,
+          field,
+          allValues: Partial<UpdateNutritionGoalsValuesType> | undefined,
+          prevValues
+        ) => {
+          if (inputMode !== 'grams') return {};
+          if (!allValues) return {};
 
-        const { carb, prot, fat } = allValues;
+          const { carb, prot, fat } = allValues;
 
-        const calculatedKcal =
-          (Number(carb) || 0) * carbInfo.kcalPerUnit +
-          (Number(prot) || 0) * protInfo.kcalPerUnit +
-          (Number(fat) || 0) * fatInfo.kcalPerUnit;
+          const calculatedKcal =
+            (Number(carb) || 0) * carbInfo.kcalPerUnit +
+            (Number(prot) || 0) * protInfo.kcalPerUnit +
+            (Number(fat) || 0) * fatInfo.kcalPerUnit;
 
-        const updates = {
-          kcal: String(round(calculatedKcal, 2)),
-        };
+          const updates = {
+            kcal: String(round(calculatedKcal, 2)),
+          };
 
-        [carbInfo, protInfo, fatInfo].forEach(({ key, kcalPerUnit }) =>
-          Object.assign(updates, {
-            [`${key}Percentage`]: String(
-              round(
-                (Number(allValues[key]) * kcalPerUnit * 100) /
-                  Number(calculatedKcal),
-                2
-              ) || 0
-            ),
-          })
-        );
+          [carbInfo, protInfo, fatInfo].forEach(({ key, kcalPerUnit }) =>
+            Object.assign(updates, {
+              [`${key}Percentage`]: String(
+                round(
+                  (Number(allValues[key]) * kcalPerUnit * 100) /
+                    Number(calculatedKcal),
+                  2
+                ) || 0
+              ),
+            })
+          );
 
-        return updates;
-      },
-    }),
-    createDecorator({
-      field: /^(carbPercentage|protPercentage|fatPercentage|kcal)$/,
-      updates: (
-        value,
-        field,
-        allValues: Partial<UpdateNutritionGoalsValuesType> | undefined,
-        prevValues
-      ) => {
-        if (inputMode !== 'percentage') return {};
-        if (!allValues) return {};
+          return updates;
+        },
+      }),
+      createDecorator({
+        field: /^(carbPercentage|protPercentage|fatPercentage|kcal)$/,
+        updates: (
+          value,
+          field,
+          allValues: Partial<UpdateNutritionGoalsValuesType> | undefined,
+          prevValues
+        ) => {
+          if (inputMode !== 'percentage') return {};
+          if (!allValues) return {};
 
-        const updates = {};
+          const updates = {};
 
-        [carbInfo, protInfo, fatInfo].forEach(({ key, kcalPerUnit }) =>
-          Object.assign(updates, {
-            [key]: String(
-              round(
-                (Number(allValues[`${key}Percentage`]) *
-                  Number(allValues.kcal)) /
-                  (kcalPerUnit * 100),
-                2
-              ) || 0
-            ),
-          })
-        );
+          [carbInfo, protInfo, fatInfo].forEach(({ key, kcalPerUnit }) =>
+            Object.assign(updates, {
+              [key]: String(
+                round(
+                  (Number(allValues[`${key}Percentage`]) *
+                    Number(allValues.kcal)) /
+                    (kcalPerUnit * 100),
+                  2
+                ) || 0
+              ),
+            })
+          );
 
-        return updates;
-      },
-    }),
-  ];
+          return updates;
+        },
+      }),
+    ],
+    []
+  );
 
   return (
     <>
@@ -232,6 +235,7 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
                 InputProps={{
                   inputProps: {
                     min: 0,
+                    step: '.01',
                   },
                   endAdornment: (
                     <InputAdornment position="end">g</InputAdornment>
