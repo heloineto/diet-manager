@@ -4,14 +4,14 @@ import clsx from 'clsx';
 
 import MainShell from '@components/layout/app-shells/MainShell';
 import {
-  TrendingUpIcon as TrendingUpIconOutlined,
   UserIcon as UserIconOutlined,
+  ClipboardListIcon as ClipboardListIconOutlined,
   BellIcon as BellIconOutlined,
 } from '@heroicons/react/outline';
 
 import {
   UserIcon as UserIconSolid,
-  TrendingUpIcon as TrendingUpIconSolid,
+  ClipboardListIcon as ClipboardListIconSolid,
   BellIcon as BellIconSolid,
 } from '@heroicons/react/solid';
 
@@ -21,12 +21,12 @@ import UpdateAccount from '@components/forms/profile/UpdateAccount';
 import UpdateGeneralGoals from '@components/forms/profile/UpdateGeneralGoals';
 import UpdateNutritionGoals from '@components/forms/profile/UpdateNutritionGoals';
 import UpdateMetrics from '@components/forms/profile/UpdateMetrics';
-import BarbellIconOutlined from '@components/icons/BarbellIconOutlined';
-import BarbellIconSolid from '@components/icons/BarbellIconSolid';
+
 import TargetIconSolid from '@components/icons/TargetIconSolid';
 import TargetIconOutlined from '@components/icons/TargetIconOutlined';
 import ForkKnifeIconOutlined from '@components/icons/ForkKnifeIconOutlined';
 import ForkKnifeIconSolid from '@components/icons/ForkKnifeIconSolid';
+import Menu from '@components/elements/Menu';
 
 const Settings: NextPage = () => {
   const { breakpoints } = useTheme();
@@ -58,22 +58,22 @@ const Settings: NextPage = () => {
       {
         name: 'metrics',
         label: 'Medidas',
-        IconOutlined: TrendingUpIconOutlined,
-        IconSolid: TrendingUpIconSolid,
+        IconOutlined: ClipboardListIconOutlined,
+        IconSolid: ClipboardListIconSolid,
         Form: UpdateMetrics,
       },
     ],
     []
   );
 
-  const [currCategory, setCurrCategory] = useState(
+  const [currentCategory, setCurrentCategory] = useState(
     compact ? null : categories[0]
   );
 
   const renderForm = () => {
-    if (!currCategory) return null;
+    if (!currentCategory) return null;
 
-    const { Form } = currCategory;
+    const { Form } = currentCategory;
 
     return <Form />;
   };
@@ -82,45 +82,11 @@ const Settings: NextPage = () => {
     <MainShell
       aside={
         <div className="-m-2.5 rounded-xl overflow-hidden">
-          <nav className="hidden w-full bg-white md:flex md:flex-col">
-            <div className="overflow-y-auto">
-              {categories.map((category) => {
-                const { name, label, IconOutlined, IconSolid } = category;
-
-                const isCurrent = name === currCategory?.name;
-
-                const Icon = isCurrent ? IconSolid : IconOutlined;
-
-                return (
-                  <Button
-                    key={name}
-                    className={clsx(
-                      isCurrent
-                        ? 'bg-blue-300 bg-opacity-50'
-                        : 'hover:bg-blue-200 hover:bg-opacity-50',
-                      'w-full flex justify-start p-6 border-b border-blue-gray-200'
-                    )}
-                    classes={{
-                      startIcon: 'static',
-                    }}
-                    startIcon={
-                      <Icon
-                        className="flex -mt-0.5 h-6 w-6 text-blue-gray-400"
-                        aria-hidden="true"
-                      />
-                    }
-                    color="secondary"
-                    onClick={() => setCurrCategory(category)}
-                  >
-                    <div className="ml-3 text-sm">
-                      <p className="font-medium text-blue-gray-900">{label}</p>
-                      <p className="mt-1 text-blue-gray-500"></p>
-                    </div>
-                  </Button>
-                );
-              })}
-            </div>
-          </nav>
+          <Menu
+            categories={categories}
+            current={currentCategory}
+            onChange={(category) => setCurrentCategory(category)}
+          />
         </div>
       }
       asideProps={{
