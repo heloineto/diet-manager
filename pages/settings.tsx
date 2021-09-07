@@ -1,12 +1,11 @@
 import type { NextPage } from 'next';
 
-import clsx from 'clsx';
-
 import MainShell from '@components/layout/app-shells/MainShell';
 import {
   UserIcon as UserIconOutlined,
   ClipboardListIcon as ClipboardListIconOutlined,
   BellIcon as BellIconOutlined,
+  ArrowLeftIcon,
 } from '@heroicons/react/outline';
 
 import {
@@ -15,8 +14,8 @@ import {
   BellIcon as BellIconSolid,
 } from '@heroicons/react/solid';
 
-import { Button, useMediaQuery, useTheme } from '@material-ui/core';
-import { useMemo, useState } from 'react';
+import { Button, IconButton, useMediaQuery, useTheme } from '@material-ui/core';
+import { useEffect, useMemo, useState } from 'react';
 import UpdateAccount from '@components/forms/profile/UpdateAccount';
 import UpdateGeneralGoals from '@components/forms/profile/UpdateGeneralGoals';
 import UpdateNutritionGoals from '@components/forms/profile/UpdateNutritionGoals';
@@ -66,9 +65,14 @@ const Settings: NextPage = () => {
     []
   );
 
-  const [currentCategory, setCurrentCategory] = useState(
-    compact ? null : categories[0]
-  );
+  const [currentCategory, setCurrentCategory] = useState<
+    null | typeof categories[0]
+  >(categories[0]);
+
+  useEffect(() => {
+    if (compact) setCurrentCategory(null);
+    if (!compact) setCurrentCategory(categories[0]);
+  }, [compact]);
 
   const renderForm = () => {
     if (!currentCategory) return null;
@@ -94,7 +98,33 @@ const Settings: NextPage = () => {
         position: 'left',
       }}
     >
-      <div className="p-2.5">{renderForm()}</div>
+      {compact ? (
+        currentCategory ? (
+          <>
+            <div className="flex items-start h-12 relative">
+              <IconButton
+                className="-mt-2.5 absolute top-0 left-0"
+                edge="start"
+                onClick={() => setCurrentCategory(null)}
+              >
+                <ArrowLeftIcon className="h-5 w-5" />
+              </IconButton>
+              <div className="font-bold sm:text-xl text-gray-900 mx-auto">
+                {currentCategory.label}
+              </div>
+            </div>
+            {renderForm()}
+          </>
+        ) : (
+          <Menu
+            categories={categories}
+            current={currentCategory}
+            onChange={(category) => setCurrentCategory(category)}
+          />
+        )
+      ) : (
+        <div className="p-2.5">{renderForm()}</div>
+      )}
     </MainShell>
   );
 };

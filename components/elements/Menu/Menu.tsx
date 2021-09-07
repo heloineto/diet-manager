@@ -48,7 +48,7 @@ const Menu = ({ categories, current, onChange }: Props) => {
             color="secondary"
             onClick={() => onChange(category)}
           >
-            <div className="ml-3 text-base font-semibold text-blue-gray-900">
+            <div className="ml-3 text-base font-semibold text-blue-gray-900 text-left">
               {label}
             </div>
           </Button>
