@@ -157,7 +157,7 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
                 ({ label, key, kcalPerUnit }) => (
                   <div
                     key={key}
-                    className="flex sm:flex-col gap-x-1 sm:gap-x-0 sm:gap-y-5"
+                    className="w-full flex sm:flex-col gap-x-1 sm:gap-x-0 sm:gap-y-5"
                   >
                     <TextField
                       label={label}
