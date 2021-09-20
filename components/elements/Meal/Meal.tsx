@@ -155,7 +155,7 @@ const Meal = ({ meal, formattedFoods }: Props) => {
           ))}
         </thead>
         <tbody className={expanded ? '' : 'hidden'} {...getTableBodyProps()}>
-          {rows.map((row, idx) => {
+          {rows.map((row: Row<FormattedFood>, idx) => {
             prepareRow(row);
 
             const selected = !!selectedRows[row.id];
