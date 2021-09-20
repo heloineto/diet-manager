@@ -11,7 +11,7 @@ const weekdays = Info.weekdays('short', { locale: 'br' }).map((weekday) =>
 );
 
 if (weekStartsSunday && weekdays?.length) {
-  const sunday = weekdays.pop() as string; //! Not much to do, typescript is dumb ¯\_(ツ)_/¯
+  const sunday = weekdays.pop() as string; //! Not much to do, typescript is dumb
   weekdays.unshift(sunday);
 }
 
@@ -40,11 +40,11 @@ export const getMonthData = (date = DateTime.now()) => {
 
   const monthData: WeekData[] = [];
 
-  calendarInterval.splitBy({ week: 1 }).forEach((week) => {
+  calendarInterval.splitBy({ weeks: 1 }).forEach((week) => {
     const weekData: WeekData = {};
 
     week
-      .splitBy({ day: 1 })
+      .splitBy({ days: 1 })
       .forEach(({ start }, idx) => (weekData[weekdays[idx]] = start));
 
     monthData.push(weekData);
