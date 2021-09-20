@@ -45,6 +45,7 @@ const CalendarTable = ({
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr className="table-row" {...headerGroup.getHeaderGroupProps()}>
+              {console.log(headerGroup.getHeaderGroupProps())}
               {headerGroup.headers.map((column) => (
                 <th className="table-cell" {...column.getHeaderProps()}>
                   <div className="text-gray-600 font-bold text-sm">

@@ -102,6 +102,7 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
             Object.assign(updates, {
               [key]: String(
                 round(
+                  // @ts-ignore
                   (Number(allValues[`${key}Percentage`]) *
                     Number(allValues.kcal)) /
                     (kcalPerUnit * 100),
