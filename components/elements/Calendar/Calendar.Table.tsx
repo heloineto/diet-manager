@@ -30,8 +30,8 @@ const CalendarTable = ({
   const currWeek = useMemo(
     () =>
       Interval.fromDateTimes(
-        navDate.plus({ day: 1 }).startOf('week'),
-        navDate.plus({ day: 1 }).endOf('week')
+        navDate.plus({ days: 1 }).startOf('week'),
+        navDate.plus({ days: 1 }).endOf('week')
       ).mapEndpoints((endpoint) => endpoint.minus({ days: 1 })),
     [navDate]
   );
