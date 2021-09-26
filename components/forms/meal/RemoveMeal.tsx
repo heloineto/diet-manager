@@ -10,9 +10,9 @@ const RemoveMeal = ({ label, mealRef, onClose }: Props) => {
   return (
     <div>
       <p className="font-semibold text-center">
-        Você tem certeza que deseja remover &quot
+        Você tem certeza que deseja remover &quot;
         <span className="text-red-900">{label}</span>
-        &quot?
+        &quot;?
       </p>
       <div className="flex space-x-2.5 mt-5">
         <Button className="bg-gray-500 w-1/2 text-white" onClick={onClose}>
