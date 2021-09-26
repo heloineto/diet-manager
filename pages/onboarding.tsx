@@ -5,7 +5,7 @@ import ProfileCompletion from '@components/elements/ProfileCompletion';
 
 const Onboarding: NextPage = () => {
   return (
-    <OnboardingShell>
+    <OnboardingShell label="Onboarding">
       <ProfileCompletion />
     </OnboardingShell>
   );

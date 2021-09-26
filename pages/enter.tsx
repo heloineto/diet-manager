@@ -12,7 +12,7 @@ import PasswordField from '@components/inputs/PasswordField';
 
 const Enter: NextPage = () => {
   return (
-    <AuthFlowShell>
+    <AuthFlowShell label="Entrar">
       <Typography variant="h1" className="-ml-2">
         Entrar
       </Typography>

@@ -12,6 +12,7 @@ const Home: NextPage = () => {
 
   return (
     <MainShell
+      label="Home"
       aside={
         <div className="space-y-5">
           <Calendar expanded={false} />
