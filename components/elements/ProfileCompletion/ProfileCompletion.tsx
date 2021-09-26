@@ -39,9 +39,7 @@ const ProfileCompletion = (props: Props) => {
           <div className="font-bold text-xl text-gray-900 mx-auto">{label}</div>
         </div>
         <Form
-          onClose={
-            activeStep === steps.length - 1 ? () => router.push('/') : nextStep
-          }
+          onClose={activeStep === steps.length - 1 ? () => router.push('/') : nextStep}
         />
       </>
     );
@@ -50,14 +48,18 @@ const ProfileCompletion = (props: Props) => {
   return (
     <div className="h-screen w-full flex flex-col justify-start items-center">
       <Stepper
-        className="w-full sm:w-auto sm:mt-14 bg-transparent"
+        className="w-full sm:w-auto sm:mt-14 bg-transparent cursor-pointer"
         activeStep={activeStep}
         alternativeLabel
       >
-        {steps.map(({ label, name }) => {
+        {steps.map(({ label, name, index }) => {
           return (
-            // @ts-ignore
-            <Step key={label} completed={completed[name]}>
+            <Step
+              key={label}
+              // @ts-ignore
+              completed={completed[name]}
+              onClick={() => setActiveStep(index)}
+            >
               <StepLabel>
                 <div className="hidden sm:block">{label}</div>
               </StepLabel>

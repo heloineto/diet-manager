@@ -1,15 +1,5 @@
-import type { SVGProps } from 'react';
-
 import { Button } from '@material-ui/core';
 import clsx from 'clsx';
-
-interface CategoryType {
-  name: string;
-  label: string;
-  IconOutlined: (props: SVGProps<SVGSVGElement>) => JSX.Element;
-  IconSolid: (props: SVGProps<SVGSVGElement>) => JSX.Element;
-  Form: (props: { className?: string }) => JSX.Element;
-}
 
 interface Props {
   categories: CategoryType[];

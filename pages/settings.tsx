@@ -10,13 +10,14 @@ import { useProfileCompletionSteps } from '@components/elements/ProfileCompletio
 
 const Settings: NextPage = () => {
   const { breakpoints } = useTheme();
+
   const compact = useMediaQuery(breakpoints.down('md'));
 
   const categories = useProfileCompletionSteps();
 
-  const [currentCategory, setCurrentCategory] = useState<
-    null | typeof categories[0]
-  >(categories[0]);
+  const [currentCategory, setCurrentCategory] = useState<null | CategoryType>(
+    categories[0]
+  );
 
   useEffect(() => {
     if (compact) setCurrentCategory(null);
@@ -33,6 +34,7 @@ const Settings: NextPage = () => {
 
   return (
     <MainShell
+      label="Configurações"
       aside={
         <div className="-m-2.5 rounded-xl overflow-hidden">
           <Menu

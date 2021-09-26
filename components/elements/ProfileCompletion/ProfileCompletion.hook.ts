@@ -71,6 +71,7 @@ export const useProfileCompletionSteps = () => {
   return useMemo(
     () => [
       {
+        index: 0,
         name: 'account',
         label: 'Conta',
         IconOutlined: UserIconOutlined,
@@ -78,6 +79,7 @@ export const useProfileCompletionSteps = () => {
         Form: UpdateAccount,
       },
       {
+        index: 1,
         name: 'generalGoals',
         label: 'Metas Gerais',
         IconOutlined: TargetIconOutlined,
@@ -85,6 +87,7 @@ export const useProfileCompletionSteps = () => {
         Form: UpdateGeneralGoals,
       },
       {
+        index: 2,
         name: 'nutritionGoals',
         label: 'Metas Nutricionais',
         IconOutlined: ForkKnifeIconOutlined,
@@ -92,6 +95,7 @@ export const useProfileCompletionSteps = () => {
         Form: UpdateNutritionGoals,
       },
       {
+        index: 3,
         name: 'metrics',
         label: 'Medidas',
         IconOutlined: ClipboardListIconOutlined,
