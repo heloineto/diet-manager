@@ -57,6 +57,7 @@ const ProfileCompletion = ({ stepName }: Props) => {
         </div>
         <Form
           onClose={activeStep === steps.length - 1 ? () => router.push('/') : nextStep}
+          submitButtonProps={{}}
         />
       </>
     );

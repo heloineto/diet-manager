@@ -3,14 +3,13 @@ import type { NextPage } from 'next';
 import MainShell from '@components/layout/app-shells/MainShell';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 
-import { Button, IconButton, useMediaQuery, useTheme } from '@material-ui/core';
-import { useEffect, useMemo, useState } from 'react';
+import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
+import { useEffect, useState } from 'react';
 import Menu from '@components/elements/Menu';
 import { useProfileCompletionSteps } from '@components/elements/ProfileCompletion/ProfileCompletion.hook';
 
 const Settings: NextPage = () => {
   const { breakpoints } = useTheme();
-
   const compact = useMediaQuery(breakpoints.down('md'));
 
   const categories = useProfileCompletionSteps();
@@ -29,7 +28,7 @@ const Settings: NextPage = () => {
 
     const { Form } = currentCategory;
 
-    return <Form />;
+    return <Form submitButtonProps={{ innerText: 'Salvar' }} />;
   };
 
   return (

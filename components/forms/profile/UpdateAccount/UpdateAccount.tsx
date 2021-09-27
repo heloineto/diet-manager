@@ -16,9 +16,12 @@ import updateAccountSchema from './UpdateAccount.schema';
 interface Props {
   className?: string;
   onClose?: () => void;
+  submitButtonProps?: {
+    innerText?: string;
+  };
 }
 
-const UpdateAccount = ({ className, onClose }: Props) => {
+const UpdateAccount = ({ className, onClose, submitButtonProps }: Props) => {
   const { userDetails } = useContext(UserContext);
 
   const birthdateJSDate = userDetails?.birthdate
@@ -39,9 +42,7 @@ const UpdateAccount = ({ className, onClose }: Props) => {
     newUsername: oldUsername,
   };
 
-  const updateAccount = async (
-    values: Omit<UpdateAccountValuesType, 'oldUsername'>
-  ) => {
+  const updateAccount = async (values: Omit<UpdateAccountValuesType, 'oldUsername'>) => {
     onClose && onClose();
     await updateAccountFirestore({
       ...values,
@@ -123,7 +124,7 @@ const UpdateAccount = ({ className, onClose }: Props) => {
               type="submit"
               disabled={submitting}
             >
-              Próximo
+              {submitButtonProps?.innerText || 'Próximo'}
             </Button>
           </div>
           {/*<pre>{JSON.stringify(values, undefined, 2)}</pre>*/}

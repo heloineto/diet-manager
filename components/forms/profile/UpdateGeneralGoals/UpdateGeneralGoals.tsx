@@ -12,9 +12,12 @@ import updateGeneralGoalsFirestore from './UpdateGeneralGoals.firestore';
 interface Props {
   className?: string;
   onClose?: () => void;
+  submitButtonProps?: {
+    innerText?: string;
+  };
 }
 
-const UpdateGeneralGoals = ({ className, onClose }: Props) => {
+const UpdateGeneralGoals = ({ className, onClose, submitButtonProps }: Props) => {
   const { userDetails } = useContext(UserContext);
 
   const generalGoals = userDetails?.goals?.general || {};
@@ -26,9 +29,7 @@ const UpdateGeneralGoals = ({ className, onClose }: Props) => {
     ),
   };
 
-  const updateGeneralGoals = async ({
-    generalGoals,
-  }: UpdateGeneralGoalsValuesType) => {
+  const updateGeneralGoals = async ({ generalGoals }: UpdateGeneralGoalsValuesType) => {
     onClose && onClose();
 
     await updateGeneralGoalsFirestore({

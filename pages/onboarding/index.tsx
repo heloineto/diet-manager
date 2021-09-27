@@ -1,7 +1,9 @@
+import type { NextPage } from 'next';
+
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-const Index = () => {
+const Onboarding: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
@@ -11,4 +13,4 @@ const Index = () => {
   return null;
 };
 
-export default Index;
+export default Onboarding;

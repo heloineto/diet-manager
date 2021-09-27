@@ -12,9 +12,12 @@ import updateMetricsFirestore from './UpdateMetrics.firestore';
 interface Props {
   className?: string;
   onClose?: () => void;
+  submitButtonProps?: {
+    innerText?: string;
+  };
 }
 
-const UpdateMetrics = ({ className, onClose }: Props) => {
+const UpdateMetrics = ({ className, onClose, submitButtonProps }: Props) => {
   const { userDetails } = useContext(UserContext);
 
   const initialValues = {
@@ -74,9 +77,7 @@ const UpdateMetrics = ({ className, onClose }: Props) => {
                   min: 0,
                   step: '.01',
                 },
-                endAdornment: (
-                  <InputAdornment position="end">Kg</InputAdornment>
-                ),
+                endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
               }}
             />
           </div>
@@ -99,9 +100,7 @@ const UpdateMetrics = ({ className, onClose }: Props) => {
                   min: 0,
                   step: '.01',
                 },
-                endAdornment: (
-                  <InputAdornment position="end">Kg</InputAdornment>
-                ),
+                endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
               }}
             />
           </div>
@@ -124,18 +123,13 @@ const UpdateMetrics = ({ className, onClose }: Props) => {
                   min: 0,
                   step: '.01',
                 },
-                endAdornment: (
-                  <InputAdornment position="end">cm</InputAdornment>
-                ),
+                endAdornment: <InputAdornment position="end">cm</InputAdornment>,
               }}
             />
           </div>
 
           <div className="sm:col-span-6">
-            <ActivityLevelSlider
-              label="Nível de atividade"
-              name="activityLevel"
-            />
+            <ActivityLevelSlider label="Nível de atividade" name="activityLevel" />
           </div>
 
           <div className="sm:col-span-6">
@@ -148,7 +142,7 @@ const UpdateMetrics = ({ className, onClose }: Props) => {
               type="submit"
               disabled={submitting}
             >
-              Próximo
+              {submitButtonProps?.innerText || 'Próximo'}
             </Button>
           </div>
           {/* <pre>{JSON.stringify(values, undefined, 2)}</pre> */}

@@ -13,9 +13,12 @@ import { UserContext } from '@lib/context';
 interface Props {
   className?: string;
   onClose?: () => void;
+  submitButtonProps?: {
+    innerText?: string;
+  };
 }
 
-const UpdateNutritionGoals = ({ className, onClose }: Props) => {
+const UpdateNutritionGoals = ({ className, onClose, submitButtonProps }: Props) => {
   const [inputMode, setInputMode] = useState<'grams' | 'percentage'>('grams');
   const { userDetails } = useContext(UserContext);
 
@@ -74,8 +77,7 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
             Object.assign(updates, {
               [`${key}Percentage`]: String(
                 round(
-                  (Number(allValues[key]) * kcalPerUnit * 100) /
-                    Number(calculatedKcal),
+                  (Number(allValues[key]) * kcalPerUnit * 100) / Number(calculatedKcal),
                   2
                 ) || 0
               ),
@@ -103,8 +105,7 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
               [key]: String(
                 round(
                   // @ts-ignore
-                  (Number(allValues[`${key}Percentage`]) *
-                    Number(allValues.kcal)) /
+                  (Number(allValues[`${key}Percentage`]) * Number(allValues.kcal)) /
                     (kcalPerUnit * 100),
                   2
                 ) || 0
@@ -154,72 +155,67 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
         {({ handleSubmit, submitting, values }) => (
           <form className={clsx(className)} onSubmit={handleSubmit}>
             <div className="flex flex-col sm:flex-row gap-x-1 gap-y-2.5 sm:gap-y-0 sm:gap-x-2.5">
-              {[carbInfo, protInfo, fatInfo].map(
-                ({ label, key, kcalPerUnit }) => (
-                  <div
-                    key={key}
-                    className="w-full flex sm:flex-col gap-x-1 sm:gap-x-0 sm:gap-y-5"
-                  >
-                    <TextField
-                      label={label}
-                      name={key}
-                      type="number"
-                      autoComplete="off"
-                      disabled={inputMode !== 'grams'}
-                      onClick={() => {
-                        if (inputMode !== 'grams') setInputMode('grams');
-                      }}
-                      fieldProps={{
-                        parse: (value) => {
-                          if (Number(value) < 0) return '0';
+              {[carbInfo, protInfo, fatInfo].map(({ label, key, kcalPerUnit }) => (
+                <div
+                  key={key}
+                  className="w-full flex sm:flex-col gap-x-1 sm:gap-x-0 sm:gap-y-5"
+                >
+                  <TextField
+                    label={label}
+                    name={key}
+                    type="number"
+                    autoComplete="off"
+                    disabled={inputMode !== 'grams'}
+                    onClick={() => {
+                      if (inputMode !== 'grams') setInputMode('grams');
+                    }}
+                    fieldProps={{
+                      parse: (value) => {
+                        if (Number(value) < 0) return '0';
 
-                          return value;
-                        },
-                      }}
-                      InputProps={{
-                        inputProps: {
-                          min: 0,
-                          step: '.01',
-                        },
-                        endAdornment: (
-                          <InputAdornment position="end">g</InputAdornment>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      label={label}
-                      name={`${key}Percentage`}
-                      type="number"
-                      autoComplete="off"
-                      disabled={inputMode !== 'percentage'}
-                      onClick={() => {
-                        if (inputMode !== 'percentage')
-                          setInputMode('percentage');
-                      }}
-                      fieldProps={{
-                        parse: (value: string) => {
-                          if (Number(value) > 100) return '100';
-                          if (Number(value) < 0) return '0';
+                        return value;
+                      },
+                    }}
+                    InputProps={{
+                      inputProps: {
+                        min: 0,
+                        step: '.01',
+                      },
+                      endAdornment: <InputAdornment position="end">g</InputAdornment>,
+                    }}
+                  />
+                  <TextField
+                    label={label}
+                    name={`${key}Percentage`}
+                    type="number"
+                    autoComplete="off"
+                    disabled={inputMode !== 'percentage'}
+                    onClick={() => {
+                      if (inputMode !== 'percentage') setInputMode('percentage');
+                    }}
+                    fieldProps={{
+                      parse: (value: string) => {
+                        if (Number(value) > 100) return '100';
+                        if (Number(value) < 0) return '0';
 
-                          return value;
-                        },
-                      }}
-                      InputProps={{
-                        inputProps: {
-                          min: 0,
-                          max: 100,
-                          step: '.01',
-                        },
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <div className="font-bold text-gray-500">%</div>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                  </div>
-                )
-              )}
+                        return value;
+                      },
+                    }}
+                    InputProps={{
+                      inputProps: {
+                        min: 0,
+                        max: 100,
+                        step: '.01',
+                      },
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <div className="font-bold text-gray-500">%</div>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </div>
+              ))}
             </div>
 
             <div className="flex justify-center">
@@ -238,9 +234,7 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
                     min: 0,
                     step: '.01',
                   },
-                  endAdornment: (
-                    <InputAdornment position="end">g</InputAdornment>
-                  ),
+                  endAdornment: <InputAdornment position="end">g</InputAdornment>,
                 }}
               />
             </div>
@@ -251,13 +245,11 @@ const UpdateNutritionGoals = ({ className, onClose }: Props) => {
                 color="secondary"
                 variant="contained"
                 size="small"
-                endIcon={
-                  <ArrowRightIcon className="group-hover:ml-1 h-4 w-4" />
-                }
+                endIcon={<ArrowRightIcon className="group-hover:ml-1 h-4 w-4" />}
                 type="submit"
                 disabled={submitting}
               >
-                Próximo
+                {submitButtonProps?.innerText || 'Próximo'}
               </Button>
             </div>
             {/* <pre>{JSON.stringify({ ...values }, undefined, 2)}</pre> */}
