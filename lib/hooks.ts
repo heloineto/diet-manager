@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { DateTime } from 'luxon';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 
 import { auth, firestore } from '@lib/firebase';
-import { converter } from '@utils/firestore';
+import { useRouter } from 'next/router';
+import { indexOfNth, isKeyInShallowObject } from '@utils/typescript';
 
 export const useUserData = () => {
   const [user, loading] = useAuthState(auth);
@@ -99,4 +100,53 @@ export const useMacrosInfo = () => {
       kcalPerUnit: 1,
     },
   };
+};
+
+export const useTitle = () => {
+  const router = useRouter();
+  const { pathname } = router;
+
+  const current = pathname.substring(0, indexOfNth(pathname, '/', 2));
+
+  console.log(pathname.match(/.*[\/](.*)$/));
+
+  const routesData = useMemo(
+    () => ({
+      '/': {
+        label: 'Home',
+      },
+      '/enter': {
+        label: 'Entrar',
+      },
+      '/register': {
+        label: 'Cadastrar',
+      },
+      '/diary': {
+        label: 'Diário',
+      },
+      '/workouts': {
+        label: 'Treinos',
+      },
+      '/settings': {
+        label: 'Preferências',
+      },
+      '/account': {
+        label: 'Conta',
+      },
+      '/generalGoals': {
+        label: 'Metas Gerais',
+      },
+      '/nutritionGoals': {
+        label: 'Metas Nutricionais',
+      },
+      '/metrics': {
+        label: 'Medidas',
+      },
+    }),
+    []
+  );
+
+  return isKeyInShallowObject(current, routesData)
+    ? `${routesData[current].label} / Diet Manager`
+    : 'Diet Manager';
 };

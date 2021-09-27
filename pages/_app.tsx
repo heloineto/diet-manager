@@ -9,11 +9,11 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
 import { UserContext } from '@lib/context';
-import { useUserData } from '@lib/hooks';
+import { useTitle, useUserData } from '@lib/hooks';
 import theme from '@lib/theme';
-import Title from '@components/head/Title';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const title = useTitle();
   const userData = useUserData();
 
   /**
@@ -30,7 +30,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <UserContext.Provider value={userData}>
           <Head>
-            <Title />
+            <title>{title}</title>
           </Head>
           <Component {...pageProps} />
         </UserContext.Provider>
