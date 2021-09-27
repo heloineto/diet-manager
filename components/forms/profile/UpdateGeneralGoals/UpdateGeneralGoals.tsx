@@ -72,7 +72,7 @@ const UpdateGeneralGoals = ({ className, onClose, submitButtonProps }: Props) =>
               type="submit"
               disabled={submitting}
             >
-              Próximo
+              {submitButtonProps?.innerText || 'Próximo'}
             </Button>
           </div>
           {/* <pre>{JSON.stringify(values, undefined, 2)}</pre> */}

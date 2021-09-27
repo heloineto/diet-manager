@@ -14,7 +14,7 @@ const Settings: NextPage = () => {
 
   const categories = useProfileCompletionSteps();
 
-  const [currentCategory, setCurrentCategory] = useState<null | CategoryType>(
+  const [currentCategory, setCurrentCategory] = useState<null | typeof categories[0]>(
     categories[0]
   );
 

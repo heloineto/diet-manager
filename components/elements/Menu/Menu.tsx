@@ -1,6 +1,13 @@
 import { Button } from '@material-ui/core';
 import clsx from 'clsx';
 
+interface CategoryType {
+  name: string;
+  label: string;
+  IconOutlined: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+  IconSolid: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+}
+
 interface Props {
   categories: CategoryType[];
   current: CategoryType | null;
