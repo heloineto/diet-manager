@@ -1,4 +1,4 @@
-import { useMediaQuery, useTheme } from '@material-ui/core';
+import { Button, useMediaQuery, useTheme } from '@material-ui/core';
 import { useContext } from 'react';
 import clsx from 'clsx';
 import { round } from 'lodash';
@@ -10,6 +10,9 @@ import { safeguard } from '@utils/typescript';
 import SummaryMacroLabel from './Summary.MacroLabel';
 import SummaryProgressBar from './Summary.ProgressBar';
 import HexagonLabel from '@components/data-displays/HexagonLabel';
+import { ArrowNarrowRightIcon } from '@heroicons/react/outline';
+
+import Link from 'next/link';
 
 interface Props {
   className?: string;
@@ -57,11 +60,7 @@ const Summary = ({ className }: Props) => {
           macro="kcal"
           value={Math.max(goalMacros.kcal - consumedMacros.kcal, 0)}
         />
-        <SummaryMacroLabel
-          name="Consumido"
-          macro="kcal"
-          value={consumedMacros.kcal}
-        />
+        <SummaryMacroLabel name="Consumido" macro="kcal" value={consumedMacros.kcal} />
       </div>
       <SummaryProgressBar
         className="mb-5"
@@ -88,6 +87,16 @@ const Summary = ({ className }: Props) => {
           />
         ))}
       </div>
+      {!userDetails?.goals?.nutrition && (
+        <Link href="/onboarding">
+          <div className="w-full mt-10 hover:transform hover:scale-y-105 active:scale-y-100 hover:shadow-sm bg-gradient-to-r from-blue-500 to-green-500 rounded-[0.5rem] p-0.5 cursor-pointer">
+            <div className="w-full h-10 text-sm sm:text-base bg-gradient-to-r from-blue-200 to-green-200 rounded-md relative text-gray-800 font-semibold flex items-center justify-between px-5">
+              Adicione suas Metas Nutricionais
+              <ArrowNarrowRightIcon className="h-6 sm:h-8 w-auto" />
+            </div>
+          </div>
+        </Link>
+      )}
     </div>
   );
 };

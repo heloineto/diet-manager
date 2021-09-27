@@ -1,9 +1,9 @@
 import type { AppProps } from 'next/app';
 
-import '../styles/globals.css';
+import 'tailwindcss/tailwind.css';
 
 import { useEffect } from 'react';
-import { TextField, ThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core';
 
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
@@ -21,8 +21,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
    */
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles?.parentElement)
-      jssStyles.parentElement.removeChild(jssStyles);
+    if (jssStyles?.parentElement) jssStyles.parentElement.removeChild(jssStyles);
   }, []);
 
   return (

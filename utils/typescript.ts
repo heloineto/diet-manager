@@ -3,15 +3,17 @@ export const safeguard = <T>(
   keys: string[],
   fallback: T
 ) => {
-  if (!object) return Object.fromEntries(keys.map((key) => [key, fallback]));
+  const safeObject = { ...object };
 
-  for (const key in keys) {
-    if (!object[key]) {
-      object = Object.assign(object, { [key]: fallback });
+  if (!safeObject) return Object.fromEntries(keys.map((key) => [key, fallback]));
+
+  for (const key of keys) {
+    if (!safeObject[key]) {
+      safeObject[key] = fallback;
     }
   }
 
-  return object;
+  return safeObject;
 };
 
 export const getRandomInt = (max: number) => {
