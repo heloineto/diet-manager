@@ -13,7 +13,7 @@ import GenderField from '@components/inputs/GenderField';
 
 const Register: NextPage = () => {
   return (
-    <AuthFlowShell label="Cadastrar">
+    <AuthFlowShell>
       <Typography variant="h2" className="-ml-2">
         Cadastrar
       </Typography>

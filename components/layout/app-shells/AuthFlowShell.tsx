@@ -8,21 +8,16 @@ import GoogleIcon from '@components/icons/GoogleIcon';
 import FacebookIcon from '@components/icons/FacebookIcon';
 import Widget from '@components/layout/Widget';
 import Divider from '@components/layout/Divider';
-import Head from 'next/head';
 
 import { continueWithFacebook, continueWithGoogle } from '@lib/auth';
 
 interface Props {
   children: ReactNode;
-  label?: string;
 }
 
-const AuthFlowShell = ({ children, label }: Props) => {
+const AuthFlowShell = ({ children }: Props) => {
   return (
     <UnauthCheck>
-      <Head>
-        <title>{label ? `${label} / Diet Manager` : `Diet Manager`}</title>
-      </Head>
       <main className="overflow-x-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen lg:flex">
           <AuthIllustration />

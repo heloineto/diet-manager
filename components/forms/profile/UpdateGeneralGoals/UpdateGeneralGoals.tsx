@@ -51,7 +51,7 @@ const UpdateGeneralGoals = ({ className, onClose, submitButtonProps }: Props) =>
         >
           <div className="sm:col-span-6">
             <Checkboxes
-              label="Metas gerais"
+              label="Metas Gerais"
               name="generalGoals"
               data={[
                 { label: 'Perder Peso', value: 'loseWeight' },

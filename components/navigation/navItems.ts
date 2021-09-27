@@ -1,3 +1,5 @@
+import BarbellIconOutlined from '@components/icons/BarbellIconOutlined';
+import BarbellIconSolid from '@components/icons/BarbellIconSolid';
 import {
   BookOpenIcon as BookOpenIconOutlined,
   CogIcon as CogIconOutlined,
@@ -24,6 +26,13 @@ const navItems = [
     IconOutlined: BookOpenIconOutlined,
     IconSolid: BookOpenIconSolid,
     href: '/diary',
+  },
+  {
+    name: 'workouts',
+    label: 'Treinos',
+    IconOutlined: BarbellIconOutlined,
+    IconSolid: BarbellIconSolid,
+    href: '/workouts',
   },
   {
     name: 'settings',

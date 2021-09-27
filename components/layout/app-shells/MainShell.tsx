@@ -17,19 +17,15 @@ interface Props {
     size?: 'large';
     position?: 'left' | 'right';
   };
-  label?: string;
 }
 
-const MainShell = ({ children, aside, asideProps, label }: Props) => {
+const MainShell = ({ children, aside, asideProps }: Props) => {
   const [sideBarOpen, setSideBarOpen] = useState(false);
 
   const toggleSideBarOpen = () => setSideBarOpen((value) => !value);
 
   return (
     <AuthCheck>
-      <Head>
-        <title>{label ? `${label} / Diet Manager` : `Diet Manager`}</title>
-      </Head>
       <div className="h-screen bg-gray-50 flex overflow-hidden">
         <Sidebar sideBarOpen={sideBarOpen} toggleSideBarOpen={toggleSideBarOpen} />
         <div className="flex-1 flex flex-col overflow-hidden">

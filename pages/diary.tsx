@@ -10,7 +10,7 @@ const Diary: NextPage = () => {
   const compact = useMediaQuery(breakpoints.down('md'));
 
   return (
-    <MainShell label="Diário" aside={<Calendar />}>
+    <MainShell aside={<Calendar />}>
       {compact && <Calendar className="mb-5" expanded={false} />}
       <Meals />
     </MainShell>

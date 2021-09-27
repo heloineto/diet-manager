@@ -3,14 +3,15 @@ import type { AppProps } from 'next/app';
 import 'tailwindcss/tailwind.css';
 
 import { useEffect } from 'react';
+import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core';
-
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
 import { UserContext } from '@lib/context';
 import { useUserData } from '@lib/hooks';
 import theme from '@lib/theme';
+import Title from '@components/head/Title';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const userData = useUserData();
@@ -28,6 +29,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <ThemeProvider theme={theme}>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <UserContext.Provider value={userData}>
+          <Head>
+            <Title />
+          </Head>
           <Component {...pageProps} />
         </UserContext.Provider>
       </MuiPickersUtilsProvider>
