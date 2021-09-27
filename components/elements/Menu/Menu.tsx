@@ -8,10 +8,10 @@ interface CategoryType {
   IconSolid: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
 }
 
-interface Props {
-  categories: CategoryType[];
-  current: CategoryType | null;
-  onChange: (category: CategoryType) => void;
+interface Props<T = CategoryType & any> {
+  categories: T[];
+  current: T | null;
+  onChange: (category: T) => void;
 }
 
 const Menu = ({ categories, current, onChange }: Props) => {
