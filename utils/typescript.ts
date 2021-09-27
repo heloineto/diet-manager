@@ -19,3 +19,10 @@ export const safeguard = <T>(
 export const getRandomInt = (max: number) => {
   return Math.floor(Math.random() * max);
 };
+
+export const isKeyInShallowObject = <T = Record<string, any>>(
+  key: any,
+  obj: T
+): key is keyof typeof obj => {
+  return Object.keys(obj).includes(key);
+};

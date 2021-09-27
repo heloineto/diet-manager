@@ -1,21 +1,38 @@
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { IconButton, Step, StepLabel, Stepper } from '@material-ui/core';
+import { isKeyInShallowObject } from '@utils/typescript';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   useProfileCompletion,
   useProfileCompletionSteps,
 } from './ProfileCompletion.hook';
 
-interface Props {}
+interface Props {
+  stepName: string;
+}
 
-const ProfileCompletion = (props: Props) => {
+const ProfileCompletion = ({ stepName }: Props) => {
   const router = useRouter();
-  const [activeStep, setActiveStep] = useState(0);
+
+  const stepsIndex = {
+    account: 0,
+    generalGoals: 1,
+    nutritionGoals: 2,
+    metrics: 3,
+  };
+
+  const [activeStep, setActiveStep] = useState(
+    isKeyInShallowObject(stepName, stepsIndex) ? stepsIndex[stepName] : 0
+  );
 
   const completed = useProfileCompletion();
 
   const steps = useProfileCompletionSteps();
+
+  useEffect(() => {
+    router.push(`${steps[activeStep].name}`, undefined, { shallow: true });
+  }, [activeStep]);
 
   const nextStep = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);

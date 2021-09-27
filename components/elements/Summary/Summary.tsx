@@ -1,7 +1,7 @@
-import { Button, useMediaQuery, useTheme } from '@material-ui/core';
+import { useMediaQuery, useTheme } from '@material-ui/core';
 import { useContext } from 'react';
 import clsx from 'clsx';
-import { round } from 'lodash';
+import { round, isEmpty } from 'lodash';
 
 import { MealsContext, UserContext } from '@lib/context';
 import { useMacrosInfo } from '@lib/hooks';
@@ -87,8 +87,8 @@ const Summary = ({ className }: Props) => {
           />
         ))}
       </div>
-      {userDetails && !userDetails?.goals?.nutrition && (
-        <Link href="/onboarding">
+      {userDetails && !isEmpty(userDetails) && !userDetails?.goals?.nutrition && (
+        <Link href="/onboarding/nutritionGoals">
           <div className="w-full mt-10 hover:transform hover:scale-y-105 active:scale-y-100 hover:shadow-sm bg-gradient-to-r from-blue-500 to-green-500 rounded-[0.5rem] p-0.5 cursor-pointer">
             <div className="w-full h-10 text-sm sm:text-base bg-gradient-to-r from-blue-200 to-green-200 rounded-md relative text-gray-800 font-semibold flex items-center justify-between px-5">
               Adicione suas Metas Nutricionais
