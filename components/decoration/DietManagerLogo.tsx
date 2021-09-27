@@ -1,13 +1,18 @@
+import logoScalable from '@public/logo/scalable.svg';
+import Image from 'next/image';
+
 interface Props {
   className?: string;
 }
 
 const DietManagerLogo = ({ className }: Props) => {
   return (
-    <img className={className} src="./logo/scalable.svg" alt="" />
     //! This is the most bizarre error i have ever encountered.
     //! it seems to be a problem with tailwind applying styling to the gradients of svgs? and only on md breakpoints??
     //! Anyways, tailwind is dumb (i still love it though)
+    <div className={className}>
+      <Image src={logoScalable} />
+    </div>
     // <svg
     //   className={clsx(className)}
     //   viewBox="0 0 192 192"

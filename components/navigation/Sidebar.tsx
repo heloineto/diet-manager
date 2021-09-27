@@ -5,6 +5,7 @@ import { Button, Drawer, IconButton } from '@material-ui/core';
 import DietManagerLogo from '@components/decoration/DietManagerLogo';
 import navItems from './navItems';
 import { useRouter } from 'next/router';
+import { indexOfNth } from '@utils/typescript';
 
 interface Props {
   className?: string;
@@ -14,17 +15,15 @@ interface Props {
   toggleSideBarOpen?: () => void;
 }
 
-const Sidebar = ({
-  className,
-  sideBarOpen,
-  toggleSideBarOpen,
-  window,
-}: Props) => {
+const Sidebar = ({ className, sideBarOpen, toggleSideBarOpen, window }: Props) => {
   const router = useRouter();
 
   const renderNavItems = () =>
     navItems.map(({ name, label, IconOutlined, IconSolid, href }) => {
-      const current = router.pathname === href;
+      const { pathname } = router;
+
+      const current = href === pathname.substring(0, indexOfNth(pathname, '/', 2));
+
       const Icon = current ? IconSolid : IconOutlined;
 
       return (
@@ -37,8 +36,7 @@ const Sidebar = ({
               'group w-full h-16 text-xs hover:bg-primary-100'
             )}
             classes={{
-              label:
-                'static flex flex-col items-center justify-center space-y-1',
+              label: 'static flex flex-col items-center justify-center space-y-1',
               startIcon: 'static m-0',
             }}
             startIcon={
@@ -63,9 +61,7 @@ const Sidebar = ({
     <div className={className}>
       <div className="lg:hidden">
         <Drawer
-          container={
-            window !== undefined ? () => window().document.body : undefined
-          }
+          container={window !== undefined ? () => window().document.body : undefined}
           variant="temporary"
           anchor={'left'}
           open={sideBarOpen}
@@ -81,9 +77,7 @@ const Sidebar = ({
             <IconButton className="h-12 w-12 hover:bg-primary-100 p-0">
               <DietManagerLogo className="flex-shrink-0 h-9 w-9" />
             </IconButton>
-            <div className="flex-1 mt-2 w-full px-2 space-y-1">
-              {renderNavItems()}
-            </div>
+            <div className="flex-1 mt-2 w-full px-2 space-y-1">{renderNavItems()}</div>
           </div>
         </Drawer>
       </div>
@@ -99,9 +93,7 @@ const Sidebar = ({
             <IconButton className="h-12 w-12 hover:bg-primary-100 p-0">
               <DietManagerLogo className="h-9 w-9" />
             </IconButton>
-            <div className="flex-1 mt-2 w-full px-2 space-y-1">
-              {renderNavItems()}
-            </div>
+            <div className="flex-1 mt-2 w-full px-2 space-y-1">{renderNavItems()}</div>
           </div>
         </Drawer>
       </div>

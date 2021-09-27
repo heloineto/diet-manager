@@ -20,6 +20,9 @@ export const getRandomInt = (max: number) => {
   return Math.floor(Math.random() * max);
 };
 
+export const indexOfNth = (str: string, subStr: string, index: number) =>
+  str.split(subStr, index).join(subStr).length;
+
 export const isKeyInShallowObject = <T = Record<string, any>>(
   key: any,
   obj: T
