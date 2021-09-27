@@ -7,21 +7,43 @@ import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import Menu from '@components/elements/Menu';
 import { useProfileCompletionSteps } from '@components/elements/ProfileCompletion/ProfileCompletion.hook';
+import { useRouter } from 'next/router';
+import { isKeyInShallowObject } from '@utils/typescript';
 
 const Settings: NextPage = () => {
+  const router = useRouter();
+  const { category } = router.query;
+  const categoryName = category && typeof category === 'string' ? category : 'account';
+
+  const categoryNameToIndex = {
+    account: 0,
+    generalGoals: 1,
+    nutritionGoals: 2,
+    metrics: 3,
+  };
+
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
 
   const categories = useProfileCompletionSteps();
 
   const [currentCategory, setCurrentCategory] = useState<null | typeof categories[0]>(
-    categories[0]
+    categories[
+      isKeyInShallowObject(categoryName, categoryNameToIndex)
+        ? categoryNameToIndex[categoryName]
+        : 0
+    ]
   );
 
   useEffect(() => {
     if (compact) setCurrentCategory(null);
     if (!compact) setCurrentCategory(categories[0]);
   }, [compact]);
+
+  useEffect(() => {
+    currentCategory &&
+      router.push(`${currentCategory.name}`, undefined, { shallow: true });
+  }, [currentCategory]);
 
   const renderForm = () => {
     if (!currentCategory) return null;
