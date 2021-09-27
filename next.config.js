@@ -6,7 +6,7 @@ module.exports = withPWA({
   reactStrictMode: true,
   pwa: {
     dest: 'public',
-    swSrc: 'service-worker.js',
+    swSrc: 'serviceWorker.js',
     disable: process.env.NODE_ENV === 'development',
   },
 });
