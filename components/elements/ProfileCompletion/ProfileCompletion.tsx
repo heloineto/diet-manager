@@ -15,7 +15,7 @@ interface Props {
 const ProfileCompletion = ({ stepName }: Props) => {
   const router = useRouter();
 
-  const stepsIndex = {
+  const stepNameToIndex = {
     account: 0,
     generalGoals: 1,
     nutritionGoals: 2,
@@ -23,7 +23,7 @@ const ProfileCompletion = ({ stepName }: Props) => {
   };
 
   const [activeStep, setActiveStep] = useState(
-    isKeyInShallowObject(stepName, stepsIndex) ? stepsIndex[stepName] : 0
+    isKeyInShallowObject(stepName, stepNameToIndex) ? stepNameToIndex[stepName] : 0
   );
 
   const completed = useProfileCompletion();
