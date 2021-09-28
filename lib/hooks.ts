@@ -69,6 +69,37 @@ export const useMealsData = (selectedDateTime: DateTime) => {
   return { meals };
 };
 
+export const useWorkoutsData = (selectedDateTime: DateTime) => {
+  const [workouts, setWorkouts] = useState<WorkoutWithRef[]>([]);
+
+  const workoutsRef = firestore
+    .collection('users')
+    .doc(auth.currentUser?.uid)
+    .collection('workouts');
+
+  const workoutQuery = workoutsRef
+    .where('startsAt', '>=', selectedDateTime.startOf('day').toJSDate())
+    .where('startsAt', '<=', selectedDateTime.endOf('day').toJSDate())
+    .orderBy('startsAt');
+
+  const [querySnapshot] = useCollection(workoutQuery, {
+    snapshotListenOptions: { includeMetadataChanges: true },
+  });
+
+  useEffect(() => {
+    if (!querySnapshot) return;
+
+    const snapshot = querySnapshot.docs.map((doc) => ({
+      ...(doc.data() as Workout),
+      ref: doc.ref,
+    }));
+
+    setWorkouts(snapshot);
+  }, [querySnapshot]);
+
+  return { workouts };
+};
+
 export const useMacrosInfo = () => {
   return {
     carbInfo: {

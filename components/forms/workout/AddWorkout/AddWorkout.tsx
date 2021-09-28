@@ -63,11 +63,6 @@ const AddWorkout = ({ className, onClose }: Props) => {
             autoComplete="off"
           />
           <Switches label="Público" name="isPublic" data={{ label: '', value: true }} />
-          <Switches
-            label="Salvar Treino"
-            name="saveWorkout"
-            data={{ label: '', value: true }}
-          />
           <Radios
             label="Cor"
             name="color"

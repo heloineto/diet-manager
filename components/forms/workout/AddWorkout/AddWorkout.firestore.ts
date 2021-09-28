@@ -1,10 +1,8 @@
-import { arrayUnion, auth, firestore, serverTimestamp } from '@lib/firebase';
-import { converter } from '@utils/firestore';
+import { auth, firestore, serverTimestamp } from '@lib/firebase';
 
 const addWorkoutFirestore = async ({
   label,
   isPublic,
-  saveWorkout,
   color,
   date,
   time,
@@ -32,18 +30,6 @@ const addWorkoutFirestore = async ({
   const workoutsRef = firestore.collection('users').doc(uid).collection('workouts');
 
   await workoutsRef.add(newWorkout).catch((error) => ({ error }));
-
-  // if (saveWorkout) {
-  //   const userDoc = firestore
-  //     .collection('users')
-  //     .doc(uid)
-  //     .withConverter(converter<UserDetails>());
-
-  //   await userDoc.update({
-  //     updatedAt: serverTimestamp(),
-  //     savedWorkouts: [newWorkout], //arrayUnion(newWorkout)
-  //   });
-  // }
 };
 
 export default addWorkoutFirestore;

@@ -62,6 +62,10 @@ type MealWithRef = Meal & {
   ref: FirebaseRef;
 };
 
+type WorkoutWithRef = Workout & {
+  ref: FirebaseRef;
+};
+
 interface Food {
   amount: number;
   carb: number;

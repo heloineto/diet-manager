@@ -25,3 +25,7 @@ export const SelectedDateContext = createContext<{
 export const MealsContext = createContext<{
   meals: MealWithRef[];
 }>({ meals: [] });
+
+export const WorkoutsContext = createContext<{
+  workouts: WorkoutWithRef[];
+}>({ workouts: [] });

@@ -15,7 +15,7 @@ const Meals = () => {
   const [addMealOpen, setAddMealOpen] = useState(false);
 
   const renderMealTables = () =>
-    meals?.map((meal, idx) => {
+    meals.map((meal, idx) => {
       //! Move this inside Meal
       const formattedFoods = meal.foods.map((food) => {
         const { amount, unit } = food;
