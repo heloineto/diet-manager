@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 const addWorkoutSchema = yup.object().shape({
-  label: yup.string().required('Forneça um título para a refeição'),
+  label: yup.string().required('Forneça um título para o treino'),
   isPublic: yup.boolean().required(),
   saveWorkout: yup.boolean().required(),
   date: yup.date().required('Forneça uma data'),

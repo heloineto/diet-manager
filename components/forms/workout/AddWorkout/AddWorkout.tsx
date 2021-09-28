@@ -29,8 +29,9 @@ const AddWorkout = ({ className, onClose }: Props) => {
   const addWorkout = async (values: AddWorkoutValuesType) => {
     onClose();
     const res = await addWorkoutFirestore(values);
+
     if (res?.error)
-      enqueueSnackbar(`Erro ao adicionar refeição: ${res.error}.`, {
+      enqueueSnackbar(`Erro ao adicionar treino: ${res.error}.`, {
         variant: 'error',
       });
   };
@@ -53,7 +54,14 @@ const AddWorkout = ({ className, onClose }: Props) => {
           onSubmit={handleSubmit}
           className={clsx(className, 'flex flex-col space-y-5')}
         >
-          <TextField label="Título" name="label" placeholder="Adicionar Título" />
+          <TextField
+            label="Título"
+            name="label"
+            placeholder="Adicionar Título"
+            size="medium"
+            autoFocus
+            autoComplete="off"
+          />
           <Switches label="Público" name="isPublic" data={{ label: '', value: true }} />
           <Switches
             label="Salvar Treino"

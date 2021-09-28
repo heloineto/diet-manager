@@ -33,17 +33,17 @@ const addWorkoutFirestore = async ({
 
   await workoutsRef.add(newWorkout).catch((error) => ({ error }));
 
-  if (saveWorkout) {
-    const userDoc = firestore
-      .collection('users')
-      .doc(uid)
-      .withConverter(converter<UserDetails>());
+  // if (saveWorkout) {
+  //   const userDoc = firestore
+  //     .collection('users')
+  //     .doc(uid)
+  //     .withConverter(converter<UserDetails>());
 
-    await userDoc.update({
-      updatedAt: serverTimestamp(),
-      savedWorkouts: [newWorkout], //arrayUnion(newWorkout)
-    });
-  }
+  //   await userDoc.update({
+  //     updatedAt: serverTimestamp(),
+  //     savedWorkouts: [newWorkout], //arrayUnion(newWorkout)
+  //   });
+  // }
 };
 
 export default addWorkoutFirestore;
