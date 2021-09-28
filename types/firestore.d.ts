@@ -31,6 +31,7 @@ interface UserDetails {
   };
   gender?: 'M' | 'F' | 'O';
   username?: string;
+  savedWorkouts?: Workout[];
 }
 
 interface Meal {
@@ -42,6 +43,18 @@ interface Meal {
   isPublic: boolean;
   foods: Food[];
 }
+
+interface Workout {
+  color: string;
+  startsAt: import('./firebase').FieldValue | Date;
+  createdAt: import('./firebase').FieldValue;
+  updatedAt: import('./firebase').FieldValue;
+  label: string;
+  isPublic: boolean;
+  exercises: Exercise[];
+}
+
+interface Exercise {}
 
 type FirebaseRef = import('./firebase').FirebaseRef;
 

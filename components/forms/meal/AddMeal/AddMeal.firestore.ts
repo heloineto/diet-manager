@@ -1,5 +1,3 @@
-import type { AddMealValuesType } from './AddMeal.types';
-
 import { auth, firestore, serverTimestamp } from '@lib/firebase';
 
 const addMealFirestore = async ({
@@ -25,13 +23,11 @@ const addMealFirestore = async ({
     foods: [],
   };
 
-  if (!auth?.currentUser?.uid)
-    return { error: 'verifique se você está logado' };
+  const uid = auth?.currentUser?.uid;
 
-  const mealsRef = firestore
-    .collection('users')
-    .doc(auth.currentUser.uid)
-    .collection('meals');
+  if (!uid) return { error: 'verifique se você está logado' };
+
+  const mealsRef = firestore.collection('users').doc(uid).collection('meals');
 
   try {
     await mealsRef.add(newMeal);

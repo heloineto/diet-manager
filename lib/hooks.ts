@@ -103,12 +103,9 @@ export const useMacrosInfo = () => {
 };
 
 export const useTitle = () => {
-  const router = useRouter();
-  const { pathname } = router;
+  const { asPath } = useRouter();
 
-  const current = pathname.substring(0, indexOfNth(pathname, '/', 2));
-
-  console.log(pathname.match(/.*[\/](.*)$/));
+  const route = asPath.match(/.*([\/].*)$/)?.[1];
 
   const routesData = useMemo(
     () => ({
@@ -146,7 +143,7 @@ export const useTitle = () => {
     []
   );
 
-  return isKeyInShallowObject(current, routesData)
-    ? `${routesData[current].label} / Diet Manager`
+  return isKeyInShallowObject(route, routesData)
+    ? `${routesData[route].label} / Diet Manager`
     : 'Diet Manager';
 };

@@ -3,19 +3,11 @@ import { pick } from 'lodash';
 
 import { MealsContext } from '@lib/context';
 import { round } from 'lodash';
-import {
-  Button,
-  CircularProgress,
-  Dialog,
-  useMediaQuery,
-  useTheme,
-} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 import Meal from '../Meal';
 import { PlusIcon } from '@heroicons/react/outline';
-import { Skeleton } from '@material-ui/lab';
 import AddMeal from '@components/forms/meal/AddMeal';
-import Widget from '@components/layout/Widget';
 import Modal from '@components/overlays/Modal';
 
 const Meals = () => {
@@ -32,12 +24,12 @@ const Meals = () => {
           amount: `${amount}${unit}`,
         };
 
-        Object.entries(
-          pick(formattedFood, ['carb', 'prot', 'fat', 'kcal'])
-        ).forEach(([key, value]) => {
-          // @ts-ignore
-          formattedFood[key] = round(value * amount, 2) || 0;
-        });
+        Object.entries(pick(formattedFood, ['carb', 'prot', 'fat', 'kcal'])).forEach(
+          ([key, value]) => {
+            // @ts-ignore
+            formattedFood[key] = round(value * amount, 2) || 0;
+          }
+        );
 
         return formattedFood;
       });

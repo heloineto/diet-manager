@@ -1,6 +1,4 @@
-import type { VariantType } from 'notistack';
-
-export interface AddMealValuesType {
+interface AddMealValuesType {
   label: string;
   isPublic: boolean;
   color: Meal['color'];

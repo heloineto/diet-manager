@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useContext } from 'react';
 import { useSnackbar } from 'notistack';
 import { Form } from 'react-final-form';
 import { Button } from '@material-ui/core';
@@ -11,9 +12,8 @@ import {
   TimePicker,
 } from 'mui-rff';
 
-import addMealSchema from './AddMeal.schema';
-import addMealFirestore from './AddMeal.firestore';
-import { useContext } from 'react';
+import addWorkoutSchema from './AddWorkout.schema';
+import addWorkoutFirestore from './AddWorkout.firestore';
 import { SelectedDateContext } from '@lib/context';
 
 interface Props {
@@ -21,15 +21,14 @@ interface Props {
   onClose: () => void;
 }
 
-const AddMeal = ({ className, onClose }: Props) => {
+const AddWorkout = ({ className, onClose }: Props) => {
   const { selectedDate } = useContext(SelectedDateContext);
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const addMeal = async (values: AddMealValuesType) => {
+  const addWorkout = async (values: AddWorkoutValuesType) => {
     onClose();
-    const res = await addMealFirestore(values);
-
+    const res = await addWorkoutFirestore(values);
     if (res?.error)
       enqueueSnackbar(`Erro ao adicionar refeição: ${res.error}.`, {
         variant: 'error',
@@ -38,15 +37,16 @@ const AddMeal = ({ className, onClose }: Props) => {
 
   return (
     <Form
-      onSubmit={addMeal}
+      onSubmit={addWorkout}
       initialValues={{
         date: selectedDate.toJSDate(),
         time: new Date(),
         isPublic: false,
+        saveWorkout: true,
         color: '#eff6ff',
       }}
       // @ts-ignore
-      validate={makeValidate(addMealSchema)}
+      validate={makeValidate(addWorkoutSchema)}
     >
       {({ handleSubmit, submitting }) => (
         <form
@@ -55,6 +55,11 @@ const AddMeal = ({ className, onClose }: Props) => {
         >
           <TextField label="Título" name="label" placeholder="Adicionar Título" />
           <Switches label="Público" name="isPublic" data={{ label: '', value: true }} />
+          <Switches
+            label="Salvar Treino"
+            name="saveWorkout"
+            data={{ label: '', value: true }}
+          />
           <Radios
             label="Cor"
             name="color"
@@ -106,4 +111,4 @@ const AddMeal = ({ className, onClose }: Props) => {
   );
 };
 
-export default AddMeal;
+export default AddWorkout;
