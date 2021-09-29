@@ -15,6 +15,7 @@ import addMealSchema from './AddMeal.schema';
 import addMealFirestore from './AddMeal.firestore';
 import { useContext } from 'react';
 import { SelectedDateContext } from '@lib/context';
+import ColorField from '@components/inputs/ColorField';
 
 interface Props {
   className?: string;
@@ -62,20 +63,7 @@ const AddMeal = ({ className, onClose }: Props) => {
             autoComplete="off"
           />
           <Switches label="Público" name="isPublic" data={{ label: '', value: true }} />
-          <Radios
-            label="Cor"
-            name="color"
-            data={[
-              { label: 'red', value: '#fef2f2' },
-              { label: 'yellow', value: '#fffbeb' },
-              { label: 'green', value: '#ecfdf5' },
-              { label: 'blue', value: '#eff6ff' },
-              { label: 'indigo', value: '#eef2ff' },
-              { label: 'purple', value: '#f5f3ff' },
-              { label: 'pink', value: '#fdf2f8' },
-            ]}
-            radioGroupProps={{ row: true }}
-          />
+          <ColorField label="Cor" name="color" />
           <div className="flex space-x-5">
             <KeyboardDatePicker
               label="Data"

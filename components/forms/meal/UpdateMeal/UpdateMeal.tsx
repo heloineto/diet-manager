@@ -16,6 +16,7 @@ import {
 import updateMealSchema from './UpdateMeal.schema';
 import updateMealFirestore from './UpdateMeal.firestore';
 import { DateTime } from 'luxon';
+import ColorField from '@components/inputs/ColorField';
 
 interface Props {
   className?: string;
@@ -61,20 +62,7 @@ const UpdateMeal = ({ className, onClose, meal }: Props) => {
         >
           <TextField label="Título" name="label" placeholder="Adicionar Título" />
           <Switches label="Público" name="isPublic" data={{ label: '', value: true }} />
-          <Radios
-            label="Cor"
-            name="color"
-            data={[
-              { label: 'red', value: '#fef2f2' },
-              { label: 'yellow', value: '#fffbeb' },
-              { label: 'green', value: '#ecfdf5' },
-              { label: 'blue', value: '#eff6ff' },
-              { label: 'indigo', value: '#eef2ff' },
-              { label: 'purple', value: '#f5f3ff' },
-              { label: 'pink', value: '#fdf2f8' },
-            ]}
-            radioGroupProps={{ row: true }}
-          />
+          <ColorField label="Cor" name="color" />
           <div className="flex space-x-5">
             <KeyboardDatePicker
               label="Data"
