@@ -44,7 +44,6 @@ const WorkoutActions = ({
   hover,
   expanded,
   setExpanded,
-  tbodyRef,
   selectedRows,
   setSelectedRows,
 }: Props) => {
@@ -130,7 +129,7 @@ const WorkoutActions = ({
       <div
         className={`absolute top-0 h-full w-full mx-1 flex items-center text-gray-800`}
       >
-        <Tooltip title="Adicionar treino" arrow>
+        <Tooltip title="Adicionar exercício" arrow>
           <IconButton
             className={clsx(
               compact && 'bg-primary-500 text-white shadow-primary-500',
@@ -140,7 +139,23 @@ const WorkoutActions = ({
               'w-7 h-7 p-0 transition-colors duration-500 mr-0.5 sm:mr-2.5'
             )}
             color="primary"
-            onClick={() => setAddExerciseOpen(true)}
+            onClick={() => {
+              setAddExerciseOpen(true);
+              //! NEEDS ORGANIZING
+              const index = Object.keys(workout.exercises).length;
+
+              workout.ref.update({
+                exercises: {
+                  [index]: {
+                    index,
+                    label: '',
+                    sets: 0,
+                    reps: [],
+                    weight: [],
+                  },
+                },
+              });
+            }}
           >
             <PlusIcon className="h-4 w-4" />
           </IconButton>

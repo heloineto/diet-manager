@@ -51,7 +51,7 @@ interface Workout {
   updatedAt: import('./firebase').FieldValue;
   label: string;
   isPublic: boolean;
-  exercises: Exercise[];
+  exercises: { [index: number]: Exercise };
 }
 
 interface Exercise {

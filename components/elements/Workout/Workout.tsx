@@ -19,8 +19,16 @@ const Workout = ({ workout }: Props) => {
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
 
-  const { expanded, setExpanded, hover, setHover, selectedRows, setSelectedRows } =
-    useWorkoutState();
+  const {
+    expanded,
+    setExpanded,
+    hover,
+    setHover,
+    selectedRows,
+    setSelectedRows,
+    editingRow,
+    setEditingRow,
+  } = useWorkoutState();
 
   const selectRow = (row: Row<Exercise>) => {
     setSelectedRows((value) => ({ ...value, [row.id]: row }));
@@ -30,7 +38,11 @@ const Workout = ({ workout }: Props) => {
     setSelectedRows((value) => omit(value, [row.id]));
   };
 
-  const data = useMemo(() => exercises, [exercises]);
+  const editRow = (row: Row<Exercise>) => {
+    setEditingRow(row);
+  };
+
+  const data = useMemo(() => Object.values(exercises), [exercises]);
 
   const columns = useMemo(() => {
     return [
@@ -137,7 +149,10 @@ const Workout = ({ workout }: Props) => {
 
             return (
               <tr
-                className="table-row cursor-pointer relative odd:bg-gray-50 group"
+                className={clsx(
+                  editingRow?.id === row.id && 'h-10',
+                  'table-row cursor-pointer relative odd:bg-gray-50 group'
+                )}
                 {...row.getRowProps()}
                 onClick={() => {
                   if (selected) {
@@ -147,6 +162,7 @@ const Workout = ({ workout }: Props) => {
 
                   selectRow(row);
                 }}
+                onDoubleClick={() => editRow(row)}
               >
                 {row.cells.map((cell) => {
                   const { id } = cell.column;

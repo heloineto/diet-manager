@@ -20,7 +20,7 @@ const addWorkoutFirestore = async ({
     ),
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
-    exercises: [],
+    exercises: {},
   };
 
   const uid = auth?.currentUser?.uid;
