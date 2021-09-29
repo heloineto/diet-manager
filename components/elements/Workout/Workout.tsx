@@ -39,10 +39,6 @@ const Workout = ({ workout }: Props) => {
     setSelectedRows((value) => omit(value, [row.id]));
   };
 
-  const editRow = (row: Row<Exercise>) => {
-    setEditingRow(row);
-  };
-
   const data = useMemo(() => Object.values(exercises), [exercises]);
 
   const columns = useMemo(() => {
@@ -150,7 +146,13 @@ const Workout = ({ workout }: Props) => {
 
             const editing = editingRow?.id === row.id;
 
-            if (editing) return <UpdateExercise exercise={exercises[Number(row.id)]} />;
+            if (editing)
+              return (
+                <UpdateExercise
+                  exercise={exercises[Number(row.id)]}
+                  onClickOutside={() => setEditingRow(null)}
+                />
+              );
 
             return (
               <tr
@@ -164,7 +166,10 @@ const Workout = ({ workout }: Props) => {
 
                   selectRow(row);
                 }}
-                onDoubleClick={() => editRow(row)}
+                onDoubleClick={() => {
+                  unselectRow(row);
+                  setEditingRow(row);
+                }}
               >
                 {row.cells.map((cell) => {
                   const { id } = cell.column;

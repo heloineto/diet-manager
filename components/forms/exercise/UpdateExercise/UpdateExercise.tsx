@@ -1,14 +1,34 @@
 import clsx from 'clsx';
 import { makeValidate, TextField } from 'mui-rff';
+import { useEffect, useRef } from 'react';
 import { Form } from 'react-final-form';
 import updateExerciseSchema from './UpdateExercise.schema';
 
 interface Props {
   className?: string;
   exercise: Exercise;
+  onClickOutside: () => void;
 }
 
-const UpdateExercise = ({ className, exercise }: Props) => {
+const UpdateExercise = ({ className, onClickOutside, exercise }: Props) => {
+  const node = useRef<HTMLTableRowElement>(null);
+
+  const handleClick = (e: MouseEvent) => {
+    if (node?.current?.contains(e.target as Node)) return;
+
+    //! TRIGGER SUBMIT
+    onClickOutside();
+  };
+
+  useEffect(() => {
+    // add when mounted
+    document.addEventListener('mousedown', handleClick);
+    // return function to be called when unmounted
+    return () => {
+      document.removeEventListener('mousedown', handleClick);
+    };
+  }, []);
+
   const updateExercise = async () => {};
 
   const initialValues = {
@@ -32,46 +52,11 @@ const UpdateExercise = ({ className, exercise }: Props) => {
             onSubmit={handleSubmit}
             className={clsx(
               className,
-              'table-row cursor-pointer relative odd:bg-gray-50 group'
+              'table-row cursor-pointer relative odd:bg-gray-50 group py-2.5'
             )}
+            ref={node}
           >
-            <td
-              className={clsx(
-                // id === 'carb' &&
-                //   'bg-indigo-100 text-indigo-900 group-odd:bg-indigo-200',
-                // id === 'prot' &&
-                //   'bg-blue-100 text-blue-900 group-odd:bg-blue-200',
-                // id === 'fat' &&
-                //   'bg-yellow-100 text-yellow-900 group-odd:bg-yellow-200',
-                // id === 'kcal' &&
-                //   'bg-green-100 text-green-900 group-odd:bg-green-200',
-                // id === 'label'
-                //   ? 'w-6/12 text-left font-medium'
-                //   : 'font-semibold md:font-medium',
-                // selected &&
-                //   `
-                //   first:after:absolute
-                //   first:after:top-0
-                //   first:after:left-0
-                //   first:after:w-full
-                //   first:after:h-full
-                //   first:after:border-2
-                //   first:after:border-blue-500
-                //   first:after:inline-block
-                //   `,
-                // selected && aboveSelected && 'first:after:border-t',
-                // selected && belowSelected && 'first:after:border-b',
-                // `
-                // group-hover:first:after:absolute
-                // group-hover:first:after:top-0
-                // group-hover:first:after:left-0
-                // group-hover:first:after:w-full
-                // group-hover:first:after:h-full
-                // group-hover:first:after:shadow-inner
-                // `,
-                'table-cell border-b w-1/12 h-8'
-              )}
-            >
+            <td>
               <TextField
                 label="Nº"
                 name="index"
@@ -86,20 +71,23 @@ const UpdateExercise = ({ className, exercise }: Props) => {
                 InputProps={{
                   inputProps: {
                     min: 0,
-                    step: '.01',
+                    step: '1',
                   },
                 }}
               />
             </td>
 
             <td>
-              <TextField
-                label="Nome"
-                name="label"
-                // placeholder="Adicionar Título"
-                autoFocus
-                autoComplete="off"
-              />
+              <TextField label="Exercício" name="label" autoFocus autoComplete="off" />
+            </td>
+            <td>
+              <TextField label="Sets" name="sets" autoComplete="off" />
+            </td>
+            <td>
+              <TextField label="Reps" name="reps" autoComplete="off" />
+            </td>
+            <td>
+              <TextField label="Peso" name="weight" autoComplete="off" />
             </td>
           </tr>
         )}
