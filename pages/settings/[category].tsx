@@ -55,7 +55,6 @@ const Settings: NextPage = () => {
 
   return (
     <MainShell
-      label="Configurações"
       aside={
         <div className="-m-2.5 rounded-xl overflow-hidden">
           <Menu
