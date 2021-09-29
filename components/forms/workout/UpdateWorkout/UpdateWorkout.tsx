@@ -1,6 +1,5 @@
-import type { UpdateMealValuesType } from './UpdateMeal.types';
-
 import clsx from 'clsx';
+import { useContext } from 'react';
 import { useSnackbar } from 'notistack';
 import { Form } from 'react-final-form';
 import { Button } from '@material-ui/core';
@@ -12,54 +11,64 @@ import {
   TextField,
   TimePicker,
 } from 'mui-rff';
-
-import updateMealSchema from './UpdateMeal.schema';
-import updateMealFirestore from './UpdateMeal.firestore';
 import { DateTime } from 'luxon';
+
+import updateWorkoutSchema from './UpdateWorkout.schema';
+import updateWorkoutFirestore from './UpdateWorkout.firestore';
+import { SelectedDateContext } from '@lib/context';
 
 interface Props {
   className?: string;
   onClose: () => void;
-  meal: MealWithRef;
+  workout: WorkoutWithRef;
 }
 
-const UpdateMeal = ({ className, onClose, meal }: Props) => {
-  const { enqueueSnackbar } = useSnackbar();
+const UpdateWorkout = ({ className, onClose, workout }: Props) => {
+  const { selectedDate } = useContext(SelectedDateContext);
 
   // @ts-ignore
-  const startsAtJSDate = DateTime.fromSeconds(meal.startsAt.seconds).toJSDate();
+  const startsAtJSDate = DateTime.fromSeconds(workout.startsAt.seconds).toJSDate();
 
   const initialValues = {
-    label: meal.label,
-    isPublic: meal.isPublic,
-    color: meal.color,
+    label: workout.label,
+    isPublic: workout.isPublic,
+    color: workout.color,
     date: startsAtJSDate,
     time: startsAtJSDate,
   };
 
-  const updateMeal = async (values: UpdateMealValuesType) => {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const updateWorkout = async (values: UpdateWorkoutValuesType) => {
     onClose();
-    const res = await updateMealFirestore(values, meal.ref);
+    const res = await updateWorkoutFirestore(values, workout.ref);
 
     if (res?.error)
-      enqueueSnackbar(`Erro ao adicionar refeição: ${res.error}.`, {
+      enqueueSnackbar(`Erro ao adicionar treino: ${res.error}.`, {
         variant: 'error',
       });
   };
 
   return (
     <Form
-      onSubmit={updateMeal}
+      onSubmit={updateWorkout}
       initialValues={initialValues}
       // @ts-ignore
-      validate={makeValidate(updateMealSchema)}
+      validate={makeValidate(updateWorkoutSchema)}
     >
       {({ handleSubmit, submitting }) => (
         <form
           onSubmit={handleSubmit}
           className={clsx(className, 'flex flex-col space-y-5')}
         >
-          <TextField label="Título" name="label" placeholder="Adicionar Título" />
+          <TextField
+            label="Título"
+            name="label"
+            placeholder="Adicionar Título"
+            size="medium"
+            autoFocus
+            autoComplete="off"
+          />
           <Switches label="Público" name="isPublic" data={{ label: '', value: true }} />
           <Radios
             label="Cor"
@@ -88,19 +97,21 @@ const UpdateMeal = ({ className, onClose, meal }: Props) => {
             <Button
               className="bg-gray-500 text-white w-2/6"
               variant="contained"
+              size="large"
               disabled={submitting}
               onClick={onClose}
             >
-              Cancelar
+              <div className="text-sm sm:text-lg">Cancelar</div>
             </Button>
             <Button
               className="shadow-blue-500 hover:shadow-xl-blue-500 w-4/6"
               color="secondary"
               variant="contained"
+              size="large"
               disabled={submitting}
               type="submit"
             >
-              Editar
+              <div className="text-sm sm:text-lg">Editar</div>
             </Button>
           </div>
           {/* <pre>{JSON.stringify(values, undefined, 2)}</pre> */}
@@ -110,4 +121,4 @@ const UpdateMeal = ({ className, onClose, meal }: Props) => {
   );
 };
 
-export default UpdateMeal;
+export default UpdateWorkout;

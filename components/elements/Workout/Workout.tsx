@@ -15,66 +15,51 @@ interface Info {
 
 interface Props {
   workout: WorkoutWithRef;
-  formattedExercises: FormattedExercise[];
 }
 
-const Workout = ({ workout, formattedExercises }: Props) => {
+const Workout = ({ workout }: Props) => {
+  const { exercises } = workout;
+
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
 
   const { expanded, setExpanded, hover, setHover, selectedRows, setSelectedRows } =
     useWorkoutState();
 
-  const selectRow = (row: Row<FormattedExercise>) => {
+  const selectRow = (row: Row<Exercise>) => {
     setSelectedRows((value) => ({ ...value, [row.id]: row }));
   };
 
-  const unselectRow = (row: Row<FormattedExercise>) => {
+  const unselectRow = (row: Row<Exercise>) => {
     setSelectedRows((value) => omit(value, [row.id]));
   };
 
-  const data = useMemo(() => formattedExercises, [formattedExercises]);
+  const data = useMemo(() => exercises, [exercises]);
 
   const columns = useMemo(() => {
-    const Footer = ({ rows }: Info, accessor: string) => {
-      const getTotal = () =>
-        useMemo(() => rows.reduce((sum, row) => row.values[accessor] + sum, 0), [rows]);
-
-      return <>{round(getTotal(), 2) || 0}</>;
-    };
-
     return [
       {
-        Header: 'Qtn.',
-        accessor: 'amount',
-        Footer: 'Total',
+        Header: 'Nº',
+        accessor: 'index',
       },
       {
-        Header: compact ? 'Alimento' : 'Descrição Do Alimento',
+        Header: 'Exercício',
         accessor: 'label',
       },
       {
-        Header: 'Carb',
-        accessor: 'carb',
-        Footer: (info: Info) => Footer(info, 'carb'),
+        Header: 'Sets',
+        accessor: 'sets',
       },
       {
-        Header: 'Prot',
-        accessor: 'prot',
-        Footer: (info: Info) => Footer(info, 'prot'),
+        Header: 'Reps',
+        accessor: 'reps',
       },
       {
-        Header: 'Gord',
-        accessor: 'fat',
-        Footer: (info: Info) => Footer(info, 'fat'),
-      },
-      {
-        Header: 'Kcal',
-        accessor: 'kcal',
-        Footer: (info: Info) => Footer(info, 'kcal'),
+        Header: 'Peso',
+        accessor: 'weight',
       },
     ];
-  }, [formattedExercises, compact]);
+  }, [exercises, compact]);
 
   const {
     getTableProps,
@@ -146,7 +131,7 @@ const Workout = ({ workout, formattedExercises }: Props) => {
           ))}
         </thead>
         <tbody className={expanded ? '' : 'hidden'} {...getTableBodyProps()}>
-          {rows.map((row: Row<FormattedExercise>, idx) => {
+          {rows.map((row: Row<Exercise>, idx) => {
             prepareRow(row);
 
             const selected = !!selectedRows[row.id];

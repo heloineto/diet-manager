@@ -18,9 +18,9 @@ import {
 import Modal from '@components/overlays/Modal';
 import RemoveWorkout from '@components/forms/workout/RemoveWorkout';
 import UpdateWorkout from '@components/forms/workout/UpdateWorkout';
-import AddFood from '@components/forms/exercise/AddFood';
+import AddExercise from '@components/forms/exercise/AddExercise';
 import ModalWithAside from '@components/overlays/ModalWithAside';
-import { removeFoodsAtRows } from './Workout.utils';
+import { removeExercisesAtRows } from './Workout.utils';
 
 interface Props {
   compact: boolean;
@@ -29,11 +29,11 @@ interface Props {
   setExpanded: Dispatch<SetStateAction<boolean>>;
   workout: WorkoutWithRef;
   selectedRows: {
-    [k: string]: Row<FormattedFood>;
+    [k: string]: Row<FormattedExercise>;
   };
   setSelectedRows: Dispatch<
     SetStateAction<{
-      [k: string]: Row<FormattedFood>;
+      [k: string]: Row<FormattedExercise>;
     }>
   >;
 }
@@ -47,7 +47,7 @@ const WorkoutActions = ({
   selectedRows,
   setSelectedRows,
 }: Props) => {
-  const [addFoodOpen, setAddFoodOpen] = useState(false);
+  const [addExerciseOpen, setAddExerciseOpen] = useState(false);
   const [removeWorkoutOpen, setRemoveWorkoutOpen] = useState(false);
   const [updateWorkoutOpen, setUpdateWorkoutOpen] = useState(false);
 
@@ -139,7 +139,7 @@ const WorkoutActions = ({
               'w-7 h-7 p-0 transition-colors duration-500 mr-0.5 sm:mr-2.5'
             )}
             color="primary"
-            onClick={() => setAddFoodOpen(true)}
+            onClick={() => setAddExerciseOpen(true)}
           >
             <PlusIcon className="h-4 w-4" />
           </IconButton>
@@ -162,7 +162,7 @@ const WorkoutActions = ({
                 <IconButton
                   className="w-7 h-7 p-0 hover:text-red-700"
                   onClick={() => {
-                    removeFoodsAtRows(workout, Object.values(selectedRows));
+                    removeExercisesAtRows(workout, Object.values(selectedRows));
                     setSelectedRows({});
                   }}
                 >
@@ -175,10 +175,10 @@ const WorkoutActions = ({
       </div>
 
       <>
-        <AddFood
-          open={addFoodOpen}
+        <AddExercise
+          open={addExerciseOpen}
           workoutRef={workout.ref}
-          onClose={() => setAddFoodOpen(false)}
+          onClose={() => setAddExerciseOpen(false)}
         />
 
         <Modal

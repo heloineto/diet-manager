@@ -9,10 +9,7 @@ export const removeFoodsByIndex = async (workout: WorkoutWithRef, indexes: numbe
   });
 };
 
-export const removeFoodsAtRows = (
-  workout: WorkoutWithRef,
-  rows: Row<FormattedFood>[]
-) => {
+export const removeFoodsAtRows = (workout: WorkoutWithRef, rows: Row<Exercise>[]) => {
   removeFoodsByIndex(
     workout,
     rows.map((row) => Number(row.id))

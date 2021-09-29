@@ -4,6 +4,7 @@ import AddWorkout from '@components/forms/workout/AddWorkout';
 import { PlusIcon } from '@heroicons/react/outline';
 import { useContext, useState } from 'react';
 import { WorkoutsContext } from '@lib/context';
+import Workout from '../Workout';
 
 interface Props {}
 
@@ -12,10 +13,7 @@ const Workouts = (props: Props) => {
   const [addWorkoutOpen, setAddWorkoutOpen] = useState(false);
 
   const renderWorkouts = () =>
-    workouts.map((workouts, idx) => {
-      // return <div>{workouts.label}</div>;
-      // return <Meal key={idx} meal={meal} formattedFoods={formattedFoods} />;
-    });
+    workouts.map((workout, idx) => <Workout key={idx} workout={workout} />);
 
   return (
     <div className="flex-grow flex flex-col">

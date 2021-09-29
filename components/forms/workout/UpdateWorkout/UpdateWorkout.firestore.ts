@@ -1,12 +1,10 @@
-import type { UpdateMealValuesType } from './UpdateMeal.types';
-
 import { auth, serverTimestamp } from '@lib/firebase';
 
-const updateMealFirestore = async (
-  { label, isPublic, color, date, time }: UpdateMealValuesType,
-  mealRef: FirebaseRef
+const updateWorkoutFirestore = async (
+  { label, isPublic, color, date, time }: UpdateWorkoutValuesType,
+  workoutRef: FirebaseRef
 ) => {
-  const updatedMeal: Partial<Meal> = {
+  const updatedWorkout: Workout = {
     label,
     color,
     isPublic,
@@ -17,12 +15,14 @@ const updateMealFirestore = async (
       time.getHours(),
       time.getMinutes()
     ),
+    createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
+    exercises: [],
   };
 
   if (!auth?.currentUser?.uid) return { error: 'verifique se você está logado' };
 
-  await mealRef.update(updatedMeal).catch((error) => ({ error }));
+  await workoutRef.update(updatedWorkout).catch((error) => ({ error }));
 };
 
-export default updateMealFirestore;
+export default updateWorkoutFirestore;
