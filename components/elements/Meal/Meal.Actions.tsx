@@ -115,10 +115,7 @@ const MealActions = ({
         <>
           {actions.map(({ label, Icon, onClick, className }) => (
             <Tooltip key={label} title={label} arrow>
-              <IconButton
-                className={clsx(className, 'w-7 h-7 p-0')}
-                onClick={onClick}
-              >
+              <IconButton className={clsx(className, 'w-7 h-7 p-0')} onClick={onClick}>
                 <Icon className="h-4 w-4" />
               </IconButton>
             </Tooltip>
@@ -129,9 +126,7 @@ const MealActions = ({
 
   return (
     <>
-      <div
-        className={`absolute top-0 h-full w-full mx-1 flex items-center text-gray-800`}
-      >
+      <div className="absolute top-0 h-full w-full mx-1 flex items-center text-gray-800">
         <Tooltip title="Adicionar alimento" arrow>
           <IconButton
             className={clsx(
@@ -150,11 +145,10 @@ const MealActions = ({
         {renderResponsiveActions()}
 
         {!!qntOfSelectedRows && (hover || compact) && (
-          <div className="ml-auto pr-3 sm:ml-0 sm:pr-0">
+          <div className="ml-auto pr-3">
             <Badge
               classes={{
-                badge:
-                  'font-bold text-xs px-0 py-0 h-4 w-4 min-w-0 top-1 right-1',
+                badge: 'font-bold text-xs px-0 py-0 h-4 w-4 min-w-0 top-1 right-1',
               }}
               badgeContent={qntOfSelectedRows}
               color="error"

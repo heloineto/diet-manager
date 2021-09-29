@@ -161,7 +161,7 @@ const WorkoutActions = ({
         {renderResponsiveActions()}
 
         {!!qntOfSelectedRows && (hover || compact) && (
-          <div className="ml-auto pr-3 sm:ml-0 sm:pr-0">
+          <div className="ml-auto pr-3">
             <Badge
               classes={{
                 badge: 'font-bold text-xs px-0 py-0 h-4 w-4 min-w-0 top-1 right-1',
@@ -196,7 +196,7 @@ const WorkoutActions = ({
         /> */}
 
         <Modal
-          label="Editar Refeição"
+          label="Editar Treino"
           open={updateWorkoutOpen}
           onClose={() => setUpdateWorkoutOpen(false)}
         >
@@ -204,7 +204,7 @@ const WorkoutActions = ({
         </Modal>
 
         <Modal
-          label="Remover Refeição"
+          label="Remover Treino"
           open={removeWorkoutOpen}
           onClose={() => setRemoveWorkoutOpen(false)}
         >

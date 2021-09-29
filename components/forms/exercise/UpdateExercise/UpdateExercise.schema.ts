@@ -1,7 +1,6 @@
 import * as yup from 'yup';
 
 const updateExerciseSchema = yup.object().shape({
-  index: yup.number().required(),
   label: yup.string().required('Forneça um nome'),
   sets: yup.number().required(),
 });

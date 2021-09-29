@@ -118,13 +118,17 @@ const Workout = ({ workout }: Props) => {
                 return (
                   <th
                     className={clsx(
-                      id === 'carb' && 'bg-indigo-300 text-indigo-900',
-                      id === 'prot' && 'bg-blue-300 text-blue-900',
-                      id === 'fat' && 'bg-yellow-300 text-yellow-900',
-                      id === 'kcal' && 'bg-green-300 text-green-900',
-                      id === 'label' && 'bg-gray-100 w-6/12 text-left',
-                      id === 'amount' && 'bg-gray-100',
-                      `font-bold border-gray-300 border-b-2 table-cell w-1/12 h-8`
+                      // id === 'carb' && 'bg-indigo-300 text-indigo-900',
+                      // id === 'prot' && 'bg-blue-300 text-blue-900',
+                      // id === 'fat' && 'bg-yellow-300 text-yellow-900',
+                      // id === 'kcal' && 'bg-green-300 text-green-900',
+                      // id === 'amount' && 'bg-gray-100',
+                      id === 'index' && 'w-1/12',
+                      id === 'sets' && 'w-1/12',
+                      id === 'reps' && 'w-3/12',
+                      id === 'weight' && 'w-3/12',
+                      id === 'label' && 'w-3/12 bg-gray-100 text-left',
+                      `font-bold border-gray-300 border-b-2 table-cell h-8 uppercase`
                     )}
                     {...column.getHeaderProps()}
                   >
@@ -187,7 +191,7 @@ const Workout = ({ workout }: Props) => {
                         id === 'kcal' &&
                           'bg-green-100 text-green-900 group-odd:bg-green-200',
                         id === 'label'
-                          ? 'w-6/12 text-left font-medium'
+                          ? 'text-left font-medium'
                           : 'font-semibold md:font-medium',
                         selected &&
                           `
@@ -210,7 +214,7 @@ const Workout = ({ workout }: Props) => {
                         group-hover:first:after:h-full
                         group-hover:first:after:shadow-inner
                         `,
-                        'table-cell border-b w-1/12 h-8'
+                        'table-cell border-b h-8'
                       )}
                       {...cell.getCellProps()}
                     >
@@ -236,9 +240,9 @@ const Workout = ({ workout }: Props) => {
                         id === 'prot' && 'bg-blue-300 text-blue-900',
                         id === 'fat' && 'bg-yellow-300 text-yellow-900',
                         id === 'kcal' && 'bg-green-300 text-green-900',
-                        id === 'label' && 'bg-gray-100 w-6/12 text-left',
+                        id === 'label' && 'bg-gray-100 text-left',
                         id === 'amount' && 'bg-gray-100',
-                        'table-cell w-1/12 h-8 font-bold border-gray-300 border-b-0 border-t-2'
+                        'table-cell h-8 font-bold border-gray-300 border-b-0 border-t-2'
                       )}
                       {...column.getFooterProps()}
                     >

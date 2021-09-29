@@ -1,10 +1,10 @@
-import type { AnyObject } from 'react-final-form';
+import { AnyObject, Field } from 'react-final-form';
 
 import clsx from 'clsx';
 import { useEffect, useRef } from 'react';
 import { makeValidate, TextField } from 'mui-rff';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
-import { IconButton } from '@material-ui/core';
+import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
 import { Form } from 'react-final-form';
 
 import updateExerciseSchema from './UpdateExercise.schema';
@@ -18,6 +18,9 @@ interface Props {
 }
 
 const UpdateExercise = ({ className, exercise, workoutRef, onClickOutside }: Props) => {
+  const { breakpoints } = useTheme();
+  const compact = useMediaQuery(breakpoints.down('md'));
+
   const node = useRef<HTMLTableRowElement>(null);
 
   let submit: () => Promise<AnyObject | undefined> | undefined;
@@ -69,7 +72,7 @@ const UpdateExercise = ({ className, exercise, workoutRef, onClickOutside }: Pro
         // @ts-ignore
         // validate={makeValidate(updateExerciseSchema)}
       >
-        {({ handleSubmit, submitting }) => {
+        {({ handleSubmit, values, submitting }) => {
           submit = handleSubmit;
 
           return (
@@ -102,17 +105,57 @@ const UpdateExercise = ({ className, exercise, workoutRef, onClickOutside }: Pro
               </td>
 
               <td>
-                <TextField label="Exercício" name="label" autoFocus autoComplete="off" />
+                <TextField
+                  label="Exercício"
+                  name="label"
+                  autoFocus
+                  autoComplete="off"
+                  variant="standard"
+                />
               </td>
               <td>
-                <TextField label="Sets" name="sets" autoComplete="off" />
+                <TextField
+                  label="Sets"
+                  name="sets"
+                  autoComplete="off"
+                  variant="standard"
+                />
               </td>
               <td>
-                <TextField label="Reps" name="reps" autoComplete="off" />
+                <div className="flex">
+                  <Field name="reps">
+                    {(props) =>
+                      Array.from({ length: values.sets }, (_, idx) => (
+                        <TextField
+                          key={idx}
+                          label={compact ? `${idx + 1}` : `Reps ${idx + 1}`}
+                          name={`reps.${idx}`}
+                          autoComplete="off"
+                          variant="standard"
+                        />
+                      ))
+                    }
+                  </Field>
+                </div>
               </td>
               <td>
-                <TextField label="Peso" name="weight" autoComplete="off" />
+                <div className="flex">
+                  <Field name="weight">
+                    {(props) =>
+                      Array.from({ length: values.sets }, (_, idx) => (
+                        <TextField
+                          key={idx}
+                          label={compact ? `${idx + 1}` : `Peso ${idx + 1}`}
+                          name={`weight.${idx}`}
+                          autoComplete="off"
+                          variant="standard"
+                        />
+                      ))
+                    }
+                  </Field>
+                </div>
               </td>
+              {/* <pre>{JSON.stringify(values, undefined, 2)}</pre> */}
             </tr>
           );
         }}
