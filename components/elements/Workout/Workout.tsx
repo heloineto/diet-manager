@@ -150,6 +150,7 @@ const Workout = ({ workout }: Props) => {
               return (
                 <UpdateExercise
                   exercise={exercises[Number(row.id)]}
+                  workoutRef={workout.ref}
                   onClickOutside={() => setEditingRow(null)}
                 />
               );
