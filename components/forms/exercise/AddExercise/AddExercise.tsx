@@ -1,28 +1,27 @@
 import { useState } from 'react';
 
 import { Button } from '@material-ui/core';
-import addFoodFirestore from './AddFood.firestore';
-import SearchFood from '../SearchFood';
+import addExerciseFirestore from './AddExercise.firestore';
 import ModalWithAside from '@components/overlays/ModalWithAside';
 
 interface Props {
   className?: string;
-  mealRef: FirebaseRef;
+  workoutRef: FirebaseRef;
   open: boolean;
   onClose: () => void;
 }
 
-const AddFood = ({ className, open, onClose, mealRef }: Props) => {
+const AddExercise = ({ className, open, onClose, workoutRef }: Props) => {
   const [createOpen, setCreateOpen] = useState(false);
 
-  const [food, setFood] = useState<Food | null>(null);
+  const [exercise, setExercise] = useState<Exercise | null>(null);
 
-  const addFood = async () => {
+  const addExercise = async () => {
     onClose();
 
-    if (!food) return;
+    if (!exercise) return;
 
-    await addFoodFirestore(food, mealRef);
+    await addExerciseFirestore(exercise, workoutRef);
   };
 
   return (
@@ -44,7 +43,7 @@ const AddFood = ({ className, open, onClose, mealRef }: Props) => {
             color="secondary"
             variant="contained"
             type="submit"
-            onClick={addFood}
+            onClick={addExercise}
           >
             Adicionar
           </Button>
@@ -53,7 +52,6 @@ const AddFood = ({ className, open, onClose, mealRef }: Props) => {
     >
       <div className="flex flex-col space-y-2.5 lg:w-[32rem]">
         <div className="flex flex-col space-y-2.5">
-          <SearchFood selectedFood={food} setSelectedFood={setFood} />
           <p className="text-gray-700">
             Não encontrou o que estava procurando?
             <br />
@@ -70,4 +68,4 @@ const AddFood = ({ className, open, onClose, mealRef }: Props) => {
   );
 };
 
-export default AddFood;
+export default AddExercise;

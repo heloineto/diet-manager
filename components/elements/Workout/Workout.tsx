@@ -9,10 +9,6 @@ import { useMediaQuery, useTheme } from '@material-ui/core';
 import { useWorkoutState } from './Workout.state';
 import WorkoutActions from './Workout.Actions';
 
-interface Info {
-  rows: Row[];
-}
-
 interface Props {
   workout: WorkoutWithRef;
 }
@@ -59,7 +55,7 @@ const Workout = ({ workout }: Props) => {
         accessor: 'weight',
       },
     ];
-  }, [exercises, compact]);
+  }, [exercises]);
 
   const {
     getTableProps,

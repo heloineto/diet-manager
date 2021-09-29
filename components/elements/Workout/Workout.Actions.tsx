@@ -23,11 +23,11 @@ import ModalWithAside from '@components/overlays/ModalWithAside';
 import { removeExercisesAtRows } from './Workout.utils';
 
 interface Props {
+  workout: WorkoutWithRef;
   compact: boolean;
   hover: boolean;
   expanded: boolean;
   setExpanded: Dispatch<SetStateAction<boolean>>;
-  workout: WorkoutWithRef;
   selectedRows: {
     [k: string]: Row<Exercise>;
   };
@@ -39,11 +39,12 @@ interface Props {
 }
 
 const WorkoutActions = ({
+  workout,
   compact,
   hover,
   expanded,
   setExpanded,
-  workout,
+  tbodyRef,
   selectedRows,
   setSelectedRows,
 }: Props) => {

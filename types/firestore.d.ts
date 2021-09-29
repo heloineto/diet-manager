@@ -54,7 +54,13 @@ interface Workout {
   exercises: Exercise[];
 }
 
-interface Exercise {}
+interface Exercise {
+  index: number;
+  label: string;
+  sets: number;
+  reps: number[];
+  weight: number[];
+}
 
 type FirebaseRef = import('./firebase').FirebaseRef;
 

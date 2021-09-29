@@ -1,24 +1,21 @@
 import { arrayUnion, serverTimestamp } from '@lib/firebase';
 
-const addFoodFirestore = async (
-  { amount, label, carb, fat, kcal, prot, unit, foodId }: Food,
+const addExerciseFirestore = async (
+  { index, label, sets, reps, weight }: Exercise,
   mealRef: FirebaseRef
 ) => {
-  const newFood = {
+  const newExercise = {
+    index,
     label,
-    carb,
-    fat,
-    kcal,
-    prot,
-    unit,
-    amount,
-    foodId,
+    sets,
+    reps,
+    weight,
   };
 
   await mealRef.update({
     updatedAt: serverTimestamp(),
-    foods: arrayUnion(newFood),
+    exercises: arrayUnion(newExercise),
   });
 };
 
-export default addFoodFirestore;
+export default addExerciseFirestore;
