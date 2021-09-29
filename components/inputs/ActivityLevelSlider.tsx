@@ -74,12 +74,9 @@ const SliderAdapter = ({
         {...input}
         {...rest}
         onChange={(event, value) => input.onChange(value)}
-        //! errorText={meta.touched ? meta.error : ''}
       />
 
-      <div className="text-lg font-semibold text-center text-gray-700">
-        {title}
-      </div>
+      <div className="text-lg font-semibold text-center text-gray-700">{title}</div>
       <div className="text-center text-sm font-medium text-gray-600 h-10">
         {description}
       </div>
