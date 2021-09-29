@@ -2,7 +2,7 @@ import type { Row } from 'react-table';
 
 import { useMemo } from 'react';
 import { useTable } from 'react-table';
-import { omit, round } from 'lodash';
+import { omit } from 'lodash';
 import clsx from 'clsx';
 
 import { useMediaQuery, useTheme } from '@material-ui/core';

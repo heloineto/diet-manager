@@ -18,7 +18,7 @@ import {
 import Modal from '@components/overlays/Modal';
 import RemoveWorkout from '@components/forms/workout/RemoveWorkout';
 import UpdateWorkout from '@components/forms/workout/UpdateWorkout';
-import AddExercise from '@components/forms/exercise/AddExercise';
+// import AddExercise from '@components/forms/exercise/AddExercise';
 import ModalWithAside from '@components/overlays/ModalWithAside';
 import { removeExercisesAtRows } from './Workout.utils';
 
@@ -29,11 +29,11 @@ interface Props {
   setExpanded: Dispatch<SetStateAction<boolean>>;
   workout: WorkoutWithRef;
   selectedRows: {
-    [k: string]: Row<FormattedExercise>;
+    [k: string]: Row<Exercise>;
   };
   setSelectedRows: Dispatch<
     SetStateAction<{
-      [k: string]: Row<FormattedExercise>;
+      [k: string]: Row<Exercise>;
     }>
   >;
 }
@@ -129,7 +129,7 @@ const WorkoutActions = ({
       <div
         className={`absolute top-0 h-full w-full mx-1 flex items-center text-gray-800`}
       >
-        <Tooltip title="Adicionar alimento" arrow>
+        <Tooltip title="Adicionar treino" arrow>
           <IconButton
             className={clsx(
               compact && 'bg-primary-500 text-white shadow-primary-500',
@@ -175,11 +175,11 @@ const WorkoutActions = ({
       </div>
 
       <>
-        <AddExercise
+        {/* <AddExercise
           open={addExerciseOpen}
           workoutRef={workout.ref}
           onClose={() => setAddExerciseOpen(false)}
-        />
+        /> */}
 
         <Modal
           label="Editar Refeição"

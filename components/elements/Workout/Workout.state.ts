@@ -6,7 +6,7 @@ export const useWorkoutState = () => {
   const [expanded, setExpanded] = useState(true);
   const [hover, setHover] = useState(false);
   const [selectedRows, setSelectedRows] = useState<{
-    [k: string]: Row<FormattedFood>;
+    [k: string]: Row<Exercise>;
   }>({});
 
   return {
