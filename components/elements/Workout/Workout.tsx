@@ -8,6 +8,7 @@ import clsx from 'clsx';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import { useWorkoutState } from './Workout.state';
 import WorkoutActions from './Workout.Actions';
+import UpdateExercise from '@components/forms/exercise/UpdateExercise';
 
 interface Props {
   workout: WorkoutWithRef;
@@ -147,12 +148,13 @@ const Workout = ({ workout }: Props) => {
             const belowSelected =
               idx < rows.length - 1 && !!selectedRows[rows[idx + 1].id];
 
+            const editing = editingRow?.id === row.id;
+
+            if (editing) return <UpdateExercise exercise={exercises[Number(row.id)]} />;
+
             return (
               <tr
-                className={clsx(
-                  editingRow?.id === row.id && 'h-10',
-                  'table-row cursor-pointer relative odd:bg-gray-50 group'
-                )}
+                className="table-row cursor-pointer relative odd:bg-gray-50 group"
                 {...row.getRowProps()}
                 onClick={() => {
                   if (selected) {

@@ -145,14 +145,12 @@ const WorkoutActions = ({
               const index = Object.keys(workout.exercises).length;
 
               workout.ref.update({
-                exercises: {
-                  [index]: {
-                    index,
-                    label: '',
-                    sets: 0,
-                    reps: [],
-                    weight: [],
-                  },
+                [`exercises.${index}`]: {
+                  index,
+                  label: '',
+                  sets: 0,
+                  reps: [],
+                  weight: [],
                 },
               });
             }}
