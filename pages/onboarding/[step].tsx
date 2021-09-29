@@ -11,7 +11,7 @@ const Onboarding: NextPage = () => {
   const stepName = step && typeof step === 'string' ? step : 'account';
 
   return (
-    <OnboardingShell label="Onboarding">
+    <OnboardingShell>
       <ProfileCompletion stepName={stepName} />
     </OnboardingShell>
   );

@@ -117,8 +117,23 @@ const UpdateExercise = ({ className, exercise, workoutRef, onClickOutside }: Pro
                 <TextField
                   label="Sets"
                   name="sets"
-                  autoComplete="off"
+                  type="number"
                   variant="standard"
+                  autoComplete="off"
+                  fieldProps={{
+                    parse: (value) => {
+                      if (Number(value) < 0) return '0';
+                      if (Number(value) > 10) return '10';
+
+                      return value;
+                    },
+                  }}
+                  InputProps={{
+                    inputProps: {
+                      min: 0,
+                      step: '1',
+                    },
+                  }}
                 />
               </td>
               <td>
@@ -130,8 +145,22 @@ const UpdateExercise = ({ className, exercise, workoutRef, onClickOutside }: Pro
                           key={idx}
                           label={compact ? `${idx + 1}` : `Reps ${idx + 1}`}
                           name={`reps.${idx}`}
-                          autoComplete="off"
+                          type="number"
                           variant="standard"
+                          autoComplete="off"
+                          fieldProps={{
+                            parse: (value) => {
+                              if (Number(value) < 0) return '0';
+
+                              return value;
+                            },
+                          }}
+                          InputProps={{
+                            inputProps: {
+                              min: 0,
+                              step: '1',
+                            },
+                          }}
                         />
                       ))
                     }
@@ -147,8 +176,22 @@ const UpdateExercise = ({ className, exercise, workoutRef, onClickOutside }: Pro
                           key={idx}
                           label={compact ? `${idx + 1}` : `Peso ${idx + 1}`}
                           name={`weight.${idx}`}
-                          autoComplete="off"
+                          type="number"
                           variant="standard"
+                          autoComplete="off"
+                          fieldProps={{
+                            parse: (value) => {
+                              if (Number(value) < 0) return '0';
+
+                              return value;
+                            },
+                          }}
+                          InputProps={{
+                            inputProps: {
+                              min: 0,
+                              step: '1',
+                            },
+                          }}
                         />
                       ))
                     }

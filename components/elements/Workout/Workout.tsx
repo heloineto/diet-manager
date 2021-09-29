@@ -118,11 +118,6 @@ const Workout = ({ workout }: Props) => {
                 return (
                   <th
                     className={clsx(
-                      // id === 'carb' && 'bg-indigo-300 text-indigo-900',
-                      // id === 'prot' && 'bg-blue-300 text-blue-900',
-                      // id === 'fat' && 'bg-yellow-300 text-yellow-900',
-                      // id === 'kcal' && 'bg-green-300 text-green-900',
-                      // id === 'amount' && 'bg-gray-100',
                       id === 'index' && 'w-1/12',
                       id === 'sets' && 'w-1/12',
                       id === 'reps' && 'w-3/12',
@@ -177,19 +172,15 @@ const Workout = ({ workout }: Props) => {
                 }}
               >
                 {row.cells.map((cell) => {
+                  const { value } = cell;
                   const { id } = cell.column;
+
+                  const reps = id === 'reps';
+                  const weight = id === 'weight';
 
                   return (
                     <td
                       className={clsx(
-                        id === 'carb' &&
-                          'bg-indigo-100 text-indigo-900 group-odd:bg-indigo-200',
-                        id === 'prot' &&
-                          'bg-blue-100 text-blue-900 group-odd:bg-blue-200',
-                        id === 'fat' &&
-                          'bg-yellow-100 text-yellow-900 group-odd:bg-yellow-200',
-                        id === 'kcal' &&
-                          'bg-green-100 text-green-900 group-odd:bg-green-200',
                         id === 'label'
                           ? 'text-left font-medium'
                           : 'font-semibold md:font-medium',
@@ -218,7 +209,25 @@ const Workout = ({ workout }: Props) => {
                       )}
                       {...cell.getCellProps()}
                     >
-                      {cell.render('Cell')}
+                      {Array.isArray(value) ? (
+                        <div
+                          className="grid h-full"
+                          style={{
+                            gridTemplateColumns: `repeat(${value.length}, minmax(0, 1fr))`,
+                          }}
+                        >
+                          {value.map((eachValue) => (
+                            <div
+                              key={eachValue}
+                              className="border-l-2 h-full flex justify-center items-center"
+                            >
+                              {eachValue}
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        cell.render('Cell')
+                      )}
                     </td>
                   );
                 })}
@@ -236,12 +245,7 @@ const Workout = ({ workout }: Props) => {
                   return (
                     <td
                       className={clsx(
-                        id === 'carb' && 'bg-indigo-300 text-indigo-900',
-                        id === 'prot' && 'bg-blue-300 text-blue-900',
-                        id === 'fat' && 'bg-yellow-300 text-yellow-900',
-                        id === 'kcal' && 'bg-green-300 text-green-900',
                         id === 'label' && 'bg-gray-100 text-left',
-                        id === 'amount' && 'bg-gray-100',
                         'table-cell h-8 font-bold border-gray-300 border-b-0 border-t-2'
                       )}
                       {...column.getFooterProps()}
