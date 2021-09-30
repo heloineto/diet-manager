@@ -8,7 +8,6 @@ import Navbar from '@components/navigation/Navbar';
 import Sidebar from '@components/navigation/Sidebar';
 import Section from '@components/layout/Section';
 import Widget from '../Widget';
-import Head from 'next/head';
 
 interface Props {
   children: ReactNode;
