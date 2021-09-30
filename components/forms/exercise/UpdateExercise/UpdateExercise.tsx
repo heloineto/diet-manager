@@ -15,9 +15,16 @@ interface Props {
   exercise: Exercise;
   workoutRef: FirebaseRef;
   onClickOutside: () => void;
+  moveUp: () => void;
 }
 
-const UpdateExercise = ({ className, exercise, workoutRef, onClickOutside }: Props) => {
+const UpdateExercise = ({
+  className,
+  exercise,
+  workoutRef,
+  onClickOutside,
+  moveUp,
+}: Props) => {
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
 
@@ -91,7 +98,7 @@ const UpdateExercise = ({ className, exercise, workoutRef, onClickOutside }: Pro
                 <div className="flex flex-col">
                   <IconButton
                     className="p-1 h-7 w-7 hover:text-blue-600"
-                    // onClick={moveUp}
+                    onClick={moveUp}
                   >
                     <ChevronUpIcon className="h-5 w-5 sm:h-6 sm:w-6" />
                   </IconButton>

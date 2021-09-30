@@ -9,6 +9,7 @@ import { useMediaQuery, useTheme } from '@material-ui/core';
 import { useWorkoutState } from './Workout.state';
 import WorkoutActions from './Workout.Actions';
 import UpdateExercise from '@components/forms/exercise/UpdateExercise';
+import { moveExercise } from './Workout.utils';
 
 interface Props {
   workout: WorkoutWithRef;
@@ -122,8 +123,8 @@ const Workout = ({ workout }: Props) => {
                       id === 'sets' && 'w-1/12',
                       id === 'reps' && 'w-3/12',
                       id === 'weight' && 'w-3/12',
-                      id === 'label' && 'w-3/12 bg-gray-100 text-left',
-                      `font-bold border-gray-300 border-b-2 table-cell h-8 uppercase`
+                      id === 'label' && 'w-3/12 text-left',
+                      `font-bold border-gray-300 bg-gray-100 border-b-2 table-cell h-8 uppercase`
                     )}
                     {...column.getHeaderProps()}
                   >
@@ -138,25 +139,31 @@ const Workout = ({ workout }: Props) => {
           {rows.map((row: Row<Exercise>, idx) => {
             prepareRow(row);
 
-            const selected = !!selectedRows[row.id];
+            const { id } = row;
+
+            const selected = !!selectedRows[id];
             const aboveSelected = idx > 0 && !!selectedRows[rows[idx - 1].id];
             const belowSelected =
               idx < rows.length - 1 && !!selectedRows[rows[idx + 1].id];
 
-            const editing = editingRow?.id === row.id;
+            const editing = editingRow?.id === id;
 
             if (editing)
               return (
                 <UpdateExercise
-                  exercise={exercises[Number(row.id)]}
+                  exercise={exercises[Number(id)]}
                   workoutRef={workout.ref}
                   onClickOutside={() => setEditingRow(null)}
+                  moveUp={() => {
+                    moveExercise(workout, Number(id), Number(id) - 1);
+                    // setEditingRow()
+                  }}
                 />
               );
 
             return (
               <tr
-                className="table-row cursor-pointer relative odd:bg-gray-50 group"
+                className="table-row cursor-pointer relative odd:bg-gray-100 group"
                 {...row.getRowProps()}
                 onClick={() => {
                   if (selected) {
@@ -245,8 +252,8 @@ const Workout = ({ workout }: Props) => {
                   return (
                     <td
                       className={clsx(
-                        id === 'label' && 'bg-gray-100 text-left',
-                        'table-cell h-8 font-bold border-gray-300 border-b-0 border-t-2'
+                        id === 'label' && 'text-left',
+                        'table-cell h-8 font-bold border-gray-300 bg-gray-100 border-b-0 border-t-2'
                       )}
                       {...column.getFooterProps()}
                     >

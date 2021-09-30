@@ -106,13 +106,13 @@ const ColorField = ({ label, name }: Props) => {
           <FormLabel className="group-hover:text-blue-500">{label}</FormLabel>
           <div className="flex gap-x-4 my-2">
             {Object.entries(colors).map(([key, color]) => {
-              const selected = color[100] === input.value;
+              const selected = color[50] === input.value;
 
               return (
                 <IconButton
                   key={key}
                   className="h-8 w-8 p-0 relative"
-                  onClick={() => input.onChange(color[100])}
+                  onClick={() => input.onChange(color[50])}
                   style={{
                     background: color[500],
                   }}

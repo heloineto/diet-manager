@@ -37,3 +37,29 @@ export const removeExercisesAtRows = (workout: WorkoutWithRef, rows: Row<Exercis
     rows.map((row) => Number(row.id))
   );
 };
+
+export const moveExercise = (
+  workout: WorkoutWithRef,
+  fromIndex: number,
+  toIndex: number
+) => {
+  const movedExercise = workout.exercises[fromIndex];
+  const exercisesArr: Exercise[] = Object.values(omit(workout.exercises, fromIndex));
+
+  const rearrangedExercises: { [index: number]: Exercise } = {};
+
+  for (let i = 0; i < exercisesArr.length + 1; i++) {
+    if (toIndex === i) {
+      rearrangedExercises[i] = { ...movedExercise, index: toIndex };
+      continue;
+    }
+    if (toIndex < i) {
+      rearrangedExercises[i] = { ...exercisesArr[i + 1], index: toIndex };
+      continue;
+    }
+
+    rearrangedExercises[i] = { ...exercisesArr[i], index: toIndex };
+  }
+
+  console.log(rearrangedExercises);
+};
