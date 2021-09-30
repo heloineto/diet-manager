@@ -46,8 +46,8 @@ const MainShell = ({ children, aside, asideProps }: Props) => {
             <aside
               className={clsx(
                 asideProps?.size === 'large'
-                  ? 'lg:w-[26rem] xl:w-[32rem]'
-                  : 'lg:w-96 xl:w-[26rem]',
+                  ? 'lg:w-[28rem] xl:w-[38rem]'
+                  : 'lg:w-[26rem] xl:w-[32rem]',
                 asideProps?.position === 'left' ? 'pl-2.5' : 'pr-2.5',
                 'hidden lg:block overflow-y-auto py-2.5'
               )}

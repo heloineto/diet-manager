@@ -18,9 +18,6 @@ const Home: NextPage = () => {
           <Meals />
         </div>
       }
-      asideProps={{
-        size: 'large',
-      }}
     >
       {compact && <Calendar className="mb-5" expanded={false} />}
       <Summary />
