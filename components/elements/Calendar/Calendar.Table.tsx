@@ -36,8 +36,10 @@ const CalendarTable = ({
     [navDate]
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
+    columns,
+    data,
+  });
 
   return (
     <div className="p-2">
@@ -95,8 +97,7 @@ const CalendarTable = ({
                       >
                         <div
                           className={clsx(
-                            isToday &&
-                              'bg-primary-200 border-2 border-white rounded-md',
+                            isToday && 'bg-primary-200 border-2 border-white rounded-md',
                             'text-[0.950rem] absolute w-full h-full flex flex-col items-center justify-center'
                           )}
                         >

@@ -123,7 +123,7 @@ const Workout = ({ workout }: Props) => {
                       id === 'sets' && 'w-1/12',
                       id === 'reps' && 'w-3/12',
                       id === 'weight' && 'w-3/12',
-                      id === 'label' && 'w-3/12 text-left',
+                      id === 'label' && 'w-3/12 text-left pl-1 sm:pl-2',
                       `font-bold border-gray-300 bg-gray-100 border-b-2 table-cell h-8 uppercase`
                     )}
                     {...column.getHeaderProps()}
@@ -186,14 +186,11 @@ const Workout = ({ workout }: Props) => {
                   const { value } = cell;
                   const { id } = cell.column;
 
-                  const reps = id === 'reps';
-                  const weight = id === 'weight';
-
                   return (
                     <td
                       className={clsx(
                         id === 'label'
-                          ? 'text-left font-medium'
+                          ? 'text-left font-medium pl-1 sm:pl-2'
                           : 'font-semibold md:font-medium',
                         selected &&
                           `
@@ -227,10 +224,13 @@ const Workout = ({ workout }: Props) => {
                             gridTemplateColumns: `repeat(${value.length}, minmax(0, 1fr))`,
                           }}
                         >
-                          {value.map((eachValue) => (
+                          {value.map((eachValue, idx) => (
                             <div
                               key={eachValue}
-                              className="border-l-2 h-full flex justify-center items-center"
+                              className={clsx(
+                                idx !== 0 && 'border-l-2',
+                                'h-full flex justify-center items-center'
+                              )}
                             >
                               {eachValue}
                             </div>
@@ -256,7 +256,7 @@ const Workout = ({ workout }: Props) => {
                   return (
                     <td
                       className={clsx(
-                        id === 'label' && 'text-left',
+                        id === 'label' && 'text-left pl-1',
                         'table-cell h-8 font-bold border-gray-300 bg-gray-100 border-b-0 border-t-2'
                       )}
                       {...column.getFooterProps()}

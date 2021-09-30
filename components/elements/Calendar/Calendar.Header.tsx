@@ -10,6 +10,8 @@ import {
   SearchIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  ChevronDoubleUpIcon,
+  ChevronDoubleDownIcon,
 } from '@heroicons/react/outline';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
@@ -28,6 +30,7 @@ const CalendarHeader = ({
   selectedDate,
   setSelectedDate,
   expanded,
+  setExpanded,
 }: Props) => {
   const [searchMode, setSearchMode] = useState(false);
 
@@ -84,16 +87,30 @@ const CalendarHeader = ({
         navDate.monthLong
       )} ${navDate.year}`}</div>
 
+      <IconButton
+        className="ml-auto mr-0 sm:mr-2 hover:text-blue-600"
+        onClick={() => setExpanded((value) => !value)}
+      >
+        {expanded ? (
+          <ChevronDoubleUpIcon className="h-5 w-auto" />
+        ) : (
+          <ChevronDoubleDownIcon className="h-5 w-auto" />
+        )}
+      </IconButton>
       <Button
-        className="ml-auto mr-0 sm:mr-2 border-2 text-sm sm:text-base h-7 w-7 sm:h-8 sm:w-8"
+        className="mr-0 sm:mr-2 border-2 text-sm sm:text-base h-7 w-7 sm:h-8 sm:w-8"
         color="secondary"
         variant="outlined"
         onClick={() => goto(DateTime.now())}
       >
         Hoje
       </Button>
-      <IconButton onClick={() => setSearchMode((value) => !value)}>
-        <SearchIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+
+      <IconButton
+        className="hover:text-blue-600"
+        onClick={() => setSearchMode((value) => !value)}
+      >
+        <SearchIcon className="h-5 w-auto sm:h-6 sm:w-6" />
       </IconButton>
     </>
   );

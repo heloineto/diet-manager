@@ -3,6 +3,8 @@ import clsx from 'clsx';
 import { useCalendarState } from './Calendar.state';
 import CalendarHeader from './Calendar.Header';
 import CalendarTable from './Calendar.Table';
+import { Button, IconButton } from '@material-ui/core';
+import { ChevronDoubleDownIcon, ChevronDoubleUpIcon } from '@heroicons/react/outline';
 
 interface Props {
   className?: string;
@@ -13,14 +15,7 @@ const Calendar = ({ expanded, className }: Props) => {
   const calendarState = useCalendarState({ expanded: expanded });
 
   return (
-    <div
-      className={clsx(className, 'border-2 rounded-xl')}
-      // onMouseEnter={() => setExpanded(true)}
-      // onMouseLeave={() => {
-      //   if (!navDate.hasSame(selectedDate, 'month')) setNavDate(selectedDate);
-      //   setExpanded(false);
-      // }}
-    >
+    <div className={clsx(className, 'border-2 rounded-xl')}>
       <CalendarHeader {...calendarState} />
       <CalendarTable {...calendarState} />
     </div>
