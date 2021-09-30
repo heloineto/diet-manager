@@ -6,6 +6,7 @@ import { AsideContext } from '@components/overlays/ModalWithAside/ModalWithAside
 import SearchFoodDetails from './SearchFood.Details';
 import { convertHitToFood } from './SearchFood.utils';
 import { SelectedFoodContext } from './SearchFood.context';
+import { round } from 'lodash';
 
 interface Props {
   hit: Hit<Hit<BasicDoc>>;
@@ -18,7 +19,7 @@ const SearchFoodHit = ({ hit, isEven }: Props) => {
 
   const food = convertHitToFood(hit);
 
-  const { label, kcal, prot, fat, carb, unit, foodId } = food;
+  const { label, kcal, prot, fat, carb, foodId } = food;
 
   const isSelected = foodId === selectedFood?.foodId;
 
@@ -39,12 +40,7 @@ const SearchFoodHit = ({ hit, isEven }: Props) => {
           }
 
           setAside &&
-            setAside(
-              <SearchFoodDetails
-                food={food}
-                setSelectedFood={setSelectedFood}
-              />
-            );
+            setAside(<SearchFoodDetails food={food} setSelectedFood={setSelectedFood} />);
 
           setAsideLabel && setAsideLabel(food.label);
         }}
@@ -58,7 +54,7 @@ const SearchFoodHit = ({ hit, isEven }: Props) => {
             'flex items-center justify-center min-w-[10%] text-indigo-900'
           )}
         >
-          {carb}
+          {round(carb * 100, 2)}
         </div>
         <div
           className={clsx(
@@ -66,7 +62,7 @@ const SearchFoodHit = ({ hit, isEven }: Props) => {
             'flex items-center justify-center min-w-[10%] text-blue-900'
           )}
         >
-          {prot}
+          {round(prot * 100, 2)}
         </div>
         <div
           className={clsx(
@@ -74,7 +70,7 @@ const SearchFoodHit = ({ hit, isEven }: Props) => {
             'flex items-center justify-center min-w-[10%] text-yellow-900'
           )}
         >
-          {fat}
+          {round(fat * 100, 2)}
         </div>
         <div
           className={clsx(
@@ -82,7 +78,7 @@ const SearchFoodHit = ({ hit, isEven }: Props) => {
             'flex items-center justify-center min-w-[10%] text-green-900'
           )}
         >
-          {kcal}
+          {round(kcal * 100, 2)}
         </div>
       </div>
     </li>

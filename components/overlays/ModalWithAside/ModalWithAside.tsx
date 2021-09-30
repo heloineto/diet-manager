@@ -14,7 +14,6 @@ interface Props {
   open: boolean;
   onClose?: () => void;
   initialStyle?: CSSProperties;
-  aside?: ReactNode;
 }
 
 const ModalWithAside = ({
@@ -88,9 +87,7 @@ const ModalWithAside = ({
           </IconButton>
         </div>
         <div className=" p-5">
-          <AsideContext.Provider
-            value={{ aside, setAside, asideLabel, setAsideLabel }}
-          >
+          <AsideContext.Provider value={{ aside, setAside, asideLabel, setAsideLabel }}>
             {children}
             {actions}
           </AsideContext.Provider>
@@ -99,9 +96,7 @@ const ModalWithAside = ({
       {aside && (
         <div
           className={clsx(
-            compact
-              ? 'w-full h-full overflow-y-auto'
-              : 'shadow-overlay rounded-xl',
+            compact ? 'w-full h-full overflow-y-auto' : 'shadow-overlay rounded-xl',
             'absolute bg-white lg:w-80 p-0 top-0 inline-block lg:mx-5'
           )}
           style={compact ? {} : asideModalStyle}
@@ -113,11 +108,7 @@ const ModalWithAside = ({
             )}
           >
             {compact && (
-              <IconButton
-                className="mr-1"
-                edge="start"
-                onClick={() => setAside(null)}
-              >
+              <IconButton className="mr-1" edge="start" onClick={() => setAside(null)}>
                 <ArrowLeftIcon className="h-5 w-5" />
               </IconButton>
             )}

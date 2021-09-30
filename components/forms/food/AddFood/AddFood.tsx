@@ -4,6 +4,7 @@ import { Button } from '@material-ui/core';
 import addFoodFirestore from './AddFood.firestore';
 import SearchFood from '../SearchFood';
 import ModalWithAside from '@components/overlays/ModalWithAside';
+import RegisterFood from '../RegisterFood';
 
 interface Props {
   className?: string;
@@ -13,7 +14,7 @@ interface Props {
 }
 
 const AddFood = ({ className, open, onClose, mealRef }: Props) => {
-  const [createOpen, setCreateOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
 
   const [food, setFood] = useState<Food | null>(null);
 
@@ -24,6 +25,24 @@ const AddFood = ({ className, open, onClose, mealRef }: Props) => {
 
     await addFoodFirestore(food, mealRef);
   };
+
+  if (registerOpen)
+    return (
+      <RegisterFood
+        open={registerOpen}
+        onSubmit={(registeredFood?: Food) => {
+          if (!registeredFood) {
+            onClose();
+            return;
+          }
+
+          setFood(registeredFood);
+          addFood();
+        }}
+        onReturn={() => setRegisterOpen(false)}
+        onClose={onClose}
+      />
+    );
 
   return (
     <ModalWithAside
@@ -59,7 +78,7 @@ const AddFood = ({ className, open, onClose, mealRef }: Props) => {
             <br />
             <button
               className="text-blue-500 underline font-medium"
-              onClick={() => setCreateOpen(true)}
+              onClick={() => setRegisterOpen(true)}
             >
               Cadastre um novo alimento.
             </button>
