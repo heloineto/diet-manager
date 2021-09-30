@@ -103,8 +103,8 @@ const ColorField = ({ label, name }: Props) => {
     <Field label={label} name={name}>
       {({ input }) => (
         <FormControl className="group">
-          <FormLabel className="group-hover:text-blue-500 mb-2">{label}</FormLabel>
-          <div className="flex gap-x-4">
+          <FormLabel className="group-hover:text-blue-500">{label}</FormLabel>
+          <div className="flex gap-x-4 my-2">
             {Object.entries(colors).map(([key, color]) => {
               const selected = color[100] === input.value;
 

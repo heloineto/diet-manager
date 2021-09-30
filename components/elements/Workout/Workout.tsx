@@ -205,7 +205,7 @@ const Workout = ({ workout }: Props) => {
                         group-hover:first:after:h-full
                         group-hover:first:after:shadow-inner
                         `,
-                        'table-cell border-b h-8'
+                        'table-cell border-l-2 border-gray-200 h-8'
                       )}
                       {...cell.getCellProps()}
                     >

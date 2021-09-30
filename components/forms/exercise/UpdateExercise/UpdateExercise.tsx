@@ -47,9 +47,9 @@ const UpdateExercise = ({ className, exercise, workoutRef, onClickOutside }: Pro
     await updateExerciseFirestore(
       {
         label,
-        sets,
-        reps,
-        weight,
+        sets: Number(sets),
+        reps: reps.map((eachReps) => Number(eachReps)),
+        weight: weight.map((weightWeight) => Number(weightWeight)),
       },
       exercise.index,
       workoutRef
