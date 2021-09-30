@@ -27,6 +27,7 @@ export const convertHitToFood = (hit: Hit<Hit<BasicDoc>>) => {
     pyridoxine: Number(hit.pyridoxine) || 0,
     niacin: Number(hit.niacin) || 0,
     vitaminC: Number(hit.vitaminC) || 0,
+    createdBy: hit.createdBy || '',
   };
 
   return food;

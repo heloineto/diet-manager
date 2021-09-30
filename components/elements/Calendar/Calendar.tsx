@@ -3,8 +3,6 @@ import clsx from 'clsx';
 import { useCalendarState } from './Calendar.state';
 import CalendarHeader from './Calendar.Header';
 import CalendarTable from './Calendar.Table';
-import { Button, IconButton } from '@material-ui/core';
-import { ChevronDoubleDownIcon, ChevronDoubleUpIcon } from '@heroicons/react/outline';
 
 interface Props {
   className?: string;

@@ -4,12 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import HexagonLabel from '@components/data-displays/HexagonLabel';
 import { round } from 'lodash';
-import {
-  InputAdornment,
-  TextField,
-  useMediaQuery,
-  useTheme,
-} from '@material-ui/core';
+import { InputAdornment, TextField, useMediaQuery, useTheme } from '@material-ui/core';
 
 import ExtraDetails from './SearchFood.ExtraDetails';
 import { useMacrosInfo } from '@lib/hooks';
@@ -93,9 +88,7 @@ const SearchFoodDetails = ({ food, setSelectedFood }: Props) => {
         autoComplete="off"
       />
       {!isNaN(amount) && (
-        <div className="flex justify-between md:mx-36 lg:mx-0">
-          {renderHexagons()}
-        </div>
+        <div className="flex justify-between md:mx-36 lg:mx-0">{renderHexagons()}</div>
       )}
       <ExtraDetails food={food} amount={amount} />
     </div>

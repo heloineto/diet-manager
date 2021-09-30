@@ -119,4 +119,9 @@ interface FoodRecord {
   pyridoxine: number;
   niacin: number;
   vitaminC: number;
+
+  // idx: number;
+  createdBy: string;
+  // createdAt: number | import('./firebase').FieldValue;
+  // updatedAt: number | import('./firebase').FieldValue;
 }
