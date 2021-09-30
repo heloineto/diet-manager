@@ -16,6 +16,7 @@ interface Props {
   workoutRef: FirebaseRef;
   onClickOutside: () => void;
   moveUp: () => void;
+  moveDown: () => void;
 }
 
 const UpdateExercise = ({
@@ -24,6 +25,7 @@ const UpdateExercise = ({
   workoutRef,
   onClickOutside,
   moveUp,
+  moveDown,
 }: Props) => {
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
@@ -104,7 +106,7 @@ const UpdateExercise = ({
                   </IconButton>
                   <IconButton
                     className="p-1 h-7 w-7 hover:text-blue-600"
-                    // onClick={moveDown}
+                    onClick={moveDown}
                   >
                     <ChevronDownIcon className="h-5 w-5 sm:h-6 sm:w-6" />
                   </IconButton>

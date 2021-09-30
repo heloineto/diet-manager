@@ -28,8 +28,8 @@ const Workout = ({ workout }: Props) => {
     setHover,
     selectedRows,
     setSelectedRows,
-    editingRow,
-    setEditingRow,
+    editingRowId,
+    setEditingRowId,
   } = useWorkoutState();
 
   const selectRow = (row: Row<Exercise>) => {
@@ -146,17 +146,21 @@ const Workout = ({ workout }: Props) => {
             const belowSelected =
               idx < rows.length - 1 && !!selectedRows[rows[idx + 1].id];
 
-            const editing = editingRow?.id === id;
+            const editing = editingRowId === id;
 
             if (editing)
               return (
                 <UpdateExercise
                   exercise={exercises[Number(id)]}
                   workoutRef={workout.ref}
-                  onClickOutside={() => setEditingRow(null)}
-                  moveUp={() => {
-                    moveExercise(workout, Number(id), Number(id) - 1);
-                    // setEditingRow()
+                  onClickOutside={() => setEditingRowId(null)}
+                  moveUp={async () => {
+                    await moveExercise(workout, Number(id), Number(id) - 1);
+                    setEditingRowId(String(Number(id) - 1));
+                  }}
+                  moveDown={async () => {
+                    await moveExercise(workout, Number(id), Number(id) + 1);
+                    setEditingRowId(String(Number(id) + 1));
                   }}
                 />
               );
@@ -175,7 +179,7 @@ const Workout = ({ workout }: Props) => {
                 }}
                 onDoubleClick={() => {
                   unselectRow(row);
-                  setEditingRow(row);
+                  setEditingRowId(row.id);
                 }}
               >
                 {row.cells.map((cell) => {

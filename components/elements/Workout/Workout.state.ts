@@ -9,7 +9,7 @@ export const useWorkoutState = () => {
     [k: string]: Row<Exercise>;
   }>({});
 
-  const [editingRow, setEditingRow] = useState<Row<Exercise> | null>(null);
+  const [editingRowId, setEditingRowId] = useState<string | null>(null);
 
   return {
     expanded,
@@ -18,7 +18,7 @@ export const useWorkoutState = () => {
     setHover,
     selectedRows,
     setSelectedRows,
-    editingRow,
-    setEditingRow,
+    editingRowId,
+    setEditingRowId,
   };
 };

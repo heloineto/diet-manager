@@ -38,7 +38,7 @@ export const removeExercisesAtRows = (workout: WorkoutWithRef, rows: Row<Exercis
   );
 };
 
-export const moveExercise = (
+export const moveExercise = async (
   workout: WorkoutWithRef,
   fromIndex: number,
   toIndex: number
@@ -49,17 +49,20 @@ export const moveExercise = (
   const rearrangedExercises: { [index: number]: Exercise } = {};
 
   for (let i = 0; i < exercisesArr.length + 1; i++) {
-    if (toIndex === i) {
-      rearrangedExercises[i] = { ...movedExercise, index: toIndex };
+    if (i === toIndex) {
+      rearrangedExercises[i] = { ...movedExercise, index: i };
       continue;
     }
-    if (toIndex < i) {
-      rearrangedExercises[i] = { ...exercisesArr[i + 1], index: toIndex };
+    if (i > toIndex) {
+      rearrangedExercises[i] = { ...exercisesArr[i - 1], index: i };
       continue;
     }
 
-    rearrangedExercises[i] = { ...exercisesArr[i], index: toIndex };
+    rearrangedExercises[i] = { ...exercisesArr[i], index: i };
   }
 
-  console.log(rearrangedExercises);
+  await workout.ref.update({
+    updatedAt: serverTimestamp(),
+    exercises: rearrangedExercises,
+  });
 };
