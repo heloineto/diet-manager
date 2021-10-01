@@ -9,6 +9,7 @@ import { useContext, useMemo, useState } from 'react';
 import createDecorator from 'final-form-calculate';
 import updateNutritionGoalsFirestore from './UpdateNutritionGoals.firestore';
 import { UserContext } from '@lib/context';
+import NumberField from '@components/inputs/NumberField';
 
 interface Props {
   className?: string;
@@ -160,53 +161,30 @@ const UpdateNutritionGoals = ({ className, onClose, submitButtonProps }: Props) 
                   key={key}
                   className="w-full flex sm:flex-col gap-x-1 sm:gap-x-0 sm:gap-y-5"
                 >
-                  <TextField
+                  <NumberField
                     label={label}
                     name={key}
-                    type="number"
-                    autoComplete="off"
+                    min={0}
+                    step={0.01}
                     disabled={inputMode !== 'grams'}
                     onClick={() => {
                       if (inputMode !== 'grams') setInputMode('grams');
                     }}
-                    fieldProps={{
-                      parse: (value) => {
-                        if (Number(value) < 0) return '0';
-
-                        return value;
-                      },
-                    }}
                     InputProps={{
-                      inputProps: {
-                        min: 0,
-                        step: '.01',
-                      },
                       endAdornment: <InputAdornment position="end">g</InputAdornment>,
                     }}
                   />
-                  <TextField
+                  <NumberField
                     label={label}
                     name={`${key}Percentage`}
-                    type="number"
-                    autoComplete="off"
+                    min={0}
+                    max={100}
+                    step={0.01}
                     disabled={inputMode !== 'percentage'}
                     onClick={() => {
                       if (inputMode !== 'percentage') setInputMode('percentage');
                     }}
-                    fieldProps={{
-                      parse: (value: string) => {
-                        if (Number(value) > 100) return '100';
-                        if (Number(value) < 0) return '0';
-
-                        return value;
-                      },
-                    }}
                     InputProps={{
-                      inputProps: {
-                        min: 0,
-                        max: 100,
-                        step: '.01',
-                      },
                       endAdornment: (
                         <InputAdornment position="end">
                           <div className="font-bold text-gray-500">%</div>
@@ -219,21 +197,17 @@ const UpdateNutritionGoals = ({ className, onClose, submitButtonProps }: Props) 
             </div>
 
             <div className="flex justify-center">
-              <TextField
+              <NumberField
                 className="my-5 w-1/2"
                 label={kcalInfo.label}
                 name={kcalInfo.key}
-                type="number"
-                autoComplete="off"
+                min={0}
+                step={0.01}
                 disabled={inputMode !== 'percentage'}
                 onClick={() => {
                   if (inputMode !== 'percentage') setInputMode('percentage');
                 }}
                 InputProps={{
-                  inputProps: {
-                    min: 0,
-                    step: '.01',
-                  },
                   endAdornment: <InputAdornment position="end">g</InputAdornment>,
                 }}
               />

@@ -213,13 +213,13 @@ const Workout = ({ workout }: Props) => {
                         group-hover:first:after:h-full
                         group-hover:first:after:shadow-inner
                         `,
-                        'table-cell border-l-2 border-gray-200 h-8'
+                        'border-l-2 border-gray-300 h-8'
                       )}
                       {...cell.getCellProps()}
                     >
                       {Array.isArray(value) ? (
                         <div
-                          className="grid h-full"
+                          className="grid h-8"
                           style={{
                             gridTemplateColumns: `repeat(${value.length}, minmax(0, 1fr))`,
                           }}
@@ -229,7 +229,7 @@ const Workout = ({ workout }: Props) => {
                               key={eachValue}
                               className={clsx(
                                 idx !== 0 && 'border-l-2',
-                                'h-full flex justify-center items-center'
+                                'h-8 flex justify-center items-center'
                               )}
                             >
                               {eachValue}

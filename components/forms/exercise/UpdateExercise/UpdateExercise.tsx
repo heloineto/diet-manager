@@ -9,6 +9,7 @@ import { Form } from 'react-final-form';
 
 import updateExerciseSchema from './UpdateExercise.schema';
 import updateExerciseFirestore from './UpdateExercise.firestore';
+import NumberField from '@components/inputs/NumberField';
 
 interface Props {
   className?: string;
@@ -123,26 +124,12 @@ const UpdateExercise = ({
                 />
               </td>
               <td>
-                <TextField
+                <NumberField
                   label="Sets"
                   name="sets"
-                  type="number"
+                  min={0}
+                  max={10}
                   variant="standard"
-                  autoComplete="off"
-                  fieldProps={{
-                    parse: (value) => {
-                      if (Number(value) < 0) return '0';
-                      if (Number(value) > 10) return '10';
-
-                      return value;
-                    },
-                  }}
-                  InputProps={{
-                    inputProps: {
-                      min: 0,
-                      step: '1',
-                    },
-                  }}
                 />
               </td>
               <td>
@@ -150,26 +137,12 @@ const UpdateExercise = ({
                   <Field name="reps">
                     {(props) =>
                       Array.from({ length: values.sets }, (_, idx) => (
-                        <TextField
+                        <NumberField
                           key={idx}
                           label={compact ? `${idx + 1}` : `Reps ${idx + 1}`}
                           name={`reps.${idx}`}
-                          type="number"
+                          min={0}
                           variant="standard"
-                          autoComplete="off"
-                          fieldProps={{
-                            parse: (value) => {
-                              if (Number(value) < 0) return '0';
-
-                              return value;
-                            },
-                          }}
-                          InputProps={{
-                            inputProps: {
-                              min: 0,
-                              step: '1',
-                            },
-                          }}
                         />
                       ))
                     }
@@ -181,26 +154,12 @@ const UpdateExercise = ({
                   <Field name="weight">
                     {(props) =>
                       Array.from({ length: values.sets }, (_, idx) => (
-                        <TextField
+                        <NumberField
                           key={idx}
                           label={compact ? `${idx + 1}` : `Peso ${idx + 1}`}
                           name={`weight.${idx}`}
-                          type="number"
+                          min={0}
                           variant="standard"
-                          autoComplete="off"
-                          fieldProps={{
-                            parse: (value) => {
-                              if (Number(value) < 0) return '0';
-
-                              return value;
-                            },
-                          }}
-                          InputProps={{
-                            inputProps: {
-                              min: 0,
-                              step: '1',
-                            },
-                          }}
                         />
                       ))
                     }

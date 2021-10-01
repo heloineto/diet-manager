@@ -12,7 +12,7 @@ interface Props {
 
 const RegisterFood = ({ open, onSubmit, onClose, onReturn }: Props) => {
   return (
-    <Modal label="Adicionar Alimento" open={open} onClose={onClose}>
+    <Modal label="Registrar Alimento" open={open} onClose={onClose}>
       <div className="flex flex-col space-y-2.5 lg:w-[32rem]">
         <div className="flex flex-col space-y-2.5">
           {/*  */}

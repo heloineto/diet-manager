@@ -8,6 +8,7 @@ import clsx from 'clsx';
 import { UserContext } from '@lib/context';
 import ActivityLevelSlider from '@components/inputs/ActivityLevelSlider';
 import updateMetricsFirestore from './UpdateMetrics.firestore';
+import NumberField from '@components/inputs/NumberField';
 
 interface Props {
   className?: string;
@@ -60,69 +61,34 @@ const UpdateMetrics = ({ className, onClose, submitButtonProps }: Props) => {
           onSubmit={handleSubmit}
         >
           <div className="sm:col-span-3">
-            <TextField
+            <NumberField
               label="Peso atual"
               name="weightCurrent"
-              type="number"
-              autoComplete="off"
-              fieldProps={{
-                parse: (value) => {
-                  if (Number(value) < 0) return '0';
-
-                  return value;
-                },
-              }}
+              min={0}
+              step={0.01}
               InputProps={{
-                inputProps: {
-                  min: 0,
-                  step: '.01',
-                },
                 endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
               }}
             />
           </div>
 
           <div className="sm:col-span-3">
-            <TextField
+            <NumberField
               label="Peso alvo"
               name="weightDesired"
-              type="number"
-              autoComplete="off"
-              fieldProps={{
-                parse: (value) => {
-                  if (Number(value) < 0) return '0';
-
-                  return value;
-                },
-              }}
+              min={0}
               InputProps={{
-                inputProps: {
-                  min: 0,
-                  step: '.01',
-                },
                 endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
               }}
             />
           </div>
 
           <div className="sm:col-span-6">
-            <TextField
+            <NumberField
               label="Altura"
               name="heightCurrent"
-              type="number"
-              autoComplete="off"
-              fieldProps={{
-                parse: (value) => {
-                  if (Number(value) < 0) return '0';
-
-                  return value;
-                },
-              }}
+              min={0}
               InputProps={{
-                inputProps: {
-                  min: 0,
-                  step: '.01',
-                },
                 endAdornment: <InputAdornment position="end">cm</InputAdornment>,
               }}
             />
