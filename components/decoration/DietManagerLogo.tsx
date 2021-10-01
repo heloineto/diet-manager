@@ -1,4 +1,4 @@
-import logoScalable from '@public/logo/scalable.svg';
+import logoScalable from '@public/logo/round/scalable.svg';
 import Image from 'next/image';
 
 interface Props {

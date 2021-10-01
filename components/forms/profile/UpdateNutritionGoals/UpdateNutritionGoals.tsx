@@ -156,7 +156,7 @@ const UpdateNutritionGoals = ({ className, onClose, submitButtonProps }: Props) 
         {({ handleSubmit, submitting, values }) => (
           <form className={clsx(className)} onSubmit={handleSubmit}>
             <div className="flex flex-col sm:flex-row gap-x-1 gap-y-2.5 sm:gap-y-0 sm:gap-x-2.5">
-              {[carbInfo, protInfo, fatInfo].map(({ label, key, kcalPerUnit }) => (
+              {[carbInfo, protInfo, fatInfo].map(({ label, key }) => (
                 <div
                   key={key}
                   className="w-full flex sm:flex-col gap-x-1 sm:gap-x-0 sm:gap-y-5"
