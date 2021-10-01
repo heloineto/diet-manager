@@ -96,7 +96,7 @@ const UpdateExercise = ({
             >
               <td className="flex justify-center items-center gap-x-2">
                 <div className="font-semibold text-gray-700 text-base">
-                  {exercise.index}
+                  {exercise.index + 1}
                 </div>
                 <div className="flex flex-col">
                   <IconButton

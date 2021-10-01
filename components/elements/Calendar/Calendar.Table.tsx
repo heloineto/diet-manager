@@ -26,14 +26,13 @@ const CalendarTable = ({
   const data = useMemo(() => getMonthData(navDate), [navDate]);
   const columns = useMemo(() => getColumns(), [navDate]);
 
-  //! Changed this from selectedDate to navDate. Make sure nothing is broken
   const currWeek = useMemo(
     () =>
       Interval.fromDateTimes(
-        navDate.plus({ days: 1 }).startOf('week'),
-        navDate.plus({ days: 1 }).endOf('week')
+        selectedDate.plus({ days: 1 }).startOf('week'),
+        selectedDate.plus({ days: 1 }).endOf('week')
       ).mapEndpoints((endpoint) => endpoint.minus({ days: 1 })),
-    [navDate]
+    [selectedDate]
   );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({

@@ -124,7 +124,8 @@ const Workout = ({ workout }: Props) => {
                       id === 'reps' && 'w-3/12',
                       id === 'weight' && 'w-3/12',
                       id === 'label' && 'w-3/12 text-left pl-1 sm:pl-2',
-                      `font-bold border-gray-300 bg-gray-100 border-b-2 table-cell h-8 uppercase`
+                      data.length && 'border-b-2',
+                      'font-bold border-gray-300 bg-gray-100 table-cell h-8 uppercase'
                     )}
                     {...column.getHeaderProps()}
                   >
@@ -182,7 +183,7 @@ const Workout = ({ workout }: Props) => {
                   setEditingRowId(row.id);
                 }}
               >
-                {row.cells.map((cell) => {
+                {row.cells.map((cell, idx) => {
                   const { value } = cell;
                   const { id } = cell.column;
 
@@ -213,13 +214,14 @@ const Workout = ({ workout }: Props) => {
                         group-hover:first:after:h-full
                         group-hover:first:after:shadow-inner
                         `,
-                        'border-l-2 border-gray-300 h-8'
+                        idx !== 0 && 'border-l-2',
+                        'border-gray-300 h-8'
                       )}
                       {...cell.getCellProps()}
                     >
                       {Array.isArray(value) ? (
                         <div
-                          className="grid h-8"
+                          className="grid h-full"
                           style={{
                             gridTemplateColumns: `repeat(${value.length}, minmax(0, 1fr))`,
                           }}
@@ -229,15 +231,17 @@ const Workout = ({ workout }: Props) => {
                               key={eachValue}
                               className={clsx(
                                 idx !== 0 && 'border-l-2',
-                                'h-8 flex justify-center items-center'
+                                'h-full flex justify-center items-center'
                               )}
                             >
                               {eachValue}
                             </div>
                           ))}
                         </div>
-                      ) : (
+                      ) : id != 'index' ? (
                         cell.render('Cell')
+                      ) : (
+                        value + 1
                       )}
                     </td>
                   );
@@ -246,29 +250,6 @@ const Workout = ({ workout }: Props) => {
             );
           })}
         </tbody>
-        <tfoot>
-          {footerGroups.map((group) => {
-            return (
-              <tr {...group.getFooterGroupProps()}>
-                {group.headers.map((column) => {
-                  const { id } = column;
-
-                  return (
-                    <td
-                      className={clsx(
-                        id === 'label' && 'text-left pl-1',
-                        'table-cell h-8 font-bold border-gray-300 bg-gray-100 border-b-0 border-t-2'
-                      )}
-                      {...column.getFooterProps()}
-                    >
-                      {column.render('Footer')}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tfoot>
       </table>
     </div>
   );
