@@ -60,7 +60,14 @@ const UpdateMeal = ({ className, onClose, meal }: Props) => {
           onSubmit={handleSubmit}
           className={clsx(className, 'flex flex-col space-y-5')}
         >
-          <TextField label="Título" name="label" placeholder="Adicionar Título" />
+          <TextField
+            label="Título"
+            name="label"
+            placeholder="Adicionar Título"
+            size="medium"
+            autoFocus
+            autoComplete="off"
+          />
           <Switches label="Público" name="isPublic" data={{ label: '', value: true }} />
           <ColorField label="Cor" name="color" />
           <div className="flex space-x-5">
