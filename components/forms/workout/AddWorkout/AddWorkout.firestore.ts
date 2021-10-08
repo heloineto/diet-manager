@@ -1,4 +1,5 @@
-import { auth, firestore, serverTimestamp } from '@lib/firebase';
+import { auth, firestore } from '@lib/firebase';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
 const addWorkoutFirestore = async ({
   label,
@@ -27,9 +28,9 @@ const addWorkoutFirestore = async ({
 
   if (!uid) return { error: 'verifique se você está logado' };
 
-  const workoutsRef = firestore.collection('users').doc(uid).collection('workouts');
+  const workoutsRef = collection(firestore, `users/${uid}/workouts`);
 
-  await workoutsRef.add(newWorkout).catch((error) => ({ error }));
+  await addDoc(workoutsRef, newWorkout).catch((error) => ({ error }));
 };
 
 export default addWorkoutFirestore;

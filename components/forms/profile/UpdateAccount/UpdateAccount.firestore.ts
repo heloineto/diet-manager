@@ -2,6 +2,7 @@ import { updateUsername } from '@lib/auth';
 import { auth, firestore } from '@lib/firebase';
 import { converter } from '@utils/firestore';
 import { isNil, omitBy } from 'lodash';
+import { doc, updateDoc } from 'firebase/firestore';
 
 const updateAccountFirestore = async ({
   oldUsername,
@@ -13,15 +14,13 @@ const updateAccountFirestore = async ({
   if (!uid) return { error: 'verifique se você está logado' };
 
   try {
-    const userDoc = firestore
-      .collection('users')
-      .doc(uid)
-      .withConverter(converter<UserDetails>());
+    const userDoc = doc(firestore, `users/${uid}`).withConverter(
+      converter<UserDetails>()
+    );
 
-    await userDoc.update(omitBy(updates, isNil));
+    await updateDoc(userDoc, omitBy(updates, isNil));
 
-    if (oldUsername && newUsername)
-      await updateUsername(uid, oldUsername, newUsername);
+    if (oldUsername && newUsername) await updateUsername(uid, oldUsername, newUsername);
   } catch (error) {
     return { error };
   }

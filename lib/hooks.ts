@@ -1,28 +1,30 @@
 import { useEffect, useMemo, useState } from 'react';
 import { DateTime } from 'luxon';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollection } from 'react-firebase-hooks/firestore';
 
 import { auth, firestore } from '@lib/firebase';
 import { useRouter } from 'next/router';
 import { isKeyInShallowObject } from '@utils/typescript';
-import { collection, onSnapshot, query, where, orderBy } from 'firebase/firestore';
+import { collection, doc, onSnapshot, query, where, orderBy } from 'firebase/firestore';
+
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollection } from 'react-firebase-hooks/firestore';
 
 export const useUserData = () => {
   const [user, loading] = useAuthState(auth);
+
   const [userDetails, setUserDetails] = useState({});
 
   useEffect(() => {
     let unsubscribe;
 
     if (user) {
-      const userRef = collection(firestore, `users/${user.uid}`);
+      const userRef = doc(firestore, `users/${user.uid}`);
 
-      unsubscribe = onSnapshot(userRef, (doc) => {
-        const docData = doc.data();
-        if (!docData) return;
+      unsubscribe = onSnapshot(userRef, (userDoc) => {
+        const userDocData = userDoc.data();
+        if (!userDocData) return;
 
-        setUserDetails(docData);
+        setUserDetails(userDocData);
       });
     } else {
       setUserDetails({});
@@ -59,9 +61,9 @@ export const useMealsData = (selectedDateTime: DateTime) => {
   useEffect(() => {
     if (!querySnapshot) return;
 
-    const snapshot = querySnapshot.docs.map((doc) => ({
-      ...(doc.data() as Meal), //! Maybe typescript is dumb, maybe i'm dumb. (maybe firebase is dumb, also.)
-      ref: doc.ref,
+    const snapshot = querySnapshot.docs.map((mealDoc) => ({
+      ...(mealDoc.data() as Meal), //! Maybe typescript is dumb, maybe i'm dumb. (maybe firebase is dumb, also.)
+      ref: mealDoc.ref,
     }));
 
     setMeals(snapshot);
@@ -89,9 +91,9 @@ export const useWorkoutsData = (selectedDateTime: DateTime) => {
   useEffect(() => {
     if (!querySnapshot) return;
 
-    const snapshot = querySnapshot.docs.map((doc) => ({
-      ...(doc.data() as Workout),
-      ref: doc.ref,
+    const snapshot = querySnapshot.docs.map((workoutDoc) => ({
+      ...(workoutDoc.data() as Workout),
+      ref: workoutDoc.ref,
     }));
 
     setWorkouts(snapshot);

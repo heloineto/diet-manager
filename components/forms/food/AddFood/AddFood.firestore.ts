@@ -1,4 +1,4 @@
-import { arrayUnion, serverTimestamp } from '@lib/firebase';
+import { arrayUnion, serverTimestamp } from 'firebase/firestore';
 
 const addFoodFirestore = async (
   { amount, label, carb, fat, kcal, prot, unit, foodId }: Food,

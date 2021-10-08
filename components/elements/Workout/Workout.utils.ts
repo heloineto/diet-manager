@@ -1,7 +1,7 @@
 import type { Row } from 'react-table';
 
-import { serverTimestamp } from '@lib/firebase';
 import { omit } from 'lodash';
+import { serverTimestamp } from 'firebase/firestore';
 
 export const removeExercisesByIndex = async (
   workout: WorkoutWithRef,

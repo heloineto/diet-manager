@@ -1,5 +1,6 @@
 import { auth, firestore } from '@lib/firebase';
 import { converter } from '@utils/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 
 const updateGeneralGoalsFirestore = async ({
   loseWeight,
@@ -11,12 +12,11 @@ const updateGeneralGoalsFirestore = async ({
   if (!uid) return { error: 'verifique se você está logado' };
 
   try {
-    const userDoc = firestore
-      .collection('users')
-      .doc(uid)
-      .withConverter(converter<UserDetails>());
+    const userDoc = doc(firestore, `users/${uid}`).withConverter(
+      converter<UserDetails>()
+    );
 
-    await userDoc.update({
+    await updateDoc(userDoc, {
       'goals.general': {
         loseWeight,
         buildMuscle,

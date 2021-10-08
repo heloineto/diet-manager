@@ -1,4 +1,5 @@
-import { auth, firestore, serverTimestamp } from '@lib/firebase';
+import { auth, firestore } from '@lib/firebase';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
 const addMealFirestore = async ({
   label,
@@ -27,9 +28,9 @@ const addMealFirestore = async ({
 
   if (!uid) return { error: 'verifique se você está logado' };
 
-  const mealsRef = firestore.collection('users').doc(uid).collection('meals');
+  const mealsRef = collection(firestore, `users/${uid}/meals`);
 
-  await mealsRef.add(newMeal).catch((error) => ({ error }));
+  await addDoc(mealsRef, newMeal).catch((error) => ({ error }));
 };
 
 export default addMealFirestore;

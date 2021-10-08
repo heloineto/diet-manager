@@ -1,4 +1,5 @@
-import { auth, serverTimestamp } from '@lib/firebase';
+import { auth } from '@lib/firebase';
+import { serverTimestamp, updateDoc } from 'firebase/firestore';
 
 const updateWorkoutFirestore = async (
   { label, isPublic, color, date, time }: UpdateWorkoutValuesType,
@@ -20,7 +21,7 @@ const updateWorkoutFirestore = async (
 
   if (!auth?.currentUser?.uid) return { error: 'verifique se você está logado' };
 
-  await workoutRef.update(updatedWorkout).catch((error) => ({ error }));
+  await updateDoc(workoutRef, updatedWorkout).catch((error) => ({ error }));
 };
 
 export default updateWorkoutFirestore;

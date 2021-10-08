@@ -3,14 +3,25 @@ import { getRandomInt } from '@utils/typescript';
 import { FORM_ERROR } from 'final-form';
 import { kebabCase } from 'lodash';
 
+import { doc, writeBatch, setDoc, getDoc } from 'firebase/firestore';
+
 import {
   auth,
-  facebookAuthProvider,
+  // facebookAuthProvider,
   firestore,
-  googleAuthProvider,
-  LOCAL,
-  SESSION,
+  // googleAuthProvider,
+  // LOCAL,
+  // SESSION,
 } from './firebase';
+import {
+  createUserWithEmailAndPassword,
+  FacebookAuthProvider,
+  GoogleAuthProvider,
+  Persistence,
+  setPersistence,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from '@firebase/auth';
 
 export const AUTH_ERRORS: {
   [code: string]: { message: string; faultyField: string };
@@ -30,16 +41,13 @@ export const AUTH_ERRORS: {
   },
 };
 
-export const docExists = async (documentPath: string) => {
-  const doc = firestore.doc(documentPath);
-  const { exists } = await doc.get();
+export const docExists = async (docPath: string) => {
+  const currDoc = doc(firestore, docPath);
+  const { exists } = await getDoc(currDoc);
   return exists;
 };
 
-export const getSafeUsername = async (
-  uid: string,
-  preferredUsername: string
-) => {
+export const getSafeUsername = async (uid: string, preferredUsername: string) => {
   let username = kebabCase(preferredUsername);
   let exists = await docExists(`usernames/${username}`);
 
@@ -67,17 +75,17 @@ export const updateUsername = async (
 ) => {
   if (newdPreferredUsername === oldUsername) return;
 
-  const batch = firestore.batch();
+  const batch = writeBatch(firestore);
 
-  const oldUsernameDoc = firestore.doc(`usernames/${oldUsername}`);
+  const oldUsernameDoc = doc(firestore, `usernames/${oldUsername}`);
   batch.delete(oldUsernameDoc);
 
   const newUsername = await getSafeUsername(uid, newdPreferredUsername);
 
-  const userDoc = firestore.doc(`users/${uid}`);
+  const userDoc = doc(firestore, `users/${uid}`);
   batch.update(userDoc, { username: newUsername });
 
-  const newUsernameDoc = firestore.doc(`usernames/${newUsername}`);
+  const newUsernameDoc = doc(firestore, `usernames/${newUsername}`);
   batch.set(newUsernameDoc, { uid });
 
   try {
@@ -87,18 +95,15 @@ export const updateUsername = async (
   }
 };
 
-export const registerUsername = async (
-  uid: string,
-  preferredUsername: string
-) => {
-  const batch = firestore.batch();
+export const registerUsername = async (uid: string, preferredUsername: string) => {
+  const batch = writeBatch(firestore);
 
   const username = await getSafeUsername(uid, preferredUsername);
 
-  const userDoc = firestore.doc(`users/${uid}`);
+  const userDoc = doc(firestore, `users/${uid}`);
   batch.update(userDoc, { username });
 
-  const usernameDoc = firestore.doc(`usernames/${username}`);
+  const usernameDoc = doc(firestore, `usernames/${username}`);
   batch.set(usernameDoc, { uid });
 
   try {
@@ -110,7 +115,7 @@ export const registerUsername = async (
 
 export const continueWithGoogle = async () => {
   try {
-    const res = await auth.signInWithPopup(googleAuthProvider);
+    const res = await signInWithPopup(auth, new GoogleAuthProvider());
 
     if (res.additionalUserInfo) {
       const { profile, isNewUser } = res.additionalUserInfo as {
@@ -127,10 +132,9 @@ export const continueWithGoogle = async () => {
       const uid = res.user?.uid;
 
       if (uid && profile && isNewUser) {
-        const userDoc = firestore
-          .collection('users')
-          .doc(uid)
-          .withConverter(converter<UserDetails>());
+        const userDoc = doc(firestore, `users\${uid}`).withConverter(
+          converter<UserDetails>()
+        );
 
         const userDetails = {
           firstName: profile.given_name,
@@ -139,12 +143,9 @@ export const continueWithGoogle = async () => {
           photoURL: profile.picture,
         };
 
-        await userDoc.set(userDetails);
+        await setDoc(userDoc, userDetails);
 
-        await registerUsername(
-          uid,
-          `${userDetails.firstName} ${userDetails.lastName}`
-        );
+        await registerUsername(uid, `${userDetails.firstName} ${userDetails.lastName}`);
       }
     }
   } catch (error) {
@@ -153,7 +154,7 @@ export const continueWithGoogle = async () => {
 };
 
 export const continueWithFacebook = async () => {
-  const res = await auth.signInWithPopup(facebookAuthProvider);
+  const res = await signInWithPopup(auth, new FacebookAuthProvider());
 
   console.log(res);
 };
@@ -169,18 +170,19 @@ export const enter = async ({
 }) => {
   //! Verify if persistence has been properly set
   //! Maybe it should be kept in the form instead
-  auth.setPersistence(keepConnected ? LOCAL : SESSION);
+  const persistence: Persistence = keepConnected ? 'LOCAL' : 'SESSION';
+
+  setPersistence(auth, persistence);
 
   try {
-    await auth.signInWithEmailAndPassword(email, password);
+    await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
     const { message, faultyField } = AUTH_ERRORS?.[error.code] ?? {};
     return { [faultyField ?? FORM_ERROR]: message ?? error.message };
   }
 };
 
-type DeepNonNullable<T> = { [P in keyof T]-?: NonNullable<T[P]> } &
-  NonNullable<T>;
+type DeepNonNullable<T> = { [P in keyof T]-?: NonNullable<T[P]> } & NonNullable<T>;
 
 export const register = async ({
   email,
@@ -193,15 +195,14 @@ export const register = async ({
   Pick<UserDetails, 'email' | 'firstName' | 'lastName' | 'birthdate' | 'gender'>
 > & { password: string }) => {
   try {
-    const res = await auth.createUserWithEmailAndPassword(email, password);
+    const res = await createUserWithEmailAndPassword(auth, email, password);
 
     const uid = res.user?.uid;
 
     if (uid) {
-      const userDoc = firestore
-        .collection('users')
-        .doc(uid)
-        .withConverter(converter<UserDetails>());
+      const userDoc = doc(firestore, `users\${uid}`).withConverter(
+        converter<UserDetails>()
+      );
 
       const userDetails = {
         email,
@@ -211,7 +212,7 @@ export const register = async ({
         gender,
       };
 
-      await userDoc.set(userDetails);
+      await setDoc(userDoc, userDetails);
 
       await registerUsername(uid, `${firstName} ${lastName}`);
     }

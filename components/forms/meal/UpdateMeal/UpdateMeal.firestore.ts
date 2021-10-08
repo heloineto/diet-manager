@@ -1,6 +1,7 @@
 import type { UpdateMealValuesType } from './UpdateMeal.types';
 
-import { auth, serverTimestamp } from '@lib/firebase';
+import { auth } from '@lib/firebase';
+import { serverTimestamp, updateDoc } from 'firebase/firestore';
 
 const updateMealFirestore = async (
   { label, isPublic, color, date, time }: UpdateMealValuesType,
@@ -22,7 +23,7 @@ const updateMealFirestore = async (
 
   if (!auth?.currentUser?.uid) return { error: 'verifique se você está logado' };
 
-  await mealRef.update(updatedMeal).catch((error) => ({ error }));
+  await updateDoc(mealRef, updatedMeal).catch((error) => ({ error }));
 };
 
 export default updateMealFirestore;
