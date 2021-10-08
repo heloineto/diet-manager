@@ -5,14 +5,7 @@ import { kebabCase } from 'lodash';
 
 import { doc, writeBatch, setDoc, getDoc } from 'firebase/firestore';
 
-import {
-  auth,
-  // facebookAuthProvider,
-  firestore,
-  // googleAuthProvider,
-  // LOCAL,
-  // SESSION,
-} from './firebase';
+import { auth, firestore } from './firebase';
 import {
   createUserWithEmailAndPassword,
   FacebookAuthProvider,
@@ -172,8 +165,9 @@ export const enter = async ({
 }) => {
   //! Verify if persistence has been properly set
   //! Maybe it should be kept in the form instead
-  const persistence: Persistence = keepConnected ? 'LOCAL' : 'SESSION';
+  const persistence = keepConnected ? 'LOCAL' : 'SESSION';
 
+  // @ts-ignore Persistence is literally 'LOCAL' | 'SESSION' | 'UNDEFINED'.
   setPersistence(auth, persistence);
 
   try {
