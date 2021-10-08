@@ -18,6 +18,7 @@ import addWorkoutFirestore from './AddWorkout.firestore';
 import { SelectedDateContext } from '@lib/context';
 import ColorField from '@components/inputs/ColorField';
 import { converter } from '@utils/firestore';
+import { useColors } from '@lib/hooks';
 
 interface Props {
   className?: string;
@@ -26,6 +27,8 @@ interface Props {
 
 const AddWorkout = ({ className, onClose }: Props) => {
   const { selectedDate } = useContext(SelectedDateContext);
+
+  const colors = useColors();
 
   const [prevWorkouts, setPrevWorkouts] = useState<Workout[]>([]);
 
@@ -120,10 +123,15 @@ const AddWorkout = ({ className, onClose }: Props) => {
                 size="small"
                 variant="contained"
                 style={{
-                  backgroundColor: prevWorkout.color,
+                  color: colors?.[prevWorkout?.color]?.[900] ?? 'white',
+                  backgroundColor: colors?.[prevWorkout?.color]?.[200] ?? 'white',
                 }}
                 onClick={() =>
-                  addWorkout({ ...prevWorkout, date: new Date(), time: new Date() })
+                  addWorkout({
+                    ...prevWorkout,
+                    date: selectedDate.toJSDate(),
+                    time: new Date(),
+                  })
                 }
               >
                 {prevWorkout.label}

@@ -15,6 +15,8 @@ import {
   XIcon,
 } from '@heroicons/react/outline';
 
+import { serverTimestamp, updateDoc } from 'firebase/firestore';
+
 import Modal from '@components/overlays/Modal';
 import RemoveWorkout from '@components/forms/workout/RemoveWorkout';
 import UpdateWorkout from '@components/forms/workout/UpdateWorkout';
@@ -144,7 +146,8 @@ const WorkoutActions = ({
               //! NEEDS ORGANIZING
               const index = Object.keys(workout.exercises).length;
 
-              workout.ref.update({
+              updateDoc(workout.ref, {
+                updatedAt: serverTimestamp(),
                 [`exercises.${index}`]: {
                   index,
                   label: '',

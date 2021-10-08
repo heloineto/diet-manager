@@ -1,4 +1,4 @@
-import { serverTimestamp } from 'firebase/firestore';
+import { serverTimestamp, updateDoc } from 'firebase/firestore';
 
 const updateExerciseFirestore = async (
   { label, sets, reps, weight }: UpdateExerciseValuesType,
@@ -13,7 +13,7 @@ const updateExerciseFirestore = async (
     weight,
   };
 
-  await workoutRef.update({
+  await updateDoc(workoutRef, {
     updatedAt: serverTimestamp(),
     [`exercises.${index}`]: newExercise,
   });

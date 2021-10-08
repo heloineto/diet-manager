@@ -1,7 +1,7 @@
 import type { Row } from 'react-table';
 
 import { omit } from 'lodash';
-import { serverTimestamp } from 'firebase/firestore';
+import { serverTimestamp, updateDoc } from 'firebase/firestore';
 
 export const removeExercisesByIndex = async (
   workout: WorkoutWithRef,
@@ -25,7 +25,7 @@ export const removeExercisesByIndex = async (
     {}
   );
 
-  await workout.ref.update({
+  await updateDoc(workout.ref, {
     updatedAt: serverTimestamp(),
     exercises: rearrangedExercises,
   });
@@ -61,7 +61,7 @@ export const moveExercise = async (
     rearrangedExercises[i] = { ...exercisesArr[i], index: i };
   }
 
-  await workout.ref.update({
+  await updateDoc(workout.ref, {
     updatedAt: serverTimestamp(),
     exercises: rearrangedExercises,
   });

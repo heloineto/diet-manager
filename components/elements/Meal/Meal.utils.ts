@@ -1,8 +1,8 @@
-import { serverTimestamp } from 'firebase/firestore';
+import { serverTimestamp, updateDoc } from 'firebase/firestore';
 import type { Row } from 'react-table';
 
 export const removeFoodsByIndex = async (meal: MealWithRef, indexes: number[]) => {
-  await meal.ref.update({
+  await updateDoc(meal.ref, {
     updatedAt: serverTimestamp(),
     foods: meal.foods.filter((_, idx) => !indexes.includes(idx)),
   });

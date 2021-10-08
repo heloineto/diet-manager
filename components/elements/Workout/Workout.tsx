@@ -230,7 +230,7 @@ const Workout = ({ workout }: Props) => {
                         >
                           {value.map((eachValue, idx) => (
                             <div
-                              key={eachValue}
+                              key={idx}
                               className={clsx(
                                 idx !== 0 && 'border-l-2',
                                 'h-full flex justify-center items-center'
