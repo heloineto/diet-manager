@@ -1,8 +1,6 @@
 import { useContext, useState } from 'react';
-import { pick } from 'lodash';
 
 import { MealsContext } from '@lib/context';
-import { round } from 'lodash';
 import { Button } from '@material-ui/core';
 
 import Meal from '../Meal';
@@ -14,28 +12,7 @@ const Meals = () => {
   const { meals } = useContext(MealsContext);
   const [addMealOpen, setAddMealOpen] = useState(false);
 
-  const renderMealTables = () =>
-    meals.map((meal, idx) => {
-      //! Move this inside Meal
-      const formattedFoods = meal.foods.map((food) => {
-        const { amount, unit } = food;
-        const formattedFood = {
-          ...food,
-          amount: `${amount}${unit}`,
-        };
-
-        Object.entries(pick(formattedFood, ['carb', 'prot', 'fat', 'kcal'])).forEach(
-          ([key, value]) => {
-            // @ts-ignore
-            formattedFood[key] = round(value * amount, 2) || 0;
-          }
-        );
-
-        return formattedFood;
-      });
-
-      return <Meal key={idx} meal={meal} formattedFoods={formattedFoods} />;
-    });
+  const renderMealTables = () => meals.map((meal, idx) => <Meal key={idx} meal={meal} />);
 
   return (
     <div className="flex-grow flex flex-col">

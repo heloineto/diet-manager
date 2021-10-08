@@ -1,8 +1,3 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/storage';
-
 const firebaseConfig = {
   apiKey: 'AIzaSyDFSCILjbvGDlhp6xojOv9l4T3g7Azj5k4',
   authDomain: 'diet-manager-co.firebaseapp.com',
@@ -13,20 +8,10 @@ const firebaseConfig = {
   measurementId: 'G-Q6EGJ1FSS8',
 };
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
-export const auth = firebase.auth();
-export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-export const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
-export const LOCAL = firebase.auth.Auth.Persistence.LOCAL;
-export const SESSION = firebase.auth.Auth.Persistence.SESSION;
-
-export const firestore = firebase.firestore();
-export const fromMillis = firebase.firestore.Timestamp.fromMillis;
-export const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp;
-export const arrayUnion = firebase.firestore.FieldValue.arrayUnion;
-export const arrayRemove = firebase.firestore.FieldValue.arrayRemove;
-
-export const storage = firebase.storage();
+export const firebaseApp = initializeApp(firebaseConfig);
+export const auth = getAuth(firebaseApp);
+export const firestore = getFirestore(firebaseApp);

@@ -96,6 +96,7 @@ const AddWorkout = ({ className, onClose }: Props) => {
             </Button>
           </div>
           {/* <pre>{JSON.stringify(values, undefined, 2)}</pre> */}
+          {/* <div className="w-full h-40"></div> */}
         </form>
       )}
     </Form>

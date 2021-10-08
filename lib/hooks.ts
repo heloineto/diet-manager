@@ -5,7 +5,8 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 
 import { auth, firestore } from '@lib/firebase';
 import { useRouter } from 'next/router';
-import { indexOfNth, isKeyInShallowObject } from '@utils/typescript';
+import { isKeyInShallowObject } from '@utils/typescript';
+import { collection, onSnapshot, query, where, orderBy } from 'firebase/firestore';
 
 export const useUserData = () => {
   const [user, loading] = useAuthState(auth);
@@ -15,8 +16,9 @@ export const useUserData = () => {
     let unsubscribe;
 
     if (user) {
-      const userRef = firestore.collection('users').doc(user.uid);
-      unsubscribe = userRef.onSnapshot((doc) => {
+      const userRef = collection(firestore, `users/${user.uid}`);
+
+      unsubscribe = onSnapshot(userRef, (doc) => {
         const docData = doc.data();
         if (!docData) return;
 
@@ -41,15 +43,14 @@ export const useSelectedDate = () => {
 export const useMealsData = (selectedDateTime: DateTime) => {
   const [meals, setMeals] = useState<MealWithRef[]>([]);
 
-  const mealsRef = firestore
-    .collection('users')
-    .doc(auth.currentUser?.uid)
-    .collection('meals');
+  const mealsRef = collection(firestore, `users/${auth.currentUser?.uid}/meals`);
 
-  const mealQuery = mealsRef
-    .where('startsAt', '>=', selectedDateTime.startOf('day').toJSDate())
-    .where('startsAt', '<=', selectedDateTime.endOf('day').toJSDate())
-    .orderBy('startsAt');
+  const mealQuery = query(
+    mealsRef,
+    where('startsAt', '>=', selectedDateTime.startOf('day').toJSDate()),
+    where('startsAt', '<=', selectedDateTime.endOf('day').toJSDate()),
+    orderBy('startsAt')
+  );
 
   const [querySnapshot] = useCollection(mealQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
@@ -72,15 +73,14 @@ export const useMealsData = (selectedDateTime: DateTime) => {
 export const useWorkoutsData = (selectedDateTime: DateTime) => {
   const [workouts, setWorkouts] = useState<WorkoutWithRef[]>([]);
 
-  const workoutsRef = firestore
-    .collection('users')
-    .doc(auth.currentUser?.uid)
-    .collection('workouts');
+  const workoutsRef = collection(firestore, `users/${auth.currentUser?.uid}/workouts`);
 
-  const workoutQuery = workoutsRef
-    .where('startsAt', '>=', selectedDateTime.startOf('day').toJSDate())
-    .where('startsAt', '<=', selectedDateTime.endOf('day').toJSDate())
-    .orderBy('startsAt');
+  const workoutQuery = query(
+    workoutsRef,
+    where('startsAt', '>=', selectedDateTime.startOf('day').toJSDate()),
+    where('startsAt', '<=', selectedDateTime.endOf('day').toJSDate()),
+    orderBy('startsAt')
+  );
 
   const [querySnapshot] = useCollection(workoutQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },

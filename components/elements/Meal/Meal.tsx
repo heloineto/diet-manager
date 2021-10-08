@@ -2,7 +2,7 @@ import type { Row } from 'react-table';
 
 import { useMemo } from 'react';
 import { useTable } from 'react-table';
-import { omit, round } from 'lodash';
+import { omit, round, pick } from 'lodash';
 import clsx from 'clsx';
 
 import { useMediaQuery, useTheme } from '@material-ui/core';
@@ -15,21 +15,31 @@ interface Info {
 
 interface Props {
   meal: MealWithRef;
-  formattedFoods: FormattedFood[];
 }
 
-const Meal = ({ meal, formattedFoods }: Props) => {
+const Meal = ({ meal }: Props) => {
+  const formattedFoods: FormattedFood[] = meal.foods.map((food) => {
+    const { amount, unit } = food;
+    const formattedFood = {
+      ...food,
+      amount: `${amount}${unit}`,
+    };
+
+    Object.entries(pick(formattedFood, ['carb', 'prot', 'fat', 'kcal'])).forEach(
+      ([key, value]) => {
+        // @ts-ignore
+        formattedFood[key] = round(value * amount, 2) || 0;
+      }
+    );
+
+    return formattedFood;
+  });
+
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
 
-  const {
-    expanded,
-    setExpanded,
-    hover,
-    setHover,
-    selectedRows,
-    setSelectedRows,
-  } = useMealState();
+  const { expanded, setExpanded, hover, setHover, selectedRows, setSelectedRows } =
+    useMealState();
 
   const selectRow = (row: Row<FormattedFood>) => {
     setSelectedRows((value) => ({ ...value, [row.id]: row }));
@@ -44,10 +54,7 @@ const Meal = ({ meal, formattedFoods }: Props) => {
   const columns = useMemo(() => {
     const Footer = ({ rows }: Info, accessor: string) => {
       const getTotal = () =>
-        useMemo(
-          () => rows.reduce((sum, row) => row.values[accessor] + sum, 0),
-          [rows]
-        );
+        useMemo(() => rows.reduce((sum, row) => row.values[accessor] + sum, 0), [rows]);
 
       return <>{round(getTotal(), 2) || 0}</>;
     };

@@ -1,12 +1,6 @@
-import type firebase from 'firebase/app';
-
-import { firestore } from '@lib/firebase';
+import type { QueryDocumentSnapshot } from 'firebase/firestore';
 
 export const converter = <T>() => ({
   toFirestore: (data: T) => data,
-  fromFirestore: (snapshot: firebase.firestore.QueryDocumentSnapshot) =>
-    snapshot.data() as T,
+  fromFirestore: (snapshot: QueryDocumentSnapshot) => snapshot.data() as T,
 });
-
-export const dataPoint = <T>(collectionPath: string) =>
-  firestore.collection(collectionPath).withConverter(converter<T>());

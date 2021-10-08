@@ -1,11 +1,11 @@
 import type { Dispatch, SetStateAction } from 'react';
-import type firebase from 'firebase/app';
+import type { User } from '@firebase/auth';
 
 import { createContext } from 'react';
 import { DateTime } from 'luxon';
 
 export const UserContext = createContext<{
-  user: firebase.User | null | undefined;
+  user: User | null | undefined;
   loading: boolean | null;
   userDetails: UserDetails | null;
 }>({
