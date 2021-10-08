@@ -117,37 +117,39 @@ export const continueWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, new GoogleAuthProvider());
 
-    if (res.additionalUserInfo) {
-      const { profile, isNewUser } = res.additionalUserInfo as {
-        isNewUser: boolean;
-        profile: {
-          given_name?: string;
-          family_name?: string;
-          email?: string;
-          picture?: string;
-          verified_email?: boolean;
-        };
-      };
+    console.log(res);
+    //! FIREBASE UPDATED, AND THIS IS A MESS...
+    // if (res.additionalUserInfo) {
+    //   const { profile, isNewUser } = res.additionalUserInfo as {
+    //     isNewUser: boolean;
+    //     profile: {
+    //       given_name?: string;
+    //       family_name?: string;
+    //       email?: string;
+    //       picture?: string;
+    //       verified_email?: boolean;
+    //     };
+    //   };
 
-      const uid = res.user?.uid;
+    //   const uid = res.user?.uid;
 
-      if (uid && profile && isNewUser) {
-        const userDoc = doc(firestore, `users\${uid}`).withConverter(
-          converter<UserDetails>()
-        );
+    //   if (uid && profile && isNewUser) {
+    //     const userDoc = doc(firestore, `users\${uid}`).withConverter(
+    //       converter<UserDetails>()
+    //     );
 
-        const userDetails = {
-          firstName: profile.given_name,
-          lastName: profile.family_name,
-          email: profile.email,
-          photoURL: profile.picture,
-        };
+    //     const userDetails = {
+    //       firstName: profile.given_name,
+    //       lastName: profile.family_name,
+    //       email: profile.email,
+    //       photoURL: profile.picture,
+    //     };
 
-        await setDoc(userDoc, userDetails);
+    //     await setDoc(userDoc, userDetails);
 
-        await registerUsername(uid, `${userDetails.firstName} ${userDetails.lastName}`);
-      }
-    }
+    //     await registerUsername(uid, `${userDetails.firstName} ${userDetails.lastName}`);
+    //   }
+    // }
   } catch (error) {
     console.error(error);
   }
