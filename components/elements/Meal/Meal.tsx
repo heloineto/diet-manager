@@ -8,6 +8,7 @@ import clsx from 'clsx';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import { useMealState } from './Meal.state';
 import MealActions from './Meal.Actions';
+import { useColors } from '@lib/hooks';
 
 interface Info {
   rows: Row[];
@@ -18,23 +19,28 @@ interface Props {
 }
 
 const Meal = ({ meal }: Props) => {
-  const formattedFoods: FormattedFood[] = meal.foods.map((food) => {
-    const { amount, unit } = food;
-    const formattedFood = {
-      ...food,
-      amount: `${amount}${unit}`,
-    };
+  const formattedFoods: FormattedFood[] = useMemo(
+    () =>
+      meal.foods.map((food) => {
+        const { amount, unit } = food;
+        const formattedFood = {
+          ...food,
+          amount: `${amount}${unit}`,
+        };
 
-    Object.entries(pick(formattedFood, ['carb', 'prot', 'fat', 'kcal'])).forEach(
-      ([key, value]) => {
-        // @ts-ignore
-        formattedFood[key] = round(value * amount, 2) || 0;
-      }
-    );
+        Object.entries(pick(formattedFood, ['carb', 'prot', 'fat', 'kcal'])).forEach(
+          ([key, value]) => {
+            // @ts-ignore
+            formattedFood[key] = round(value * amount, 2) || 0;
+          }
+        );
 
-    return formattedFood;
-  });
+        return formattedFood;
+      }),
+    [meal]
+  );
 
+  const colors = useColors();
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
 
@@ -121,7 +127,7 @@ const Meal = ({ meal }: Props) => {
                border-gray-300 border-b-2
                 `
               )}
-              style={{ backgroundColor: meal.color }}
+              style={{ backgroundColor: colors?.[meal?.color]?.[50] ?? 'white' }}
               colSpan={999}
             >
               {meal.label}

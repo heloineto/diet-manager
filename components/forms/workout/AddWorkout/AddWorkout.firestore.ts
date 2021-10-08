@@ -7,7 +7,8 @@ const addWorkoutFirestore = async ({
   color,
   date,
   time,
-}: AddWorkoutValuesType) => {
+  exercises = {},
+}: AddWorkoutValuesType & { exercises?: Workout['exercises'] }) => {
   const newWorkout: Workout = {
     label,
     color,
@@ -21,7 +22,7 @@ const addWorkoutFirestore = async ({
     ),
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
-    exercises: {},
+    exercises,
   };
 
   const uid = auth?.currentUser?.uid;

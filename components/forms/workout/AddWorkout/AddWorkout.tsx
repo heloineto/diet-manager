@@ -1,12 +1,13 @@
+import { useContext, useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { auth, firestore } from '@lib/firebase';
 import clsx from 'clsx';
-import { useContext } from 'react';
 import { useSnackbar } from 'notistack';
 import { Form } from 'react-final-form';
 import { Button } from '@material-ui/core';
 import {
   KeyboardDatePicker,
   makeValidate,
-  Radios,
   Switches,
   TextField,
   TimePicker,
@@ -16,6 +17,7 @@ import addWorkoutSchema from './AddWorkout.schema';
 import addWorkoutFirestore from './AddWorkout.firestore';
 import { SelectedDateContext } from '@lib/context';
 import ColorField from '@components/inputs/ColorField';
+import { converter } from '@utils/firestore';
 
 interface Props {
   className?: string;
@@ -25,9 +27,13 @@ interface Props {
 const AddWorkout = ({ className, onClose }: Props) => {
   const { selectedDate } = useContext(SelectedDateContext);
 
+  const [prevWorkouts, setPrevWorkouts] = useState<Workout[]>([]);
+
   const { enqueueSnackbar } = useSnackbar();
 
-  const addWorkout = async (values: AddWorkoutValuesType) => {
+  const addWorkout = async (
+    values: AddWorkoutValuesType & { exercises?: Workout['exercises'] }
+  ) => {
     onClose();
     const res = await addWorkoutFirestore(values);
 
@@ -36,6 +42,17 @@ const AddWorkout = ({ className, onClose }: Props) => {
         variant: 'error',
       });
   };
+
+  useEffect(() => {
+    const uid = auth?.currentUser?.uid;
+    const workoutsRef = collection(firestore, `users/${uid}/workouts`).withConverter(
+      converter<Workout>()
+    );
+
+    getDocs(workoutsRef).then((snapshot) =>
+      setPrevWorkouts(snapshot.docs.map((doc) => doc.data()))
+    );
+  }, []);
 
   return (
     <Form
@@ -96,7 +113,23 @@ const AddWorkout = ({ className, onClose }: Props) => {
             </Button>
           </div>
           {/* <pre>{JSON.stringify(values, undefined, 2)}</pre> */}
-          {/* <div className="w-full h-40"></div> */}
+          <div className="w-full flex flex-col">
+            {prevWorkouts.map((prevWorkout) => (
+              <Button
+                className="shadow-none text-gray-500"
+                size="small"
+                variant="contained"
+                style={{
+                  backgroundColor: prevWorkout.color,
+                }}
+                onClick={() =>
+                  addWorkout({ ...prevWorkout, date: new Date(), time: new Date() })
+                }
+              >
+                {prevWorkout.label}
+              </Button>
+            ))}
+          </div>
         </form>
       )}
     </Form>

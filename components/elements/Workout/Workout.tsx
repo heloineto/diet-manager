@@ -10,6 +10,7 @@ import { useWorkoutState } from './Workout.state';
 import WorkoutActions from './Workout.Actions';
 import UpdateExercise from '@components/forms/exercise/UpdateExercise';
 import { moveExercise } from './Workout.utils';
+import { useColors } from '@lib/hooks';
 
 interface Props {
   workout: WorkoutWithRef;
@@ -18,6 +19,7 @@ interface Props {
 const Workout = ({ workout }: Props) => {
   const { exercises } = workout;
 
+  const colors = useColors();
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
 
@@ -96,7 +98,7 @@ const Workout = ({ workout }: Props) => {
                border-gray-300 border-b-2
                 `
               )}
-              style={{ backgroundColor: workout.color }}
+              style={{ backgroundColor: colors?.[workout?.color]?.[50] ?? 'white' }}
               colSpan={999}
             >
               {workout.label}

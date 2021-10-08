@@ -1,4 +1,5 @@
 import { Button } from '@material-ui/core';
+import { deleteDoc } from 'firebase/firestore';
 
 interface Props {
   label: string;
@@ -22,7 +23,7 @@ const RemoveMeal = ({ label, mealRef, onClose }: Props) => {
           className="bg-red-500 w-1/2 text-white"
           onClick={async () => {
             onClose();
-            await mealRef.delete();
+            await deleteDoc(mealRef);
           }}
         >
           Remover
