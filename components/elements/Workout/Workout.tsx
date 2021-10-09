@@ -155,7 +155,7 @@ const Workout = ({ workout }: Props) => {
               return (
                 <UpdateExercise
                   exercise={exercises[Number(id)]}
-                  workoutRef={workout.ref}
+                  workout={workout}
                   onClickOutside={() => setEditingRowId(null)}
                   moveUp={async () => {
                     await moveExercise(workout, Number(id), Number(id) - 1);

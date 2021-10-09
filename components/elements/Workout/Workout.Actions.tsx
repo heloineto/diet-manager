@@ -23,6 +23,7 @@ import UpdateWorkout from '@components/forms/workout/UpdateWorkout';
 // import AddExercise from '@components/forms/exercise/AddExercise';
 import ModalWithAside from '@components/overlays/ModalWithAside';
 import { removeExercisesAtRows } from './Workout.utils';
+import AddExercise from '@components/forms/exercise/AddExercise';
 
 interface Props {
   workout: WorkoutWithRef;
@@ -141,22 +142,7 @@ const WorkoutActions = ({
               'w-7 h-7 p-0 transition-colors duration-500 mr-0.5 sm:mr-2.5'
             )}
             color="primary"
-            onClick={() => {
-              setAddExerciseOpen(true);
-              //! NEEDS ORGANIZING
-              const index = Object.keys(workout.exercises).length;
-
-              updateDoc(workout.ref, {
-                updatedAt: serverTimestamp(),
-                [`exercises.${index}`]: {
-                  index,
-                  label: '',
-                  sets: 0,
-                  reps: [],
-                  weight: [],
-                },
-              });
-            }}
+            onClick={() => setAddExerciseOpen(true)}
           >
             <PlusIcon className="h-4 w-4" />
           </IconButton>
@@ -192,11 +178,11 @@ const WorkoutActions = ({
       </div>
 
       <>
-        {/* <AddExercise
+        <AddExercise
           open={addExerciseOpen}
-          workoutRef={workout.ref}
+          workout={workout}
           onClose={() => setAddExerciseOpen(false)}
-        /> */}
+        />
 
         <Modal
           label="Editar Treino"
@@ -213,7 +199,7 @@ const WorkoutActions = ({
         >
           <RemoveWorkout
             label={workout.label}
-            workoutRef={workout.ref}
+            workout={workout}
             onClose={() => setRemoveWorkoutOpen(false)}
           />
         </Modal>

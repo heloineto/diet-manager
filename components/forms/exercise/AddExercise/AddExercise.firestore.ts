@@ -2,9 +2,9 @@ import { arrayUnion, serverTimestamp, updateDoc } from 'firebase/firestore';
 
 const addExerciseFirestore = async (
   { index, label, sets, reps, weight }: Exercise,
-  mealRef: FirebaseRef
+  workoutRef: FirebaseRef
 ) => {
-  const newExercise = {
+  const newExercise: Exercise = {
     index,
     label,
     sets,
@@ -12,9 +12,9 @@ const addExerciseFirestore = async (
     weight,
   };
 
-  await updateDoc(mealRef, {
+  await updateDoc(workoutRef, {
     updatedAt: serverTimestamp(),
-    exercises: arrayUnion(newExercise),
+    [`exercises.${index}`]: newExercise,
   });
 };
 

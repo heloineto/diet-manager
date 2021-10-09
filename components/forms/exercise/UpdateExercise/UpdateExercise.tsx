@@ -14,7 +14,7 @@ import NumberField from '@components/inputs/NumberField';
 interface Props {
   className?: string;
   exercise: Exercise;
-  workoutRef: FirebaseRef;
+  workout: WorkoutWithRef;
   onClickOutside: () => void;
   moveUp: () => void;
   moveDown: () => void;
@@ -23,7 +23,7 @@ interface Props {
 const UpdateExercise = ({
   className,
   exercise,
-  workoutRef,
+  workout,
   onClickOutside,
   moveUp,
   moveDown,
@@ -62,7 +62,7 @@ const UpdateExercise = ({
         weight: weight.map((weightWeight) => Number(weightWeight)),
       },
       exercise.index,
-      workoutRef
+      workout.ref
     );
   };
 

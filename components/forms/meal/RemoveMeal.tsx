@@ -3,11 +3,11 @@ import { deleteDoc } from 'firebase/firestore';
 
 interface Props {
   label: string;
-  mealRef: FirebaseRef;
+  meal: MealWithRef;
   onClose: () => void;
 }
 
-const RemoveMeal = ({ label, mealRef, onClose }: Props) => {
+const RemoveMeal = ({ label, meal, onClose }: Props) => {
   return (
     <div>
       <p className="font-semibold text-center">
@@ -23,7 +23,7 @@ const RemoveMeal = ({ label, mealRef, onClose }: Props) => {
           className="bg-red-500 w-1/2 text-white"
           onClick={async () => {
             onClose();
-            await deleteDoc(mealRef);
+            await deleteDoc(meal.ref);
           }}
         >
           Remover

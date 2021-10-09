@@ -3,11 +3,11 @@ import { deleteDoc } from 'firebase/firestore';
 
 interface Props {
   label: string;
-  workoutRef: FirebaseRef;
+  workout: WorkoutWithRef;
   onClose: () => void;
 }
 
-const RemoveWorkout = ({ label, workoutRef, onClose }: Props) => {
+const RemoveWorkout = ({ label, workout, onClose }: Props) => {
   return (
     <div>
       <p className="font-semibold text-center">
@@ -23,7 +23,7 @@ const RemoveWorkout = ({ label, workoutRef, onClose }: Props) => {
           className="bg-red-500 w-1/2 text-white"
           onClick={async () => {
             onClose();
-            await deleteDoc(workoutRef);
+            await deleteDoc(workout.ref);
           }}
         >
           Remover

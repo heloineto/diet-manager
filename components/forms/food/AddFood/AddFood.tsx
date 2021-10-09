@@ -8,12 +8,12 @@ import RegisterFood from '../RegisterFood';
 
 interface Props {
   className?: string;
-  mealRef: FirebaseRef;
+  meal: MealWithRef;
   open: boolean;
   onClose: () => void;
 }
 
-const AddFood = ({ className, open, onClose, mealRef }: Props) => {
+const AddFood = ({ className, open, onClose, meal }: Props) => {
   const [registerOpen, setRegisterOpen] = useState(false);
 
   const [food, setFood] = useState<Food | null>(null);
@@ -23,7 +23,7 @@ const AddFood = ({ className, open, onClose, mealRef }: Props) => {
 
     if (!food) return;
 
-    await addFoodFirestore(food, mealRef);
+    await addFoodFirestore(food, meal.ref);
   };
 
   if (registerOpen)
