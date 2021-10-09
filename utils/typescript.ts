@@ -8,7 +8,7 @@ export const safeguard = <T>(
   if (!safeObject) return Object.fromEntries(keys.map((key) => [key, fallback]));
 
   for (const key of keys) {
-    if (!safeObject[key]) {
+    if (isKeyInShallowObject(key, safeObject)) {
       safeObject[key] = fallback;
     }
   }

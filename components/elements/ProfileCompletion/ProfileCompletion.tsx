@@ -74,8 +74,7 @@ const ProfileCompletion = ({ stepName }: Props) => {
           return (
             <Step
               key={label}
-              // @ts-ignore
-              completed={completed[name]}
+              completed={isKeyInShallowObject(name, completed) && completed[name]}
               onClick={() => setActiveStep(index)}
             >
               <StepLabel>

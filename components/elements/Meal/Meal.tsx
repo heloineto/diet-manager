@@ -9,6 +9,7 @@ import { useMediaQuery, useTheme } from '@material-ui/core';
 import { useMealState } from './Meal.state';
 import MealActions from './Meal.Actions';
 import { useColors } from '@lib/hooks';
+import { isKeyInShallowObject } from '@utils/typescript';
 
 interface Info {
   rows: Row[];
@@ -28,12 +29,11 @@ const Meal = ({ meal }: Props) => {
           amount: `${amount}${unit}`,
         };
 
-        Object.entries(pick(formattedFood, ['carb', 'prot', 'fat', 'kcal'])).forEach(
-          ([key, value]) => {
-            // @ts-ignore
+        const macros = pick(formattedFood, ['carb', 'prot', 'fat', 'kcal']);
+        Object.entries(macros).forEach(([key, value]) => {
+          if (isKeyInShallowObject(key, macros))
             formattedFood[key] = round(value * amount, 2) || 0;
-          }
-        );
+        });
 
         return formattedFood;
       }),
