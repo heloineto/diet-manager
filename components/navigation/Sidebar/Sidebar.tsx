@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { Button, Drawer, IconButton } from '@material-ui/core';
 
 import DietManagerLogo from '@components/decoration/DietManagerLogo';
-import navItems from './navItems';
+import sidebarNavItems from './Sidebar.navItems';
 import { useRouter } from 'next/router';
 import { indexOfNth } from '@utils/typescript';
 
@@ -19,7 +19,7 @@ const Sidebar = ({ className, sideBarOpen, toggleSideBarOpen, window }: Props) =
   const router = useRouter();
 
   const renderNavItems = () =>
-    navItems.map(({ name, label, IconOutlined, IconSolid, href }) => {
+    sidebarNavItems.map(({ name, label, IconOutlined, IconSolid, href }) => {
       const { pathname } = router;
 
       const current = href === pathname.substring(0, indexOfNth(pathname, '/', 2));

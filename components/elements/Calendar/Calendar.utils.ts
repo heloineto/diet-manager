@@ -11,7 +11,7 @@ const weekdays = Info.weekdays('short', { locale: 'br' }).map((weekday) =>
 );
 
 if (weekStartsSunday && weekdays?.length) {
-  const sunday = weekdays.pop() as string; //! Not much to do, typescript is dumb
+  const sunday = weekdays.pop();
   weekdays.unshift(sunday);
 }
 

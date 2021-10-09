@@ -12,7 +12,7 @@ import {
   HomeIcon as HomeIconSolid,
 } from '@heroicons/react/solid';
 
-const navItems = [
+const sidebarNavItems = [
   {
     name: 'home',
     label: 'Home',
@@ -43,4 +43,4 @@ const navItems = [
   },
 ];
 
-export default navItems;
+export default sidebarNavItems;
