@@ -10,9 +10,9 @@ const weekdays = Info.weekdays('short', { locale: 'br' }).map((weekday) =>
   weekday.replace('.', '')
 );
 
-if (weekStartsSunday && weekdays?.length) {
+if (weekStartsSunday) {
   const sunday = weekdays.pop();
-  weekdays.unshift(sunday);
+  if (sunday) weekdays.unshift(sunday);
 }
 
 export const getMonthData = (date = DateTime.now()) => {
