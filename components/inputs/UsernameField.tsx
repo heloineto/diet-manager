@@ -6,7 +6,7 @@ import { useContext, useState } from 'react';
 import { TextField } from 'mui-rff';
 import { CircularProgress } from '@material-ui/core';
 import { CheckIcon, XIcon } from '@heroicons/react/outline';
-import { docExists } from '@lib/auth';
+import { docExists } from '@utils/firestore';
 
 interface Props {
   label: string;
@@ -56,8 +56,7 @@ const UsernameField = ({ label, name }: Props) => {
   const renderHelperText = () => {
     if (!valid) return null;
 
-    if (loading)
-      return <CircularProgress size={25} thickness={8} color="secondary" />;
+    if (loading) return <CircularProgress size={25} thickness={8} color="secondary" />;
 
     return available ? (
       <div className="flex gap-x-1 items-center text-primary-800 foßnt-medium">

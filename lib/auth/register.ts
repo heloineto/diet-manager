@@ -4,7 +4,7 @@ import { FORM_ERROR } from 'final-form';
 
 import { auth, firestore } from '@lib/firebase';
 import { converter } from '@utils/firestore';
-import { registerUsername } from './registerUsername';
+import registerUsername from './registerUsername';
 import { authErrors, isFirebaseAuthError } from './utils';
 
 type DeepNonNullable<T> = { [P in keyof T]-?: NonNullable<T[P]> } & NonNullable<T>;

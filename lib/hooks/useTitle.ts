@@ -4,17 +4,6 @@ import { DateTime } from 'luxon';
 import { auth, firestore } from '@lib/firebase';
 import { useRouter } from 'next/router';
 import { isKeyInShallowObject } from '@utils/typescript';
-import {
-  collection,
-  doc,
-  onSnapshot,
-  query,
-  where,
-  orderBy,
-  QuerySnapshot,
-} from 'firebase/firestore';
-
-import { useCollection } from 'react-firebase-hooks/firestore';
 
 const useTitle = () => {
   const { asPath } = useRouter();

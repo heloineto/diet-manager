@@ -28,9 +28,9 @@ const useMealsData = (selectedDateTime: DateTime) => {
     orderBy('startsAt')
   );
 
-  const mealsQuerySnapshot: QuerySnapshot<Meal> = useCollection(mealsQuery, {
+  const mealsQuerySnapshot = useCollection(mealsQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
-  })[0];
+  })[0] as QuerySnapshot<Meal> | undefined;
 
   useEffect(() => {
     if (!mealsQuerySnapshot) return;

@@ -52,9 +52,13 @@ const AddWorkout = ({ className, onClose }: Props) => {
       converter<Workout>()
     );
 
-    getDocs(workoutsRef).then((snapshot) =>
-      setPrevWorkouts(snapshot.docs.map((doc) => doc.data()))
-    );
+    getDocs(workoutsRef).then((workoutuerySnapshot) => {
+      const workoutsSnapshot = workoutuerySnapshot.docs.map((doc) => doc.data());
+
+      console.log(workoutsSnapshot);
+
+      setPrevWorkouts(workoutsSnapshot);
+    });
   }, []);
 
   return (
@@ -117,8 +121,10 @@ const AddWorkout = ({ className, onClose }: Props) => {
           </div>
           {/* <pre>{JSON.stringify(values, undefined, 2)}</pre> */}
           <div className="w-full flex flex-col">
-            {prevWorkouts.map((prevWorkout) => (
+            {/**
+ *             {prevWorkouts.map((prevWorkout) => (
               <Button
+                key={prevWorkout.label}
                 className="shadow-none text-gray-500"
                 size="small"
                 variant="contained"
@@ -137,6 +143,7 @@ const AddWorkout = ({ className, onClose }: Props) => {
                 {prevWorkout.label}
               </Button>
             ))}
+ */}
           </div>
         </form>
       )}
