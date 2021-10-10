@@ -113,30 +113,34 @@ const Workout = ({ workout }: Props) => {
               />
             </th>
           </tr>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => {
-                const { id } = column;
+          {headerGroups.map((headerGroup) => {
+            const { key, ...restHeaderGroupProps } = headerGroup.getHeaderGroupProps();
 
-                return (
-                  <th
-                    className={clsx(
-                      id === 'index' && 'w-1/12',
-                      id === 'sets' && 'w-1/12',
-                      id === 'reps' && 'w-3/12',
-                      id === 'weight' && 'w-3/12',
-                      id === 'label' && 'w-3/12 text-left pl-1 sm:pl-2',
-                      data.length && 'border-b-2',
-                      'font-bold border-gray-300 bg-gray-100 table-cell h-8 uppercase'
-                    )}
-                    {...column.getHeaderProps()}
-                  >
-                    {column.render('Header')}
-                  </th>
-                );
-              })}
-            </tr>
-          ))}
+            return (
+              <tr key={key} {...restHeaderGroupProps}>
+                {headerGroup.headers.map((column) => {
+                  const { id } = column;
+
+                  return (
+                    <th
+                      className={clsx(
+                        id === 'index' && 'w-1/12',
+                        id === 'sets' && 'w-1/12',
+                        id === 'reps' && 'w-3/12',
+                        id === 'weight' && 'w-3/12',
+                        id === 'label' && 'w-3/12 text-left pl-1 sm:pl-2',
+                        data.length && 'border-b-2',
+                        'font-bold border-gray-300 bg-gray-100 table-cell h-8 uppercase'
+                      )}
+                      {...column.getHeaderProps()}
+                    >
+                      {column.render('Header')}
+                    </th>
+                  );
+                })}
+              </tr>
+            );
+          })}
         </thead>
         <tbody className={expanded ? '' : 'hidden'} {...getTableBodyProps()}>
           {rows.map((row: Row<Exercise>, idx) => {
@@ -151,9 +155,12 @@ const Workout = ({ workout }: Props) => {
 
             const editing = editingRowId === id;
 
+            const { key, ...restRowProps } = row.getRowProps();
+
             if (editing)
               return (
                 <UpdateExercise
+                  key={key}
                   exercise={exercises[Number(id)]}
                   workout={workout}
                   onClickOutside={() => setEditingRowId(null)}
@@ -170,8 +177,9 @@ const Workout = ({ workout }: Props) => {
 
             return (
               <tr
+                key={key}
+                {...restRowProps}
                 className="table-row cursor-pointer relative odd:bg-gray-100 group"
-                {...row.getRowProps()}
                 onClick={() => {
                   if (selected) {
                     unselectRow(row);
@@ -188,9 +196,12 @@ const Workout = ({ workout }: Props) => {
                 {row.cells.map((cell, idx) => {
                   const { value } = cell;
                   const { id } = cell.column;
+                  const { key, ...restCellProps } = cell.getCellProps();
 
                   return (
                     <td
+                      key={key}
+                      {...restCellProps}
                       className={clsx(
                         id === 'label'
                           ? 'text-left font-medium pl-1 sm:pl-2'
@@ -219,7 +230,6 @@ const Workout = ({ workout }: Props) => {
                         idx !== 0 && 'border-l-2',
                         'border-gray-300 h-8'
                       )}
-                      {...cell.getCellProps()}
                     >
                       {Array.isArray(value) ? (
                         <div

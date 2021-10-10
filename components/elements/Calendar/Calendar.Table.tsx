@@ -44,23 +44,29 @@ const CalendarTable = ({
     <div className="p-2">
       <table className="w-full table-fixed" {...getTableProps()}>
         <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr className="table-row" {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th className="table-cell" {...column.getHeaderProps()}>
-                  <div className="text-gray-600 font-bold text-sm">
-                    {column.render('Header')}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          ))}
+          {headerGroups.map((headerGroup) => {
+            const { key, ...restHeaderGroupProps } = headerGroup.getHeaderGroupProps();
+
+            return (
+              <tr key={key} {...restHeaderGroupProps}>
+                {headerGroup.headers.map((column) => (
+                  <th className="table-cell" {...column.getHeaderProps()}>
+                    <div className="text-gray-600 font-bold text-sm">
+                      {column.render('Header')}
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            );
+          })}
         </thead>
         <tbody {...getTableBodyProps()}>
           {rows.map((row) => {
             prepareRow(row);
+            const { key, ...restRowProps } = row.getRowProps();
+
             return (
-              <tr {...row.getRowProps()}>
+              <tr key={key} {...restRowProps}>
                 {row.cells.map((cell) => {
                   const cellDate = cell.value;
 
@@ -70,8 +76,10 @@ const CalendarTable = ({
                   const isAnotherMonth = !cellDate.hasSame(navDate, 'month');
                   if (shouldHide) return null;
 
+                  const { key, ...restCellProps } = cell.getCellProps();
+
                   return (
-                    <td className="table-cell" {...cell.getCellProps()}>
+                    <td key={key} {...restCellProps} className="table-cell">
                       <div
                         className={clsx(
                           isToday && 'border-primary-200',

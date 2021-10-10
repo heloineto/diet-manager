@@ -142,34 +142,39 @@ const Meal = ({ meal }: Props) => {
               />
             </th>
           </tr>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => {
-                const { id } = column;
+          {headerGroups.map((headerGroup) => {
+            const { key, ...restHeaderGroupProps } = headerGroup.getHeaderGroupProps();
 
-                return (
-                  <th
-                    className={clsx(
-                      id === 'carb' && 'bg-indigo-300 text-indigo-900',
-                      id === 'prot' && 'bg-blue-300 text-blue-900',
-                      id === 'fat' && 'bg-yellow-300 text-yellow-900',
-                      id === 'kcal' && 'bg-green-300 text-green-900',
-                      id === 'label' && 'bg-gray-100 w-6/12 text-left',
-                      id === 'amount' && 'bg-gray-100',
-                      `font-bold border-gray-300 border-b-2 table-cell w-1/12 h-8`
-                    )}
-                    {...column.getHeaderProps()}
-                  >
-                    {column.render('Header')}
-                  </th>
-                );
-              })}
-            </tr>
-          ))}
+            return (
+              <tr key={key} {...restHeaderGroupProps}>
+                {headerGroup.headers.map((column) => {
+                  const { id } = column;
+
+                  return (
+                    <th
+                      className={clsx(
+                        id === 'carb' && 'bg-indigo-300 text-indigo-900',
+                        id === 'prot' && 'bg-blue-300 text-blue-900',
+                        id === 'fat' && 'bg-yellow-300 text-yellow-900',
+                        id === 'kcal' && 'bg-green-300 text-green-900',
+                        id === 'label' && 'bg-gray-100 w-6/12 text-left',
+                        id === 'amount' && 'bg-gray-100',
+                        `font-bold border-gray-300 border-b-2 table-cell w-1/12 h-8`
+                      )}
+                      {...column.getHeaderProps()}
+                    >
+                      {column.render('Header')}
+                    </th>
+                  );
+                })}
+              </tr>
+            );
+          })}
         </thead>
         <tbody className={expanded ? '' : 'hidden'} {...getTableBodyProps()}>
           {rows.map((row: Row<FormattedFood>, idx) => {
             prepareRow(row);
+            const { key, ...restRowProps } = row.getRowProps();
 
             const selected = !!selectedRows[row.id];
             const aboveSelected = idx > 0 && !!selectedRows[rows[idx - 1].id];
@@ -178,8 +183,9 @@ const Meal = ({ meal }: Props) => {
 
             return (
               <tr
+                key={key}
+                {...restRowProps}
                 className="table-row cursor-pointer relative odd:bg-gray-50 group"
-                {...row.getRowProps()}
                 onClick={() => {
                   if (selected) {
                     unselectRow(row);
@@ -191,9 +197,12 @@ const Meal = ({ meal }: Props) => {
               >
                 {row.cells.map((cell) => {
                   const { id } = cell.column;
+                  const { key, ...restCellProps } = cell.getCellProps();
 
                   return (
                     <td
+                      key={key}
+                      {...restCellProps}
                       className={clsx(
                         id === 'carb' &&
                           'bg-indigo-100 text-indigo-900 group-odd:bg-indigo-200',
@@ -229,7 +238,6 @@ const Meal = ({ meal }: Props) => {
                         `,
                         'table-cell border-b w-1/12 h-8'
                       )}
-                      {...cell.getCellProps()}
                     >
                       {cell.render('Cell')}
                     </td>

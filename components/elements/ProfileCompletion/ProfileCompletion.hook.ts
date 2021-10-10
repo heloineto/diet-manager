@@ -7,7 +7,6 @@ import {
   UserIcon as UserIconOutlined,
   ClipboardListIcon as ClipboardListIconOutlined,
   BellIcon as BellIconOutlined,
-  ArrowLeftIcon,
 } from '@heroicons/react/outline';
 
 import {
