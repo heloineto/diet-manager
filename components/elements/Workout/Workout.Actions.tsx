@@ -15,13 +15,11 @@ import {
   XIcon,
 } from '@heroicons/react/outline';
 
-import { serverTimestamp, updateDoc } from 'firebase/firestore';
 
 import Modal from '@components/overlays/Modal';
 import RemoveWorkout from '@components/forms/workout/RemoveWorkout';
 import UpdateWorkout from '@components/forms/workout/UpdateWorkout';
 // import AddExercise from '@components/forms/exercise/AddExercise';
-import ModalWithAside from '@components/overlays/ModalWithAside';
 import { removeExercisesAtRows } from './Workout.utils';
 import AddExercise from '@components/forms/exercise/AddExercise';
 

@@ -1,7 +1,5 @@
 import {
-  FormControl,
   FormLabel,
-  makeStyles,
   Slider,
   withStyles,
 } from '@material-ui/core';

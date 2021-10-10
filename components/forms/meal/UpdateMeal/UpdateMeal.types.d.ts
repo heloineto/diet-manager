@@ -1,4 +1,3 @@
-import type { VariantType } from 'notistack';
 
 export interface UpdateMealValuesType {
   label: string;

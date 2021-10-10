@@ -6,13 +6,11 @@ import { UserContext } from '@lib/context';
 import {
   UserIcon as UserIconOutlined,
   ClipboardListIcon as ClipboardListIconOutlined,
-  BellIcon as BellIconOutlined,
 } from '@heroicons/react/outline';
 
 import {
   UserIcon as UserIconSolid,
   ClipboardListIcon as ClipboardListIconSolid,
-  BellIcon as BellIconSolid,
 } from '@heroicons/react/solid';
 
 import UpdateAccount from '@components/forms/profile/UpdateAccount';

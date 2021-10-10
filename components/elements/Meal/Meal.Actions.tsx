@@ -19,7 +19,6 @@ import Modal from '@components/overlays/Modal';
 import RemoveMeal from '@components/forms/meal/RemoveMeal';
 import UpdateMeal from '@components/forms/meal/UpdateMeal';
 import AddFood from '@components/forms/food/AddFood';
-import ModalWithAside from '@components/overlays/ModalWithAside';
 import { removeFoodsAtRows } from './Meal.utils';
 
 interface Props {

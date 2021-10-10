@@ -1,7 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { DateTime } from 'luxon';
+import { useMemo } from 'react';
 
-import { auth, firestore } from '@lib/firebase';
 import { useRouter } from 'next/router';
 import { isKeyInShallowObject } from '@utils/typescript';
 

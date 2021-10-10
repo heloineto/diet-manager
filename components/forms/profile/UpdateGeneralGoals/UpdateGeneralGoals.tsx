@@ -1,12 +1,11 @@
-import { Checkboxes, TextField } from 'mui-rff';
+import { Checkboxes } from 'mui-rff';
 import React, { useContext } from 'react';
 import { Form } from 'react-final-form';
 import { ArrowRightIcon } from '@heroicons/react/outline';
-import { Button, InputAdornment } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import clsx from 'clsx';
 
 import { UserContext } from '@lib/context';
-import ActivityLevelSlider from '@components/inputs/ActivityLevelSlider';
 import updateGeneralGoalsFirestore from './UpdateGeneralGoals.firestore';
 import { isKeyInShallowObject } from '@utils/typescript';
 

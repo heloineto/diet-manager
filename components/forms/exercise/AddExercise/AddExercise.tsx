@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Button } from '@material-ui/core';
 import addExerciseFirestore from './AddExercise.firestore';
-import ModalWithAside from '@components/overlays/ModalWithAside';
 
 interface Props {
   className?: string;

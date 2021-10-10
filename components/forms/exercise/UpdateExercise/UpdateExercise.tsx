@@ -2,12 +2,11 @@ import { AnyObject, Field } from 'react-final-form';
 
 import clsx from 'clsx';
 import { useEffect, useRef } from 'react';
-import { makeValidate, TextField } from 'mui-rff';
+import { TextField } from 'mui-rff';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
 import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
 import { Form } from 'react-final-form';
 
-import updateExerciseSchema from './UpdateExercise.schema';
 import updateExerciseFirestore from './UpdateExercise.firestore';
 import NumberField from '@components/inputs/NumberField';
 

@@ -2,7 +2,6 @@ import { useContext, useState } from 'react';
 import clsx from 'clsx';
 
 import {
-  Avatar,
   Badge,
   IconButton,
   MenuItem,

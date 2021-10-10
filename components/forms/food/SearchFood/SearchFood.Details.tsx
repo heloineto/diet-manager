@@ -1,10 +1,9 @@
 import type { Dispatch, SetStateAction } from 'react';
 
-import { useEffect, useMemo, useState } from 'react';
-import clsx from 'clsx';
+import { useEffect, useState } from 'react';
 import HexagonLabel from '@components/data-displays/HexagonLabel';
 import { round } from 'lodash';
-import { InputAdornment, TextField, useMediaQuery, useTheme } from '@material-ui/core';
+import { InputAdornment, TextField } from '@material-ui/core';
 
 import ExtraDetails from './SearchFood.ExtraDetails';
 import { useMacrosInfo } from '@lib/hooks';

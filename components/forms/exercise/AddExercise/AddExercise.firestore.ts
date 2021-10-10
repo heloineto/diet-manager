@@ -1,4 +1,4 @@
-import { arrayUnion, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { serverTimestamp, updateDoc } from 'firebase/firestore';
 
 const addExerciseFirestore = async (
   { index, label, sets, reps, weight }: Exercise,
