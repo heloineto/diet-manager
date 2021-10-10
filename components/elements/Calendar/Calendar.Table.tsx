@@ -49,13 +49,17 @@ const CalendarTable = ({
 
             return (
               <tr key={key} {...restHeaderGroupProps}>
-                {headerGroup.headers.map((column) => (
-                  <th className="table-cell" {...column.getHeaderProps()}>
-                    <div className="text-gray-600 font-bold text-sm">
-                      {column.render('Header')}
-                    </div>
-                  </th>
-                ))}
+                {headerGroup.headers.map((column) => {
+                  const { key, ...restHeaderProps } = column.getHeaderProps();
+
+                  return (
+                    <th key={key} {...restHeaderProps}>
+                      <div className="text-gray-600 font-bold text-sm">
+                        {column.render('Header')}
+                      </div>
+                    </th>
+                  );
+                })}
               </tr>
             );
           })}

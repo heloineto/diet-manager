@@ -120,9 +120,12 @@ const Workout = ({ workout }: Props) => {
               <tr key={key} {...restHeaderGroupProps}>
                 {headerGroup.headers.map((column) => {
                   const { id } = column;
+                  const { key, ...restColumn } = column.getHeaderProps();
 
                   return (
                     <th
+                      key={key}
+                      {...restColumn}
                       className={clsx(
                         id === 'index' && 'w-1/12',
                         id === 'sets' && 'w-1/12',
@@ -132,7 +135,6 @@ const Workout = ({ workout }: Props) => {
                         data.length && 'border-b-2',
                         'font-bold border-gray-300 bg-gray-100 table-cell h-8 uppercase'
                       )}
-                      {...column.getHeaderProps()}
                     >
                       {column.render('Header')}
                     </th>

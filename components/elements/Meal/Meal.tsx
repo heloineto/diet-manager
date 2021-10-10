@@ -59,10 +59,12 @@ const Meal = ({ meal }: Props) => {
 
   const columns = useMemo(() => {
     const Footer = ({ rows }: Info, accessor: string) => {
-      const getTotal = () =>
-        useMemo(() => rows.reduce((sum, row) => row.values[accessor] + sum, 0), [rows]);
+      const getTotal = useMemo(
+        () => rows.reduce((sum, row) => row.values[accessor] + sum, 0),
+        [rows]
+      );
 
-      return <>{round(getTotal(), 2) || 0}</>;
+      return <>{round(getTotal, 2) || 0}</>;
     };
 
     return [
@@ -149,9 +151,12 @@ const Meal = ({ meal }: Props) => {
               <tr key={key} {...restHeaderGroupProps}>
                 {headerGroup.headers.map((column) => {
                   const { id } = column;
+                  const { key, ...restHeaderProps } = column.getHeaderProps();
 
                   return (
                     <th
+                      key={key}
+                      {...restHeaderProps}
                       className={clsx(
                         id === 'carb' && 'bg-indigo-300 text-indigo-900',
                         id === 'prot' && 'bg-blue-300 text-blue-900',
@@ -161,7 +166,6 @@ const Meal = ({ meal }: Props) => {
                         id === 'amount' && 'bg-gray-100',
                         `font-bold border-gray-300 border-b-2 table-cell w-1/12 h-8`
                       )}
-                      {...column.getHeaderProps()}
                     >
                       {column.render('Header')}
                     </th>
@@ -249,13 +253,19 @@ const Meal = ({ meal }: Props) => {
         </tbody>
         <tfoot>
           {footerGroups.map((group) => {
+            const { key, ...restFooterGroupProps } = group.getFooterGroupProps();
+
             return (
-              <tr {...group.getFooterGroupProps()}>
+              <tr key={key} {...restFooterGroupProps}>
                 {group.headers.map((column) => {
                   const { id } = column;
 
+                  const { key, ...restFooterProps } = column.getFooterProps();
+
                   return (
                     <td
+                      key={key}
+                      {...restFooterProps}
                       className={clsx(
                         id === 'carb' && 'bg-indigo-300 text-indigo-900',
                         id === 'prot' && 'bg-blue-300 text-blue-900',
@@ -265,7 +275,6 @@ const Meal = ({ meal }: Props) => {
                         id === 'amount' && 'bg-gray-100',
                         'table-cell w-1/12 h-8 font-bold border-gray-300 border-b-0 border-t-2'
                       )}
-                      {...column.getFooterProps()}
                     >
                       {column.render('Footer')}
                     </td>
