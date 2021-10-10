@@ -27,7 +27,7 @@ interface Props {
 const UpdateMeal = ({ className, onClose, meal }: Props) => {
   const { enqueueSnackbar } = useSnackbar();
 
-  // @ts-ignore
+  // @ts-ignore Firebase wrongfully anotated their types
   const startsAtJSDate = DateTime.fromSeconds(meal.startsAt.seconds).toJSDate();
 
   const initialValues = {

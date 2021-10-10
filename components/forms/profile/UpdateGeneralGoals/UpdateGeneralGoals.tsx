@@ -8,6 +8,7 @@ import clsx from 'clsx';
 import { UserContext } from '@lib/context';
 import ActivityLevelSlider from '@components/inputs/ActivityLevelSlider';
 import updateGeneralGoalsFirestore from './UpdateGeneralGoals.firestore';
+import { isKeyInShallowObject } from '@utils/typescript';
 
 interface Props {
   className?: string;
@@ -24,8 +25,7 @@ const UpdateGeneralGoals = ({ className, onClose, submitButtonProps }: Props) =>
 
   const initialValues = {
     generalGoals: Object.keys(generalGoals).filter(
-      // @ts-ignore
-      (key) => generalGoals?.[key]
+      (key) => isKeyInShallowObject(key, generalGoals) && generalGoals[key]
     ),
   };
 

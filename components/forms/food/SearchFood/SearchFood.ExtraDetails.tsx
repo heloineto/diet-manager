@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { round } from 'lodash';
 
 import Divider from '@components/layout/Divider';
+import { isKeyInShallowObject } from '@utils/typescript';
 
 interface Props {
   food: FoodRecord;
@@ -38,10 +39,12 @@ const ExtraDetails = ({ food, amount }: Props) => {
 
   const renderInfo = () =>
     Object.entries(nutrientsAux)
-      // @ts-ignore
-      .filter(([key]) => !isNaN(food[key]))
+      .filter(([key]) => isKeyInShallowObject(key, food) && !isNaN(Number(food[key])))
       .map(([key, value], idx) => {
         const isEven = idx % 2 === 0;
+        let nutrientValue = isKeyInShallowObject(key, food) && food[key];
+
+        if (typeof nutrientValue !== 'number') nutrientValue = 0;
 
         return (
           <li
@@ -53,10 +56,7 @@ const ExtraDetails = ({ food, amount }: Props) => {
           >
             <div>{value.label}</div>
             <div className="font-bold">
-              {
-                // @ts-ignore
-                round(food[key] * (amount ?? 1), 2)
-              }
+              {round(nutrientValue * (amount ?? 1), 2)}
               <span className="text-xs text-gray-800 font-semibold">
                 {value.unit ?? 'g'}
               </span>

@@ -5,9 +5,7 @@ yup.addMethod(yup.string, 'isKebabCase', function (errorMessage: string) {
   return this.test(`test-kebak-case`, errorMessage, function (value) {
     const { path, createError } = this;
 
-    return (
-      value === kebabCase(value) || createError({ path, message: errorMessage })
-    );
+    return value === kebabCase(value) || createError({ path, message: errorMessage });
   });
 });
 
@@ -17,7 +15,7 @@ const updateAccountSchema = yup.object().shape({
   newUsername: yup
     .string()
     .required('Forneça uma identificador')
-    // @ts-ignore
+    // @ts-ignore Yup doesn`t identify new custom methods
     .isKebabCase('Identificador inválido'),
   birthdate: yup
     .date()

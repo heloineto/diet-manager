@@ -27,8 +27,7 @@ const Modal = ({
 }: Props) => {
   ReactModal.setAppElement('#__next');
 
-  const { dragStart, drag, dragEnd, style, setStyle } =
-    useModalHook(initialStyle);
+  const { dragStart, drag, dragEnd, style, setStyle } = useModalHook(initialStyle);
 
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
