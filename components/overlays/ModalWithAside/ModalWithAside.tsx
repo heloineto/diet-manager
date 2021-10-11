@@ -1,4 +1,4 @@
-import { ReactNode, CSSProperties, useState } from 'react';
+import { CSSProperties, ReactNode, useState } from 'react';
 
 import ReactModal from 'react-modal';
 import { useModalWithAsideHook } from './ModalWithAside.hook';

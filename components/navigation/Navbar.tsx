@@ -4,13 +4,13 @@ import clsx from 'clsx';
 import {
   Badge,
   IconButton,
-  MenuItem,
   ListItemIcon,
   ListItemText,
   Menu,
+  MenuItem,
 } from '@material-ui/core';
 
-import { LogoutIcon, BellIcon, MenuIcon } from '@heroicons/react/outline';
+import { BellIcon, LogoutIcon, MenuIcon } from '@heroicons/react/outline';
 
 import { UserContext } from '@lib/context';
 import { leave } from '@lib/auth';

@@ -4,14 +4,14 @@ import { useState } from 'react';
 import { DateTime } from 'luxon';
 import { startCase } from 'lodash';
 import clsx from 'clsx';
-import { IconButton, Button } from '@material-ui/core';
+import { Button, IconButton } from '@material-ui/core';
 import {
   ArrowLeftIcon,
-  SearchIcon,
+  ChevronDoubleDownIcon,
+  ChevronDoubleUpIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  ChevronDoubleUpIcon,
-  ChevronDoubleDownIcon,
+  SearchIcon,
 } from '@heroicons/react/outline';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 

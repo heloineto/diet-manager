@@ -1,6 +1,6 @@
 import type {
-  MouseEvent,
   CSSProperties,
+  MouseEvent,
 } from 'react';
 
 import { useState } from 'react';

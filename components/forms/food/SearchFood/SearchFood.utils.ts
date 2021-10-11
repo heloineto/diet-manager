@@ -1,4 +1,4 @@
-import type { Hit, BasicDoc } from 'react-instantsearch-core';
+import type { BasicDoc, Hit } from 'react-instantsearch-core';
 
 export const convertHitToFood = (hit: Hit<Hit<BasicDoc>>) => {
   const food: FoodRecord & { foodId: string } = {

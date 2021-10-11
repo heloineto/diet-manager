@@ -4,13 +4,13 @@ import { useContext, useMemo } from 'react';
 import { UserContext } from '@lib/context';
 
 import {
-  UserIcon as UserIconOutlined,
   ClipboardListIcon as ClipboardListIconOutlined,
+  UserIcon as UserIconOutlined,
 } from '@heroicons/react/outline';
 
 import {
-  UserIcon as UserIconSolid,
   ClipboardListIcon as ClipboardListIconSolid,
+  UserIcon as UserIconSolid,
 } from '@heroicons/react/solid';
 
 import UpdateAccount from '@components/forms/profile/UpdateAccount';

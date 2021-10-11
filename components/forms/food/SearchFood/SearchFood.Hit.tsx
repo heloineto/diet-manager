@@ -1,4 +1,4 @@
-import type { Hit, BasicDoc } from 'react-instantsearch-core';
+import type { BasicDoc, Hit } from 'react-instantsearch-core';
 
 import { useContext } from 'react';
 import clsx from 'clsx';

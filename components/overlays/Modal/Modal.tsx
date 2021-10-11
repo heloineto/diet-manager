@@ -1,4 +1,4 @@
-import type { ReactNode, CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
 import ReactModal from 'react-modal';
 import { useModalHook } from './Modal.hook';

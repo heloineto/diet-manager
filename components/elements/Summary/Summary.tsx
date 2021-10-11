@@ -1,7 +1,7 @@
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import { useContext } from 'react';
 import clsx from 'clsx';
-import { round, isEmpty } from 'lodash';
+import { isEmpty, round } from 'lodash';
 
 import { MealsContext, UserContext } from '@lib/context';
 import { useMacrosInfo } from '@lib/hooks';

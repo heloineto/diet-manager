@@ -3,7 +3,7 @@ import type { Row } from 'react-table';
 
 import { useMemo, useState } from 'react';
 import clsx from 'clsx';
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import PopupState, { bindMenu, bindTrigger } from 'material-ui-popup-state';
 import { Badge, IconButton, Menu, MenuItem, Tooltip } from '@material-ui/core';
 import {
   ChevronDownIcon,

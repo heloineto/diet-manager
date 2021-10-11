@@ -5,10 +5,10 @@ import { Form } from 'react-final-form';
 import { Button } from '@material-ui/core';
 import {
   KeyboardDatePicker,
-  makeValidate,
   Switches,
   TextField,
   TimePicker,
+  makeValidate,
 } from 'mui-rff';
 import { DateTime } from 'luxon';
 

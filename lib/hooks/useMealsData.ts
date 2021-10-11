@@ -3,11 +3,11 @@ import { DateTime } from 'luxon';
 
 import { auth, firestore } from '@lib/firebase';
 import {
+  QuerySnapshot,
   collection,
+  orderBy,
   query,
   where,
-  orderBy,
-  QuerySnapshot,
 } from 'firebase/firestore';
 
 import { useCollection } from 'react-firebase-hooks/firestore';

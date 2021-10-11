@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useContext } from 'react';
-import type { HitsProvided, Hit, BasicDoc } from 'react-instantsearch-core';
+import type { BasicDoc, Hit, HitsProvided } from 'react-instantsearch-core';
 import { connectHits } from 'react-instantsearch-dom';
 
 import { AsideContext } from '@components/overlays/ModalWithAside/ModalWithAside.context';

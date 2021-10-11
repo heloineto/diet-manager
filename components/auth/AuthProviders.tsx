@@ -2,8 +2,8 @@ import type { ReactNode } from 'react';
 
 import { SnackbarProvider } from 'notistack';
 
-import { SelectedDateContext, MealsContext, WorkoutsContext } from '@lib/context';
-import { useSelectedDate, useMealsData, useWorkoutsData } from '@lib/hooks';
+import { MealsContext, SelectedDateContext, WorkoutsContext } from '@lib/context';
+import { useMealsData, useSelectedDate, useWorkoutsData } from '@lib/hooks';
 
 interface Props {
   children: ReactNode;
