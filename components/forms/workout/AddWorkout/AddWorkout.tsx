@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { auth, firestore } from '@lib/firebase';
 import clsx from 'clsx';
@@ -46,8 +46,8 @@ const AddWorkout = ({ className, onClose }: Props) => {
       });
   };
 
-  useEffect(() => {
-    const uid = auth?.currentUser?.uid;
+  const uid = auth?.currentUser?.uid;
+  if (uid) {
     const workoutsRef = collection(firestore, `users/${uid}/workouts`).withConverter(
       converter<Workout>()
     );
@@ -55,11 +55,19 @@ const AddWorkout = ({ className, onClose }: Props) => {
     getDocs(workoutsRef).then((workoutuerySnapshot) => {
       const workoutsSnapshot = workoutuerySnapshot.docs.map((doc) => doc.data());
 
-      console.log(workoutsSnapshot);
+      const prevWorkoutsObj = Object.values(workoutsSnapshot).reduce(
+        (previousValue: { [k: string]: Workout }, currentValue) => {
+          if (!previousValue[currentValue.label])
+            previousValue[currentValue.label] = currentValue;
 
-      setPrevWorkouts(workoutsSnapshot);
+          return previousValue;
+        },
+        {}
+      );
+
+      setPrevWorkouts(Object.values(prevWorkoutsObj));
     });
-  }, []);
+  }
 
   return (
     <Form
@@ -121,8 +129,7 @@ const AddWorkout = ({ className, onClose }: Props) => {
           </div>
           {/* <pre>{JSON.stringify(values, undefined, 2)}</pre> */}
           <div className="w-full flex flex-col">
-            {/**
- *             {prevWorkouts.map((prevWorkout) => (
+            {prevWorkouts.map((prevWorkout) => (
               <Button
                 key={prevWorkout.label}
                 className="shadow-none text-gray-500"
@@ -143,7 +150,6 @@ const AddWorkout = ({ className, onClose }: Props) => {
                 {prevWorkout.label}
               </Button>
             ))}
- */}
           </div>
         </form>
       )}
