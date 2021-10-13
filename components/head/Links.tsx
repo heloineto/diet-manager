@@ -9,8 +9,18 @@ const Links = (props: Props) => {
       <link rel="manifest" href="/manifest.json" />
 
       {/* Logo */}
-      <link rel="icon" type="image/png" sizes="32x32" href="/logo/favicon-32x32.png" />
-      <link rel="icon" type="image/png" sizes="16x16" href="/logo/favicon-16x16.png" />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="/logo/other/favicon-32x32.png"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="/logo/other/favicon-16x16.png"
+      />
       <link
         rel="apple-touch-icon"
         sizes="180x180"
