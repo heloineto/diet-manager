@@ -35,7 +35,6 @@ const NotificationsBadge = ({
 
 interface Props {
   className?: string;
-  current?: string;
   toggleSideBarOpen?: () => void;
 }
 
@@ -67,9 +66,7 @@ const Navbar = ({ className, toggleSideBarOpen }: Props) => {
             >
               <span className="sr-only">Open user menu</span>
               <UserAvatar
-                className={
-                  menuOpen ? 'ring-4 ring-opacity-50' : 'ring-2 ring-opacity-20'
-                }
+                className={menuOpen ? 'ring-4 ring-opacity-50' : 'ring-2 ring-opacity-20'}
               />
             </IconButton>
             <Menu
