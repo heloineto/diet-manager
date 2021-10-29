@@ -2,7 +2,7 @@ import { updateUsername } from '@lib/auth';
 import { auth, firestore } from '@lib/firebase';
 import { converter } from '@utils/firestore';
 import { isNil, omitBy } from 'lodash';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc, serverTimestamp } from 'firebase/firestore';
 
 const updateAccountFirestore = async ({
   oldUsername,
@@ -18,7 +18,7 @@ const updateAccountFirestore = async ({
       converter<UserDetails>()
     );
 
-    await updateDoc(userDoc, omitBy(updates, isNil));
+    await updateDoc(userDoc, { ...omitBy(updates, isNil) });
 
     if (oldUsername && newUsername) await updateUsername(uid, oldUsername, newUsername);
   } catch (error) {
