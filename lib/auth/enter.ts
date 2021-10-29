@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword } from '@firebase/auth';
+import { Persistence, setPersistence, signInWithEmailAndPassword } from '@firebase/auth';
 import { FORM_ERROR } from 'final-form';
 
 import { auth } from '@lib/firebase';
@@ -17,8 +17,7 @@ const enter = async ({
   //! Maybe it should be kept in the form instead
   const persistence = keepConnected ? 'LOCAL' : 'SESSION';
 
-  // @ts-ignore Persistence is literally 'LOCAL' | 'SESSION' | 'NONE'.
-  setPersistence(auth, persistence);
+  setPersistence(auth, persistence as unknown as Persistence);
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
