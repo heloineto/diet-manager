@@ -1,8 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
-
 import { UserContext } from '@lib/context';
-
 import AuthProviders from './AuthProviders';
 
 interface Props {
