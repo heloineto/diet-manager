@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react';
-
 import { Button } from '@material-ui/core';
 
 import UnauthCheck from '@components/auth/UnauthCheck';

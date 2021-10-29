@@ -1,4 +1,3 @@
-import type { NextPage } from 'next';
 import Link from 'next/link';
 import { Form } from 'react-final-form';
 import { KeyboardDatePicker, TextField, makeValidate } from 'mui-rff';

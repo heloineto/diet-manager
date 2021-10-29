@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react';
-
 import clsx from 'clsx';
 
 interface Props {
@@ -13,12 +11,7 @@ interface Props {
   };
 }
 
-const Divider = ({
-  className,
-  children,
-  orientation = 'horizontal',
-  classes,
-}: Props) => {
+const Divider = ({ className, children, orientation = 'horizontal', classes }: Props) => {
   return (
     <div className={clsx(className, 'flex justify-evenly items-center')}>
       <div className={clsx(classes?.bars, 'h-0.5 bg-gray-300 w-full')} />

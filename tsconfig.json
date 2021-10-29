@@ -32,7 +32,7 @@
         "public/*"
       ],
       "@types/*": [
-        "types/*"
+        "@types/*"
       ]
     }
   },

@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react';
-
 import { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 

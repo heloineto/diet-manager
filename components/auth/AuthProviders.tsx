@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react';
-
 import { SnackbarProvider } from 'notistack';
 
 import { MealsContext, SelectedDateContext, WorkoutsContext } from '@lib/context';

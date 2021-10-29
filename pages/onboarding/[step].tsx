@@ -1,5 +1,3 @@
-import type { NextPage } from 'next';
-
 import OnboardingShell from '@components/layout/app-shells/OnboardingShell';
 import ProfileCompletion from '@components/elements/ProfileCompletion';
 import { useRouter } from 'next/router';

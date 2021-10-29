@@ -1,5 +1,3 @@
-import type { NextPage } from 'next';
-
 import MainShell from '@components/layout/app-shells/MainShell';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 
