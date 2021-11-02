@@ -1,5 +1,4 @@
 import classNames from 'clsx';
-import { useContext } from 'react';
 import { useSnackbar } from 'notistack';
 import { Form } from 'react-final-form';
 import { Button } from '@material-ui/core';
@@ -10,11 +9,9 @@ import {
   TimePicker,
   makeValidate,
 } from 'mui-rff';
-import { DateTime } from 'luxon';
 
 import updateWorkoutSchema from './UpdateWorkout.schema';
 import updateWorkoutFirestore from './UpdateWorkout.firestore';
-import { SelectedDateContext } from '@lib/context';
 import ColorField from '@components/inputs/ColorField';
 
 interface Props {

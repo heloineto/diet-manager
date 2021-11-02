@@ -1,10 +1,8 @@
 import type { Dispatch, SetStateAction } from 'react';
-
 import { useEffect, useState } from 'react';
 import HexagonLabel from '@components/data-displays/HexagonLabel';
 import { round } from 'lodash';
 import { InputAdornment, TextField } from '@material-ui/core';
-
 import ExtraDetails from './SearchFood.ExtraDetails';
 import { useMacrosInfo } from '@lib/hooks';
 
@@ -19,10 +17,12 @@ const SearchFoodDetails = ({ food, setSelectedFood }: Props) => {
   const [amount, setAmount] = useState(100);
 
   const { carbInfo, protInfo, fatInfo } = useMacrosInfo();
-  const { label, kcal, prot, fat, carb, unit, foodId } = food;
+  const { prot, fat, carb, unit } = food;
 
   useEffect(() => {
-    setSelectedFood &&
+    if (setSelectedFood) {
+      const { label, kcal, prot, fat, carb, unit, foodId } = food;
+
       setSelectedFood({
         amount,
         carb,
@@ -33,11 +33,10 @@ const SearchFoodDetails = ({ food, setSelectedFood }: Props) => {
         label,
         unit,
       });
+    }
 
-    return () => {
-      setSelectedFood && setSelectedFood(null);
-    };
-  }, [amount, food]);
+    return () => (setSelectedFood ? setSelectedFood(null) : undefined);
+  }, [amount, food, setSelectedFood]);
 
   const totalKcal = (carb + prot) * 4 + fat * 9;
 

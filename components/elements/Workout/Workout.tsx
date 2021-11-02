@@ -42,8 +42,8 @@ const Workout = ({ workout }: Props) => {
 
   const data = useMemo(() => Object.values(exercises), [exercises]);
 
-  const columns = useMemo(() => {
-    return [
+  const columns = useMemo(
+    () => [
       {
         Header: 'Nº',
         accessor: 'index',
@@ -64,14 +64,14 @@ const Workout = ({ workout }: Props) => {
         Header: 'Peso',
         accessor: 'weight',
       },
-    ];
-  }, [exercises]);
+    ],
+    []
+  );
 
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    footerGroups,
     rows,
     prepareRow,
     // @ts-ignore //* React Table is dumb

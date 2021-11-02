@@ -45,7 +45,7 @@ const UpdateExercise = ({
     document.addEventListener('mousedown', handleClick);
 
     return () => document.removeEventListener('mousedown', handleClick);
-  }, []);
+  });
 
   const updateExercise = async ({
     label,

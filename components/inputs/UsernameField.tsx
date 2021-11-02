@@ -19,6 +19,9 @@ const UsernameField = ({ label, name }: Props) => {
 
   const { userDetails } = useContext(UserContext);
 
+  //! ESlint doesn't know what dependencies are received from debounce.
+  //! Neither do I ¯\_(ツ)_/¯
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const checkUsernameAvailable = useCallback(
     debounce(async (username: string) => {
       setLoading(true);

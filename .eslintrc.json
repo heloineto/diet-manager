@@ -5,15 +5,6 @@
   "rules": {
     "no-unused-vars": "off",
     "unused-imports/no-unused-imports": "error",
-    "unused-imports/no-unused-vars": [
-      "warn",
-      {
-        "vars": "all",
-        "varsIgnorePattern": "^_",
-        "args": "after-used",
-        "argsIgnorePattern": "^_"
-      }
-    ],
     "sort-imports": [
       "error",
       {
@@ -21,15 +12,5 @@
       }
     ]
   },
-  "extends": "next/core-web-vitals",
-  "overrides": [
-    {
-      "files": [
-        "**/*.js"
-      ],
-      "rules": {
-        "react-hooks/exhaustive-deps": "off"
-      }
-    }
-  ]
+  "extends": "next/core-web-vitals"
 }

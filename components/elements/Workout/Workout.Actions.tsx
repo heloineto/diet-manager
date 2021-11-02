@@ -77,7 +77,7 @@ const WorkoutActions = ({
         onClick: () => setRemoveWorkoutOpen(true),
       },
     ],
-    [expanded]
+    [expanded, setExpanded]
   );
 
   const renderResponsiveActions = () => {

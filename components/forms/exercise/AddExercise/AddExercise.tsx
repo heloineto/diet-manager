@@ -33,7 +33,7 @@ const AddExercise = ({ className, open, onClose, workout }: Props) => {
 
   useEffect(() => {
     if (open) addExercise();
-  }, [open]);
+  }, [open, addExercise]);
 
   return null;
 };
