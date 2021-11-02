@@ -5,7 +5,7 @@ import AuthCheck from '@components/auth/AuthCheck';
 import Navbar from '@components/navigation/Navbar';
 import Sidebar from '@components/navigation/Sidebar';
 import Section from '@components/layout/Section';
-import Widget from '../Widget';
+import Widget from '../layout/Widget';
 
 interface Props {
   children: ReactNode;

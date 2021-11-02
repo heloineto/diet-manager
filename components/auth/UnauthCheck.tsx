@@ -15,7 +15,7 @@ const UnauthCheck = ({ children }: Props) => {
     if (user) {
       router.replace('/');
     }
-  }, [user]);
+  }, [user, router]);
 
   return !user ? <>{children}</> : null;
 };

@@ -11,7 +11,7 @@ const DietManagerLogo = ({ className }: Props) => {
     //! it seems to be a problem with tailwind applying styling to the gradients of svgs? and only on md breakpoints??
     //! Anyways, tailwind is dumb (i still love it though)
     <div className={className}>
-      <Image src={logoScalable} />
+      <Image src={logoScalable} alt="diet manager logo" />
     </div>
     // <svg
     //   className={classNames(className)}

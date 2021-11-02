@@ -61,7 +61,7 @@ const Meal = ({ meal }: Props) => {
     const Footer = ({ rows }: Info, accessor: string) => {
       const getTotal = useMemo(
         () => rows.reduce((sum, row) => row.values[accessor] + sum, 0),
-        [rows]
+        [rows, accessor]
       );
 
       return <>{round(getTotal, 2) || 0}</>;
@@ -98,7 +98,7 @@ const Meal = ({ meal }: Props) => {
         Footer: (info: Info) => Footer(info, 'kcal'),
       },
     ];
-  }, [formattedFoods, compact]);
+  }, [compact]);
 
   const {
     getTableProps,

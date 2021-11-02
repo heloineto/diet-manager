@@ -1,4 +1,4 @@
-import MainShell from '@components/layout/app-shells/MainShell';
+import MainShell from '@components/app-shells/MainShell';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 
 import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
@@ -36,12 +36,12 @@ const Settings: NextPage = () => {
   useEffect(() => {
     if (compact) setCurrentCategory(null);
     if (!compact) setCurrentCategory(categories[0]);
-  }, [compact]);
+  }, [compact, categories]);
 
   useEffect(() => {
     currentCategory &&
       router.push(`${currentCategory.name}`, undefined, { shallow: true });
-  }, [currentCategory]);
+  }, [currentCategory, router]);
 
   const renderForm = () => {
     if (!currentCategory) return null;

@@ -24,7 +24,7 @@ const CalendarTable = ({
   expanded,
 }: Props) => {
   const data = useMemo(() => getMonthData(navDate), [navDate]);
-  const columns = useMemo(() => getColumns(), [navDate]);
+  const columns = useMemo(() => getColumns(), []);
 
   const currWeek = useMemo(
     () =>

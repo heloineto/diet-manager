@@ -1,4 +1,4 @@
-import MainShell from '@components/layout/app-shells/MainShell';
+import MainShell from '@components/app-shells/MainShell';
 import Calendar from '@components/elements/Calendar';
 import Meals from '@components/elements/Meals';
 import Summary from '@components/elements/Summary';

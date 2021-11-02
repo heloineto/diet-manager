@@ -76,7 +76,7 @@ const MealActions = ({
         onClick: () => setRemoveMealOpen(true),
       },
     ],
-    [expanded]
+    [expanded, setExpanded]
   );
 
   const renderResponsiveActions = () => {

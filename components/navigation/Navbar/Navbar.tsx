@@ -34,11 +34,10 @@ const NotificationsBadge = ({
 };
 
 interface Props {
-  className?: string;
   toggleSideBarOpen?: () => void;
 }
 
-const Navbar = ({ className, toggleSideBarOpen }: Props) => {
+const Navbar = ({ toggleSideBarOpen }: Props) => {
   const { userDetails } = useContext(UserContext);
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
   const menuOpen = Boolean(menuAnchor);

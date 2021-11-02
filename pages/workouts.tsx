@@ -1,4 +1,4 @@
-import MainShell from '@components/layout/app-shells/MainShell';
+import MainShell from '@components/app-shells/MainShell';
 import Calendar from '@components/elements/Calendar';
 import Workouts from '@components/elements/Workouts';
 import { useMediaQuery, useTheme } from '@material-ui/core';

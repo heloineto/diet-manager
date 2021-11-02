@@ -3,7 +3,7 @@ import { Form } from 'react-final-form';
 import { Checkboxes, TextField, makeValidate } from 'mui-rff';
 import { Button, Typography } from '@material-ui/core';
 
-import AuthFlowShell from '@components/layout/app-shells/AuthFlowShell';
+import AuthFlowShell from '@components/app-shells/AuthFlowShell';
 
 import { enter } from '@lib/auth';
 import { enterSchema } from '@utils/validation';

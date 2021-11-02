@@ -13,7 +13,7 @@ const AuthCheck = ({ children }: Props) => {
 
   useEffect(() => {
     if (!user && !loading) router.replace('/enter');
-  }, [user, loading]);
+  }, [user, loading, router]);
 
   return user ? <AuthProviders>{children}</AuthProviders> : null;
 };

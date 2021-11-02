@@ -27,7 +27,7 @@ const Sidebar = ({ className, sideBarOpen, toggleSideBarOpen, window }: Props) =
       const Icon = current ? IconSolid : IconOutlined;
 
       return (
-        <Link key={name} href={href} aria-current={current ? 'page' : 'false'}>
+        <Link key={name} href={href} aria-current={current ? 'page' : 'false'} passHref>
           <Button
             className={classNames(
               current

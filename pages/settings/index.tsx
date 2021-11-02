@@ -6,7 +6,7 @@ const Settings: NextPage = () => {
 
   useEffect(() => {
     router.push('/settings/account');
-  }, []);
+  });
 
   return null;
 };

@@ -6,7 +6,7 @@ const Onboarding: NextPage = () => {
 
   useEffect(() => {
     router.push('/onboarding/account');
-  }, []);
+  });
 
   return null;
 };
