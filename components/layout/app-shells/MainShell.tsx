@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import clsx from 'clsx';
+import classNames from 'clsx';
 
 import AuthCheck from '@components/auth/AuthCheck';
 import Navbar from '@components/navigation/Navbar';
@@ -29,7 +29,7 @@ const MainShell = ({ children, aside, asideProps }: Props) => {
           <Navbar toggleSideBarOpen={toggleSideBarOpen} />
 
           <div
-            className={clsx(
+            className={classNames(
               asideProps?.position === 'left' && 'flex-row-reverse',
               'flex-1 flex items-stretch overflow-hidden'
             )}
@@ -41,7 +41,7 @@ const MainShell = ({ children, aside, asideProps }: Props) => {
             </main>
 
             <aside
-              className={clsx(
+              className={classNames(
                 asideProps?.size === 'large'
                   ? 'lg:w-[28rem] xl:w-[38rem]'
                   : asideProps?.size === 'small'

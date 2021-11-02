@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import classNames from 'clsx';
 import { Avatar } from '@material-ui/core';
 import { UserContext } from '@lib/context';
 import { useContext } from 'react';
@@ -12,7 +12,7 @@ const UserAvatar = ({ className }: Props) => {
 
   return (
     <Avatar
-      className={clsx(className, 'font-semibold ring-primary-200')}
+      className={classNames(className, 'font-semibold ring-primary-200')}
       alt={`${userDetails?.firstName} ${userDetails?.lastName}`}
       src={userDetails?.photoURL}
     >

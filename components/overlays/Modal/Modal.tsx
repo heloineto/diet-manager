@@ -4,7 +4,7 @@ import ReactModal from 'react-modal';
 import { useModalHook } from './Modal.hook';
 import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
 import { XIcon } from '@heroicons/react/outline';
-import clsx from 'clsx';
+import classNames from 'clsx';
 
 interface Props {
   children: ReactNode;
@@ -39,7 +39,7 @@ const Modal = ({
 
   return (
     <ReactModal
-      className={clsx(
+      className={classNames(
         compact ? 'w-full h-full overflow-y-auto' : 'shadow-overlay rounded-xl',
         'absolute bg-white'
       )}
@@ -55,7 +55,7 @@ const Modal = ({
     >
       <div className="p-0">
         <div
-          className={clsx(
+          className={classNames(
             compact ? 'p-5' : 'rounded-t-xl shadow-top-reflection pr-5',
             'h-14 w-full flex items-center justify-between font-bold bg-gray-200 text-gray-700'
           )}

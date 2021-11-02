@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import clsx from 'clsx';
+import classNames from 'clsx';
 
 import {
   Badge,
@@ -24,7 +24,7 @@ const NotificationsBadge = ({
   qnt?: number;
 }) => {
   return (
-    <IconButton className={clsx(className, 'text-gray-700')}>
+    <IconButton className={classNames(className, 'text-gray-700')}>
       <Badge badgeContent={qnt} color="secondary">
         <span className="sr-only">View notifications</span>
         <BellIcon className="h-6 w-6" aria-hidden="true" />

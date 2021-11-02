@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { auth, firestore } from '@lib/firebase';
-import clsx from 'clsx';
+import classNames from 'clsx';
 import { useSnackbar } from 'notistack';
 import { Form } from 'react-final-form';
 import { Button } from '@material-ui/core';
@@ -85,7 +85,7 @@ const AddWorkout = ({ className, onClose }: Props) => {
       {({ handleSubmit, submitting }) => (
         <form
           onSubmit={handleSubmit}
-          className={clsx(className, 'flex flex-col space-y-5')}
+          className={classNames(className, 'flex flex-col space-y-5')}
         >
           <TextField
             label="Título"

@@ -4,7 +4,7 @@ import ReactModal from 'react-modal';
 import { useModalWithAsideHook } from './ModalWithAside.hook';
 import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
 import { ArrowLeftIcon, XIcon } from '@heroicons/react/outline';
-import clsx from 'clsx';
+import classNames from 'clsx';
 import { AsideContext } from './ModalWithAside.context';
 
 interface Props {
@@ -46,7 +46,7 @@ const ModalWithAside = ({
 
   return (
     <ReactModal
-      className={clsx(
+      className={classNames(
         compact ? 'w-full h-full overflow-y-auto' : 'shadow-overlay rounded-xl',
         'absolute bg-white'
       )}
@@ -60,9 +60,9 @@ const ModalWithAside = ({
         },
       }}
     >
-      <div className={clsx(compact && aside && 'hidden')}>
+      <div className={classNames(compact && aside && 'hidden')}>
         <div
-          className={clsx(
+          className={classNames(
             compact ? 'p-5' : 'rounded-t-xl shadow-top-reflection pr-5',
             'h-14 w-full flex items-center justify-between font-bold bg-gray-200 text-gray-700'
           )}
@@ -95,14 +95,14 @@ const ModalWithAside = ({
       </div>
       {aside && (
         <div
-          className={clsx(
+          className={classNames(
             compact ? 'w-full h-full overflow-y-auto' : 'shadow-overlay rounded-xl',
             'absolute bg-white lg:w-80 p-0 top-0 inline-block lg:mx-5'
           )}
           style={compact ? {} : asideModalStyle}
         >
           <div
-            className={clsx(
+            className={classNames(
               compact ? 'p-5' : 'rounded-t-xl shadow-top-reflection pl-5',
               'h-14 w-full flex items-center font-bold bg-gray-200 text-gray-700'
             )}

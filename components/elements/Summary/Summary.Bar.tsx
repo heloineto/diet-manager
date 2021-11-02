@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 
-import clsx from 'clsx';
+import classNames from 'clsx';
 
 const SummaryBar = ({
   className,
@@ -11,7 +11,7 @@ const SummaryBar = ({
 }) => {
   return (
     <div
-      className={clsx(
+      className={classNames(
         className,
         'shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center'
       )}

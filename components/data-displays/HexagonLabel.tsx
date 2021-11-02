@@ -1,5 +1,5 @@
 import { useMediaQuery, useTheme } from '@material-ui/core';
-import clsx from 'clsx';
+import classNames from 'clsx';
 
 interface Props {
   label: string;
@@ -27,9 +27,9 @@ const HexagonLabel = ({
   const isLarge = size === 'large' && !compact;
 
   return (
-    <div className={clsx('relative')}>
+    <div className={classNames('relative')}>
       <svg
-        className={clsx(isLarge ? 'max-w-32 max-h-40' : '')}
+        className={classNames(isLarge ? 'max-w-32 max-h-40' : '')}
         {...(isLarge
           ? { width: '100%', height: '100%', viewBox: '0 0 120 160' }
           : { width: '90', height: '115', viewBox: '0 0 90 115' })}
@@ -51,17 +51,15 @@ const HexagonLabel = ({
       <div className="absolute top-0 w-full h-full flex flex-col items-center">
         <div className="flex flex-col items-center justify-center pt-4 flex-grow">
           <div
-            className={clsx(
-              isLarge
-                ? 'text-base font-bold w-32'
-                : 'text-sm font-semibold w-20',
+            className={classNames(
+              isLarge ? 'text-base font-bold w-32' : 'text-sm font-semibold w-20',
               'text-gray-500 text-center overflow-hidden whitespace-nowrap flex-grow overflow-ellipsis'
             )}
           >
             {label}
           </div>
           <div
-            className={clsx(
+            className={classNames(
               isLarge ? 'text-2xl' : 'text-xl',
               'text-gray-800 font-bold flex-grow'
             )}
@@ -78,11 +76,9 @@ const HexagonLabel = ({
         {
           //* This verification ensures that the percentage appers even if it is 0%
           typeof percentage === 'number' && (
-            <div
-              className={clsx(isLarge ? 'mb-3' : 'mb-2', 'mt-auto relative')}
-            >
+            <div className={classNames(isLarge ? 'mb-3' : 'mb-2', 'mt-auto relative')}>
               <svg
-                className={clsx(isLarge ? 'max-w-24 max-h-10' : '', '')}
+                className={classNames(isLarge ? 'max-w-24 max-h-10' : '', '')}
                 {...(isLarge
                   ? { width: '100%', height: '100%', viewBox: '0 0 100 41' }
                   : { width: '73', height: '38', viewBox: '0 0 75 40' })}

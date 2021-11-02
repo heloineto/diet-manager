@@ -1,7 +1,7 @@
 import type { BasicDoc, Hit } from 'react-instantsearch-core';
 
 import { useContext } from 'react';
-import clsx from 'clsx';
+import classNames from 'clsx';
 import { AsideContext } from '@components/overlays/ModalWithAside/ModalWithAside.context';
 import SearchFoodDetails from './SearchFood.Details';
 import { convertHitToFood } from './SearchFood.utils';
@@ -26,7 +26,7 @@ const SearchFoodHit = ({ hit, isEven }: Props) => {
   return (
     <li>
       <div
-        className={clsx(
+        className={classNames(
           isEven ? 'bg-white' : 'bg-gray-50',
           isSelected &&
             'relative after:border-2 after:border-blue-500 after:h-full after:w-full after:absolute',
@@ -49,7 +49,7 @@ const SearchFoodHit = ({ hit, isEven }: Props) => {
           {label}
         </div>
         <div
-          className={clsx(
+          className={classNames(
             isEven ? 'bg-indigo-300' : 'bg-indigo-200',
             'flex items-center justify-center min-w-[10%] text-indigo-900'
           )}
@@ -57,7 +57,7 @@ const SearchFoodHit = ({ hit, isEven }: Props) => {
           {round(carb * 100, 2)}
         </div>
         <div
-          className={clsx(
+          className={classNames(
             isEven ? 'bg-blue-300' : 'bg-blue-200',
             'flex items-center justify-center min-w-[10%] text-blue-900'
           )}
@@ -65,7 +65,7 @@ const SearchFoodHit = ({ hit, isEven }: Props) => {
           {round(prot * 100, 2)}
         </div>
         <div
-          className={clsx(
+          className={classNames(
             isEven ? 'bg-yellow-300' : 'bg-yellow-200',
             'flex items-center justify-center min-w-[10%] text-yellow-900'
           )}
@@ -73,7 +73,7 @@ const SearchFoodHit = ({ hit, isEven }: Props) => {
           {round(fat * 100, 2)}
         </div>
         <div
-          className={clsx(
+          className={classNames(
             isEven ? 'bg-green-300' : 'bg-green-200',
             'flex items-center justify-center min-w-[10%] text-green-900'
           )}

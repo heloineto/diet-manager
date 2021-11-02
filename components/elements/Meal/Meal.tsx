@@ -3,7 +3,7 @@ import type { Row } from 'react-table';
 import { useMemo } from 'react';
 import { useTable } from 'react-table';
 import { omit, pick, round } from 'lodash';
-import clsx from 'clsx';
+import classNames from 'clsx';
 
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import { useMealState } from './Meal.state';
@@ -122,7 +122,7 @@ const Meal = ({ meal }: Props) => {
         <thead>
           <tr>
             <th
-              className={clsx(
+              className={classNames(
                 `
                 table-cell w-1/12 h-10
                 text-[0.875rem] md:text-base font-extrabold relative
@@ -157,7 +157,7 @@ const Meal = ({ meal }: Props) => {
                     <th
                       key={key}
                       {...restHeaderProps}
-                      className={clsx(
+                      className={classNames(
                         id === 'carb' && 'bg-indigo-300 text-indigo-900',
                         id === 'prot' && 'bg-blue-300 text-blue-900',
                         id === 'fat' && 'bg-yellow-300 text-yellow-900',
@@ -207,7 +207,7 @@ const Meal = ({ meal }: Props) => {
                     <td
                       key={key}
                       {...restCellProps}
-                      className={clsx(
+                      className={classNames(
                         id === 'carb' &&
                           'bg-indigo-100 text-indigo-900 group-odd:bg-indigo-200',
                         id === 'prot' &&
@@ -266,7 +266,7 @@ const Meal = ({ meal }: Props) => {
                     <td
                       key={key}
                       {...restFooterProps}
-                      className={clsx(
+                      className={classNames(
                         id === 'carb' && 'bg-indigo-300 text-indigo-900',
                         id === 'prot' && 'bg-blue-300 text-blue-900',
                         id === 'fat' && 'bg-yellow-300 text-yellow-900',

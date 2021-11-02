@@ -3,7 +3,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import { useMemo } from 'react';
 import { useTable } from 'react-table';
 import { DateTime, Interval } from 'luxon';
-import clsx from 'clsx';
+import classNames from 'clsx';
 
 import { getColumns, getMonthData } from './Calendar.utils';
 
@@ -85,7 +85,7 @@ const CalendarTable = ({
                   return (
                     <td key={key} {...restCellProps} className="table-cell">
                       <div
-                        className={clsx(
+                        className={classNames(
                           isToday && 'border-primary-200',
                           isSelected && '!border-primary-500 text-primary-600',
                           isAnotherMonth && 'text-gray-300 border-gray-100',
@@ -107,7 +107,7 @@ const CalendarTable = ({
                         }}
                       >
                         <div
-                          className={clsx(
+                          className={classNames(
                             isToday && 'bg-primary-200 border-2 border-white rounded-md',
                             'text-[0.950rem] absolute w-full h-full flex flex-col items-center justify-center'
                           )}

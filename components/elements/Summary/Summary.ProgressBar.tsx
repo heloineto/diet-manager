@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import classNames from 'clsx';
 import { useMemo } from 'react';
 import SummaryBar from './Summary.Bar';
 
@@ -9,12 +9,7 @@ interface Props {
   isSpecific: boolean;
 }
 
-const SummaryProgressBar = ({
-  className,
-  consumed,
-  goalMacros,
-  isSpecific,
-}: Props) => {
+const SummaryProgressBar = ({ className, consumed, goalMacros, isSpecific }: Props) => {
   const percentages = useMemo(
     () => ({
       kcal: (consumed.kcal / goalMacros.kcal) * 100,
@@ -27,7 +22,7 @@ const SummaryProgressBar = ({
 
   return (
     <div
-      className={clsx(
+      className={classNames(
         'relative overflow-hidden flex rounded-full bg-gray-100 border-2 border-gray-200 h-4 w-full',
         className
       )}
@@ -38,10 +33,7 @@ const SummaryProgressBar = ({
             style={{ width: `${percentages.carb}%` }}
             className="bg-indigo-500"
           />
-          <SummaryBar
-            style={{ width: `${percentages.prot}%` }}
-            className="bg-blue-500"
-          />
+          <SummaryBar style={{ width: `${percentages.prot}%` }} className="bg-blue-500" />
           <SummaryBar
             style={{ width: `${percentages.fat}%` }}
             className="bg-yellow-500"

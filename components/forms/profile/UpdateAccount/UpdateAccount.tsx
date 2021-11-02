@@ -4,7 +4,7 @@ import { Form } from 'react-final-form';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { DateTime } from 'luxon';
 import { Button } from '@material-ui/core';
-import clsx from 'clsx';
+import classNames from 'clsx';
 
 import { UserContext } from '@lib/context';
 import GenderField from '@components/inputs/GenderField';
@@ -59,7 +59,7 @@ const UpdateAccount = ({ className, onClose, submitButtonProps }: Props) => {
     >
       {({ handleSubmit, submitting, values }) => (
         <form
-          className={clsx(
+          className={classNames(
             className,
             'grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6'
           )}

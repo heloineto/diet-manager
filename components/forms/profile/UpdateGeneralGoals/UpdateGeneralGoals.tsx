@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Form } from 'react-final-form';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { Button } from '@material-ui/core';
-import clsx from 'clsx';
+import classNames from 'clsx';
 
 import { UserContext } from '@lib/context';
 import updateGeneralGoalsFirestore from './UpdateGeneralGoals.firestore';
@@ -42,7 +42,7 @@ const UpdateGeneralGoals = ({ className, onClose, submitButtonProps }: Props) =>
     <Form onSubmit={updateGeneralGoals} initialValues={initialValues}>
       {({ handleSubmit, submitting, values }) => (
         <form
-          className={clsx(
+          className={classNames(
             className,
             'grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6'
           )}

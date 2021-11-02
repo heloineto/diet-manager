@@ -1,6 +1,6 @@
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import { useContext } from 'react';
-import clsx from 'clsx';
+import classNames from 'clsx';
 import { isEmpty, round } from 'lodash';
 
 import { MealsContext, UserContext } from '@lib/context';
@@ -50,7 +50,7 @@ const Summary = ({ className }: Props) => {
   );
 
   return (
-    <div className={clsx(className, 'flex flex-col items-center')}>
+    <div className={classNames(className, 'flex flex-col items-center')}>
       <h5 className="font-bold text-3xl md:text-4xl mb-7">Sumário do Dia</h5>
 
       <div className="flex items-center w-full justify-evenly mb-5">

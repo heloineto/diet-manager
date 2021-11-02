@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import classNames from 'clsx';
 
 import { useCalendarState } from './Calendar.state';
 import CalendarHeader from './Calendar.Header';
@@ -13,7 +13,7 @@ const Calendar = ({ expanded, className }: Props) => {
   const calendarState = useCalendarState({ expanded: expanded });
 
   return (
-    <div className={clsx(className, 'border-2 rounded-xl')}>
+    <div className={classNames(className, 'border-2 rounded-xl')}>
       <CalendarHeader {...calendarState} />
       <CalendarTable {...calendarState} />
     </div>

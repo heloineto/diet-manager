@@ -14,7 +14,7 @@ const DietManagerLogo = ({ className }: Props) => {
       <Image src={logoScalable} />
     </div>
     // <svg
-    //   className={clsx(className)}
+    //   className={classNames(className)}
     //   viewBox="0 0 192 192"
     //   fill="none"
     //   xmlns="http://www.w3.org/2000/svg"

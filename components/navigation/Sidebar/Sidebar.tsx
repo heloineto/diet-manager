@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import clsx from 'clsx';
+import classNames from 'clsx';
 import { Button, Drawer, IconButton } from '@material-ui/core';
 
 import DietManagerLogo from '@components/decoration/DietManagerLogo';
@@ -29,7 +29,7 @@ const Sidebar = ({ className, sideBarOpen, toggleSideBarOpen, window }: Props) =
       return (
         <Link key={name} href={href} aria-current={current ? 'page' : 'false'}>
           <Button
-            className={clsx(
+            className={classNames(
               current
                 ? 'bg-primary-200 text-primary-800'
                 : 'text-gray-800 hover:text-primary-800',
@@ -41,7 +41,7 @@ const Sidebar = ({ className, sideBarOpen, toggleSideBarOpen, window }: Props) =
             }}
             startIcon={
               <Icon
-                className={clsx(
+                className={classNames(
                   current
                     ? 'text-primary-900'
                     : 'text-gray-700 group-hover:text-primary-900',

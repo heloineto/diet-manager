@@ -2,7 +2,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import type { Row } from 'react-table';
 
 import { useMemo, useState } from 'react';
-import clsx from 'clsx';
+import classNames from 'clsx';
 import PopupState, { bindMenu, bindTrigger } from 'material-ui-popup-state';
 import { Badge, IconButton, Menu, MenuItem, Tooltip } from '@material-ui/core';
 import {
@@ -92,7 +92,7 @@ const MealActions = ({
               <Menu {...bindMenu(popupState)}>
                 {actions.map(({ label, Icon, onClick, className }, idx) => (
                   <MenuItem
-                    className={clsx(className)}
+                    className={classNames(className)}
                     key={idx}
                     onClick={() => {
                       popupState.close();
@@ -114,7 +114,10 @@ const MealActions = ({
         <>
           {actions.map(({ label, Icon, onClick, className }) => (
             <Tooltip key={label} title={label} arrow>
-              <IconButton className={clsx(className, 'w-7 h-7 p-0')} onClick={onClick}>
+              <IconButton
+                className={classNames(className, 'w-7 h-7 p-0')}
+                onClick={onClick}
+              >
                 <Icon className="h-4 w-4" />
               </IconButton>
             </Tooltip>
@@ -128,7 +131,7 @@ const MealActions = ({
       <div className="absolute top-0 h-full w-full mx-1 flex items-center text-gray-800">
         <Tooltip title="Adicionar alimento" arrow>
           <IconButton
-            className={clsx(
+            className={classNames(
               compact && 'bg-primary-500 text-white shadow-primary-500',
               hover
                 ? 'bg-primary-500 text-white shadow-primary-500'

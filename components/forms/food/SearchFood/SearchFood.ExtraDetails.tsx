@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import clsx from 'clsx';
+import classNames from 'clsx';
 import { round } from 'lodash';
 
 import Divider from '@components/layout/Divider';
@@ -49,7 +49,7 @@ const ExtraDetails = ({ food, amount }: Props) => {
         return (
           <li
             key={key}
-            className={clsx(
+            className={classNames(
               isEven ? 'bg-white' : 'bg-gray-50',
               'flex justify-between items-center h-6 px-2 border-b'
             )}

@@ -1,6 +1,6 @@
 import { AnyObject, Field } from 'react-final-form';
 
-import clsx from 'clsx';
+import classNames from 'clsx';
 import { useEffect, useRef } from 'react';
 import { TextField } from 'mui-rff';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
@@ -87,7 +87,7 @@ const UpdateExercise = ({
           return (
             <tr
               onSubmit={handleSubmit}
-              className={clsx(
+              className={classNames(
                 className,
                 'table-row cursor-pointer relative odd:bg-gray-50 group h-16'
               )}

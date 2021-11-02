@@ -1,5 +1,5 @@
 import { Form } from 'react-final-form';
-import clsx from 'clsx';
+import classNames from 'clsx';
 import { Button, ButtonGroup, InputAdornment } from '@material-ui/core';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { round } from 'lodash';
@@ -153,7 +153,7 @@ const UpdateNutritionGoals = ({ className, onClose, submitButtonProps }: Props) 
         decorators={decorators}
       >
         {({ handleSubmit, submitting, values }) => (
-          <form className={clsx(className)} onSubmit={handleSubmit}>
+          <form className={classNames(className)} onSubmit={handleSubmit}>
             <div className="flex flex-col sm:flex-row gap-x-1 gap-y-2.5 sm:gap-y-0 sm:gap-x-2.5">
               {[carbInfo, protInfo, fatInfo].map(({ label, key }) => (
                 <div

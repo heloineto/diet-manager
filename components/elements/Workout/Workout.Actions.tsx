@@ -2,7 +2,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import type { Row } from 'react-table';
 
 import { useMemo, useState } from 'react';
-import clsx from 'clsx';
+import classNames from 'clsx';
 import PopupState, { bindMenu, bindTrigger } from 'material-ui-popup-state';
 import { Badge, IconButton, Menu, MenuItem, Tooltip } from '@material-ui/core';
 import {
@@ -14,7 +14,6 @@ import {
   TrashIcon,
   XIcon,
 } from '@heroicons/react/outline';
-
 
 import Modal from '@components/overlays/Modal';
 import RemoveWorkout from '@components/forms/workout/RemoveWorkout';
@@ -94,7 +93,7 @@ const WorkoutActions = ({
               <Menu {...bindMenu(popupState)}>
                 {actions.map(({ label, Icon, onClick, className }, idx) => (
                   <MenuItem
-                    className={clsx(className)}
+                    className={classNames(className)}
                     key={idx}
                     onClick={() => {
                       popupState.close();
@@ -116,7 +115,10 @@ const WorkoutActions = ({
         <>
           {actions.map(({ label, Icon, onClick, className }) => (
             <Tooltip key={label} title={label} arrow>
-              <IconButton className={clsx(className, 'w-7 h-7 p-0')} onClick={onClick}>
+              <IconButton
+                className={classNames(className, 'w-7 h-7 p-0')}
+                onClick={onClick}
+              >
                 <Icon className="h-4 w-4" />
               </IconButton>
             </Tooltip>
@@ -132,7 +134,7 @@ const WorkoutActions = ({
       >
         <Tooltip title="Adicionar exercício" arrow>
           <IconButton
-            className={clsx(
+            className={classNames(
               compact && 'bg-primary-500 text-white shadow-primary-500',
               hover
                 ? 'bg-primary-500 text-white shadow-primary-500'

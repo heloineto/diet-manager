@@ -3,7 +3,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 import { DateTime } from 'luxon';
 import { startCase } from 'lodash';
-import clsx from 'clsx';
+import classNames from 'clsx';
 import { Button, IconButton } from '@material-ui/core';
 import {
   ArrowLeftIcon,
@@ -117,7 +117,7 @@ const CalendarHeader = ({
 
   return (
     <div
-      className={clsx(
+      className={classNames(
         searchMode ? 'h-2/5' : 'h-14',
         'border-b-2 flex items-center p-0 sm:p-2 text-gray-500'
       )}

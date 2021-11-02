@@ -1,5 +1,5 @@
 import { Button } from '@material-ui/core';
-import clsx from 'clsx';
+import classNames from 'clsx';
 
 interface CategoryType {
   name: string;
@@ -27,7 +27,7 @@ const Menu = ({ categories, current, onChange }: Props) => {
         return (
           <Button
             key={name}
-            className={clsx(
+            className={classNames(
               isCurrent
                 ? 'bg-blue-300 bg-opacity-50'
                 : 'hover:bg-blue-200 hover:bg-opacity-50',

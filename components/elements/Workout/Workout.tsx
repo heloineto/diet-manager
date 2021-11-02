@@ -1,10 +1,8 @@
 import type { Row } from 'react-table';
-
 import { useMemo } from 'react';
 import { useTable } from 'react-table';
 import { omit } from 'lodash';
-import clsx from 'clsx';
-
+import classNames from 'clsx';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import { useWorkoutState } from './Workout.state';
 import WorkoutActions from './Workout.Actions';
@@ -91,7 +89,7 @@ const Workout = ({ workout }: Props) => {
         <thead>
           <tr>
             <th
-              className={clsx(
+              className={classNames(
                 `
                 table-cell w-1/12 h-10
                 text-[0.875rem] md:text-base font-extrabold relative
@@ -126,7 +124,7 @@ const Workout = ({ workout }: Props) => {
                     <th
                       key={key}
                       {...restColumn}
-                      className={clsx(
+                      className={classNames(
                         id === 'index' && 'w-1/12',
                         id === 'sets' && 'w-1/12',
                         id === 'reps' && 'w-3/12',
@@ -204,7 +202,7 @@ const Workout = ({ workout }: Props) => {
                     <td
                       key={key}
                       {...restCellProps}
-                      className={clsx(
+                      className={classNames(
                         id === 'label'
                           ? 'text-left font-medium pl-1 sm:pl-2'
                           : 'font-semibold md:font-medium',
@@ -243,7 +241,7 @@ const Workout = ({ workout }: Props) => {
                           {value.map((eachValue, idx) => (
                             <div
                               key={idx}
-                              className={clsx(
+                              className={classNames(
                                 idx !== 0 && 'border-l-2',
                                 'h-full flex justify-center items-center'
                               )}
