@@ -1,37 +1,16 @@
 import { useContext, useState } from 'react';
-import classNames from 'clsx';
-
 import {
-  Badge,
   IconButton,
   ListItemIcon,
   ListItemText,
   Menu,
   MenuItem,
 } from '@material-ui/core';
-
-import { BellIcon, LogoutIcon, MenuIcon } from '@heroicons/react/outline';
-
+import { LogoutIcon, MenuIcon } from '@heroicons/react/outline';
 import { UserContext } from '@lib/context';
 import { leave } from '@lib/auth';
 import UserAvatar from '@components/decoration/UserAvatar';
-
-const NotificationsBadge = ({
-  className,
-  qnt = 0,
-}: {
-  className: string;
-  qnt?: number;
-}) => {
-  return (
-    <IconButton className={classNames(className, 'text-gray-700')}>
-      <Badge badgeContent={qnt} color="secondary">
-        <span className="sr-only">View notifications</span>
-        <BellIcon className="h-6 w-6" aria-hidden="true" />
-      </Badge>
-    </IconButton>
-  );
-};
+import NavbarNotificationsBadge from './Navbar.NotificationsBadge';
 
 interface Props {
   toggleSideBarOpen?: () => void;
@@ -57,7 +36,7 @@ const Navbar = ({ toggleSideBarOpen }: Props) => {
         </div>
         {userDetails && (
           <div className="ml-4 flex items-center sm:ml-6">
-            <NotificationsBadge className="w-12 h-12" />
+            <NavbarNotificationsBadge className="w-12 h-12" />
             <IconButton
               className="w-12 h-12 my-auto hover:bg-primary-50"
               edge="end"

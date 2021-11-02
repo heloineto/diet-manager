@@ -1,6 +1,4 @@
-interface Props {}
-
-const FacebookIcon = (props: Props) => {
+const FacebookIcon = () => {
   return (
     <svg
       width="24"

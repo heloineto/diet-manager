@@ -1,7 +1,5 @@
 import classNames from 'clsx';
 
-import React from 'react';
-
 interface Props {
   children: ReactNode;
   className?: string;

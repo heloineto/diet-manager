@@ -1,8 +1,4 @@
-import {
-  FormLabel,
-  Slider,
-  withStyles,
-} from '@material-ui/core';
+import { FormLabel, Slider, withStyles } from '@material-ui/core';
 import { useMemo } from 'react';
 import { Field } from 'react-final-form';
 
@@ -50,14 +46,12 @@ interface Props {
 
 const SliderAdapter = ({
   input,
-  meta,
   label,
   options,
   ...rest
 }: {
   //* We use any here because rff didn't care enough about ts
   input: any;
-  meta: any;
   [x: string]: any;
 }) => {
   const { title, description } = options[input.value];

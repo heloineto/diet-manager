@@ -1,7 +1,7 @@
 import { CheckIcon } from '@heroicons/react/outline';
 import { useColors } from '@lib/hooks';
 import { FormControl, FormLabel, IconButton } from '@material-ui/core';
-import React from 'react';
+
 import { Field } from 'react-final-form';
 
 interface Props {

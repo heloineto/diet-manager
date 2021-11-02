@@ -24,17 +24,16 @@ interface Props {
 }
 
 const UpdateWorkout = ({ className, onClose, workout }: Props) => {
-  const { selectedDate } = useContext(SelectedDateContext);
+  const { startsAt } = workout;
 
-  // @ts-ignore
-  const startsAtJSDate = DateTime.fromSeconds(workout.startsAt.seconds).toJSDate();
+  const startsAtDate = startsAt instanceof Date ? startsAt : startsAt.toDate();
 
   const initialValues = {
     label: workout.label,
     isPublic: workout.isPublic,
     color: workout.color,
-    date: startsAtJSDate,
-    time: startsAtJSDate,
+    date: startsAtDate,
+    time: startsAtDate,
   };
 
   const { enqueueSnackbar } = useSnackbar();

@@ -1,8 +1,8 @@
 interface Meal {
   color: string;
-  startsAt: FieldValue | Date;
-  createdAt: FieldValue;
-  updatedAt: FieldValue;
+  startsAt: Date | Timestamp;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
   label: string;
   isPublic: boolean;
   foods: Food[];

@@ -25,6 +25,6 @@ interface FoodRecord {
   vitaminC: number;
   // idx: number;
   createdBy: string;
-  // createdAt: number | import('./firebase').FieldValue;
-  // updatedAt: number | import('./firebase').FieldValue;
+  // createdAt: Date | Timestamp;
+  // updatedAt: Date | Timestamp;
 }

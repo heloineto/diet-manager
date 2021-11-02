@@ -53,12 +53,7 @@ const UpdateNutritionGoals = ({ className, onClose, submitButtonProps }: Props) 
     () => [
       createDecorator({
         field: /^(carb|prot|fat)$/,
-        updates: (
-          value,
-          field,
-          allValues: Partial<UpdateNutritionGoalsValuesType> | undefined,
-          prevValues
-        ) => {
+        updates: (allValues: Partial<UpdateNutritionGoalsValuesType> | undefined) => {
           if (inputMode !== 'grams') return {};
           if (!allValues) return {};
 

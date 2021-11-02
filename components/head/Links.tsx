@@ -1,8 +1,4 @@
-import React from 'react';
-
-interface Props {}
-
-const Links = (props: Props) => {
+const Links = () => {
   return (
     <>
       {/* Manifest */}

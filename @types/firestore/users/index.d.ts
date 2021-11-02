@@ -3,7 +3,7 @@ interface UserDetails {
   firstName?: string;
   lastName?: string;
   photoURL?: string;
-  birthdate?: FieldValue | Date;
+  birthdate?: Date | Timestamp;
   metrics?: {
     activityLevel?: 1 | 2 | 3 | 4 | 5;
     height?: {

@@ -1,6 +1,4 @@
-interface Props {}
-
-const Meta = (props: Props) => {
+const Meta = () => {
   return (
     <>
       <meta name="application-name" content="Diet Manager" />

@@ -3,7 +3,6 @@ import classNames from 'clsx';
 interface Props {
   className?: string;
   children?: ReactNode;
-  orientation?: 'horizontal' | 'vertical';
   classes?: {
     root?: string;
     text?: string;
@@ -11,7 +10,7 @@ interface Props {
   };
 }
 
-const Divider = ({ className, children, orientation = 'horizontal', classes }: Props) => {
+const Divider = ({ className, children, classes }: Props) => {
   return (
     <div className={classNames(className, 'flex justify-evenly items-center')}>
       <div className={classNames(classes?.bars, 'h-0.5 bg-gray-300 w-full')} />

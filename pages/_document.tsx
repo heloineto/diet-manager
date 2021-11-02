@@ -1,4 +1,3 @@
-import React from 'react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core';
 import Meta from '@components/head/Meta';
