@@ -4,9 +4,7 @@ import { Form } from 'react-final-form';
 import { TextField } from 'mui-rff';
 import NumberField from '@components/inputs/NumberField';
 import { useMacrosInfo } from '@lib/hooks';
-import { useMemo } from 'react';
-import createDecorator from 'final-form-calculate';
-import { round } from 'lodash';
+import useRegisterFoodDecorators from './RegisterFood.decorators';
 
 interface Props {
   open: boolean;
@@ -17,56 +15,15 @@ interface Props {
 
 const RegisterFood = ({ open, onSubmit, onClose, onReturn }: Props) => {
   const { carbInfo, protInfo, fatInfo, kcalInfo } = useMacrosInfo();
+  const decorators = useRegisterFoodDecorators();
 
   const registerFood = async () => {};
-
-  const decorators = useMemo(
-    () => [
-      createDecorator({
-        field: /^(carb|prot|fat)$/,
-        updates: (
-          value,
-          field,
-          allValues: Partial<UpdateNutritionGoalsValuesType> | undefined,
-          prevValues
-        ) => {
-          if (!allValues) return {};
-
-          const { carb, prot, fat } = allValues;
-
-          const calculatedKcal =
-            (Number(carb) || 0) * carbInfo.kcalPerUnit +
-            (Number(prot) || 0) * protInfo.kcalPerUnit +
-            (Number(fat) || 0) * fatInfo.kcalPerUnit;
-
-          const updates = {
-            kcal: String(round(calculatedKcal, 2)),
-          };
-
-          [carbInfo, protInfo, fatInfo].forEach(({ key, kcalPerUnit }) =>
-            Object.assign(updates, {
-              [`${key}Percentage`]: String(
-                round(
-                  (Number(allValues[key]) * kcalPerUnit * 100) / Number(calculatedKcal),
-                  2
-                ) || 0
-              ),
-            })
-          );
-
-          return updates;
-        },
-      }),
-    ],
-    []
-  );
 
   return (
     <Modal label="Cadastrar Alimento" open={open} onClose={onClose}>
       <Form
         onSubmit={registerFood}
-        // @ts-ignore
-        // validate={makeValidate(registerFoodSchema)}
+        //! Add validation
         decorators={decorators}
       >
         {({ handleSubmit, submitting }) => (

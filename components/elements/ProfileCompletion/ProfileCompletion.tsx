@@ -32,7 +32,7 @@ const ProfileCompletion = ({ stepName }: Props) => {
 
   useEffect(() => {
     router.push(`${steps[activeStep].name}`, undefined, { shallow: true });
-  }, [activeStep]);
+  }, [activeStep, router, steps]);
 
   const nextStep = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);

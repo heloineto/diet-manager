@@ -12,28 +12,28 @@ interface Props {
 const AddExercise = ({ className, open, onClose, workout }: Props) => {
   const [exercise, setExercise] = useState<Exercise | null>(null);
 
-  const addExercise = async () => {
-    onClose();
-
-    if (!exercise) return;
-
-    const index = Object.keys(workout.exercises).length;
-
-    await addExerciseFirestore(
-      {
-        index,
-        label: '',
-        sets: 0,
-        reps: [],
-        weight: [],
-      },
-      workout.ref
-    );
-  };
-
   useEffect(() => {
+    const addExercise = async () => {
+      onClose();
+
+      if (!exercise) return;
+
+      const index = Object.keys(workout.exercises).length;
+
+      await addExerciseFirestore(
+        {
+          index,
+          label: '',
+          sets: 0,
+          reps: [],
+          weight: [],
+        },
+        workout.ref
+      );
+    };
+
     if (open) addExercise();
-  }, [open, addExercise]);
+  }, [open, exercise, onClose, workout]);
 
   return null;
 };
