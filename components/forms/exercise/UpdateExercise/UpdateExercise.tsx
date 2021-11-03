@@ -1,12 +1,10 @@
 import { AnyObject, Field } from 'react-final-form';
-
 import classNames from 'clsx';
 import { useEffect, useRef } from 'react';
 import { TextField } from 'mui-rff';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
 import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
 import { Form } from 'react-final-form';
-
 import updateExerciseFirestore from './UpdateExercise.firestore';
 import NumberField from '@components/inputs/NumberField';
 
@@ -45,7 +43,7 @@ const UpdateExercise = ({
     document.addEventListener('mousedown', handleClick);
 
     return () => document.removeEventListener('mousedown', handleClick);
-  });
+  }, [handleClick]);
 
   const updateExercise = async ({
     label,

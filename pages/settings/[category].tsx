@@ -1,6 +1,5 @@
 import MainShell from '@components/app-shells/MainShell';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
-
 import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import Menu from '@components/elements/Menu';

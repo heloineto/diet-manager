@@ -14,7 +14,7 @@ const SearchFoodHits = ({ hits }: HitsProvided<Hit<BasicDoc>>) => {
       setAside && setAside(null);
       setAsideLabel && setAsideLabel('');
     };
-  });
+  }, [setAside, setAsideLabel]);
 
   return (
     <ol>
