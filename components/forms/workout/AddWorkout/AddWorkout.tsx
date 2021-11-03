@@ -1,6 +1,4 @@
-import { useContext, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { auth, firestore } from '@lib/firebase';
+import { useContext } from 'react';
 import classNames from 'clsx';
 import { useSnackbar } from 'notistack';
 import { Form } from 'react-final-form';
@@ -12,13 +10,12 @@ import {
   TimePicker,
   makeValidate,
 } from 'mui-rff';
-
 import addWorkoutSchema from './AddWorkout.schema';
 import addWorkoutFirestore from './AddWorkout.firestore';
 import { SelectedDateContext } from '@lib/context';
 import ColorField from '@components/inputs/ColorField';
-import { converter } from '@utils/firestore';
 import { useColors } from '@lib/hooks';
+import usePrevWorkouts from './AddWorkout.usePrevWorkouts';
 
 interface Props {
   className?: string;
@@ -27,12 +24,9 @@ interface Props {
 
 const AddWorkout = ({ className, onClose }: Props) => {
   const { selectedDate } = useContext(SelectedDateContext);
-
   const colors = useColors();
-
-  const [prevWorkouts, setPrevWorkouts] = useState<Workout[]>([]);
-
   const { enqueueSnackbar } = useSnackbar();
+  const { prevWorkouts } = usePrevWorkouts();
 
   const addWorkout = async (
     values: AddWorkoutValuesType & { exercises?: Workout['exercises'] }
@@ -46,29 +40,6 @@ const AddWorkout = ({ className, onClose }: Props) => {
       });
   };
 
-  const uid = auth?.currentUser?.uid;
-  if (uid) {
-    const workoutsRef = collection(firestore, `users/${uid}/workouts`).withConverter(
-      converter<Workout>()
-    );
-
-    getDocs(workoutsRef).then((workoutuerySnapshot) => {
-      const workoutsSnapshot = workoutuerySnapshot.docs.map((doc) => doc.data());
-
-      const prevWorkoutsObj = Object.values(workoutsSnapshot).reduce(
-        (previousValue: { [k: string]: Workout }, currentValue) => {
-          if (!previousValue[currentValue.label])
-            previousValue[currentValue.label] = currentValue;
-
-          return previousValue;
-        },
-        {}
-      );
-
-      setPrevWorkouts(Object.values(prevWorkoutsObj));
-    });
-  }
-
   return (
     <Form
       onSubmit={addWorkout}
@@ -79,8 +50,7 @@ const AddWorkout = ({ className, onClose }: Props) => {
         saveWorkout: true,
         color: '#eff6ff',
       }}
-      // @ts-ignore
-      validate={makeValidate(addWorkoutSchema)}
+      validate={makeValidate(addWorkoutSchema) as any}
     >
       {({ handleSubmit, submitting }) => (
         <form
