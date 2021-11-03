@@ -30,20 +30,20 @@ const UpdateExercise = ({
 
   const node = useRef<HTMLTableRowElement>(null);
 
-  let submit: () => Promise<AnyObject | undefined> | undefined;
-
-  const handleClick = (e: MouseEvent) => {
-    if (node?.current?.contains(e.target as Node)) return;
-
-    submit && submit();
-    onClickOutside();
-  };
+  let submit: () => Promise<AnyObject | undefined> | undefined = () => undefined;
 
   useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (node?.current?.contains(e.target as Node)) return;
+
+      submit && submit();
+      onClickOutside();
+    };
+
     document.addEventListener('mousedown', handleClick);
 
     return () => document.removeEventListener('mousedown', handleClick);
-  }, [handleClick]);
+  }, [submit, onClickOutside]);
 
   const updateExercise = async ({
     label,
