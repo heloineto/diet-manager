@@ -132,8 +132,9 @@ const MealActions = ({
         <Tooltip title="Adicionar alimento" arrow>
           <IconButton
             className={classNames(
-              compact && 'bg-primary-500 text-white shadow-primary-500',
-              hover
+              compact
+                ? 'bg-primary-500 text-white shadow-primary-500'
+                : hover
                 ? 'bg-primary-500 text-white shadow-primary-500'
                 : 'bg-white bg-opacity-50 text-gray-800',
               'w-7 h-7 p-0 transition-colors duration-500 mr-0.5 sm:mr-2.5'
