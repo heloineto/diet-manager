@@ -1,8 +1,9 @@
 import { ArrowLeftIcon } from '@heroicons/react/outline';
+import { usePush } from '@lib/hooks';
 import { IconButton, Step, StepLabel, Stepper } from '@material-ui/core';
 import { isKeyInShallowObject } from '@utils/typescript';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   useProfileCompletion,
   useProfileCompletionSteps,
@@ -13,7 +14,12 @@ interface Props {
 }
 
 const ProfileCompletion = ({ stepName }: Props) => {
-  const router = useRouter();
+  /**
+   * Not memoizing router and adding it to the dependency array of the useEffect call (below)
+   * causes the site to just go blank (on what I suppose is an infinite loop)
+   * I have no idea why it happens, might ask it on Stack Overflow later
+   */
+  const { push } = usePush();
 
   const stepNameToIndex = {
     account: 0,
@@ -31,8 +37,8 @@ const ProfileCompletion = ({ stepName }: Props) => {
   const steps = useProfileCompletionSteps();
 
   useEffect(() => {
-    router.push(`${steps[activeStep].name}`, undefined, { shallow: true });
-  }, [activeStep, router, steps]);
+    push(`${steps[activeStep].name}`, undefined, { shallow: true });
+  }, [activeStep, push, steps]);
 
   const nextStep = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -56,7 +62,7 @@ const ProfileCompletion = ({ stepName }: Props) => {
           <div className="font-bold text-xl text-gray-900 mx-auto">{label}</div>
         </div>
         <Form
-          onClose={activeStep === steps.length - 1 ? () => router.push('/') : nextStep}
+          onClose={activeStep === steps.length - 1 ? () => push('/') : nextStep}
           submitButtonProps={{}}
         />
       </>

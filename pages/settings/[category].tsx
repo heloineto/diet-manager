@@ -1,14 +1,22 @@
 import MainShell from '@components/app-shells/MainShell';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Menu from '@components/elements/Menu';
 import { useProfileCompletionSteps } from '@components/elements/ProfileCompletion/ProfileCompletion.hook';
 import { useRouter } from 'next/router';
 import { isKeyInShallowObject } from '@utils/typescript';
+import { usePush } from '@lib/hooks';
 
 const Settings: NextPage = () => {
+  /**
+   * Not memoizing router and adding it to the dependency array of the useEffect call (below)
+   * causes the site to just go blank (on what I suppose is an infinite loop)
+   * I have no idea why it happens, might ask it on Stack Overflow later
+   */
   const router = useRouter();
+  const { push } = usePush();
+
   const { category } = router.query;
   const categoryName = category && typeof category === 'string' ? category : 'account';
 
@@ -33,14 +41,17 @@ const Settings: NextPage = () => {
   );
 
   useEffect(() => {
-    if (compact) setCurrentCategory(null);
-    if (!compact) setCurrentCategory(categories[0]);
+    if (compact) {
+      setCurrentCategory(null);
+      return;
+    }
+
+    setCurrentCategory(categories[0]);
   }, [compact, categories]);
 
   useEffect(() => {
-    currentCategory &&
-      router.push(`${currentCategory.name}`, undefined, { shallow: true });
-  }, [currentCategory, router]);
+    currentCategory && push(`${currentCategory.name}`, undefined, { shallow: true });
+  }, [currentCategory, push]);
 
   const renderForm = () => {
     if (!currentCategory) return null;

@@ -1,12 +1,13 @@
+import { usePush } from '@lib/hooks';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 const Settings: NextPage = () => {
-  const router = useRouter();
+  const push = usePush();
 
   useEffect(() => {
-    router.push('/settings/account');
-  }, [router]);
+    push('/settings/account');
+  }, [push]);
 
   return null;
 };

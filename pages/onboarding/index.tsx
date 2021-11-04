@@ -1,12 +1,13 @@
+import { usePush } from '@lib/hooks';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 const Onboarding: NextPage = () => {
-  const router = useRouter();
+  const { push } = usePush();
 
   useEffect(() => {
-    router.push('/onboarding/account');
-  }, [router]);
+    push('/onboarding/account');
+  }, [push]);
 
   return null;
 };

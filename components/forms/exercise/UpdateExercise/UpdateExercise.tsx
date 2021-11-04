@@ -1,6 +1,6 @@
-import { AnyObject, Field } from 'react-final-form';
+import { Field, FormRenderProps } from 'react-final-form';
 import classNames from 'clsx';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { TextField } from 'mui-rff';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
 import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
@@ -27,10 +27,9 @@ const UpdateExercise = ({
 }: Props) => {
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
+  const [submit, setSubmit] = useState<FormRenderProps['handleSubmit'] | null>(null);
 
   const node = useRef<HTMLTableRowElement>(null);
-
-  let submit: () => Promise<AnyObject | undefined> | undefined = () => undefined;
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -80,7 +79,7 @@ const UpdateExercise = ({
         // validate={makeValidate(updateExerciseSchema)}
       >
         {({ handleSubmit, values, submitting }) => {
-          submit = handleSubmit;
+          setSubmit(handleSubmit);
 
           return (
             <tr
