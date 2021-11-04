@@ -2,8 +2,7 @@ import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { usePush } from '@lib/hooks';
 import { IconButton, Step, StepLabel, Stepper } from '@material-ui/core';
 import { isKeyInShallowObject } from '@utils/typescript';
-import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   useProfileCompletion,
   useProfileCompletionSteps,
