@@ -1,8 +1,14 @@
 import ReactModal from 'react-modal';
 import { useModalHook } from './Modal.hook';
-import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
+import {
+  IconButton,
+  useMediaQuery,
+  useTheme,
+  Modal as MuiModal,
+} from '@material-ui/core';
 import { XIcon } from '@heroicons/react/outline';
 import classNames from 'clsx';
+import { useDrag } from '@lib/hooks';
 
 interface Props {
   children: ReactNode;
@@ -25,33 +31,26 @@ const Modal = ({
 }: Props) => {
   ReactModal.setAppElement('#__next');
 
-  const { dragStart, drag, dragEnd, style, setStyle } = useModalHook(initialStyle);
+  const { style, setStyle, setDragElem, setHandleElem } = useDrag(initialStyle);
 
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
 
-  const close = () => {
+  const handleClose = () => {
     onClose();
     setStyle(initialStyle);
   };
 
   return (
-    <ReactModal
-      className={classNames(
-        compact ? 'w-full h-full overflow-y-auto' : 'shadow-overlay rounded-xl',
-        'absolute bg-white'
-      )}
-      isOpen={open}
-      onRequestClose={close}
-      style={{
-        content: compact ? undefined : style,
-        overlay: {
-          zIndex: 1000,
-          backgroundColor: 'transparent',
-        },
-      }}
-    >
-      <div className="p-0">
+    <MuiModal open={open} onClose={handleClose} BackdropProps={{ invisible: true }}>
+      <div
+        className={classNames(
+          compact ? 'w-full h-full overflow-y-auto p-0' : 'shadow-overlay rounded-xl',
+          'absolute bg-white'
+        )}
+        style={compact ? undefined : style}
+        ref={(elem) => setDragElem(elem)}
+      >
         <div
           className={classNames(
             compact ? 'p-5' : 'rounded-t-xl shadow-top-reflection pr-5',
@@ -63,23 +62,18 @@ const Modal = ({
           ) : (
             <div
               className="cursor-move flex-grow h-full flex items-center p-5 select-none"
-              // @ts-ignore
-              onMouseDown={dragStart}
-              // @ts-ignore
-              onMouseMove={drag}
-              onMouseUp={dragEnd}
-              onMouseLeave={dragEnd}
+              ref={(elem) => setHandleElem(elem)}
             >
               {label}
             </div>
           )}
-          <IconButton edge="end" onClick={close}>
+          <IconButton edge="end" onClick={handleClose}>
             <XIcon className="h-5 w-5" />
           </IconButton>
         </div>
         <div className="content p-5">{children}</div>
       </div>
-    </ReactModal>
+    </MuiModal>
   );
 };
 

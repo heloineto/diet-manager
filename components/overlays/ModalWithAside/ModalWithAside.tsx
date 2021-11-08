@@ -18,7 +18,7 @@ const ModalWithAside = ({
   children,
   label,
   open,
-  onClose = () => {},
+  onClose,
   actions,
   initialStyle = {
     top: '50%',
@@ -36,7 +36,7 @@ const ModalWithAside = ({
   const compact = useMediaQuery(breakpoints.down('md'));
 
   const handleClose = () => {
-    onClose();
+    onClose?.();
     setStyle(initialStyle);
   };
 
