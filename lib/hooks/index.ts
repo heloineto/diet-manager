@@ -1,4 +1,5 @@
 export { default as useColors } from './useColors';
+export { default as useDrag } from './useDrag';
 export { default as useMacrosInfo } from './useMacrosInfo';
 export { default as useMealsData } from './useMealsData';
 export { default as usePush } from './usePush';

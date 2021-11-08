@@ -1,11 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
-import ReactModal from 'react-modal';
-import { useModalWithAsideHook } from './ModalWithAside.hook';
+import { useState } from 'react';
 import { IconButton, useMediaQuery, useTheme, Modal } from '@material-ui/core';
 import { ArrowLeftIcon, XIcon } from '@heroicons/react/outline';
 import classNames from 'clsx';
 import { AsideContext } from './ModalWithAside.context';
-import useDrag from '@lib/hooks/useDrag';
+import { useDrag } from '@lib/hooks';
 
 interface Props {
   children: ReactNode;
@@ -22,48 +20,35 @@ const ModalWithAside = ({
   open,
   onClose = () => {},
   actions,
+  initialStyle = {
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
 }: Props) => {
-  ReactModal.setAppElement('#__next');
-
   const [aside, setAside] = useState<ReactNode>(null);
   const [asideLabel, setAsideLabel] = useState<string>('');
 
-  // const { style, setStyle, asideModalStyle, offset, setOffset, dragging, setDragging } =
-  //   useModalWithAsideHook(initialStyle);
-
-  const { draggableRef, draggableStyles } = useDrag();
-
-  console.log(draggableStyles);
+  const { style, setStyle, asideStyle, setDragElem, setAsideElem, setHandleElem } =
+    useDrag(initialStyle);
 
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
 
   const handleClose = () => {
     onClose();
-    // setStyle(initialStyle);
+    setStyle(initialStyle);
   };
 
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      BackdropProps={{ invisible: true }}
-      style={
-        compact
-          ? undefined
-          : draggableStyles ?? {
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-            }
-      }
-      ref={draggableRef}
-    >
+    <Modal open={open} onClose={handleClose} BackdropProps={{ invisible: true }}>
       <div
         className={classNames(
           compact ? 'w-full h-full overflow-y-auto' : 'shadow-overlay rounded-xl',
           'absolute bg-white'
         )}
+        style={compact ? undefined : style}
+        ref={(elem) => setDragElem(elem)}
       >
         <div className={classNames(compact && aside && 'hidden')}>
           <div
@@ -77,12 +62,7 @@ const ModalWithAside = ({
             ) : (
               <div
                 className="cursor-move flex-grow h-full flex items-center p-5 select-none"
-                // // @ts-ignore
-                // onMouseDown={dragStart}
-                // // @ts-ignore
-                // onMouseMove={drag}
-                // onMouseUp={dragEnd}
-                // onMouseLeave={dragEnd}
+                ref={(elem) => setHandleElem(elem)}
               >
                 {label}
               </div>
@@ -104,7 +84,8 @@ const ModalWithAside = ({
               compact ? 'w-full h-full overflow-y-auto' : 'shadow-overlay rounded-xl',
               'absolute bg-white lg:w-80 p-0 top-0 inline-block lg:mx-5'
             )}
-            // style={compact ? {} : asideModalStyle}
+            ref={(elem) => setAsideElem(elem)}
+            style={compact ? {} : asideStyle}
           >
             <div
               className={classNames(
