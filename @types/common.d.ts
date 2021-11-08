@@ -1,4 +1,5 @@
 type ReactNode = import('react').ReactNode;
+type CSSProperties = import('react').CSSProperties;
 
 type NextPage = import('next').NextPage;
 

@@ -1,7 +1,4 @@
-import type {
-  CSSProperties,
-  MouseEvent,
-} from 'react';
+import type { CSSProperties, MouseEvent } from 'react';
 
 import { useState } from 'react';
 
@@ -13,10 +10,7 @@ export const useModalWithAsideHook = (initialStyle: CSSProperties) => {
     left: '100%',
   });
 
-  const getParentAt = (
-    currentTarget: EventTarget & HTMLElement,
-    qnt: number
-  ) => {
+  const getParentAt = (currentTarget: EventTarget & HTMLElement, qnt: number) => {
     for (let i = 0; i < qnt; i++) {
       const aux = currentTarget.parentElement;
       if (aux) currentTarget = aux;
@@ -28,11 +22,8 @@ export const useModalWithAsideHook = (initialStyle: CSSProperties) => {
   const dragStart = (e: MouseEvent<HTMLDivElement, MouseEvent>) => {
     setOffset({
       //* Go tree nodes up, so the right element is selected
-      x:
-        e.screenX -
-        getParentAt(e.currentTarget, 3).getBoundingClientRect().left,
-      y:
-        e.screenY - getParentAt(e.currentTarget, 3).getBoundingClientRect().top,
+      x: e.screenX - getParentAt(e.currentTarget, 3).getBoundingClientRect().left,
+      y: e.screenY - getParentAt(e.currentTarget, 3).getBoundingClientRect().top,
     });
 
     setDragging(true);
@@ -51,8 +42,7 @@ export const useModalWithAsideHook = (initialStyle: CSSProperties) => {
 
     setAsideModalStyle(
       left >
-        window.innerWidth -
-          getParentAt(e.currentTarget, 3).getBoundingClientRect().left
+        window.innerWidth - getParentAt(e.currentTarget, 3).getBoundingClientRect().left
         ? { right: '100%' }
         : { left: '100%' }
     );

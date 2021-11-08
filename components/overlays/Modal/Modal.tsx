@@ -1,5 +1,3 @@
-import type { CSSProperties, ReactNode } from 'react';
-
 import ReactModal from 'react-modal';
 import { useModalHook } from './Modal.hook';
 import { IconButton, useMediaQuery, useTheme } from '@material-ui/core';
@@ -64,7 +62,7 @@ const Modal = ({
             <div>{label}</div>
           ) : (
             <div
-              className="cursor-move flex-grow h-full flex items-center p-5"
+              className="cursor-move flex-grow h-full flex items-center p-5 select-none"
               // @ts-ignore
               onMouseDown={dragStart}
               // @ts-ignore

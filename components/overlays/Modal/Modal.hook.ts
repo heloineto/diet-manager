@@ -1,7 +1,4 @@
-import type {
-  CSSProperties,
-  MouseEvent,
-} from 'react';
+import type { CSSProperties, MouseEvent } from 'react';
 
 import { useState } from 'react';
 
@@ -10,10 +7,7 @@ export const useModalHook = (initialStyle: CSSProperties) => {
   const [dragging, setDragging] = useState(false);
   const [style, setStyle] = useState(initialStyle);
 
-  const getParentAt = (
-    currentTarget: EventTarget & HTMLElement,
-    qnt: number
-  ) => {
+  const getParentAt = (currentTarget: EventTarget & HTMLElement, qnt: number) => {
     for (let i = 0; i < qnt; i++) {
       const aux = currentTarget.parentElement;
       if (aux) currentTarget = aux;
@@ -25,11 +19,8 @@ export const useModalHook = (initialStyle: CSSProperties) => {
   const dragStart = (e: MouseEvent<HTMLDivElement, MouseEvent>) => {
     setOffset({
       //* Go tree nodes up, so the right element is selected
-      x:
-        e.screenX -
-        getParentAt(e.currentTarget, 3).getBoundingClientRect().left,
-      y:
-        e.screenY - getParentAt(e.currentTarget, 3).getBoundingClientRect().top,
+      x: e.screenX - getParentAt(e.currentTarget, 3).getBoundingClientRect().left,
+      y: e.screenY - getParentAt(e.currentTarget, 3).getBoundingClientRect().top,
     });
 
     setDragging(true);
