@@ -47,7 +47,7 @@ const UpdateAccount = ({
   };
 
   const updateAccount = async (values: Omit<UpdateAccountValuesType, 'oldUsername'>) => {
-    onClose && onClose();
+    onClose?.();
     await updateAccountFirestore({
       ...values,
       oldUsername,

@@ -19,10 +19,6 @@ class MyDocument extends Document {
           <meta name="mobile-web-app-capable" content="yes" />
           <meta name="msapplication-TileColor" content="#00a300" />
           <meta name="theme-color" content="#32cc0f" />
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
-          />
 
           <link rel="manifest" href="/manifest.json" />
           <link

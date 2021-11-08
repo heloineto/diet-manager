@@ -33,7 +33,7 @@ const UpdateGeneralGoals = ({
   };
 
   const updateGeneralGoals = async ({ generalGoals }: UpdateGeneralGoalsValuesType) => {
-    onClose && onClose();
+    onClose?.();
 
     await updateGeneralGoalsFirestore({
       loseWeight: generalGoals?.includes('loseWeight') || false,

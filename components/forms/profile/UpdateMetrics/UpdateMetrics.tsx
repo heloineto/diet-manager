@@ -37,7 +37,7 @@ const UpdateMetrics = ({
     heightCurrent,
     activityLevel,
   }: UpdateMetricsValuesType) => {
-    onClose && onClose();
+    onClose?.();
 
     const metrics = {
       activityLevel,

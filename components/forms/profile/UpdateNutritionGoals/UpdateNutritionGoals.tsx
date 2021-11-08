@@ -33,7 +33,7 @@ const UpdateNutritionGoals = ({
   };
 
   const { carbInfo, protInfo, fatInfo, kcalInfo } = useMacrosInfo();
-  const decorators = useUpdateNutritionGoalsDecorators(inputMode);
+  const { gramsDecorators, percentageDecorators } = useUpdateNutritionGoalsDecorators();
 
   const updateNutritionGoals = async ({
     carb,
@@ -41,7 +41,8 @@ const UpdateNutritionGoals = ({
     fat,
     kcal,
   }: UpdateNutritionGoalsValuesType) => {
-    onClose && onClose();
+    onClose?.();
+    setInputMode('grams');
 
     const nutritionGoals = {
       carb: Number(carb) || 0,
@@ -81,12 +82,12 @@ const UpdateNutritionGoals = ({
       <Form
         onSubmit={updateNutritionGoals}
         initialValues={initialValues}
-        // @ts-ignore
-        //validate={makeValidate(updateAccountSchema)}
-        decorators={decorators}
+        decorators={
+          (inputMode === 'grams' ? gramsDecorators : percentageDecorators) as any
+        }
       >
         {({ handleSubmit, submitting, values }) => (
-          <form className={classNames(className)} onSubmit={handleSubmit}>
+          <form className={className} onSubmit={handleSubmit}>
             <div className="flex flex-col sm:flex-row gap-x-1 gap-y-2.5 sm:gap-y-0 sm:gap-x-2.5">
               {[carbInfo, protInfo, fatInfo].map(({ label, key }) => (
                 <div
@@ -159,7 +160,7 @@ const UpdateNutritionGoals = ({
                 {submitButtonInnerText ?? 'Próximo'}
               </Button>
             </div>
-            {/* <pre>{JSON.stringify({ ...values }, undefined, 2)}</pre> */}
+            <pre>{JSON.stringify({ ...values }, undefined, 2)}</pre>
           </form>
         )}
       </Form>
