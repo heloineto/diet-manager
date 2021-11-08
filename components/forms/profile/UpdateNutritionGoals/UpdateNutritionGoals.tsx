@@ -160,7 +160,7 @@ const UpdateNutritionGoals = ({
                 {submitButtonInnerText ?? 'Próximo'}
               </Button>
             </div>
-            <pre>{JSON.stringify({ ...values }, undefined, 2)}</pre>
+            {/* <pre>{JSON.stringify({ ...values }, undefined, 2)}</pre> */}
           </form>
         )}
       </Form>

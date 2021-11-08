@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Form } from 'react-final-form';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { DateTime } from 'luxon';
-import { Button, ButtonProps } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import classNames from 'clsx';
 
 import { UserContext } from '@lib/context';
