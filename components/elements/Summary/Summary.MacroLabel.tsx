@@ -1,5 +1,5 @@
-import { useMediaQuery, useTheme } from '@material-ui/core';
 import classNames from 'clsx';
+import { round } from 'lodash';
 
 interface Props {
   className?: string;
@@ -9,36 +9,12 @@ interface Props {
 }
 
 const SummaryMacroLabel = ({ className, name, macro, value }: Props) => {
-  const { breakpoints } = useTheme();
-  const compact = useMediaQuery(breakpoints.down('md'));
-
   return (
     <div className={classNames(className, 'flex flex-col items-center')}>
-      <div
-        className={classNames(
-          compact ? 'font-medium text-sm' : 'font-bold text-xs',
-          'uppercase text-gray-500'
-        )}
-      >
-        {name}
-      </div>
-      <div className={classNames(compact ? 'inline-flex' : 'flex flex-col items-center')}>
-        <div
-          className={classNames(
-            compact ? 'font-bold' : 'font-semibold',
-            'text-3xl text-gray-900'
-          )}
-        >
-          {value}
-        </div>
-        <div
-          className={classNames(
-            compact ? 'font-normal text-3xl' : 'font-medium text-sm',
-            'text-gray-700'
-          )}
-        >
-          {macro}
-        </div>
+      <div className="font-bold text-xs uppercase text-gray-500">{name}</div>
+      <div className="flex flex-col items-center">
+        <div className="font-semibold text-3xl text-gray-900">{round(value, 2)}</div>
+        <div className="font-medium text-sm text-gray-700">{macro}</div>
       </div>
     </div>
   );

@@ -2,11 +2,9 @@ import { useMediaQuery, useTheme } from '@material-ui/core';
 import { useContext } from 'react';
 import classNames from 'clsx';
 import { isEmpty, round } from 'lodash';
-
 import { MealsContext, UserContext } from '@lib/context';
 import { useMacrosInfo } from '@lib/hooks';
 import { safeguard } from '@lib/utils/typescript';
-
 import SummaryMacroLabel from './Summary.MacroLabel';
 import SummaryProgressBar from './Summary.ProgressBar';
 import HexagonLabel from '@components/data-displays/HexagonLabel';
@@ -26,12 +24,11 @@ const Summary = ({ className }: Props) => {
   const { breakpoints } = useTheme();
   const compact = useMediaQuery(breakpoints.down('md'));
 
-  // @ts-ignore
   const goalMacros: Macros = safeguard(
     userDetails?.goals?.nutrition,
     ['kcal', 'carb', 'prot', 'fat'],
     0
-  );
+  ) as any;
 
   const consumedMacros = {
     kcal: 0,
