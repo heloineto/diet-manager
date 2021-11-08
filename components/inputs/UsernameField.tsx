@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 import { TextField } from 'mui-rff';
 import { CircularProgress } from '@material-ui/core';
 import { CheckIcon, XIcon } from '@heroicons/react/outline';
-import { docExists } from '@utils/firestore';
+import { docExists } from '@lib/utils/firestore';
 
 interface Props {
   label: string;

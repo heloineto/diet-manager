@@ -5,7 +5,7 @@ import { isEmpty, round } from 'lodash';
 
 import { MealsContext, UserContext } from '@lib/context';
 import { useMacrosInfo } from '@lib/hooks';
-import { safeguard } from '@utils/typescript';
+import { safeguard } from '@lib/utils/typescript';
 
 import SummaryMacroLabel from './Summary.MacroLabel';
 import SummaryProgressBar from './Summary.ProgressBar';

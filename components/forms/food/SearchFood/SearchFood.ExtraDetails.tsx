@@ -3,7 +3,7 @@ import classNames from 'clsx';
 import { round } from 'lodash';
 
 import Divider from '@components/layout/Divider';
-import { isKeyInShallowObject } from '@utils/typescript';
+import { isKeyInShallowObject } from '@lib/utils/typescript';
 
 interface Props {
   food: FoodRecord;

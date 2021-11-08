@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { useRouter } from 'next/router';
-import { isKeyInShallowObject } from '@utils/typescript';
+import { isKeyInShallowObject } from '@lib/utils/typescript';
 
 const useTitle = () => {
   const { asPath } = useRouter();

@@ -1,10 +1,9 @@
 import ReactModal from 'react-modal';
-import { useModalHook } from './Modal.hook';
 import {
   IconButton,
+  Modal as MuiModal,
   useMediaQuery,
   useTheme,
-  Modal as MuiModal,
 } from '@material-ui/core';
 import { XIcon } from '@heroicons/react/outline';
 import classNames from 'clsx';

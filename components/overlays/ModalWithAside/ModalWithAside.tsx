@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IconButton, useMediaQuery, useTheme, Modal } from '@material-ui/core';
+import { IconButton, Modal, useMediaQuery, useTheme } from '@material-ui/core';
 import { ArrowLeftIcon, XIcon } from '@heroicons/react/outline';
 import classNames from 'clsx';
 import { AsideContext } from './ModalWithAside.context';

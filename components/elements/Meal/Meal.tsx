@@ -9,7 +9,7 @@ import { useMediaQuery, useTheme } from '@material-ui/core';
 import { useMealState } from './Meal.state';
 import MealActions from './Meal.Actions';
 import { useColors } from '@lib/hooks';
-import { isKeyInShallowObject } from '@utils/typescript';
+import { isKeyInShallowObject } from '@lib/utils/typescript';
 
 interface Info {
   rows: Row[];

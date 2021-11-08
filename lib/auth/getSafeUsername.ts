@@ -1,5 +1,5 @@
-import { docExists } from '@utils/firestore';
-import { getRandomInt } from '@utils/typescript';
+import { docExists } from '@lib/utils/firestore';
+import { getRandomInt } from '@lib/utils/typescript';
 import { kebabCase } from 'lodash';
 
 const getSafeUsername = async (uid: string, preferredUsername: string) => {

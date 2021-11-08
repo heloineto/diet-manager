@@ -25,9 +25,6 @@
       "@lib/*": [
         "lib/*"
       ],
-      "@utils/*": [
-        "utils/*"
-      ],
       "@public/*": [
         "public/*"
       ],

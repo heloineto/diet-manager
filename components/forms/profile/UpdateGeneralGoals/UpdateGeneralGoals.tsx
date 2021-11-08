@@ -7,7 +7,7 @@ import classNames from 'clsx';
 
 import { UserContext } from '@lib/context';
 import updateGeneralGoalsFirestore from './UpdateGeneralGoals.firestore';
-import { isKeyInShallowObject } from '@utils/typescript';
+import { isKeyInShallowObject } from '@lib/utils/typescript';
 
 interface Props {
   className?: string;

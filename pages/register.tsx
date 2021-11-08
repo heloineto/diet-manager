@@ -6,7 +6,7 @@ import { Button, Typography } from '@material-ui/core';
 import AuthFlowShell from '@components/app-shells/AuthFlowShell';
 
 import { register } from '@lib/auth';
-import { registerSchema } from '@utils/validation';
+import { registerSchema } from '@lib/utils/validation';
 import PasswordField from '@components/inputs/PasswordField';
 import GenderField from '@components/inputs/GenderField';
 

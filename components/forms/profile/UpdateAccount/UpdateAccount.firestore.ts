@@ -1,6 +1,6 @@
 import { updateUsername } from '@lib/auth';
 import { auth, firestore } from '@lib/firebase';
-import { converter } from '@utils/firestore';
+import { converter } from '@lib/utils/firestore';
 import { isNil, omitBy } from 'lodash';
 import { doc, updateDoc } from 'firebase/firestore';
 

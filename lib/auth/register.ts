@@ -3,7 +3,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { FORM_ERROR } from 'final-form';
 
 import { auth, firestore } from '@lib/firebase';
-import { converter } from '@utils/firestore';
+import { converter } from '@lib/utils/firestore';
 import registerUsername from './registerUsername';
 import { authErrors, isFirebaseAuthError } from './utils';
 

@@ -1,5 +1,5 @@
 import { auth, firestore } from '@lib/firebase';
-import { converter } from '@utils/firestore';
+import { converter } from '@lib/utils/firestore';
 import { doc, updateDoc } from 'firebase/firestore';
 
 const updateGeneralGoalsFirestore = async ({

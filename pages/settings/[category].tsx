@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import Menu from '@components/elements/Menu';
 import { useProfileCompletionSteps } from '@components/elements/ProfileCompletion/ProfileCompletion.hook';
 import { useRouter } from 'next/router';
-import { isKeyInShallowObject } from '@utils/typescript';
+import { isKeyInShallowObject } from '@lib/utils/typescript';
 import { usePush } from '@lib/hooks';
 
 const Settings: NextPage = () => {

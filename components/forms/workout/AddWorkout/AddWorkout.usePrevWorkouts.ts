@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { auth, firestore } from '@lib/firebase';
 
-import { converter } from '@utils/firestore';
+import { converter } from '@lib/utils/firestore';
 
 const usePrevWorkouts = () => {
   const [prevWorkouts, setPrevWorkouts] = useState<Workout[]>([]);

@@ -59,7 +59,7 @@ const useDrag = (initialStyle: CSSProperties) => {
       window.removeEventListener('mousemove', drag);
       window.removeEventListener('mouseup', dragEnd);
     };
-  }, [dragging, dragElem]);
+  }, [dragging, dragElem, asideElem, handleElem, offset.x, offset.y]);
 
   return { style, setStyle, asideStyle, setDragElem, setAsideElem, setHandleElem };
 };

@@ -26,18 +26,13 @@ const SearchFoodSeachBox = ({
         onChange={(e) => refine(e.currentTarget.value)}
         endAdornment={
           <InputAdornment position="end">
-            <IconButton
-              className="p-0 h-8 w-8"
-              aria-label="search food"
-              edge="end"
-            >
+            <IconButton className="p-0 h-8 w-8" aria-label="search food" edge="end">
               <SearchIcon className="h-5 w-5 hover:text-blue-500" />
             </IconButton>
           </InputAdornment>
         }
         labelWidth={80}
       />
-      {isSearchStalled && 'Erro nas buscas'}
     </FormControl>
   );
 };
