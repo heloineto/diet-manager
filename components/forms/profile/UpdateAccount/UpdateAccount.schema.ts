@@ -12,11 +12,10 @@ yup.addMethod(yup.string, 'isKebabCase', function (errorMessage: string) {
 const updateAccountSchema = yup.object().shape({
   firstName: yup.string().required('Forneça seu nome'),
   lastName: yup.string().required('Forneça seu sobrenome'),
-  newUsername: yup
-    .string()
-    .required('Forneça uma identificador')
-    // @ts-ignore Yup doesn`t identify new custom methods
-    .isKebabCase('Identificador inválido'),
+  newUsername: yup.string().required('Forneça uma identificador'),
+  // @ts-ignore Yup doesn`t identify new custom methods
+  //! verify that this verification is not needed since it's done on the field level
+  //! .isKebabCase('Identificador inválido'),
   birthdate: yup
     .date()
     .required('Forneça sua data de nascimento')

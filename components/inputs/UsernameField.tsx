@@ -6,6 +6,7 @@ import { TextField } from 'mui-rff';
 import { CircularProgress } from '@material-ui/core';
 import { CheckIcon, XIcon } from '@heroicons/react/outline';
 import { docExists } from '@lib/utils/firestore';
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/solid';
 
 interface Props {
   label: string;
@@ -16,6 +17,7 @@ const UsernameField = ({ label, name }: Props) => {
   const [valid, setValid] = useState(false);
   const [available, setAvailable] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [changed, setChanged] = useState(false);
 
   const { userDetails } = useContext(UserContext);
 
@@ -38,37 +40,56 @@ const UsernameField = ({ label, name }: Props) => {
   const validate = (username: string | undefined) => {
     if (!username) {
       setValid(false);
-      return 'Forneça um identificador ';
+      return 'Forneça um identificador';
     }
 
-    if (username.length < 3) {
+    if (username.length < 3 || username.length > 30) {
       setValid(false);
-      return 'O identificador deve ter mais que 3 characteres';
+      return 'O identificador deve ter de 3 a 30 caracteres';
+    }
+
+    if (!/^(?=[a-zA-Z0-9\-]{3,30}$)/.test(username)) {
+      setValid(false);
+      return 'Apenas letras sem acento, números e hifens (-) são permitidos';
+    }
+
+    if (!/(?!.*[\-]{2})[^\-].*[^\-]$/.test(username)) {
+      setValid(false);
+      return 'Não é permitido hifens consecutivos ou no final do identificador';
     }
 
     if (username === userDetails?.username) {
       setValid(false);
       setAvailable(true);
+      setChanged(false);
       return;
     }
 
+    setChanged(true);
     checkUsernameAvailable(username);
   };
 
   const renderHelperText = () => {
-    if (!valid) return null;
+    if (!valid || !changed) return null;
 
     if (loading) return <CircularProgress size={25} thickness={8} color="secondary" />;
 
     return available ? (
-      <div className="flex gap-x-1 items-center text-primary-800 foßnt-medium">
-        <CheckIcon className="h-6 w-6 text-primary-500" />
-        Identificador disponível!
+      <div className="rounded-md bg-green-50 p-2 flex">
+        <CheckCircleIcon
+          className="flex-shrink-0 h-5 w-5 text-green-400"
+          aria-hidden="true"
+        />
+        <p className="ml-3 text-sm font-medium text-green-800">
+          Identificador disponível!
+        </p>
       </div>
     ) : (
-      <div className="flex gap-x-1 text-red-600 font-medium">
-        <XIcon className="h-6 w-6 text-red-500" />
-        <div>Identificador indisponível!</div>
+      <div className="rounded-md bg-red-50 p-2 flex">
+        <XCircleIcon className="flex-shrink-0 h-5 w-5 text-red-400" aria-hidden="true" />
+        <p className="ml-3 text-sm font-medium text-red-800">
+          Identificador indisponível!
+        </p>
       </div>
     );
   };
@@ -88,7 +109,6 @@ const UsernameField = ({ label, name }: Props) => {
             className: 'rounded-l-none',
           }}
           fieldProps={{
-            parse: kebabCase,
             validate: validate,
           }}
           autoComplete="off"
