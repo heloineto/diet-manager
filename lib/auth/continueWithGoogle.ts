@@ -13,12 +13,8 @@ const continueWithGoogle = async () => {
 
   if (!res) return;
 
-  console.log('NO ERROR', res);
-
   const user = res.user;
   if (await docExists(`users/${user.uid}`)) return;
-
-  console.log('NO EXIST');
 
   const userDoc = doc(firestore, `users/${user.uid}`).withConverter(
     converter<UserDetails>()

@@ -6,16 +6,16 @@ import getSafeUsername from './getSafeUsername';
 const updateUsername = async (
   uid: string,
   oldUsername: string,
-  newdPreferredUsername: string
+  newPreferredUsername: string
 ) => {
-  if (newdPreferredUsername === oldUsername) return;
+  if (newPreferredUsername === oldUsername) return;
 
   const batch = writeBatch(firestore);
 
   const oldUsernameDoc = doc(firestore, `usernames/${oldUsername}`);
   batch.delete(oldUsernameDoc);
 
-  const newUsername = await getSafeUsername(uid, newdPreferredUsername);
+  const newUsername = await getSafeUsername(uid, newPreferredUsername);
 
   const userDoc = doc(firestore, `users/${uid}`);
   batch.update(userDoc, { username: newUsername });
@@ -23,11 +23,7 @@ const updateUsername = async (
   const newUsernameDoc = doc(firestore, `usernames/${newUsername}`);
   batch.set(newUsernameDoc, { uid });
 
-  try {
-    await batch.commit();
-  } catch (e) {
-    console.log(e);
-  }
+  await batch.commit().catch((error) => console.log(error));
 };
 
 export default updateUsername;

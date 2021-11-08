@@ -16,7 +16,7 @@ const UserAvatar = ({ className }: Props) => {
       alt={`${userDetails?.firstName} ${userDetails?.lastName}`}
       src={userDetails?.photoUrl}
     >
-      {userDetails?.firstName && userDetails?.firstName.charAt(0)}
+      {userDetails?.firstName?.charAt(0)}
     </Avatar>
   );
 };
