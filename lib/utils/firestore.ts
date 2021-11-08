@@ -10,6 +10,5 @@ export const converter = <T>() => ({
 
 export const docExists = async (docPath: string) => {
   const currDoc = doc(firestore, docPath);
-  const { exists } = await getDoc(currDoc);
-  return exists;
+  return (await getDoc(currDoc)).exists();
 };

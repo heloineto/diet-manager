@@ -1,7 +1,7 @@
 import { GoogleAuthProvider, signInWithPopup } from '@firebase/auth';
 
 import { auth, firestore } from '@lib/firebase';
-import { converter } from '@lib/utils/firestore';
+import { converter, docExists } from '@lib/utils/firestore';
 import { doc, setDoc } from 'firebase/firestore';
 import { isNil, omitBy } from 'lodash';
 import { registerUsername } from '.';
@@ -10,11 +10,16 @@ const continueWithGoogle = async () => {
   const res = await signInWithPopup(auth, new GoogleAuthProvider()).catch((error) =>
     console.log(error)
   );
+
   if (!res) return;
 
-  console.log(res);
+  console.log('NO ERROR', res);
 
   const user = res.user;
+  if (await docExists(`users/${user.uid}`)) return;
+
+  console.log('NO EXIST');
+
   const userDoc = doc(firestore, `users/${user.uid}`).withConverter(
     converter<UserDetails>()
   );
@@ -31,11 +36,9 @@ const continueWithGoogle = async () => {
     userDetails['lastName'] = lastName;
   }
 
-  console.log(userDetails);
-
   await setDoc(userDoc, userDetails);
 
-  await registerUsername(user.uid, `${userDetails.firstName} ${userDetails.lastName}`);
+  await registerUsername(user.uid, user.displayName ?? user.uid);
 };
 
 export default continueWithGoogle;
