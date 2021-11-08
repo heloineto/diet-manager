@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Form } from 'react-final-form';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { DateTime } from 'luxon';
-import { Button } from '@material-ui/core';
+import { Button, ButtonProps } from '@material-ui/core';
 import classNames from 'clsx';
 
 import { UserContext } from '@lib/context';
@@ -16,12 +16,16 @@ import updateAccountSchema from './UpdateAccount.schema';
 interface Props {
   className?: string;
   onClose?: () => void;
-  submitButtonProps?: {
-    innerText?: string;
-  };
+  submitButtonProps?: ButtonProps;
+  submitButtonInnerText?: string;
 }
 
-const UpdateAccount = ({ className, onClose, submitButtonProps }: Props) => {
+const UpdateAccount = ({
+  className,
+  onClose,
+  submitButtonProps,
+  submitButtonInnerText,
+}: Props) => {
   const { userDetails } = useContext(UserContext);
 
   const birthdateJSDate = userDetails?.birthdate
@@ -123,8 +127,9 @@ const UpdateAccount = ({ className, onClose, submitButtonProps }: Props) => {
               endIcon={<ArrowRightIcon className="group-hover:ml-1 h-4 w-4" />}
               type="submit"
               disabled={submitting}
+              {...submitButtonProps}
             >
-              {submitButtonProps?.innerText || 'Próximo'}
+              {submitButtonInnerText ?? 'Próximo'}
             </Button>
           </div>
           {/*<pre>{JSON.stringify(values, undefined, 2)}</pre>*/}

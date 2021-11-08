@@ -12,12 +12,16 @@ import { isKeyInShallowObject } from '@lib/utils/typescript';
 interface Props {
   className?: string;
   onClose?: () => void;
-  submitButtonProps?: {
-    innerText?: string;
-  };
+  submitButtonProps?: ButtonProps;
+  submitButtonInnerText?: string;
 }
 
-const UpdateGeneralGoals = ({ className, onClose, submitButtonProps }: Props) => {
+const UpdateGeneralGoals = ({
+  className,
+  onClose,
+  submitButtonProps,
+  submitButtonInnerText,
+}: Props) => {
   const { userDetails } = useContext(UserContext);
 
   const generalGoals = userDetails?.goals?.general || {};
@@ -70,8 +74,9 @@ const UpdateGeneralGoals = ({ className, onClose, submitButtonProps }: Props) =>
               endIcon={<ArrowRightIcon className="group-hover:ml-1 h-4 w-4" />}
               type="submit"
               disabled={submitting}
+              {...submitButtonProps}
             >
-              {submitButtonProps?.innerText || 'Próximo'}
+              {submitButtonInnerText ?? 'Próximo'}
             </Button>
           </div>
           {/* <pre>{JSON.stringify(values, undefined, 2)}</pre> */}

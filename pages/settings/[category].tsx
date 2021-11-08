@@ -58,7 +58,9 @@ const Settings: NextPage = () => {
 
     const { Form } = currentCategory;
 
-    return <Form submitButtonProps={{ innerText: 'Salvar' }} />;
+    return (
+      <Form submitButtonProps={{ endIcon: () => null }} submitButtonInnerText="Salvar" />
+    );
   };
 
   return (

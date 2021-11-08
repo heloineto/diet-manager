@@ -12,12 +12,16 @@ import useUpdateNutritionGoalsDecorators from './UpdateNutritionGoals.decorators
 interface Props {
   className?: string;
   onClose?: () => void;
-  submitButtonProps?: {
-    innerText?: string;
-  };
+  submitButtonProps?: ButtonProps;
+  submitButtonInnerText?: string;
 }
 
-const UpdateNutritionGoals = ({ className, onClose, submitButtonProps }: Props) => {
+const UpdateNutritionGoals = ({
+  className,
+  onClose,
+  submitButtonProps,
+  submitButtonInnerText,
+}: Props) => {
   const [inputMode, setInputMode] = useState<'grams' | 'percentage'>('grams');
   const { userDetails } = useContext(UserContext);
 
@@ -150,8 +154,9 @@ const UpdateNutritionGoals = ({ className, onClose, submitButtonProps }: Props) 
                 endIcon={<ArrowRightIcon className="group-hover:ml-1 h-4 w-4" />}
                 type="submit"
                 disabled={submitting}
+                {...submitButtonProps}
               >
-                {submitButtonProps?.innerText || 'Próximo'}
+                {submitButtonInnerText ?? 'Próximo'}
               </Button>
             </div>
             {/* <pre>{JSON.stringify({ ...values }, undefined, 2)}</pre> */}
