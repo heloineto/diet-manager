@@ -52,9 +52,9 @@ const UsernameField = ({ label, name }: Props) => {
       return 'Apenas letras sem acento, números e hifens (-) são permitidos';
     }
 
-    if (!/(?!.*[\-]{2})[^\-].*[^\-]$/.test(username)) {
+    if (!/^(?!.*[\-]{2})[^\-].*[^\-]$/.test(username)) {
       setValid(false);
-      return 'Não é permitido hifens consecutivos ou no final do identificador';
+      return 'Não é permitido hifens consecutivos ou no início/final do identificador';
     }
 
     if (username === userDetails?.username) {

@@ -1,5 +1,4 @@
 import { Form } from 'react-final-form';
-import classNames from 'clsx';
 import { Button, ButtonGroup, InputAdornment } from '@material-ui/core';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { useMacrosInfo } from '@lib/hooks';
