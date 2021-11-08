@@ -1,5 +1,5 @@
 import { TextField } from 'mui-rff';
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import { IconButton, InputAdornment } from '@material-ui/core';
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
 
@@ -15,10 +15,8 @@ const PasswordField = ({ label, name }: Props) => {
     setShowPassword((value) => !value);
   };
 
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
+  const handleMouseDownPassword = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
   };
 
   return (

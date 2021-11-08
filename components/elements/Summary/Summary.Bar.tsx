@@ -1,5 +1,3 @@
-import type { CSSProperties } from 'react';
-
 import classNames from 'clsx';
 
 const SummaryBar = ({

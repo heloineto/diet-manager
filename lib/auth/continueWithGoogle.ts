@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInWithPopup } from '@firebase/auth';
+import { signInWithPopup } from '@firebase/auth';
 import { auth, firestore, googleAuthProvider } from '@lib/firebase';
 import { converter, docExists } from '@lib/utils/firestore';
 import { doc, setDoc } from 'firebase/firestore';

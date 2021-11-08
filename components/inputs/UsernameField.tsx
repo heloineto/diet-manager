@@ -1,10 +1,9 @@
 import { useCallback } from 'react';
 import { UserContext } from '@lib/context';
-import { debounce, kebabCase } from 'lodash';
+import { debounce } from 'lodash';
 import { useContext, useState } from 'react';
 import { TextField } from 'mui-rff';
 import { CircularProgress } from '@material-ui/core';
-import { CheckIcon, XIcon } from '@heroicons/react/outline';
 import { docExists } from '@lib/utils/firestore';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/solid';
 

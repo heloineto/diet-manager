@@ -9,7 +9,7 @@ const firebaseConfig = {
 };
 
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import { GoogleAuthProvider, getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 export const firebaseApp = initializeApp(firebaseConfig);
