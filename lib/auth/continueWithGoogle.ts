@@ -1,47 +1,41 @@
 import { GoogleAuthProvider, signInWithPopup } from '@firebase/auth';
 
-import { auth } from '@lib/firebase';
+import { auth, firestore } from '@lib/firebase';
+import { converter } from '@lib/utils/firestore';
+import { doc, setDoc } from 'firebase/firestore';
+import { isNil, omitBy } from 'lodash';
+import { registerUsername } from '.';
 
 const continueWithGoogle = async () => {
-  try {
-    const res = await signInWithPopup(auth, new GoogleAuthProvider());
+  const res = await signInWithPopup(auth, new GoogleAuthProvider()).catch((error) =>
+    console.log(error)
+  );
+  if (!res) return;
 
-    console.log(res);
-    //! FIREBASE UPDATED, AND THIS IS A MESS...
-    // if (res.additionalUserInfo) {
-    //   const { profile, isNewUser } = res.additionalUserInfo as {
-    //     isNewUser: boolean;
-    //     profile: {
-    //       given_name?: string;
-    //       family_name?: string;
-    //       email?: string;
-    //       picture?: string;
-    //       verified_email?: boolean;
-    //     };
-    //   };
+  console.log(res);
 
-    //   const uid = res.user?.uid;
+  const user = res.user;
+  const userDoc = doc(firestore, `users/${user.uid}`).withConverter(
+    converter<UserDetails>()
+  );
 
-    //   if (uid && profile && isNewUser) {
-    //     const userDoc = doc(firestore, `users\${uid}`).withConverter(
-    //       converter<UserDetails>()
-    //     );
+  const userDetails: UserDetails = omitBy(
+    { email: user.email, photoUrl: user.photoURL },
+    isNil
+  );
 
-    //     const userDetails = {
-    //       firstName: profile.given_name,
-    //       lastName: profile.family_name,
-    //       email: profile.email,
-    //       photoURL: profile.picture,
-    //     };
+  if (user.displayName) {
+    const [firstName, lastName] = user.displayName.split(' ', 2);
 
-    //     await setDoc(userDoc, userDetails);
-
-    //     await registerUsername(uid, `${userDetails.firstName} ${userDetails.lastName}`);
-    //   }
-    // }
-  } catch (error) {
-    console.error(error);
+    userDetails['firstName'] = firstName;
+    userDetails['lastName'] = lastName;
   }
+
+  console.log(userDetails);
+
+  await setDoc(userDoc, userDetails);
+
+  await registerUsername(user.uid, `${userDetails.firstName} ${userDetails.lastName}`);
 };
 
 export default continueWithGoogle;

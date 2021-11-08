@@ -38,7 +38,7 @@ const UpdateAccount = ({ className, onClose, submitButtonProps }: Props) => {
     firstName: userDetails?.firstName,
     lastName: userDetails?.lastName,
     gender: userDetails?.gender,
-    photoURL: userDetails?.photoURL,
+    photoUrl: userDetails?.photoUrl,
     newUsername: oldUsername,
   };
 

@@ -2,7 +2,7 @@ interface UserDetails {
   email?: string;
   firstName?: string;
   lastName?: string;
-  photoURL?: string;
+  photoUrl?: string;
   birthdate?: Date | Timestamp;
   metrics?: {
     activityLevel?: 1 | 2 | 3 | 4 | 5;

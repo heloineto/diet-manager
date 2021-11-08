@@ -14,7 +14,7 @@ const UserAvatar = ({ className }: Props) => {
     <Avatar
       className={classNames(className, 'font-semibold ring-primary-200')}
       alt={`${userDetails?.firstName} ${userDetails?.lastName}`}
-      src={userDetails?.photoURL}
+      src={userDetails?.photoUrl}
     >
       {userDetails?.firstName && userDetails?.firstName.charAt(0)}
     </Avatar>

@@ -3,7 +3,7 @@ interface UpdateAccountValuesType {
   firstName: string | undefined;
   lastName: string | undefined;
   gender: 'M' | 'F' | 'O' | undefined;
-  photoURL: string | undefined;
+  photoUrl: string | undefined;
   oldUsername: string | undefined;
   newUsername: string | undefined;
 }

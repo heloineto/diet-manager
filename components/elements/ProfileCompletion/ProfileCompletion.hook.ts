@@ -39,7 +39,7 @@ export const useProfileCompletion = () => {
         !isNil(userDetails?.firstName) &&
         !isNil(userDetails?.lastName) &&
         !isNil(userDetails?.gender) &&
-        !isNil(userDetails?.photoURL) &&
+        !isNil(userDetails?.photoUrl) &&
         !isNil(userDetails?.username)
     ),
     generalGoals: Boolean(
