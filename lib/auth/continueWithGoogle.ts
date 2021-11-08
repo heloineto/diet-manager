@@ -1,13 +1,12 @@
 import { GoogleAuthProvider, signInWithPopup } from '@firebase/auth';
-
-import { auth, firestore } from '@lib/firebase';
+import { auth, firestore, googleAuthProvider } from '@lib/firebase';
 import { converter, docExists } from '@lib/utils/firestore';
 import { doc, setDoc } from 'firebase/firestore';
 import { isNil, omitBy } from 'lodash';
 import { registerUsername } from '.';
 
 const continueWithGoogle = async () => {
-  const res = await signInWithPopup(auth, new GoogleAuthProvider()).catch((error) =>
+  const res = await signInWithPopup(auth, googleAuthProvider).catch((error) =>
     console.log(error)
   );
 

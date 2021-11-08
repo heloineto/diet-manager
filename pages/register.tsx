@@ -22,11 +22,7 @@ const Register: NextPage = () => {
           <Link href="/enter">Entrar.</Link>
         </span>
       </Typography>
-      <Form
-        onSubmit={register}
-        // @ts-ignore
-        validate={makeValidate(registerSchema)}
-      >
+      <Form onSubmit={register} validate={makeValidate(registerSchema) as any}>
         {({ handleSubmit, submitting }) => (
           <form onSubmit={handleSubmit}>
             <div className="mt-4">
