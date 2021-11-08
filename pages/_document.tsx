@@ -1,17 +1,52 @@
 import { Children } from 'react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core';
-import Meta from '@components/head/Meta';
-import Links from '@components/head/Links';
 
 class MyDocument extends Document {
   render() {
     return (
       <Html>
         <Head>
-          <Meta />
-          <Links />
-          {/* Importing Fonts */}
+          <meta name="application-name" content="Diet Manager" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+          <meta name="apple-mobile-web-app-title" content="Diet Manager" />
+          <meta
+            name="description"
+            content="Diet Manager tracks your diet and helps you reach your fitness goals."
+          />
+          <meta name="format-detection" content="telephone=no" />
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta name="msapplication-TileColor" content="#00a300" />
+          <meta name="theme-color" content="#32cc0f" />
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+          />
+
+          <link rel="manifest" href="/manifest.json" />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/logo/other/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/logo/other/favicon-16x16.png"
+          />
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/logo/other/apple-touch-icon.png"
+          />
+          <link
+            rel="mask-icon"
+            href="/logo/other/safari-pinned-tab.svg"
+            color="#28a30d"
+          />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"
@@ -36,16 +71,16 @@ class MyDocument extends Document {
  * Fixing the resolution order to make material-ui work with
  * server-side generation
  */
-MyDocument.getInitialProps = async (ctx) => {
+MyDocument.getInitialProps = async (context) => {
   const sheets = new ServerStyleSheets();
-  const originalRenderPage = ctx.renderPage;
+  const originalRenderPage = context.renderPage;
 
-  ctx.renderPage = () =>
+  context.renderPage = () =>
     originalRenderPage({
       enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
     });
 
-  const initialProps = await Document.getInitialProps(ctx);
+  const initialProps = await Document.getInitialProps(context);
 
   return {
     ...initialProps,

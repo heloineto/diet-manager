@@ -20,10 +20,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
    * Removing the server side injected CSS to make material-ui work with
    * server-side generation
    */
-  useEffect(() => {
-    const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles?.parentElement) jssStyles.parentElement.removeChild(jssStyles);
-  }, []);
+  useEffect(() => document.getElementById('jss-server-side')?.remove(), []);
 
   return (
     <ThemeProvider theme={theme}>
