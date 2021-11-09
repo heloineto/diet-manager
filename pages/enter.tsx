@@ -22,8 +22,7 @@ const Enter: NextPage = () => {
       <Form
         onSubmit={enter}
         initialValues={{ keepConnected: true }}
-        // @ts-ignore
-        validate={makeValidate(enterSchema)}
+        validate={makeValidate(enterSchema) as any}
       >
         {({ handleSubmit, submitting }) => (
           <form onSubmit={handleSubmit}>

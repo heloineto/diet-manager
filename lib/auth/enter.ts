@@ -13,12 +13,6 @@ const enter = async ({
   password: string;
   keepConnected: boolean;
 }) => {
-  //! Verify if persistence has been properly set
-  //! Maybe it should be kept in the form instead
-  const persistence = keepConnected ? 'LOCAL' : 'SESSION';
-
-  setPersistence(auth, persistence as unknown as Persistence);
-
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
