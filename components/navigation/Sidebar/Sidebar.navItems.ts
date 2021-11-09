@@ -1,5 +1,4 @@
-import BarbellIconOutlined from '@components/icons/BarbellIconOutlined';
-import BarbellIconSolid from '@components/icons/BarbellIconSolid';
+import { BarbellIconOutlined, BarbellIconSolid } from '@components/decoration/icons';
 import {
   BookOpenIcon as BookOpenIconOutlined,
   CogIcon as CogIconOutlined,

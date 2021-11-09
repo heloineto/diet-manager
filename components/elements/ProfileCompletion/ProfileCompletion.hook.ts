@@ -1,27 +1,24 @@
 import { isNil } from 'lodash';
 import { useContext, useMemo } from 'react';
-
 import { UserContext } from '@lib/context';
-
 import {
   ClipboardListIcon as ClipboardListIconOutlined,
   UserIcon as UserIconOutlined,
 } from '@heroicons/react/outline';
-
 import {
   ClipboardListIcon as ClipboardListIconSolid,
   UserIcon as UserIconSolid,
 } from '@heroicons/react/solid';
-
+import {
+  ForkKnifeIconOutlined,
+  ForkKnifeIconSolid,
+  TargetIconOutlined,
+  TargetIconSolid,
+} from '@components/decoration/icons';
 import UpdateAccount from '@components/forms/profile/UpdateAccount';
 import UpdateGeneralGoals from '@components/forms/profile/UpdateGeneralGoals';
 import UpdateNutritionGoals from '@components/forms/profile/UpdateNutritionGoals';
 import UpdateMetrics from '@components/forms/profile/UpdateMetrics';
-
-import TargetIconSolid from '@components/icons/TargetIconSolid';
-import TargetIconOutlined from '@components/icons/TargetIconOutlined';
-import ForkKnifeIconOutlined from '@components/icons/ForkKnifeIconOutlined';
-import ForkKnifeIconSolid from '@components/icons/ForkKnifeIconSolid';
 
 export const useProfileCompletion = () => {
   const { userDetails } = useContext(UserContext);

@@ -1,7 +1,5 @@
-import { firestore } from '@lib/firebase';
 import { uploadBase64Picture } from '@lib/utils/firestore';
-import { collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
-import { isNil, omitBy } from 'lodash';
+import { serverTimestamp, updateDoc } from 'firebase/firestore';
 
 const profilePictureEditorFirebase = async (
   userRef: FirebaseRef,
