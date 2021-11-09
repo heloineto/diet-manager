@@ -1,4 +1,4 @@
-import DietManagerWordmark from './DietManagerWordmark';
+import { DietManagerWordmark } from './logos';
 
 const AuthIllustration = () => {
   return (
