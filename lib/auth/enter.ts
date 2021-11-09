@@ -1,4 +1,9 @@
-import { Persistence, setPersistence, signInWithEmailAndPassword } from '@firebase/auth';
+import {
+  browserLocalPersistence,
+  browserSessionPersistence,
+  setPersistence,
+  signInWithEmailAndPassword,
+} from '@firebase/auth';
 import { FORM_ERROR } from 'final-form';
 
 import { auth } from '@lib/firebase';
@@ -13,6 +18,10 @@ const enter = async ({
   password: string;
   keepConnected: boolean;
 }) => {
+  const persistence = keepConnected ? browserLocalPersistence : browserSessionPersistence;
+
+  await setPersistence(auth, persistence);
+
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
