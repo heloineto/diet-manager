@@ -1,12 +1,9 @@
 import { Button } from '@material-ui/core';
-
 import UnauthCheck from '@components/auth/UnauthCheck';
 import AuthIllustration from '@components/decoration/AuthIllustration';
-import GoogleIcon from '@components/icons/GoogleIcon';
-import FacebookIcon from '@components/icons/FacebookIcon';
 import Widget from '@components/layout/Widget';
 import Divider from '@components/layout/Divider';
-
+import { FacebookIcon, GoogleIcon } from '@components/decoration/icons/solid';
 import { continueWithFacebook, continueWithGoogle } from '@lib/auth';
 
 interface Props {

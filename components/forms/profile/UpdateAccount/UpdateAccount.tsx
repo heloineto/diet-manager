@@ -27,21 +27,13 @@ const UpdateAccount = ({
   submitButtonProps,
   submitButtonInnerText,
 }: Props) => {
-  const { userDetails } = useContext(UserContext);
-
   const [editorOpen, setEditorOpen] = useState(false);
 
-  const birthdateJSDate = userDetails?.birthdate
-    ? DateTime.fromSeconds(
-        // @ts-ignore
-        userDetails.birthdate.seconds
-      ).toJSDate()
-    : undefined;
-
+  const { userDetails } = useContext(UserContext);
   const oldUsername = userDetails?.username;
 
   const initialValues = {
-    birthdate: birthdateJSDate,
+    birthdate: userDetails?.birthdate,
     firstName: userDetails?.firstName,
     lastName: userDetails?.lastName,
     gender: userDetails?.gender,

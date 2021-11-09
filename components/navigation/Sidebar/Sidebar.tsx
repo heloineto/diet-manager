@@ -1,11 +1,10 @@
 import Link from 'next/link';
 import classNames from 'clsx';
 import { Button, Drawer, IconButton } from '@material-ui/core';
-
-import DietManagerLogo from '@components/decoration/DietManagerLogo';
 import sidebarNavItems from './Sidebar.navItems';
 import { useRouter } from 'next/router';
 import { indexOfNth } from '@lib/utils/typescript';
+import { DietManagerLogo } from '@components/decoration/logos';
 
 interface Props {
   className?: string;
