@@ -14,7 +14,6 @@ import {
 
 import updateMealSchema from './UpdateMeal.schema';
 import updateMealFirestore from './UpdateMeal.firestore';
-import { DateTime } from 'luxon';
 import ColorField from '@components/inputs/ColorField';
 
 interface Props {
@@ -26,15 +25,12 @@ interface Props {
 const UpdateMeal = ({ className, onClose, meal }: Props) => {
   const { enqueueSnackbar } = useSnackbar();
 
-  // @ts-ignore Firebase wrongfully anotated their types
-  const startsAtJSDate = DateTime.fromSeconds(meal.startsAt.seconds).toJSDate();
-
   const initialValues = {
     label: meal.label,
     isPublic: meal.isPublic,
     color: meal.color,
-    date: startsAtJSDate,
-    time: startsAtJSDate,
+    date: meal.startsAt,
+    time: meal.startsAt,
   };
 
   const updateMeal = async (values: UpdateMealValuesType) => {

@@ -1,7 +1,7 @@
 import { SnackbarProvider } from 'notistack';
 
 import { MealsContext, SelectedDateContext, WorkoutsContext } from '@lib/context';
-import { useMealsData, useSelectedDate, useWorkoutsData } from '@lib/hooks';
+import { useMeals, useSelectedDate, useWorkouts } from '@lib/hooks';
 
 interface Props {
   children: ReactNode;
@@ -9,8 +9,8 @@ interface Props {
 
 const AuthProviders = ({ children }: Props) => {
   const dateData = useSelectedDate();
-  const mealsData = useMealsData(dateData.selectedDate);
-  const workoutsData = useWorkoutsData(dateData.selectedDate);
+  const mealsData = useMeals(dateData.selectedDate);
+  const workoutsData = useWorkouts(dateData.selectedDate);
 
   return (
     <SelectedDateContext.Provider value={dateData}>
