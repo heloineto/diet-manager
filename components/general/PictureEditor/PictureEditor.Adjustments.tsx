@@ -53,7 +53,7 @@ const PictureEditorAdjustments = ({
         </IconButton>
         <Slider
           className="w-40"
-          aria-label="Volume"
+          aria-label="zoom"
           value={scale}
           min={1}
           max={maxScale}
