@@ -9,7 +9,6 @@ import {
   TimePicker,
   makeValidate,
 } from 'mui-rff';
-
 import addMealSchema from './AddMeal.schema';
 import addMealFirestore from './AddMeal.firestore';
 import { useContext } from 'react';
@@ -43,10 +42,9 @@ const AddMeal = ({ className, onClose }: Props) => {
         date: selectedDate.toJSDate(),
         time: new Date(),
         isPublic: false,
-        color: '#eff6ff',
+        color: 'blue',
       }}
-      // @ts-ignore
-      validate={makeValidate(addMealSchema)}
+      validate={makeValidate(addMealSchema) as any}
     >
       {({ handleSubmit, submitting }) => (
         <form

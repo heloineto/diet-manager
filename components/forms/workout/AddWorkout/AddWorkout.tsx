@@ -48,7 +48,7 @@ const AddWorkout = ({ className, onClose }: Props) => {
         time: new Date(),
         isPublic: false,
         saveWorkout: true,
-        color: '#eff6ff',
+        color: 'blue',
       }}
       validate={makeValidate(addWorkoutSchema) as any}
     >

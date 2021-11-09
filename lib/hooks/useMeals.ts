@@ -3,7 +3,6 @@ import { DateTime } from 'luxon';
 
 import { auth, firestore } from '@lib/firebase';
 import { collection, orderBy, query, where } from 'firebase/firestore';
-
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { convertFirebaseDates } from '@lib/utils/firestore';
 
