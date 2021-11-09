@@ -2,7 +2,7 @@ interface Props {
   className?: string;
 }
 
-const BarbellIconOutlined = ({ className }: Props) => {
+const BarbellIcon = ({ className }: Props) => {
   return (
     <svg
       className={className}
@@ -23,4 +23,4 @@ const BarbellIconOutlined = ({ className }: Props) => {
   );
 };
 
-export default BarbellIconOutlined;
+export default BarbellIcon;

@@ -2,7 +2,7 @@ interface Props {
   className?: string;
 }
 
-const ForkKnifeIconSolid = ({ className }: Props) => {
+const ForkKnifeIcon = ({ className }: Props) => {
   return (
     <svg
       className={className}
@@ -24,4 +24,4 @@ const ForkKnifeIconSolid = ({ className }: Props) => {
   );
 };
 
-export default ForkKnifeIconSolid;
+export default ForkKnifeIcon;

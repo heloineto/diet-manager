@@ -26,3 +26,5 @@ interface UserDetails {
   username?: string;
   savedWorkouts?: Workout[];
 }
+
+type UserDetailsWithRef = UserDetails & { ref: FirebaseRef };

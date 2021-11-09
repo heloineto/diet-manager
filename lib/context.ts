@@ -7,7 +7,7 @@ import { DateTime } from 'luxon';
 export const UserContext = createContext<{
   user: User | null | undefined;
   loading: boolean | null;
-  userDetails: UserDetails | null;
+  userDetails: UserDetailsWithRef | null;
 }>({
   user: null,
   loading: null,
