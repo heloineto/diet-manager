@@ -2,17 +2,12 @@ import { useCallback } from 'react';
 import { UserContext } from '@lib/context';
 import { debounce } from 'lodash';
 import { useContext, useState } from 'react';
-import { TextField } from 'mui-rff';
+import { TextField, TextFieldProps } from 'mui-rff';
 import { CircularProgress } from '@material-ui/core';
 import { docExists } from '@lib/utils/firestore';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/solid';
 
-interface Props {
-  label: string;
-  name: string;
-}
-
-const UsernameField = ({ label, name }: Props) => {
+const UsernameField = ({ className, ...rest }: TextFieldProps) => {
   const [valid, setValid] = useState(false);
   const [available, setAvailable] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -94,15 +89,13 @@ const UsernameField = ({ label, name }: Props) => {
   };
 
   return (
-    <div>
+    <div className={className}>
       <div className="flex">
         <div className="h-10 bg-gray-100 rounded-l-lg border border-gray-300 shadow flex items-center">
           <div className="text-gray-500 font-semibold mx-[14px]">{`@`}</div>
         </div>
         <TextField
           className="w-full"
-          label={label}
-          name={name}
           type="text"
           InputProps={{
             className: 'rounded-l-none',
@@ -111,6 +104,7 @@ const UsernameField = ({ label, name }: Props) => {
             validate: validate,
           }}
           autoComplete="off"
+          {...rest}
         />
       </div>
       <div className="mt-1">{renderHelperText()}</div>

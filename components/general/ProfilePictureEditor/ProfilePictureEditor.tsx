@@ -65,12 +65,18 @@ const ProfilePictureEditor = ({ open, onClose, userRef }: Props) => {
           </Button>
           <Button
             className="rounded-md text-base"
+            color="secondary"
             variant="contained"
             endIcon={<CameraIcon className="h-6 w-auto" />}
           >
             Capturar da câmera
           </Button>
-          <Button className="rounded-md text-base" variant="contained" onClick={onSave}>
+          <Button
+            className="rounded-md text-base"
+            color="secondary"
+            variant="contained"
+            onClick={onSave}
+          >
             Salvar
           </Button>
         </div>

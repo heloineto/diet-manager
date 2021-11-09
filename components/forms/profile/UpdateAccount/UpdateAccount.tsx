@@ -62,39 +62,34 @@ const UpdateAccount = ({
             )}
             onSubmit={handleSubmit}
           >
-            <div className="sm:col-span-3">
-              <TextField label="Nome" name="firstName" />
-            </div>
+            <TextField className="sm:col-span-3" label="Nome" name="firstName" />
+            <TextField className="sm:col-span-3" label="Sobrenome" name="lastName" />
+            <UsernameField
+              className="sm:col-span-6"
+              label="Identificador"
+              name="newUsername"
+            />
 
-            <div className="sm:col-span-3">
-              <TextField label="Sobrenome" name="lastName" />
-            </div>
-
-            <div className="sm:col-span-6">
-              <UsernameField label="Identificador" name="newUsername" />
-            </div>
-
-            <div className="sm:col-span-6">
-              <div className="mt-1 flex items-center">
-                <UserAvatar />
-                <div className="ml-4 flex space-x-3">
-                  <Button
-                    className="shadow-blue-500 hover:shadow-xl-blue-500"
-                    color="secondary"
-                    variant="contained"
-                    size="small"
-                  >
-                    Alterar
-                  </Button>
-                  <Button
-                    className="text-gray-600"
-                    variant="outlined"
-                    color="default"
-                    size="small"
-                  >
-                    Remover
-                  </Button>
-                </div>
+            <div className="sm:col-span-6 mt-1 flex items-center">
+              <UserAvatar />
+              <div className="ml-4 flex space-x-3">
+                <Button
+                  className="shadow-blue-500 hover:shadow-xl-blue-500"
+                  color="secondary"
+                  variant="contained"
+                  size="small"
+                  onClick={() => setEditorOpen(true)}
+                >
+                  Alterar
+                </Button>
+                <Button
+                  className="text-gray-600"
+                  variant="outlined"
+                  color="default"
+                  size="small"
+                >
+                  Remover
+                </Button>
               </div>
             </div>
 

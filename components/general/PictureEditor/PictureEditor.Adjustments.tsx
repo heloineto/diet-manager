@@ -57,6 +57,7 @@ const PictureEditorAdjustments = ({
           value={scale}
           min={1}
           max={maxScale}
+          color="secondary"
           onChange={(event, newValue) =>
             typeof newValue === 'number' && setScale(newValue)
           }
