@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 import { convertFirebaseDates } from '@lib/utils/firestore';
 import { auth, firestore } from '@lib/firebase';
-import { QuerySnapshot, collection, orderBy, query, where } from 'firebase/firestore';
+import { collection, orderBy, query, where } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
 
 const useWorkouts = (selectedDateTime: DateTime) => {

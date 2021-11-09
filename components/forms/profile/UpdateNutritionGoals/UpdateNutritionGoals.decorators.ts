@@ -62,7 +62,8 @@ const useUpdateNutritionGoalsDecorators = () => {
           [carbInfo, protInfo, fatInfo].forEach(({ key, kcalPerUnit }) => {
             updates[key] = String(
               round(
-                (Number(allValues[`${key}Percentage`]) * Number(allValues.kcal)) /
+                (Number(allValues[<`${typeof key}Percentage`>`${key}Percentage`]) *
+                  Number(allValues.kcal)) /
                   (kcalPerUnit * 100),
                 2
               ) || 0
