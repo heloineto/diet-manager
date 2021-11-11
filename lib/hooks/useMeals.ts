@@ -18,7 +18,7 @@ const useMeals = (selectedDateTime: DateTime) => {
     orderBy('startsAt')
   );
 
-  const mealsQuerySnapshot = useCollection(mealsQuery)[0];
+  const [mealsQuerySnapshot] = useCollection(mealsQuery);
 
   useEffect(() => {
     if (!mealsQuerySnapshot) return;

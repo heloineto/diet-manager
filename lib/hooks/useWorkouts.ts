@@ -17,9 +17,7 @@ const useWorkouts = (selectedDateTime: DateTime) => {
     orderBy('startsAt')
   );
 
-  const workoutsQuerySnapshot = useCollection(workoutsQuery, {
-    snapshotListenOptions: { includeMetadataChanges: true },
-  })[0];
+  const [workoutsQuerySnapshot] = useCollection(workoutsQuery);
 
   useEffect(() => {
     if (!workoutsQuerySnapshot) return;
