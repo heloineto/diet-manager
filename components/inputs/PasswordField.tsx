@@ -1,14 +1,16 @@
-import { TextField } from 'mui-rff';
+import { TextField, TextFieldProps } from 'mui-rff';
 import { MouseEvent, useState } from 'react';
 import { IconButton, InputAdornment } from '@material-ui/core';
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
+import classNames from 'clsx';
 
-interface Props {
-  label: string;
-  name: string;
-}
-
-const PasswordField = ({ label, name }: Props) => {
+const PasswordField = ({
+  className,
+  label,
+  name,
+  InputProps,
+  ...rest
+}: TextFieldProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const toggleShowPassword = () => {
@@ -21,6 +23,7 @@ const PasswordField = ({ label, name }: Props) => {
 
   return (
     <TextField
+      className={classNames(className, 'group')}
       label={label}
       name={name}
       type={showPassword ? 'text' : 'password'}
@@ -28,7 +31,7 @@ const PasswordField = ({ label, name }: Props) => {
         endAdornment: (
           <InputAdornment position="end">
             <IconButton
-              className="text-gray-700 hover:text-blue-600"
+              className="text-gray-700 hover:text-blue-600 group-focus-within:text-blue-600"
               aria-label="toggle password visibility"
               onClick={toggleShowPassword}
               onMouseDown={handleMouseDownPassword}
@@ -42,7 +45,9 @@ const PasswordField = ({ label, name }: Props) => {
             </IconButton>
           </InputAdornment>
         ),
+        ...InputProps,
       }}
+      {...rest}
     />
   );
 };
