@@ -15,7 +15,7 @@ const continueWithGoogle = async () => {
   const user = res.user;
   if (await docExists(`users/${user.uid}`)) return;
 
-  const userDoc = doc(firestore, `users/${user.uid}`).withConverter(
+  const userRef = doc(firestore, `users/${user.uid}`).withConverter(
     converter<UserDetails>()
   );
 
@@ -31,7 +31,7 @@ const continueWithGoogle = async () => {
     userDetails['lastName'] = lastName;
   }
 
-  await setDoc(userDoc, userDetails);
+  await setDoc(userRef, userDetails);
 
   await registerUsername(user.uid, user.displayName ?? user.uid);
 };

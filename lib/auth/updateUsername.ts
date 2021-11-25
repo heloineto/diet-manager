@@ -17,8 +17,8 @@ const updateUsername = async (
 
   const newUsername = await getSafeUsername(uid, newPreferredUsername);
 
-  const userDoc = doc(firestore, `users/${uid}`);
-  batch.update(userDoc, { username: newUsername });
+  const userRef = doc(firestore, `users/${uid}`);
+  batch.update(userRef, { username: newUsername });
 
   const newUsernameDoc = doc(firestore, `usernames/${newUsername}`);
   batch.set(newUsernameDoc, { uid });

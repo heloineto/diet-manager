@@ -8,11 +8,11 @@ const updateNutritionGoalsFirestore = async ({ carb, prot, fat, kcal }: Macros) 
   if (!uid) return { error: 'verifique se você está logado' };
 
   try {
-    const userDoc = doc(firestore, `users/${uid}`).withConverter(
+    const userRef = doc(firestore, `users/${uid}`).withConverter(
       converter<UserDetails>()
     );
 
-    await updateDoc(userDoc, {
+    await updateDoc(userRef, {
       'goals.nutrition': {
         carb,
         prot,

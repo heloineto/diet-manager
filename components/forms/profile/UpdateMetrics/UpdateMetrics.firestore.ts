@@ -12,11 +12,11 @@ const updateMetricsFirestore = async ({
   if (!uid) return { error: 'verifique se você está logado' };
 
   try {
-    const userDoc = doc(firestore, `users/${uid}`).withConverter(
+    const userRef = doc(firestore, `users/${uid}`).withConverter(
       converter<UserDetails>()
     );
 
-    await updateDoc(userDoc, {
+    await updateDoc(userRef, {
       metrics: {
         activityLevel,
         height,

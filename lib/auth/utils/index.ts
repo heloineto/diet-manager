@@ -23,7 +23,7 @@ export interface FirebaseAuthError {
 
 export const isFirebaseAuthError = (error: unknown): error is FirebaseAuthError => {
   return (
-    (error as FirebaseAuthError).code !== undefined ||
+    (error as FirebaseAuthError).code !== undefined &&
     (error as FirebaseAuthError).message !== undefined
   );
 };

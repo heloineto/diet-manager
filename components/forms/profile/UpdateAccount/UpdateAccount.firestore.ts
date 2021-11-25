@@ -14,11 +14,11 @@ const updateAccountFirestore = async ({
   if (!uid) return { error: 'verifique se você está logado' };
 
   try {
-    const userDoc = doc(firestore, `users/${uid}`).withConverter(
+    const userRef = doc(firestore, `users/${uid}`).withConverter(
       converter<UserDetails>()
     );
 
-    await updateDoc(userDoc, { ...omitBy(updates, isNil) });
+    await updateDoc(userRef, { ...omitBy(updates, isNil) });
 
     if (oldUsername && newUsername) await updateUsername(uid, oldUsername, newUsername);
   } catch (error) {

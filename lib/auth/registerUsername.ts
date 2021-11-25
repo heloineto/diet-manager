@@ -8,8 +8,8 @@ const registerUsername = async (uid: string, preferredUsername: string) => {
 
   const username = await getSafeUsername(uid, preferredUsername);
 
-  const userDoc = doc(firestore, `users/${uid}`);
-  batch.update(userDoc, { username });
+  const userRef = doc(firestore, `users/${uid}`);
+  batch.update(userRef, { username });
 
   const usernameDoc = doc(firestore, `usernames/${username}`);
   batch.set(usernameDoc, { uid });
