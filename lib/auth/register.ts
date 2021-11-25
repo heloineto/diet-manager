@@ -25,7 +25,7 @@ const register = async ({
     const uid = res.user?.uid;
 
     if (uid) {
-      const userDoc = doc(firestore, `users\${uid}`).withConverter(
+      const userDoc = doc(firestore, `users/${uid}`).withConverter(
         converter<UserDetails>()
       );
 

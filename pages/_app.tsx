@@ -1,16 +1,15 @@
-import type { AppProps } from 'next/app';
-
 import 'tailwindcss/tailwind.css';
 
+import { AppProps } from 'next/app';
 import { useEffect } from 'react';
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-
 import { UserContext } from '@lib/context';
 import { useTitle, useUserData } from '@lib/hooks';
 import theme from '@lib/theme';
+import NoAutoCompleteBackground from '@components/styled-jsx/NoAutoCompleteBackground';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const title = useTitle();
@@ -33,6 +32,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             />
             <title>{title}</title>
           </Head>
+          <NoAutoCompleteBackground />
           <Component {...pageProps} />
         </UserContext.Provider>
       </MuiPickersUtilsProvider>
