@@ -11,8 +11,8 @@ export const converter = <T>() => ({
 });
 
 export const docExists = async (docPath: string) => {
-  const currDoc = doc(firestore, docPath);
-  return (await getDoc(currDoc)).exists();
+  const currRef = doc(firestore, docPath);
+  return (await getDoc(currRef)).exists();
 };
 
 export const uploadBase64Picture = async (base64Picture: string, refUrl: string) => {

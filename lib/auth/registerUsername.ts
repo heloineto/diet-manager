@@ -11,8 +11,8 @@ const registerUsername = async (uid: string, preferredUsername: string) => {
   const userRef = doc(firestore, `users/${uid}`);
   batch.update(userRef, { username });
 
-  const usernameDoc = doc(firestore, `usernames/${username}`);
-  batch.set(usernameDoc, { uid });
+  const usernameRef = doc(firestore, `usernames/${username}`);
+  batch.set(usernameRef, { uid });
 
   try {
     await batch.commit();

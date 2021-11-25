@@ -12,16 +12,16 @@ const updateUsername = async (
 
   const batch = writeBatch(firestore);
 
-  const oldUsernameDoc = doc(firestore, `usernames/${oldUsername}`);
-  batch.delete(oldUsernameDoc);
+  const oldUsernameRef = doc(firestore, `usernames/${oldUsername}`);
+  batch.delete(oldUsernameRef);
 
   const newUsername = await getSafeUsername(uid, newPreferredUsername);
 
   const userRef = doc(firestore, `users/${uid}`);
   batch.update(userRef, { username: newUsername });
 
-  const newUsernameDoc = doc(firestore, `usernames/${newUsername}`);
-  batch.set(newUsernameDoc, { uid });
+  const newUsernameRef = doc(firestore, `usernames/${newUsername}`);
+  batch.set(newUsernameRef, { uid });
 
   await batch.commit().catch((error) => console.log(error));
 };
