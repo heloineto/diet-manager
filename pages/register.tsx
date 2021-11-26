@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Form } from 'react-final-form';
-import { KeyboardDatePicker, TextField, makeValidate } from 'mui-rff';
+import { KeyboardDatePicker, TextField, makeValidate, makeValidateSync } from 'mui-rff';
 import { Button, Typography } from '@material-ui/core';
 
 import AuthFlowShell from '@components/app-shells/AuthFlowShell';

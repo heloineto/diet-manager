@@ -20,6 +20,7 @@ export const registerSchema = yup.object().shape({
   birthdate: yup
     .date()
     .required('Forneça sua data de nascimento')
-    .max(new Date(), 'A data de nascimento deve ser anterior à data atual.'),
+    .max(new Date(), 'A data de nascimento deve ser anterior à data atual')
+    .typeError('Essa data não é valida'),
   gender: yup.string().required('Forneça um gênero').length(1),
 });

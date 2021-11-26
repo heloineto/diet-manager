@@ -16,7 +16,7 @@ const SearchFoodSeachBox = ({
   refine,
 }: SearchBoxProvided) => {
   return (
-    <FormControl variant="outlined" size="small">
+    <FormControl className="group" variant="outlined" size="small">
       <InputLabel htmlFor="outlined-adornment-search">Pesquisar</InputLabel>
       <OutlinedInput
         autoFocus
@@ -26,7 +26,11 @@ const SearchFoodSeachBox = ({
         onChange={(e) => refine(e.currentTarget.value)}
         endAdornment={
           <InputAdornment position="end">
-            <IconButton className="p-0 h-8 w-8" aria-label="search food" edge="end">
+            <IconButton
+              className="text-gray-700 hover:text-blue-600 group-focus-within:text-blue-600"
+              aria-label="search food"
+              edge="end"
+            >
               <SearchIcon className="h-5 w-5 hover:text-blue-500" />
             </IconButton>
           </InputAdornment>
